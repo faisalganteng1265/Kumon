@@ -21,10 +21,14 @@ function StatItem({ end, label, suffix = '', icon }: StatItemProps) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          // Reset and start animation every time it becomes visible
+          setCount(0);
           setIsVisible(true);
+        } else {
+          setIsVisible(false);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.3 }
     );
 
     if (ref.current) {
