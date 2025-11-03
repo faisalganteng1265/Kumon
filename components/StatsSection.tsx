@@ -79,12 +79,12 @@ function StatItem({ end, label, suffix = '', icon }: StatItemProps) {
             </div>
 
             {/* Counter */}
-            <div className="text-5xl md:text-6xl font-bold text-white" style={{ fontFamily: 'Bungee, sans-serif' }}>
+            <div className="text-5xl md:text-6xl font-bold text-white" style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}>
               {count}{suffix}
             </div>
 
             {/* Label */}
-            <div className="text-lg text-emerald-200/90 font-medium" style={{ fontFamily: 'Bungee, sans-serif' }}>{label}</div>
+            <div className="text-lg text-emerald-200/90 font-medium" style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}>{label}</div>
           </div>
         </div>
       </ElectricBorder>

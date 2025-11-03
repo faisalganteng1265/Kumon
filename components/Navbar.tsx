@@ -1,22 +1,63 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const hideTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
       // Set threshold sekitar 50px dari top untuk transisi lebih cepat
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(currentScrollY > 50);
+
+      // If at top of page, always show
+      if (currentScrollY <= 50) {
+        setIsVisible(true);
+        if (hideTimerRef.current) {
+          clearTimeout(hideTimerRef.current);
+        }
+        setLastScrollY(currentScrollY);
+        return;
+      }
+
+      // Clear existing timer
+      if (hideTimerRef.current) {
+        clearTimeout(hideTimerRef.current);
+      }
+
+      // Detect scroll direction
+      if (currentScrollY > lastScrollY) {
+        // Scrolling down - hide navbar (don't show)
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up - show navbar, then hide after 3 seconds
+        setIsVisible(true);
+        hideTimerRef.current = setTimeout(() => {
+          setIsVisible(false);
+        }, 3000);
+      }
+
+      setLastScrollY(currentScrollY);
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (hideTimerRef.current) {
+        clearTimeout(hideTimerRef.current);
+      }
+    };
+  }, [lastScrollY]);
 
   return (
-    <nav className="fixed top-0 w-full z-50">
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+      isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+    }`}>
       <div className={`transition-all duration-300 ${
         isScrolled
           ? 'max-w-7xl mx-auto px-6 py-4'

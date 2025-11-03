@@ -108,10 +108,10 @@ function StatItem({ end, label, suffix = '', icon }: StatItemProps) {
             <div className="w-16 h-16 mx-auto bg-emerald-500/10 backdrop-blur-md rounded-xl flex items-center justify-center border border-emerald-500/20">
               <span className="text-4xl">{icon}</span>
             </div>
-            <div className="text-5xl md:text-6xl font-bold text-white">
+            <div className="text-5xl md:text-6xl font-bold text-white" style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}>
               {count}{suffix}
             </div>
-            <div className="text-lg text-emerald-200/90 font-medium">{label}</div>
+            <div className="text-lg text-emerald-200/90 font-medium" style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}>{label}</div>
           </div>
         </div>
       </ElectricBorder>
@@ -195,7 +195,7 @@ export default function FeaturesSection() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-start mb-16">
-          <h2 className=" text-5xl md:text-6xl mb-4 text-emerald-400" style={{ fontFamily: 'Bungee, sans-serif', letterSpacing: '0.02em' }}>
+          <h2 className=" text-5xl md:text-6xl mb-4 text-emerald-400" style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif', letterSpacing: '0.02em' }}>
             Ada Fitur Apa Aja Sih?
           </h2>
         </div>

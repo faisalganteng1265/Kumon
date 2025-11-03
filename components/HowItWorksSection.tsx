@@ -69,6 +69,18 @@ export default function HowItWorksSection() {
       <div className="absolute bottom-20 right-1/3 w-88 h-88 bg-emerald-900 blob-4 opacity-15"></div>
       <div className="absolute top-1/2 right-10 w-64 h-64 bg-emerald-900 blob-5 opacity-20"></div>
 
+      {/* Decorative Vertical Lines on sides */}
+      <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-emerald-500/30 to-transparent hidden md:block" style={{ left: '5%' }}></div>
+      <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-emerald-500/20 to-transparent hidden md:block" style={{ left: '10%' }}></div>
+      <div className="absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-emerald-500/30 to-transparent hidden md:block" style={{ right: '5%' }}></div>
+      <div className="absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-emerald-500/20 to-transparent hidden md:block" style={{ right: '10%' }}></div>
+
+      {/* Glowing orbs on sides */}
+      <div className="absolute left-8 top-1/4 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl animate-pulse-slow hidden md:block"></div>
+      <div className="absolute left-12 top-3/4 w-24 h-24 bg-teal-500/10 rounded-full blur-2xl animate-pulse-slow hidden md:block" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute right-8 top-1/3 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl animate-pulse-slow hidden md:block" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute right-12 top-2/3 w-32 h-32 bg-teal-500/10 rounded-full blur-2xl animate-pulse-slow hidden md:block" style={{ animationDelay: '3s' }}></div>
+
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header with Badge */}
         
@@ -111,7 +123,7 @@ export default function HowItWorksSection() {
             </div>
             {/* "Mudah Digunakan," Text (no box) - Below box, right aligned */}
             <div className="mt-6">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-right" style={{ fontFamily: 'Bungee, sans-serif', letterSpacing: '0.02em' }}>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-right" style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif', letterSpacing: '0.02em' }}>
                 MUDAH DIGUNAKAN
               </h2>
             </div>
@@ -121,10 +133,10 @@ export default function HowItWorksSection() {
           <div className="w-full md:mt-0">
             {/* "Cara Kerja" Text (no box) */}
             <div className="mb-20 flex justify-center">
-              <p className="text-3xl md:text-4xl lg:text-5xl font-bold bg-white bg-clip-text text-transparent" style={{ fontFamily: 'Bungee, sans-serif' }}>
-                CARA 
+              <p className="text-3xl md:text-4xl lg:text-5xl font-bold bg-white bg-clip-text text-transparent" style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}>
+                CARA
               </p>
-              <p className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent" style={{ fontFamily: 'Bungee, sans-serif' }}>
+              <p className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent" style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}>
                 KERJA
               </p>
             </div>
@@ -168,7 +180,7 @@ export default function HowItWorksSection() {
           <div className="w-full md:mt-48">
             {/* "Langsung Efektif" Text (no box) */}
             <div className="mb-6 flex justify-end">
-              <p className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent" style={{ fontFamily: 'Bungee, sans-serif' }}>
+              <p className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent" style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}>
                 LANGSUNG EFEKTIF
               </p>
             </div>
@@ -283,6 +295,32 @@ export default function HowItWorksSection() {
           }
         }
 
+        @keyframes float-slow {
+          0%, 100% {
+            transform: translateY(0) translateX(0) rotate(0deg);
+          }
+          25% {
+            transform: translateY(-20px) translateX(10px) rotate(5deg);
+          }
+          50% {
+            transform: translateY(-10px) translateX(-10px) rotate(-5deg);
+          }
+          75% {
+            transform: translateY(-30px) translateX(5px) rotate(3deg);
+          }
+        }
+
+        @keyframes pulse-slow {
+          0%, 100% {
+            opacity: 0.3;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.6;
+            transform: scale(1.1);
+          }
+        }
+
         @keyframes spin-slow {
           from {
             transform: rotate(0deg);
@@ -307,6 +345,10 @@ export default function HowItWorksSection() {
 
         :global(.animate-spin-slow) {
           animation: spin-slow 8s linear infinite;
+        }
+
+        :global(.animate-pulse-slow) {
+          animation: pulse-slow 4s ease-in-out infinite;
         }
 
         :global(.animate-box-pulse-1) {

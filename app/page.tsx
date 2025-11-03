@@ -1,7 +1,10 @@
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import FeaturesSection from '@/components/FeaturesSection';
+import GallerySection from '@/components/GallerySection';
+import WhyBetterSection from '@/components/WhyBetterSection';
 import HowItWorksSection from '@/components/HowItWorksSection';
+import FAQSection from '@/components/FAQSection';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import Chatbot from '@/components/Chatbot';
@@ -12,7 +15,10 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <FeaturesSection />
+      <GallerySection />
+      <WhyBetterSection />
       <HowItWorksSection />
+      <FAQSection />
       <Footer />
       <Chatbot />
     </div>
