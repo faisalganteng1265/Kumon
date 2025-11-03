@@ -128,17 +128,6 @@ export default function FeaturesSection() {
   const pauseFunctionRef = useRef<(() => void) | null>(null);
   const resumeFunctionRef = useRef<(() => void) | null>(null);
   const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);
-  const [rainDrops, setRainDrops] = useState<Array<{ id: number; left: number; delay: number; duration: number }>>([]);
-
-  // Generate rain drops on client side only
-  useEffect(() => {
-    setRainDrops(Array.from({ length: 50 }, (_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      delay: Math.random() * 2,
-      duration: 1 + Math.random() * 1,
-    })));
-  }, []);
 
   const handleSwapTrigger = (swapFn: () => void) => {
     swapFunctionRef.current = swapFn;
@@ -167,24 +156,6 @@ export default function FeaturesSection() {
 
   return (
     <section id="features" className="pt-20 pb-32 px-6 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
-      {/* Rain Effect */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        {rainDrops.map((drop) => (
-          <div
-            key={drop.id}
-            className="absolute w-0.5 h-12 bg-gradient-to-b from-emerald-400/60 to-transparent"
-            style={{
-              left: `${drop.left}%`,
-              animationDelay: `${drop.delay}s`,
-              animationDuration: `${drop.duration}s`,
-              animationName: 'rain-fall',
-              animationIterationCount: 'infinite',
-              animationTimingFunction: 'linear',
-            }}
-          />
-        ))}
-      </div>
-
       {/* Paint Splatter Effect - Deep Dark Green Blobs (Same Color for Overlap) */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-900 blob-1 opacity-20"></div>
       <div className="absolute top-10 right-16 w-64 h-64 bg-emerald-900 blob-2 opacity-15"></div>

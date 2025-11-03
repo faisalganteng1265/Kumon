@@ -3,20 +3,10 @@
 import { useState, useEffect } from 'react';
 
 export default function HowItWorksSection() {
-  // Generate rain drops on client-side only to avoid hydration errors
-  const [rainDrops, setRainDrops] = useState<Array<{ id: number; left: number; delay: number; duration: number }>>([]);
-
   // Generate floating particles
   const [particles, setParticles] = useState<Array<{ id: number; left: number; top: number; size: number; delay: number; duration: number }>>([]);
 
   useEffect(() => {
-    setRainDrops(Array.from({ length: 40 }, (_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      delay: Math.random() * 2,
-      duration: 1 + Math.random() * 1,
-    })));
-
     setParticles(Array.from({ length: 30 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
@@ -29,24 +19,6 @@ export default function HowItWorksSection() {
 
   return (
     <section id="how-it-works" className="py-20 px-6 bg-gradient-to-b from-black via-gray-900 to-black relative overflow-hidden">
-      {/* Rain Effect */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        {rainDrops.map((drop) => (
-          <div
-            key={drop.id}
-            className="absolute w-0.5 h-12 bg-gradient-to-b from-emerald-400/60 to-transparent"
-            style={{
-              left: `${drop.left}%`,
-              animationDelay: `${drop.delay}s`,
-              animationDuration: `${drop.duration}s`,
-              animationName: 'rain-fall',
-              animationIterationCount: 'infinite',
-              animationTimingFunction: 'linear',
-            }}
-          />
-        ))}
-      </div>
-
       {/* Paint Splatter Effect */}
       <div className="absolute top-20 left-10 w-96 h-96 bg-emerald-900 blob-1 opacity-15"></div>
       <div className="absolute top-40 right-20 w-80 h-80 bg-emerald-900 blob-2 opacity-20"></div>

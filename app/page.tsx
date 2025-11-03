@@ -23,7 +23,6 @@ export default function Home() {
       <HeroSection />
       <FeaturesSection />
       <GallerySection />
-      <WhyBetterSection />
       <HowItWorksSection />
       <FAQSection />
       <Footer />
