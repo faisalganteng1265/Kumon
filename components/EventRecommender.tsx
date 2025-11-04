@@ -28,14 +28,14 @@ interface RecommendationResponse {
 }
 
 const interestOptions = [
-  { value: 'teknologi', label: 'Teknologi & IT', icon: '💻' },
-  { value: 'bisnis', label: 'Bisnis & Entrepreneurship', icon: '💼' },
-  { value: 'seni', label: 'Seni & Kreatif', icon: '🎨' },
-  { value: 'sosial', label: 'Sosial & Volunteering', icon: '🤝' },
-  { value: 'akademik', label: 'Akademik & Penelitian', icon: '📚' },
-  { value: 'olahraga', label: 'Olahraga & Kesehatan', icon: '⚽' },
-  { value: 'leadership', label: 'Leadership & Organisasi', icon: '👑' },
-  { value: 'lingkungan', label: 'Lingkungan & Sustainability', icon: '🌱' },
+  { value: 'teknologi', label: 'Teknologi & IT', icon: '/ICONKOMPUTER.png' },
+  { value: 'bisnis', label: 'Bisnis & Entrepreneurship', icon: '/ICONBISNIS.png' },
+  { value: 'seni', label: 'Seni & Kreatif', icon: '/SENIICON.png' },
+  { value: 'sosial', label: 'Sosial & Volunteering', icon: '/SOSIALICON.png' },
+  { value: 'akademik', label: 'Akademik & Penelitian', icon: '/AKADEMIKICON.png' },
+  { value: 'olahraga', label: 'Olahraga & Kesehatan', icon: '/OLAHRAGAICON.png' },
+  { value: 'leadership', label: 'Leadership & Organisasi', icon: '/ORGANISASIICON.png' },
+  { value: 'lingkungan', label: 'Lingkungan & Sustainability', icon: '/LINGKUNGANICON.png' },
 ];
 
 const categoryColors: { [key: string]: string } = {
@@ -131,7 +131,16 @@ export default function EventRecommender() {
       <div className="bg-black py-8 px-3 relative z-10">
         <div className="max-w-full mx-auto">
           <div className="text-center mb-6">
-            <div className="text-6xl mb-4">🎯</div>
+            <div className="mb-4 flex justify-center">
+              <img
+                src="/ICONLAMPU.png"
+                alt="Event Recommender Icon"
+                className="w-20 h-20 object-contain"
+                style={{
+                  filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 60px rgba(255, 255, 255, 0.4))'
+                }}
+              />
+            </div>
             <h1 className="text-5xl font-bold text-white mb-3" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)' }}>
               EVENT RECOMMENDER
             </h1>
@@ -148,8 +157,9 @@ export default function EventRecommender() {
           {/* LEFT SIDEBAR - Filter */}
           <div className="lg:col-span-1">
             <div className="bg-gray-800/40 rounded-2xl p-6 border border-gray-700/50 shadow-md sticky top-6">
-              <h3 className="text-white font-semibold mb-4 text-lg">
-                <span>✨</span> Filter Minat
+              <h3 className="text-white font-semibold mb-4 text-lg flex items-center gap-2">
+                <img src="/LISTICON.png" alt="Filter Icon" className="w-5 h-5 object-contain" />
+                <span>Filter Minat</span>
               </h3>
 
               <div className="space-y-3 mb-6">
@@ -163,7 +173,7 @@ export default function EventRecommender() {
                         : 'bg-gray-700/30 text-gray-200 border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white'
                     }`}
                   >
-                    <span className="text-xl">{interest.icon}</span>
+                    <img src={interest.icon} alt={interest.label} className="w-6 h-6 object-contain" />
                     <span className="text-xs font-medium">{interest.label}</span>
                   </button>
                 ))}
