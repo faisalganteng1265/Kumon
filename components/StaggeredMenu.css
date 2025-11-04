@@ -1,0 +1,356 @@
+/* Staggered Menu - Dark Theme Styling */
+
+:root {
+  --sm-accent: #ffffff;
+}
+
+.staggered-menu-wrapper {
+  position: relative;
+  z-index: 1000;
+}
+
+.staggered-menu-wrapper.fixed-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Pre-layers (animated background layers) */
+.sm-prelayers {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 300px;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.staggered-menu-wrapper[data-position='left'] .sm-prelayers {
+  left: 0;
+}
+
+.staggered-menu-wrapper[data-position='right'] .sm-prelayers {
+  right: 0;
+}
+
+.sm-prelayer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #1a1a1a;
+}
+
+/* Header */
+.staggered-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  background: transparent;
+  position: relative;
+  z-index: 1001;
+}
+
+.sm-logo {
+  display: flex;
+  align-items: center;
+}
+
+.sm-logo-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+/* Toggle Button */
+.sm-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.5rem;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.sm-toggle:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.sm-toggle:focus-visible {
+  outline: 2px solid var(--sm-accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Toggle Text Animation */
+.sm-toggle-textWrap {
+  overflow: hidden;
+  height: 1.2em;
+  display: block;
+}
+
+.sm-toggle-textInner {
+  display: block;
+  will-change: transform;
+}
+
+.sm-toggle-line {
+  display: block;
+  line-height: 1.2;
+}
+
+/* Icon (Plus/Cross) */
+.sm-icon {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+
+.sm-icon-line {
+  position: absolute;
+  background: currentColor;
+  width: 100%;
+  height: 2px;
+  border-radius: 1px;
+}
+
+.sm-icon-line-v {
+  transform: rotate(90deg);
+}
+
+/* Panel */
+.staggered-menu-panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 300px;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+.staggered-menu-wrapper[data-position='left'] .staggered-menu-panel {
+  left: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.staggered-menu-wrapper[data-position='right'] .staggered-menu-panel {
+  right: 0;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sm-panel-inner {
+  padding: 6rem 3rem 3rem;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Panel List */
+.sm-panel-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 auto;
+}
+
+.sm-panel-itemWrap {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.sm-panel-item {
+  display: block;
+  text-decoration: none;
+  padding: 1.5rem 0;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.sm-panel-item:hover {
+  padding-left: 1rem;
+}
+
+.sm-panel-item:hover .sm-panel-itemLabel {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+               0 0 40px rgba(255, 255, 255, 0.6);
+}
+
+.sm-panel-itemLabel {
+  display: block;
+  font-size: clamp(1.2rem, 1vw, 1rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  will-change: transform;
+  transition: text-shadow 0.3s ease;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Numbering */
+.sm-panel-list[data-numbering] .sm-panel-item::before {
+  content: attr(data-index);
+  position: absolute;
+  left: -2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, var(--sm-num-opacity, 0));
+  opacity: var(--sm-num-opacity, 0);
+  transition: opacity 0.3s ease;
+}
+
+.sm-panel-list[data-numbering] .sm-panel-item:hover::before {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Socials Section */
+.sm-socials {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sm-socials-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 1rem;
+}
+
+.sm-socials-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.sm-socials-item {
+  margin: 0;
+  padding: 0;
+}
+
+.sm-socials-link {
+  display: inline-block;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.sm-socials-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+.sm-socials-link:hover {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.sm-socials-link:hover::after {
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .staggered-menu-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .sm-panel-inner {
+    padding: 5rem 2rem 2rem;
+  }
+
+  .sm-panel-itemLabel {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+  }
+
+  .sm-prelayers,
+  .staggered-menu-panel {
+    max-width: 100%;
+  }
+
+  .sm-logo-img {
+    height: 24px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .sm-toggle,
+  .sm-panel-item,
+  .sm-socials-link,
+  .sm-icon {
+    transition: none;
+  }
+}
+
+/* Focus States */
+.sm-panel-item:focus-visible {
+  outline: 2px solid var(--sm-accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.sm-socials-link:focus-visible {
+  outline: 2px solid var(--sm-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Scrollbar Styling */
+.staggered-menu-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.staggered-menu-panel::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.staggered-menu-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.staggered-menu-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

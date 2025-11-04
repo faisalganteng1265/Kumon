@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import AnimatedContent from './AnimatedContent';
 import ParticleBackground from './ParticleBackground';
+import StaggeredMenu from './StaggeredMenu';
 
 interface ScheduleItem {
   id?: string;
@@ -268,6 +269,25 @@ export default function SmartScheduleBuilder() {
     <div className="min-h-screen bg-black text-gray-200 relative">
       {/* Particle Background */}
       <ParticleBackground />
+
+      {/* Staggered Menu Navigation */}
+      <StaggeredMenu
+        position="right"
+        colors={['#0a0a0a', '#1a1a1a', '#2a2a2a']}
+        items={[
+          { label: 'HOME', ariaLabel: 'Go to home page', link: '/' },
+          { label: 'AI Campus Chatbot', ariaLabel: 'Go to feature 1', link: '/fitur-1' },
+          { label: 'Smart Schedule', ariaLabel: 'Go to feature 2', link: '/fitur-2' }
+        ]}
+        displaySocials={false}
+        displayItemNumbering={true}
+        logoUrl="/logo.png"
+        menuButtonColor="#fff"
+        openMenuButtonColor="#fff"
+        accentColor="#ffffff"
+        changeMenuColorOnOpen={true}
+        isFixed={true}
+      />
 
       {/* Header */}
       <div className="bg-black py-8 px-6 shadow-sm relative z-10">
