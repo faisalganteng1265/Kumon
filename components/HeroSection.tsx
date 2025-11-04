@@ -28,99 +28,189 @@ export default function HeroSection() {
 
     camera.position.z = 5;
 
-    // Create AI Neural Network - Nodes
-    const nodes: THREE.Mesh[] = [];
-    const nodeGeometry = new THREE.SphereGeometry(0.08, 16, 16);
+    // Create clouds with evenly spaced positions
+    const clouds: THREE.Mesh[] = [];
+    const cloudCount = 15;
+    const cloudsPerRow = 5;
+    const cloudSpacingX = 10;
+    const cloudSpacingY = 5;
+    const cloudSpacingZ = 6;
 
-    // Create 3 layers of nodes (like neural network layers)
-    const layers = [
-      { count: 5, x: -4, color: 0x10b981 },  // Input layer - emerald
-      { count: 8, x: 0, color: 0x14b8a6 },   // Hidden layer - teal
-      { count: 4, x: 4, color: 0x10b981 }    // Output layer - emerald
-    ];
+    for (let i = 0; i < cloudCount; i++) {
+      const row = Math.floor(i / cloudsPerRow);
+      const col = i % cloudsPerRow;
 
-    layers.forEach(layer => {
-      const ySpacing = 8 / (layer.count + 1);
-      for (let i = 0; i < layer.count; i++) {
-        const nodeMaterial = new THREE.MeshBasicMaterial({
-          color: layer.color,
-          transparent: true,
-          opacity: 0.8,
-        });
-        const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
-        node.position.set(
-          layer.x,
-          -4 + ySpacing * (i + 1),
-          (Math.random() - 0.5) * 2
-        );
-        nodes.push(node);
-        scene.add(node);
+      // Create cloud group with multiple spheres
+      const cloudGeometry = new THREE.SphereGeometry(1, 16, 16);
+      const cloudMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.15 + (i % 3) * 0.05, // Varied but consistent opacity
+      });
 
-        // Add glow effect to each node
-        const glowGeometry = new THREE.SphereGeometry(0.15, 16, 16);
-        const glowMaterial = new THREE.MeshBasicMaterial({
-          color: layer.color,
-          transparent: true,
-          opacity: 0.2,
-        });
-        const glow = new THREE.Mesh(glowGeometry, glowMaterial);
-        glow.position.copy(node.position);
-        scene.add(glow);
-      }
-    });
+      const cloud = new THREE.Mesh(cloudGeometry, cloudMaterial);
 
-    // Create connections between nodes
-    const lineMaterial = new THREE.LineBasicMaterial({
-      color: 0x10b981,
+      // Position clouds in a grid pattern with slight offset for natural look
+      cloud.position.set(
+        (col - cloudsPerRow / 2) * cloudSpacingX + (row % 2) * 2,
+        (row - 1) * cloudSpacingY,
+        -10 - (row * cloudSpacingZ)
+      );
+
+      // Consistent cloud sizes based on position
+      const scale = 0.7 + (i % 4) * 0.3;
+      cloud.scale.set(scale * 2, scale * 0.5, scale);
+
+      clouds.push(cloud);
+      scene.add(cloud);
+    }
+
+    // Add stars (twinkling particles)
+    const starsGeometry = new THREE.BufferGeometry();
+    const starsCount = 1200;
+    const starsPositions = new Float32Array(starsCount * 3);
+    const starsSizes = new Float32Array(starsCount);
+
+    for (let i = 0; i < starsCount; i++) {
+      // Position stars across the sky
+      starsPositions[i * 3] = (Math.random() - 0.5) * 50;
+      starsPositions[i * 3 + 1] = (Math.random() - 0.5) * 30;
+      starsPositions[i * 3 + 2] = -15 - Math.random() * 20;
+
+      // Random star sizes
+      starsSizes[i] = Math.random() * 2 + 0.5;
+    }
+
+    starsGeometry.setAttribute('position', new THREE.BufferAttribute(starsPositions, 3));
+    starsGeometry.setAttribute('size', new THREE.BufferAttribute(starsSizes, 1));
+
+    const starsMaterial = new THREE.PointsMaterial({
+      color: 0xffffff,
       transparent: true,
-      opacity: 0.3,
+      opacity: 0.8,
+      size: 0.05,
+      sizeAttenuation: true,
+      blending: THREE.AdditiveBlending,
     });
 
-    // Connect layer 1 to layer 2
-    for (let i = 0; i < 5; i++) {
-      for (let j = 5; j < 13; j++) {
-        const points = [];
-        points.push(nodes[i].position);
-        points.push(nodes[j].position);
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
-        const line = new THREE.Line(geometry, lineMaterial);
-        scene.add(line);
-      }
-    }
+    const starsMesh = new THREE.Points(starsGeometry, starsMaterial);
+    scene.add(starsMesh);
 
-    // Connect layer 2 to layer 3
-    for (let i = 5; i < 13; i++) {
-      for (let j = 13; j < 17; j++) {
-        const points = [];
-        points.push(nodes[i].position);
-        points.push(nodes[j].position);
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
-        const line = new THREE.Line(geometry, lineMaterial);
-        scene.add(line);
-      }
-    }
-
-    // Add floating particles for ambiance
+    // Add accent particles (floating dust/sparkles)
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 800;
-    const posArray = new Float32Array(particlesCount * 3);
+    const particlesCount = 300;
+    const particlesPositions = new Float32Array(particlesCount * 3);
 
-    for (let i = 0; i < particlesCount * 3; i++) {
-      posArray[i] = (Math.random() - 0.5) * 15;
+    for (let i = 0; i < particlesCount; i++) {
+      particlesPositions[i * 3] = (Math.random() - 0.5) * 25;
+      particlesPositions[i * 3 + 1] = (Math.random() - 0.5) * 15;
+      particlesPositions[i * 3 + 2] = (Math.random() - 0.5) * 10;
     }
 
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(particlesPositions, 3));
 
     const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.01,
-      color: 0x14b8a6,
+      size: 0.03,
+      color: 0x10b981,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.4,
       blending: THREE.AdditiveBlending,
     });
 
     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particlesMesh);
+
+    // Create shooting stars
+    interface ShootingStar {
+      mesh: THREE.Line;
+      velocity: THREE.Vector3;
+      lifetime: number;
+      maxLifetime: number;
+      head: THREE.Mesh;
+      glow: THREE.Mesh;
+    }
+
+    const shootingStars: ShootingStar[] = [];
+    let shootingStarTimer = 0;
+
+    const createShootingStar = () => {
+      // Random starting position (top corners or sides)
+      const startX = Math.random() > 0.5 ? 20 + Math.random() * 10 : -20 - Math.random() * 10;
+      const startY = 8 + Math.random() * 4;
+      const startZ = -5 - Math.random() * 5;
+
+      // Create longer trail for meteor effect
+      const trailLength = 15;
+      const points = [];
+
+      // Direction vector for the trail
+      const direction = new THREE.Vector3(
+        Math.random() > 0.5 ? -1 : 1,
+        -0.3,
+        -0.2
+      ).normalize();
+
+      for (let i = 0; i < trailLength; i++) {
+        points.push(new THREE.Vector3(
+          startX + direction.x * i * 0.3,
+          startY + direction.y * i * 0.3,
+          startZ + direction.z * i * 0.3
+        ));
+      }
+
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+      // Create gradient-like effect by using additive blending
+      const material = new THREE.LineBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 1,
+        linewidth: 3,
+        blending: THREE.AdditiveBlending,
+      });
+
+      const line = new THREE.Line(geometry, material);
+      scene.add(line);
+
+      // Add a bright sphere at the head of the meteor
+      const headGeometry = new THREE.SphereGeometry(0.15, 8, 8);
+      const headMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 1,
+      });
+      const head = new THREE.Mesh(headGeometry, headMaterial);
+      head.position.set(startX, startY, startZ);
+      scene.add(head);
+
+      // Add glow effect
+      const glowGeometry = new THREE.SphereGeometry(0.3, 8, 8);
+      const glowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xadd8e6,
+        transparent: true,
+        opacity: 0.5,
+        blending: THREE.AdditiveBlending,
+      });
+      const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+      glow.position.set(startX, startY, startZ);
+      scene.add(glow);
+
+      // Faster velocity for meteor effect
+      const velocity = new THREE.Vector3(
+        direction.x * 0.4,
+        direction.y * 0.4,
+        direction.z * 0.2
+      );
+
+      shootingStars.push({
+        mesh: line,
+        velocity: velocity,
+        lifetime: 0,
+        maxLifetime: 60 + Math.random() * 40,
+        head: head,
+        glow: glow,
+      } as ShootingStar & { head: THREE.Mesh; glow: THREE.Mesh });
+    };
 
     // Mouse movement
     let mouseX = 0;
@@ -137,20 +227,92 @@ export default function HeroSection() {
     let time = 0;
     const animate = () => {
       requestAnimationFrame(animate);
-      time += 0.01;
+      time += 0.005;
 
-      // Gentle floating animation for nodes
-      nodes.forEach((node, index) => {
-        node.position.y += Math.sin(time + index * 0.5) * 0.001;
-        node.position.z += Math.cos(time + index * 0.3) * 0.001;
+      // Gentle floating and drifting animation for clouds
+      clouds.forEach((cloud, index) => {
+        cloud.position.x += Math.sin(time + index) * 0.002;
+        cloud.position.y += Math.cos(time + index * 0.5) * 0.001;
+
+        // Wrap clouds around
+        if (cloud.position.x > 15) cloud.position.x = -15;
+        if (cloud.position.x < -15) cloud.position.x = 15;
       });
 
-      // Slow rotation of particles
-      particlesMesh.rotation.y += 0.0005;
+      // Twinkling stars effect
+      const starPositions = starsGeometry.attributes.position.array as Float32Array;
+      for (let i = 0; i < starsCount; i++) {
+        const i3 = i * 3;
+        starPositions[i3 + 2] += Math.sin(time + i) * 0.001;
+      }
+      starsGeometry.attributes.position.needsUpdate = true;
+
+      // Slow rotation of accent particles
+      particlesMesh.rotation.y += 0.0003;
+      particlesMesh.rotation.x = Math.sin(time * 0.1) * 0.05;
+
+      // Shooting stars animation
+      shootingStarTimer++;
+
+      // Create new shooting star randomly (every 2-4 seconds at 60fps)
+      if (shootingStarTimer > 120 + Math.random() * 120) {
+        createShootingStar();
+        shootingStarTimer = 0;
+      }
+
+      // Update existing shooting stars
+      for (let i = shootingStars.length - 1; i >= 0; i--) {
+        const star = shootingStars[i];
+        star.lifetime++;
+
+        // Get the line positions
+        const positions = star.mesh.geometry.attributes.position.array as Float32Array;
+        const trailLength = positions.length / 3;
+
+        // Move each point in the trail
+        for (let j = 0; j < trailLength; j++) {
+          const idx = j * 3;
+          positions[idx] += star.velocity.x;
+          positions[idx + 1] += star.velocity.y;
+          positions[idx + 2] += star.velocity.z;
+        }
+        star.mesh.geometry.attributes.position.needsUpdate = true;
+
+        // Move the head and glow
+        star.head.position.x += star.velocity.x;
+        star.head.position.y += star.velocity.y;
+        star.head.position.z += star.velocity.z;
+
+        star.glow.position.x += star.velocity.x;
+        star.glow.position.y += star.velocity.y;
+        star.glow.position.z += star.velocity.z;
+
+        // Fade out as lifetime increases
+        const fadeProgress = star.lifetime / star.maxLifetime;
+        (star.mesh.material as THREE.LineBasicMaterial).opacity = 1 * (1 - fadeProgress);
+        (star.head.material as THREE.MeshBasicMaterial).opacity = 1 * (1 - fadeProgress);
+        (star.glow.material as THREE.MeshBasicMaterial).opacity = 0.5 * (1 - fadeProgress);
+
+        // Remove if lifetime exceeded
+        if (star.lifetime > star.maxLifetime) {
+          scene.remove(star.mesh);
+          scene.remove(star.head);
+          scene.remove(star.glow);
+
+          star.mesh.geometry.dispose();
+          (star.mesh.material as THREE.Material).dispose();
+          star.head.geometry.dispose();
+          (star.head.material as THREE.Material).dispose();
+          star.glow.geometry.dispose();
+          (star.glow.material as THREE.Material).dispose();
+
+          shootingStars.splice(i, 1);
+        }
+      }
 
       // Camera follows mouse smoothly
-      camera.position.x += (mouseX * 0.3 - camera.position.x) * 0.05;
-      camera.position.y += (mouseY * 0.3 - camera.position.y) * 0.05;
+      camera.position.x += (mouseX * 0.2 - camera.position.x) * 0.03;
+      camera.position.y += (mouseY * 0.2 - camera.position.y) * 0.03;
       camera.lookAt(scene.position);
 
       renderer.render(scene, camera);
@@ -173,11 +335,32 @@ export default function HeroSection() {
       window.removeEventListener('resize', handleResize);
       containerRef.current?.removeChild(renderer.domElement);
       renderer.dispose();
+
+      // Dispose clouds
+      clouds.forEach(cloud => {
+        cloud.geometry.dispose();
+        (cloud.material as THREE.Material).dispose();
+      });
+
+      // Dispose stars
+      starsGeometry.dispose();
+      starsMaterial.dispose();
+
+      // Dispose accent particles
       particlesGeometry.dispose();
       particlesMaterial.dispose();
-      nodeGeometry.dispose();
-      nodes.forEach(node => {
-        (node.material as THREE.Material).dispose();
+
+      // Dispose shooting stars
+      shootingStars.forEach(star => {
+        scene.remove(star.mesh);
+        scene.remove(star.head);
+        scene.remove(star.glow);
+        star.mesh.geometry.dispose();
+        (star.mesh.material as THREE.Material).dispose();
+        star.head.geometry.dispose();
+        (star.head.material as THREE.Material).dispose();
+        star.glow.geometry.dispose();
+        (star.glow.material as THREE.Material).dispose();
       });
     };
   }, []);
