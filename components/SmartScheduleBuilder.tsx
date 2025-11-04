@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import AnimatedContent from './AnimatedContent';
+import ParticleBackground from './ParticleBackground';
 
 interface ScheduleItem {
   id?: string;
@@ -17,7 +18,9 @@ interface ScheduleItem {
   specificDay?: string;
   specificTime?: string;
   mustBeBefore?: string;
+  location?: string;
   description?: string;
+  courseType?: 'teori' | 'praktikum' | 'lab' | 'seminar';
 }
 
 interface DaySchedule {
@@ -66,7 +69,9 @@ export default function SmartScheduleBuilder() {
     day: 'Senin',
     startTime: '07:00',
     endTime: '09:00',
-    description: ''
+    location: '',
+    description: '',
+    courseType: 'teori'
   });
 
 
@@ -77,6 +82,8 @@ export default function SmartScheduleBuilder() {
     priority: 'sedang',
     isFlexible: true,
     hasSpecificTime: false,
+    specificDay: 'Senin',
+    specificTime: '09:00',
     description: ''
   });
 
@@ -88,6 +95,23 @@ export default function SmartScheduleBuilder() {
       setEditedOptimizedSchedule(JSON.parse(JSON.stringify(optimizedSchedule)));
     }
   }, [optimizedSchedule]);
+
+  // Reset activity fields when mode changes
+  useEffect(() => {
+    if (activityMode === 'specific') {
+      setNewActivity(prev => ({
+        ...prev,
+        specificDay: prev.specificDay || 'Senin',
+        specificTime: prev.specificTime || '09:00',
+        duration: prev.duration || 60
+      }));
+    } else {
+      setNewActivity(prev => ({
+        ...prev,
+        duration: prev.duration || 60
+      }));
+    }
+  }, [activityMode]);
 
   const handleScheduleItemChange = (
     day: string,
@@ -123,12 +147,14 @@ export default function SmartScheduleBuilder() {
       day: 'Senin',
       startTime: '07:00',
       endTime: '09:00',
-      description: ''
+      location: '',
+      description: '',
+      courseType: 'teori'
     });
   };
 
   const addActivity = () => {
-    if (!newActivity.name) {
+    if (!newActivity.name || newActivity.name.trim() === '') {
       alert('Nama kegiatan harus diisi!');
       return;
     }
@@ -136,6 +162,10 @@ export default function SmartScheduleBuilder() {
     if (activityMode === 'specific') {
       if (!newActivity.specificDay || !newActivity.specificTime) {
         alert('Pilih hari dan waktu untuk kegiatan!');
+        return;
+      }
+      if (!newActivity.duration) {
+        alert('Durasi kegiatan harus diisi!');
         return;
       }
       setActivities([...activities, {
@@ -164,6 +194,8 @@ export default function SmartScheduleBuilder() {
       priority: 'sedang',
       isFlexible: true,
       hasSpecificTime: false,
+      specificDay: 'Senin',
+      specificTime: '09:00',
       description: ''
     });
   };
@@ -233,15 +265,18 @@ export default function SmartScheduleBuilder() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-800">
+    <div className="min-h-screen bg-black text-gray-200 relative">
+      {/* Particle Background */}
+      <ParticleBackground />
+
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 py-8 px-6 shadow-sm">
+      <div className="bg-black py-8 px-6 shadow-sm relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-6">
-            <h1 className="text-5xl font-bold text-teal-600 mb-3">
+            <h1 className="text-5xl font-bold text-white mb-3" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)' }}>
               SMART SCHEDULE BUILDER
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-400 text-lg">
               AI bantu atur jadwal kuliah dan kegiatanmu agar seimbang dan produktif
             </p>
           </div>
@@ -252,8 +287,8 @@ export default function SmartScheduleBuilder() {
               onClick={() => setActiveTab('input')}
               className={`px-8 py-3 rounded-lg font-semibold transition-all ${
                 activeTab === 'input'
-                  ? 'bg-teal-500 text-white shadow-lg'
-                  : 'bg-white text-teal-600 border border-gray-300 hover:bg-gray-50'
+                  ? 'bg-white/95 text-gray-800 shadow-lg'
+                  : 'bg-gray-700/30 text-gray-200 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white'
               }`}
             >
               INPUT JADWAL
@@ -262,8 +297,8 @@ export default function SmartScheduleBuilder() {
               onClick={() => setActiveTab('result')}
               className={`px-8 py-3 rounded-lg font-semibold transition-all ${
                 activeTab === 'result'
-                  ? 'bg-teal-500 text-white shadow-lg'
-                  : 'bg-white text-teal-600 border border-gray-300 hover:bg-gray-50'
+                  ? 'bg-white/95 text-gray-800 shadow-lg'
+                  : 'bg-gray-700/30 text-gray-200 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white'
               }`}
               disabled={!optimizedSchedule}
             >
@@ -273,94 +308,103 @@ export default function SmartScheduleBuilder() {
         </div>
       </div>
 
-      <div className="mx-auto px-6 py-8">
+      <div className="max-auto mx-auto px-6 py-8 relative z-10">
         {/* Input Tab */}
         {activeTab === 'input' && (
           <AnimatedContent>
-          <div className="space-y-8">
-            {/* Section Title */}
-            <AnimatedContent direction="horizontal" reverse={true}>
-            <div className="text-center">
-              <h2 className="text-3xl font-bold text-teal-600">
-                INPUT JADWAL & KEGIATAN
-              </h2>
-              <div className="h-1 w-32 bg-gradient-to-r from-transparent via-teal-500 to-transparent mx-auto mt-3"></div>
-            </div>
-            </AnimatedContent>
-
+          <div className="max-w-7xl mx-auto space-y-8">
             {/* Main Grid - Side by Side */}
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-12">
               
               {/* LEFT SIDE - JADWAL KULIAH */}
               <AnimatedContent direction="horizontal" reverse={true} delay={0.2}>
-              <div className="space-y-6 bg-white p-8 rounded-lg shadow-md">
+              <div className="space-y-6 bg-gray-800/40 p-8 rounded-lg shadow-md border border-gray-700/50 h-full flex flex-col">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-3xl font-bold text-teal-600">JADWAL KULIAH</h3>
-                  <div className="px-4 py-2 bg-teal-100 border border-teal-200 rounded-full">
-                    <span className="text-teal-700 font-semibold">{courses.length} Kuliah</span>
+                  <h3 className="text-3xl font-bold text-white" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6)' }}>JADWAL KULIAH</h3>
+                  <div className="px-4 py-2 bg-white/10 border border-white/20 rounded-full" style={{ boxShadow: '0 0 10px rgba(255, 255, 255, 0.3)' }}>
+                    <span className="text-white font-semibold" style={{ textShadow: '0 0 8px rgba(255, 255, 255, 0.6)' }}>{courses.length} Kuliah</span>
                   </div>
                 </div>
                   
                   <div className="space-y-4">
-                    <div className="flex items-center w-full bg-gray-50 rounded-lg border border-gray-300 focus-within:border-teal-500 focus-within:ring-1 focus-within:ring-teal-500 transition-all">
+                    <div className="flex items-center w-full bg-gray-700/30 rounded-lg border border-gray-600/50 hover:bg-white/95 hover:border-white focus-within:bg-white/95 focus-within:border-white focus-within:ring-1 focus-within:ring-white transition-all group">
                       <input
                         type="text"
                         placeholder="Nama Mata Kuliah"
                         value={newCourse.name}
                         onChange={(e) => setNewCourse({ ...newCourse, name: e.target.value })}
-                        className="w-full bg-transparent text-gray-800 px-4 py-3 focus:outline-none"
+                        className="w-full bg-transparent text-gray-200 group-hover:text-gray-800 group-focus-within:text-gray-800 px-4 py-3 focus:outline-none placeholder:text-gray-500 group-hover:placeholder:text-gray-400 group-focus-within:placeholder:text-gray-400"
                       />
-                      <span className="px-4 text-gray-500">📖</span>
+                      <span className="px-4 text-gray-500"></span>
                     </div>
-                    
+
                     <select
                       value={newCourse.day}
                       onChange={(e) => setNewCourse({ ...newCourse, day: e.target.value })}
-                      className="w-full bg-gray-50 text-gray-800 rounded-lg px-4 py-3 border border-gray-300 focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500 transition-all"
+                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
                     >
                       {days.map(day => (
-                        <option key={day} value={day} className="bg-white text-gray-800">{day}</option>
+                        <option key={day} value={day} className="bg-neutral-700 text-gray-200">{day}</option>
                       ))}
                     </select>
-                    
+
+                    <select
+                      value={newCourse.courseType}
+                      onChange={(e) => setNewCourse({ ...newCourse, courseType: e.target.value as any })}
+                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
+                    >
+                      <option value="teori" className="bg-neutral-700 text-gray-200">Teori</option>
+                      <option value="praktikum" className="bg-neutral-700 text-gray-200">Praktikum</option>
+                      <option value="lab" className="bg-neutral-700 text-gray-200">Lab</option>
+                      <option value="seminar" className="bg-neutral-700 text-gray-200">Seminar</option>
+                    </select>
+
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="text-gray-600 text-sm mb-2 block">Jam Mulai</label>
+                        <label className="text-gray-400 text-sm mb-2 block">Jam Mulai</label>
                         <select
                           value={newCourse.startTime}
                           onChange={(e) => setNewCourse({ ...newCourse, startTime: e.target.value })}
-                          className="w-full bg-gray-50 text-gray-800 rounded-lg px-4 py-3 border border-gray-300 focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500 transition-all"
+                          className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
                         >
                           {timeSlots.map(time => (
-                            <option key={time} value={time} className="bg-white text-gray-800">{time}</option>
+                            <option key={time} value={time} className="bg-neutral-700 text-gray-200">{time}</option>
                           ))}
                         </select>
                       </div>
                       <div>
-                        <label className="text-gray-600 text-sm mb-2 block">Jam Selesai</label>
+                        <label className="text-gray-400 text-sm mb-2 block">Jam Selesai</label>
                         <select
                           value={newCourse.endTime}
                           onChange={(e) => setNewCourse({ ...newCourse, endTime: e.target.value })}
-                          className="w-full bg-gray-50 text-gray-800 rounded-lg px-4 py-3 border border-gray-300 focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500 transition-all"
+                          className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
                         >
                           {timeSlots.map(time => (
-                            <option key={time} value={time} className="bg-white text-gray-800">{time}</option>
+                            <option key={time} value={time} className="bg-neutral-700 text-gray-200">{time}</option>
                           ))}
                         </select>
                       </div>
                     </div>
-                    
+
                     <input
                       type="text"
-                      placeholder="Lokasi/Keterangan (opsional)"
+                      placeholder="Lokasi (opsional)"
+                      value={newCourse.location || ''}
+                      onChange={(e) => setNewCourse({ ...newCourse, location: e.target.value })}
+                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all placeholder:text-gray-500 hover:placeholder:text-gray-400 focus:placeholder:text-gray-400"
+                    />
+
+                    <input
+                      type="text"
+                      placeholder="Keterangan (opsional)"
                       value={newCourse.description}
                       onChange={(e) => setNewCourse({ ...newCourse, description: e.target.value })}
-                      className="w-full bg-gray-50 text-gray-800 rounded-lg px-4 py-3 border border-gray-300 focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500 transition-all"
+                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all placeholder:text-gray-500 hover:placeholder:text-gray-400 focus:placeholder:text-gray-400"
                     />
-                    
+
                     <button
                       onClick={addCourse}
-                      className="w-full bg-teal-500 hover:bg-teal-600 text-white px-6 py-3 rounded-lg font-bold transition-all shadow-md hover:shadow-lg"
+                      className="w-full bg-gray-700/30 border border-gray-600/50 hover:bg-white/95 hover:border-white text-gray-200 hover:text-gray-800 px-6 py-3 rounded-lg font-bold transition-all shadow-md hover:shadow-lg"
                     >
                       + TAMBAH KULIAH
                     </button>
@@ -368,16 +412,29 @@ export default function SmartScheduleBuilder() {
 
                 {/* Course List */}
                 {courses.length > 0 && (
-                  <div className="space-y-3">
+                  <div className="space-y-3 flex-1">
                     {courses.map(course => (
-                      <div key={course.id} className="bg-gray-50 border-l-4 border-teal-500 rounded-r-lg p-4 flex justify-between items-center transition-all hover:shadow-md">
+                      <div key={course.id} className="bg-gray-700/40 border-l-4 border-white rounded-r-lg p-4 flex justify-between items-center transition-all hover:shadow-md">
                         <div className="flex-1">
-                          <p className="text-gray-800 font-semibold text-lg">{course.name}</p>
-                          <p className="text-gray-500 text-sm mt-1">
-                            {course.day} • {course.startTime} - {course.endTime}
-                          </p>
+                          <p className="text-gray-200 font-semibold text-lg">{course.name}</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <p className="text-gray-400 text-sm">
+                              {course.day} • {course.startTime} - {course.endTime}
+                            </p>
+                            {course.courseType && (
+                              <span className="inline-block px-2 py-0.5 rounded text-xs font-semibold bg-white/10 text-white border border-white/20">
+                                {course.courseType === 'teori' && 'Teori'}
+                                {course.courseType === 'praktikum' && 'Praktikum'}
+                                {course.courseType === 'lab' && 'Lab'}
+                                {course.courseType === 'seminar' && 'Seminar'}
+                              </span>
+                            )}
+                          </div>
+                          {course.location && (
+                            <p className="text-gray-500 text-sm mt-1">📍 {course.location}</p>
+                          )}
                           {course.description && (
-                            <p className="text-gray-400 text-sm mt-1">{course.description}</p>
+                            <p className="text-gray-500 text-sm mt-1">📝 {course.description}</p>
                           )}
                         </div>
                         <button
@@ -393,14 +450,13 @@ export default function SmartScheduleBuilder() {
               </div>
               </AnimatedContent>
 
-              {/* RIGHT SIDE - KEGIATAN */}
               <AnimatedContent direction="horizontal" delay={0.2}>
-              <div className="space-y-6 bg-white p-8 rounded-lg shadow-md">
+              <div className="space-y-6 bg-gray-800/40 p-8 rounded-lg shadow-md border border-gray-700/50 h-full flex flex-col">
               <div className="space-y-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-3xl font-bold text-emerald-600">KEGIATAN LAIN</h3>
-                  <div className="px-4 py-2 bg-emerald-100 border border-emerald-200 rounded-full">
-                    <span className="text-emerald-700 font-semibold">{activities.length} Kegiatan</span>
+                  <h3 className="text-3xl font-bold text-white" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6)' }}>KEGIATAN LAIN</h3>
+                  <div className="px-4 py-2 bg-white/10 border border-white/20 rounded-full" style={{ boxShadow: '0 0 10px rgba(255, 255, 255, 0.3)' }}>
+                    <span className="text-white font-semibold" style={{ textShadow: '0 0 8px rgba(255, 255, 255, 0.6)' }}>{activities.length} Kegiatan</span>
                   </div>
                 </div>
 
@@ -410,8 +466,8 @@ export default function SmartScheduleBuilder() {
                       onClick={() => setActivityMode('flexible')}
                       className={`py-4 px-4 rounded-lg font-semibold transition-all ${
                         activityMode === 'flexible'
-                          ? 'bg-emerald-500 text-white shadow-lg'
-                          : 'bg-white text-emerald-600 border border-gray-300 hover:bg-gray-50'
+                          ? 'bg-white/95 text-gray-800 shadow-lg'
+                          : 'bg-gray-700/30 text-gray-200 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white'
                       }`}
                     >
                       <div className="text-sm">WAKTU FLEKSIBEL</div>
@@ -421,8 +477,8 @@ export default function SmartScheduleBuilder() {
                       onClick={() => setActivityMode('specific')}
                       className={`py-4 px-4 rounded-lg font-semibold transition-all ${
                         activityMode === 'specific'
-                          ? 'bg-sky-500 text-white shadow-lg'
-                          : 'bg-white text-sky-600 border border-gray-300 hover:bg-gray-50'
+                          ? 'bg-white/95 text-gray-800 shadow-lg'
+                          : 'bg-gray-700/30 text-gray-200 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white'
                       }`}
                     >
                       <div className="text-sm">WAKTU SPESIFIK</div>
@@ -435,54 +491,57 @@ export default function SmartScheduleBuilder() {
                     <div className="space-y-4">
                       <input
                         type="text"
-                        className="w-full bg-gray-50 text-gray-800 rounded-lg px-4 py-3 border border-gray-300 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all"
+                        placeholder="Nama Kegiatan"
+                        value={newActivity.name}
+                        onChange={(e) => setNewActivity({ ...newActivity, name: e.target.value })}
+                        className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all placeholder:text-gray-500 hover:placeholder:text-gray-400 focus:placeholder:text-gray-400"
                       />
-                      
+
                       <select
                         value={newActivity.duration}
                         onChange={(e) => setNewActivity({ ...newActivity, duration: Number(e.target.value) })}
-                        className="w-full bg-gray-50 text-gray-800 rounded-lg px-4 py-3 border border-gray-300 focus:border-fuchsia-500 focus:outline-none focus:ring-1 focus:ring-fuchsia-500 transition-all"
+                        className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
                       >
-                        <option value={30} className="bg-white text-gray-800">30 menit</option>
-                        <option value={60} className="bg-white text-gray-800">1 jam</option>
-                        <option value={90} className="bg-white text-gray-800">1.5 jam</option>
-                        <option value={120} className="bg-white text-gray-800">2 jam</option>
-                        <option value={180} className="bg-white text-gray-800">3 jam</option>
+                        <option value={30} className="bg-neutral-700 text-gray-200">30 menit</option>
+                        <option value={60} className="bg-neutral-700 text-gray-200">1 jam</option>
+                        <option value={90} className="bg-neutral-700 text-gray-200">1.5 jam</option>
+                        <option value={120} className="bg-neutral-700 text-gray-200">2 jam</option>
+                        <option value={180} className="bg-neutral-700 text-gray-200">3 jam</option>
                       </select>
-                      
+
                       <select
                         value={newActivity.priority}
                         onChange={(e) => setNewActivity({ ...newActivity, priority: e.target.value as any })}
-                        className="w-full bg-gray-50 text-gray-800 rounded-lg px-4 py-3 border border-gray-300 focus:border-fuchsia-500 focus:outline-none focus:ring-1 focus:ring-fuchsia-500 transition-all"
+                        className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
                       >
-                        <option value="tinggi" className="bg-white text-gray-800">Prioritas Tinggi</option>
-                        <option value="sedang" className="bg-white text-gray-800">Prioritas Sedang</option>
-                        <option value="rendah" className="bg-white text-gray-800">Prioritas Rendah</option>
+                        <option value="tinggi" className="bg-neutral-700 text-gray-200">Prioritas Tinggi</option>
+                        <option value="sedang" className="bg-neutral-700 text-gray-200">Prioritas Sedang</option>
+                        <option value="rendah" className="bg-neutral-700 text-gray-200">Prioritas Rendah</option>
                       </select>
-                      
+
                       <select
                         value={newActivity.mustBeBefore || ''}
                         onChange={(e) => setNewActivity({ ...newActivity, mustBeBefore: e.target.value || undefined })}
-                        className="w-full bg-gray-50 text-gray-800 rounded-lg px-4 py-3 border border-gray-300 focus:border-fuchsia-500 focus:outline-none focus:ring-1 focus:ring-fuchsia-500 transition-all"
+                        className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
                       >
-                        <option value="" className="bg-white text-gray-800">Kapan saja</option>
-                        <option value="12:00" className="bg-white text-gray-800">Sebelum jam 12:00</option>
-                        <option value="15:00" className="bg-white text-gray-800">Sebelum jam 15:00</option>
-                        <option value="18:00" className="bg-white text-gray-800">Sebelum jam 18:00</option>
-                        <option value="20:00" className="bg-white text-gray-800">Sebelum jam 20:00</option>
+                        <option value="" className="bg-neutral-700 text-gray-200">Kapan saja</option>
+                        <option value="12:00" className="bg-neutral-700 text-gray-200">Sebelum jam 12:00</option>
+                        <option value="15:00" className="bg-neutral-700 text-gray-200">Sebelum jam 15:00</option>
+                        <option value="18:00" className="bg-neutral-700 text-gray-200">Sebelum jam 18:00</option>
+                        <option value="20:00" className="bg-neutral-700 text-gray-200">Sebelum jam 20:00</option>
                       </select>
-                      
+
                       <input
                         type="text"
                         placeholder="Keterangan (opsional)"
                         value={newActivity.description}
                         onChange={(e) => setNewActivity({ ...newActivity, description: e.target.value })}
-                        className="w-full bg-gray-50 text-gray-800 rounded-lg px-4 py-3 border border-gray-300 focus:border-fuchsia-500 focus:outline-none focus:ring-1 focus:ring-fuchsia-500 transition-all"
+                        className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all placeholder:text-gray-500 hover:placeholder:text-gray-400 focus:placeholder:text-gray-400"
                       />
                       
                       <button
                         onClick={addActivity}
-                        className="w-full bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-bold transition-all shadow-md hover:shadow-lg"
+                        className="w-full bg-gray-700/30 border border-gray-600/50 hover:bg-white/95 hover:border-white text-gray-200 hover:text-gray-800 px-6 py-3 rounded-lg font-bold transition-all shadow-md hover:shadow-lg"
                       >
                         + TAMBAH KEGIATAN
                       </button>
@@ -497,52 +556,52 @@ export default function SmartScheduleBuilder() {
                         placeholder="Nama Kegiatan"
                         value={newActivity.name}
                         onChange={(e) => setNewActivity({ ...newActivity, name: e.target.value })}
-                        className="w-full bg-gray-50 text-gray-800 rounded-lg px-4 py-3 border border-gray-300 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 transition-all"
+                        className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all placeholder:text-gray-500 hover:placeholder:text-gray-400 focus:placeholder:text-gray-400"
                       />
-                      
+
                       <select
                         value={newActivity.specificDay || 'Senin'}
                         onChange={(e) => setNewActivity({ ...newActivity, specificDay: e.target.value })}
-                        className="w-full bg-gray-50 text-gray-800 rounded-lg px-4 py-3 border border-gray-300 focus:border-yellow-500 focus:outline-none focus:ring-1 focus:ring-yellow-500 transition-all"
+                        className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
                       >
                         {days.map(day => (
-                          <option key={day} value={day} className="bg-white text-gray-800">{day}</option>
+                          <option key={day} value={day} className="bg-neutral-700 text-gray-200">{day}</option>
                         ))}
                       </select>
-                      
+
                       <select
                         value={newActivity.specificTime || '09:00'}
                         onChange={(e) => setNewActivity({ ...newActivity, specificTime: e.target.value })}
-                        className="w-full bg-gray-50 text-gray-800 rounded-lg px-4 py-3 border border-gray-300 focus:border-yellow-500 focus:outline-none focus:ring-1 focus:ring-yellow-500 transition-all"
+                        className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
                       >
                         {timeSlots.map(time => (
-                          <option key={time} value={time} className="bg-white text-gray-800">{time}</option>
+                          <option key={time} value={time} className="bg-neutral-700 text-gray-200">{time}</option>
                         ))}
                       </select>
-                      
+
                       <select
                         value={newActivity.duration}
                         onChange={(e) => setNewActivity({ ...newActivity, duration: Number(e.target.value) })}
-                        className="w-full bg-gray-50 text-gray-800 rounded-lg px-4 py-3 border border-gray-300 focus:border-yellow-500 focus:outline-none focus:ring-1 focus:ring-yellow-500 transition-all"
+                        className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
                       >
-                        <option value={30} className="bg-white text-gray-800">30 menit</option>
-                        <option value={60} className="bg-white text-gray-800">1 jam</option>
-                        <option value={90} className="bg-white text-gray-800">1.5 jam</option>
-                        <option value={120} className="bg-white text-gray-800">2 jam</option>
-                        <option value={180} className="bg-white text-gray-800">3 jam</option>
+                        <option value={30} className="bg-neutral-700 text-gray-200">30 menit</option>
+                        <option value={60} className="bg-neutral-700 text-gray-200">1 jam</option>
+                        <option value={90} className="bg-neutral-700 text-gray-200">1.5 jam</option>
+                        <option value={120} className="bg-neutral-700 text-gray-200">2 jam</option>
+                        <option value={180} className="bg-neutral-700 text-gray-200">3 jam</option>
                       </select>
-                      
+
                       <input
                         type="text"
                         placeholder="Keterangan (opsional)"
                         value={newActivity.description}
                         onChange={(e) => setNewActivity({ ...newActivity, description: e.target.value })}
-                        className="w-full bg-gray-50 text-gray-800 rounded-lg px-4 py-3 border border-gray-300 focus:border-yellow-500 focus:outline-none focus:ring-1 focus:ring-yellow-500 transition-all"
+                        className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all placeholder:text-gray-500 hover:placeholder:text-gray-400 focus:placeholder:text-gray-400"
                       />
                       
                       <button
                         onClick={addActivity}
-                        className="w-full bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-lg font-bold transition-all shadow-md hover:shadow-lg"
+                        className="w-full bg-gray-700/30 border border-gray-600/50 hover:bg-white/95 hover:border-white text-gray-200 hover:text-gray-800 px-6 py-3 rounded-lg font-bold transition-all shadow-md hover:shadow-lg"
                       >
                         + TAMBAH KEGIATAN
                       </button>
@@ -552,24 +611,21 @@ export default function SmartScheduleBuilder() {
 
                 {/* Activity List */}
                 {activities.length > 0 && (
-                  <div className="space-y-3">
+                  <div className="space-y-3 flex-1">
                     {activities.map(activity => (
-                      <div key={activity.id} className={`bg-gray-50 rounded-r-lg p-4 flex justify-between items-center transition-all hover:shadow-md ${
-                        activity.hasSpecificTime ? 'border-l-4 border-sky-500' : 'border-l-4 border-emerald-500'
-                      }`}>
+                      <div key={activity.id} className="bg-gray-700/40 border-l-4 border-white rounded-r-lg p-4 flex justify-between items-center transition-all hover:shadow-md">
                         <div className="flex-1">
-                          <p className={`font-semibold text-lg ${activity.hasSpecificTime ? 'text-sky-700' : 'text-emerald-700'}`}>
+                          <p className="font-semibold text-lg text-white">
                             {activity.name}
                           </p>
-                          <p className="text-gray-500 text-sm mt-1">
-                            {activity.hasSpecificTime ? (
+                          <p className="text-gray-400 text-sm mt-1">                            {activity.hasSpecificTime ? (
                               <>{activity.specificDay} • {activity.specificTime} • {activity.duration} menit</>
                             ) : (
                               <>Durasi: {activity.duration} menit • {activity.priority}</>
                             )}
                           </p>
                           {activity.description && (
-                            <p className="text-gray-400 text-sm mt-1">{activity.description}</p>
+                            <p className="text-gray-500 text-sm mt-1">{activity.description}</p>
                           )}
                         </div>
                         <button
@@ -587,11 +643,10 @@ export default function SmartScheduleBuilder() {
             </div>
 
             {/* Generate Button */}
-            <AnimatedContent>
             <button
               onClick={generateSchedule}
               disabled={isLoading || (courses.length === 0 && activities.length === 0)}
-              className="w-full bg-gradient-to-r from-teal-500 via-emerald-500 to-pink-500 text-white py-5 rounded-xl font-bold text-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+              className="w-full bg-gray-700/30 border-2 border-gray-600/50 hover:bg-white/95 hover:border-white text-gray-200 hover:text-gray-800 py-5 rounded-xl font-bold text-xl hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
             >
               {isLoading ? (
                 <>
@@ -602,7 +657,6 @@ export default function SmartScheduleBuilder() {
                 <span>GENERATE JADWAL OPTIMAL DENGAN AI</span>
               )}
             </button>
-            </AnimatedContent>
           </div>
           </AnimatedContent>
         )}
@@ -614,27 +668,27 @@ export default function SmartScheduleBuilder() {
             {/* Analysis Cards - 4 Column Grid */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <AnimatedContent direction="horizontal" reverse={true}>
-              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center shadow-md">
-                <div className="text-4xl font-bold text-teal-600 mb-2">{optimizedSchedule.analysis.totalKuliah}</div>
-                <div className="text-gray-500 text-sm uppercase tracking-wider">Total Kuliah</div>
+              <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 text-center shadow-md">
+                <div className="text-4xl font-bold text-white mb-2">{optimizedSchedule.analysis.totalKuliah}</div>
+                <div className="text-gray-400 text-sm uppercase tracking-wider">Total Kuliah</div>
               </div>
               </AnimatedContent>
               <AnimatedContent direction="horizontal" reverse={true} delay={0.1}>
-              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center shadow-md">
-                <div className="text-4xl font-bold text-emerald-600 mb-2">{optimizedSchedule.analysis.totalKegiatan}</div>
-                <div className="text-gray-500 text-sm uppercase tracking-wider">Total Kegiatan</div>
+              <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 text-center shadow-md">
+                <div className="text-4xl font-bold text-white mb-2">{optimizedSchedule.analysis.totalKegiatan}</div>
+                <div className="text-gray-400 text-sm uppercase tracking-wider">Total Kegiatan</div>
               </div>
               </AnimatedContent>
               <AnimatedContent direction="horizontal" delay={0.1}>
-              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center shadow-md">
-                <div className="text-4xl font-bold text-lime-600 mb-2">{optimizedSchedule.analysis.avgStudyHoursPerDay.toFixed(1)}h</div>
-                <div className="text-gray-500 text-sm uppercase tracking-wider">Belajar/Hari</div>
+              <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 text-center shadow-md">
+                <div className="text-4xl font-bold text-white mb-2">{optimizedSchedule.analysis.avgStudyHoursPerDay.toFixed(1)}h</div>
+                <div className="text-gray-400 text-sm uppercase tracking-wider">Belajar/Hari</div>
               </div>
               </AnimatedContent>
               <AnimatedContent direction="horizontal" delay={0.2}>
-              <div className="bg-white border border-gray-200 rounded-xl p-6 text-center shadow-md">
-                <div className="text-2xl font-bold text-sky-600 mb-2">{optimizedSchedule.analysis.workLoadBalance}</div>
-                <div className="text-gray-500 text-sm uppercase tracking-wider">Beban Kerja</div>
+              <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 text-center shadow-md">
+                <div className="text-2xl font-bold text-white mb-2">{optimizedSchedule.analysis.workLoadBalance}</div>
+                <div className="text-gray-400 text-sm uppercase tracking-wider">Beban Kerja</div>
               </div>
               </AnimatedContent>
             </div>
@@ -642,13 +696,13 @@ export default function SmartScheduleBuilder() {
             {/* Warnings */}
             {optimizedSchedule.warnings && optimizedSchedule.warnings.length > 0 && (
               <AnimatedContent>
-              <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6 shadow-md">
+              <div className="bg-red-900 border-2 border-red-700 rounded-xl p-6 shadow-md">
                 <h3 className="text-2xl font-bold text-red-600 mb-4 flex items-center gap-2">
                   PERINGATAN
                 </h3>
                 <ul className="space-y-2">
                   {optimizedSchedule.warnings.map((warning, i) => (
-                    <li key={i} className="text-red-800 flex items-start gap-3 bg-red-100 p-3 rounded-lg">
+                    <li key={i} className="text-red-200 flex items-start gap-3 bg-red-800 p-3 rounded-lg">
                       <span className="text-red-600 font-bold">•</span>
                       <span>{warning}</span>
                     </li>
@@ -661,10 +715,10 @@ export default function SmartScheduleBuilder() {
             {/* Weekly Schedule Title */}
             <AnimatedContent>
             <div className="text-center">
-              <h2 className="text-3xl font-bold text-teal-600">
+              <h2 className="text-3xl font-bold text-white" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)' }}>
                 JADWAL MINGGUAN OPTIMAL
               </h2>
-              <div className="h-1 w-32 bg-gradient-to-r from-transparent via-teal-500 to-transparent mx-auto mt-3"></div>
+              <div className="h-1 w-32 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mt-3" style={{ boxShadow: '0 0 10px rgba(255, 255, 255, 0.6)' }}></div>
             </div>
             </AnimatedContent>
 
@@ -672,20 +726,20 @@ export default function SmartScheduleBuilder() {
             <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
               {editedOptimizedSchedule && Object.entries(editedOptimizedSchedule.optimizedSchedule).map(([day, schedule], dayIndex) => (
                 <AnimatedContent key={day} delay={dayIndex * 0.1}>
-                <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-lg transition-all">
-                  <h3 className="text-xl font-bold text-teal-600 mb-4 pb-3 border-b-2 border-gray-200 uppercase tracking-wider">
+                <div className="bg-neutral-800 rounded-xl p-5 border border-gray-600 shadow-sm hover:shadow-lg transition-all">
+                  <h3 className="text-xl font-bold text-white mb-4 pb-3 border-b-2 border-gray-600 uppercase tracking-wider" style={{ textShadow: '0 0 8px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.5)' }}>
                     {day}
                   </h3>
                   <div className="space-y-3">
                     {schedule.map((item, index) => (
                       <div
                         key={index}
-                        className="bg-gray-50 rounded-lg p-3 border-l-4 border-teal-500 hover:shadow-md transition-all"
+                        className="bg-neutral-700 rounded-lg p-3 border-l-4 border-white hover:shadow-md transition-all"
                       >
                         {/* Time Badge */}
                         <div className="flex items-center gap-3 mb-2">
-                          <div className="bg-teal-100 px-2 py-1 rounded border border-teal-200">
-                            <div className="text-teal-700 font-mono text-xs font-bold">
+                          <div className="bg-white/10 px-2 py-1 rounded border border-white/20">
+                            <div className="text-white font-mono text-xs font-bold">
                               {item.time}
                             </div>
                           </div>
@@ -697,13 +751,13 @@ export default function SmartScheduleBuilder() {
                           type="text"
                           value={item.activity}
                           onChange={(e) => handleScheduleItemChange(day, index, 'activity', e.target.value)}
-                          className="w-full bg-transparent text-gray-800 font-semibold mb-1 focus:outline-none border-b border-transparent focus:border-gray-300"
+                          className="w-full bg-transparent text-gray-200 font-semibold mb-1 focus:outline-none border-b border-transparent focus:border-gray-600"
                         />
                         
                         <textarea
                           value={item.description || ''}
                           onChange={(e) => handleScheduleItemChange(day, index, 'description', e.target.value)}
-                          className="w-full bg-transparent text-gray-600 text-sm mb-1 focus:outline-none border-b border-transparent focus:border-gray-300 resize-none"
+                          className="w-full bg-transparent text-gray-400 text-sm mb-1 focus:outline-none border-b border-transparent focus:border-gray-600 resize-none"
                           rows={1}
                         />
                         
@@ -711,17 +765,12 @@ export default function SmartScheduleBuilder() {
                           type="text"
                           value={item.location || ''}
                           onChange={(e) => handleScheduleItemChange(day, index, 'location', e.target.value)}
-                          className="w-full bg-transparent text-gray-500 text-xs focus:outline-none border-b border-transparent focus:border-gray-300"
+                          className="w-full bg-transparent text-gray-400 text-xs focus:outline-none border-b border-transparent focus:border-gray-600"
                         />
 
                         {/* Type Badge */}
                         <div className="mt-2">
-                          <span className={`inline-block px-2 py-1 rounded text-xs font-semibold ${
-                            item.type === 'kuliah' ? 'bg-teal-100 text-teal-800 border border-teal-200' :
-                            item.type === 'kegiatan' ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' :
-                            item.type === 'routine' ? 'bg-gray-200 text-gray-800 border border-gray-300' :
-                            'bg-lime-100 text-lime-800 border border-lime-200'
-                          }`}>
+                          <span className="inline-block px-2 py-1 rounded text-xs font-semibold bg-white/10 text-white border border-white/20">
                             {item.type.toUpperCase()}
                           </span>
                         </div>
@@ -737,14 +786,14 @@ export default function SmartScheduleBuilder() {
             <div className="grid md:grid-cols-2 gap-6">
               {/* Recommendations */}
               <AnimatedContent direction="horizontal" reverse={true} delay={0.3}>
-              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-                <h2 className="text-2xl font-bold text-lime-600 mb-4 uppercase tracking-wider">
+              <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 shadow-sm">
+                <h2 className="text-2xl font-bold text-white mb-4 uppercase tracking-wider" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6)' }}>
                   REKOMENDASI AI
                 </h2>
                 <ul className="space-y-3">
                   {editedOptimizedSchedule && editedOptimizedSchedule.recommendations.map((rec, i) => (
-                    <li key={i} className="flex items-start gap-3 bg-gray-50 p-3 rounded-lg border-l-4 border-lime-500">
-                      <span className="text-lime-600 font-bold text-lg">✓</span>
+                    <li key={i} className="flex items-start gap-3 bg-neutral-700 p-3 rounded-lg border-l-4 border-white">
+                      <span className="text-white font-bold text-lg">✓</span>
                       <textarea
                         value={rec}
                         onChange={(e) => {
@@ -756,7 +805,7 @@ export default function SmartScheduleBuilder() {
                             recommendations: updatedRecs,
                           });
                         }}
-                        className="w-full bg-transparent text-gray-700 text-sm focus:outline-none border-b border-transparent focus:border-gray-300 resize-none"
+                        className="w-full bg-transparent text-gray-300 text-sm focus:outline-none border-b border-transparent focus:border-gray-600 resize-none"
                         rows={1}
                       />
                     </li>
@@ -767,14 +816,14 @@ export default function SmartScheduleBuilder() {
 
               {/* Tips */}
               <AnimatedContent direction="horizontal" delay={0.3}>
-              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-                <h2 className="text-2xl font-bold text-sky-600 uppercase tracking-wider">
+              <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 shadow-sm">
+                <h2 className="text-2xl font-bold text-white mb-4 uppercase tracking-wider" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6)' }}>
                   TIPS PRODUKTIVITAS
                 </h2>
                 <ul className="space-y-3">
                   {editedOptimizedSchedule && editedOptimizedSchedule.tips.map((tip, i) => (
-                    <li key={i} className="flex items-start gap-3 bg-gray-50 p-3 rounded-lg border-l-4 border-sky-500">
-                      <span className="text-sky-600 font-bold text-lg">★</span>
+                    <li key={i} className="flex items-start gap-3 bg-neutral-700 p-3 rounded-lg border-l-4 border-white">
+                      <span className="text-white font-bold text-lg">★</span>
                       <textarea
                         value={tip}
                         onChange={(e) => {
@@ -786,7 +835,7 @@ export default function SmartScheduleBuilder() {
                             tips: updatedTips,
                           });
                         }}
-                        className="w-full bg-transparent text-gray-700 text-sm focus:outline-none border-b border-transparent focus:border-gray-300 resize-none"
+                        className="w-full bg-transparent text-gray-300 text-sm focus:outline-none border-b border-transparent focus:border-gray-600 resize-none"
                         rows={1}
                       />
                     </li>
@@ -800,12 +849,12 @@ export default function SmartScheduleBuilder() {
         )}
 
         {activeTab === 'result' && !optimizedSchedule && (
-          <div className="text-center py-20 bg-white rounded-2xl border border-gray-200 shadow-md">
-            <h3 className="text-3xl font-bold text-teal-600 mb-3">BELUM ADA JADWAL</h3>
-            <p className="text-gray-500 mb-6">Generate jadwal terlebih dahulu di tab Input Jadwal</p>
+          <div className="text-center py-20 bg-neutral-800 rounded-2xl border border-gray-600 shadow-md">
+            <h3 className="text-3xl font-bold text-white mb-3" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6)' }}>BELUM ADA JADWAL</h3>
+            <p className="text-gray-400 mb-6">Generate jadwal terlebih dahulu di tab Input Jadwal</p>
             <button
               onClick={() => setActiveTab('input')}
-              className="bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 rounded-lg font-bold transition-all shadow-md"
+              className="bg-gray-700/30 border border-gray-600/50 hover:bg-white/95 hover:border-white text-gray-200 hover:text-gray-800 px-8 py-3 rounded-lg font-bold transition-all shadow-md"
             >
               KE INPUT JADWAL
             </button>
