@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Atom } from 'react-loading-indicators';
 import StaggeredMenu from './StaggeredMenu';
+import PixelBlast from './PixelBlast';
 
 interface Event {
   id: number;
@@ -108,6 +109,23 @@ export default function EventRecommender() {
 
   return (
     <div className="min-h-screen bg-black relative">
+      {/* PixelBlast Background */}
+      <div className="fixed inset-0 z-0">
+        <PixelBlast
+          variant="square"
+          pixelSize={4}
+          color="#22c55e"
+          patternScale={2}
+          patternDensity={0.8}
+          enableRipples={true}
+          rippleIntensityScale={2}
+          rippleSpeed={0.4}
+          speed={0.3}
+          transparent={false}
+          edgeFade={0.3}
+        />
+      </div>
+
       {/* Staggered Menu Navigation */}
       <StaggeredMenu
         position="right"
@@ -128,23 +146,26 @@ export default function EventRecommender() {
       />
 
       {/* Header */}
-      <div className="bg-black py-8 px-3 relative z-10">
+      <div className="py-8 px-3 relative z-10">
         <div className="max-w-full mx-auto">
           <div className="text-center mb-6">
             <div className="mb-4 flex justify-center">
-              <img
-                src="/ICONLAMPU.png"
-                alt="Event Recommender Icon"
-                className="w-20 h-20 object-contain"
-                style={{
-                  filter: 'drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 60px rgba(255, 255, 255, 0.4))'
-                }}
-              />
+              <div className="relative">
+                <div className="absolute inset-0 blur-2xl bg-green-500/60 rounded-full"></div>
+                <img
+                  src="/ICONLAMPU.png"
+                  alt="Event Recommender Icon"
+                  className="w-20 h-20 object-contain relative z-10"
+                  style={{
+                    filter: 'drop-shadow(0 0 15px rgba(34, 197, 94, 1)) drop-shadow(0 0 30px rgba(34, 197, 94, 0.8)) drop-shadow(0 0 45px rgba(34, 197, 94, 0.6)) drop-shadow(0 0 60px rgba(34, 197, 94, 0.4))'
+                  }}
+                />
+              </div>
             </div>
-            <h1 className="text-5xl font-bold text-white mb-3" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)' }}>
+            <h1 className="text-5xl font-bold text-white mb-3" style={{ textShadow: '0 0 20px rgba(34, 197, 94, 0.8), 0 0 40px rgba(34, 197, 94, 0.5), 0 0 60px rgba(34, 197, 94, 0.3)' }}>
               EVENT RECOMMENDER
             </h1>
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-300 text-lg" style={{ textShadow: '0 0 10px rgba(0, 0, 0, 0.8)' }}>
               Temukan event kampus yang sesuai dengan minatmu!
             </p>
           </div>
@@ -169,8 +190,8 @@ export default function EventRecommender() {
                     onClick={() => toggleInterest(interest.value)}
                     className={`w-full flex items-center gap-2 p-3 rounded-xl transition-all border ${
                       selectedInterests.includes(interest.value)
-                        ? 'bg-white/95 text-gray-800 border-white shadow-lg'
-                        : 'bg-gray-700/30 text-gray-200 border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white'
+                        ? 'bg-green-500 text-white border-green-500 shadow-lg shadow-green-500/50'
+                        : 'bg-gray-700/30 text-gray-200 border-gray-600/50 hover:bg-green-500/80 hover:text-white hover:border-green-500'
                     }`}
                   >
                     <img src={interest.icon} alt={interest.label} className="w-6 h-6 object-contain" />
@@ -204,9 +225,16 @@ export default function EventRecommender() {
             {isLoading && (
               <div className="text-center py-12">
                 <div className="flex justify-center mb-6">
-                  <Atom color="#ffffff" size="medium" text="" textColor="#ffffff" />
+                  <Atom color="#22c55e" size="medium" text="" textColor="#22c55e" />
                 </div>
-                <p className="text-gray-400 text-xl">AI sedang menganalisis event yang cocok untukmu...</p>
+                <p
+                  className="text-white text-xl font-semibold"
+                  style={{
+                    textShadow: '0 0 20px rgba(34, 197, 94, 0.9), 0 0 40px rgba(34, 197, 94, 0.6), 0 0 60px rgba(34, 197, 94, 0.4), 0 0 2px rgba(0, 0, 0, 0.8)'
+                  }}
+                >
+                  AI sedang menganalisis event yang cocok untukmu...
+                </p>
               </div>
             )}
 
@@ -224,7 +252,17 @@ export default function EventRecommender() {
                 {summary && (
                   <div className="bg-neutral-800 border border-gray-600 rounded-2xl p-6 mb-8 shadow-md">
                     <div className="flex items-start gap-3">
-                      <div className="text-3xl">🤖</div>
+                      <div className="relative flex-shrink-0">
+                        <div className="absolute inset-0 blur-xl bg-white/40 rounded-full"></div>
+                        <img
+                          src="/GEMINIICON.png"
+                          alt="AI Icon"
+                          className="w-12 h-12 object-contain relative z-10"
+                          style={{
+                            filter: 'drop-shadow(0 0 10px rgba(255, 255, 255, 1)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 30px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.4))'
+                          }}
+                        />
+                      </div>
                       <div>
                         <h3 className="text-white font-semibold mb-2" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6)' }}>REKOMENDASI AI:</h3>
                         <p className="text-gray-300">{summary}</p>
