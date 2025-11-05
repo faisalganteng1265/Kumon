@@ -89,13 +89,27 @@ export default function SmartScheduleBuilder() {
   });
 
   const [editedOptimizedSchedule, setEditedOptimizedSchedule] = useState<OptimizedSchedule | null>(null);
+  const [expandedDays, setExpandedDays] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
     if (optimizedSchedule) {
       // Perform a deep copy to ensure editedOptimizedSchedule is independent
       setEditedOptimizedSchedule(JSON.parse(JSON.stringify(optimizedSchedule)));
+      // Collapse all days by default
+      const allDays: { [key: string]: boolean } = {};
+      Object.keys(optimizedSchedule.optimizedSchedule).forEach(day => {
+        allDays[day] = false;
+      });
+      setExpandedDays(allDays);
     }
   }, [optimizedSchedule]);
+
+  const toggleDay = (day: string) => {
+    setExpandedDays(prev => ({
+      ...prev,
+      [day]: !prev[day]
+    }));
+  };
 
   // Reset activity fields when mode changes
   useEffect(() => {
@@ -241,6 +255,13 @@ export default function SmartScheduleBuilder() {
 
       const data: OptimizedSchedule = await response.json();
       setOptimizedSchedule(data);
+      // Initialize edited schedule and collapsed days immediately
+      setEditedOptimizedSchedule(JSON.parse(JSON.stringify(data)));
+      const allDays: { [key: string]: boolean } = {};
+      Object.keys(data.optimizedSchedule).forEach(day => {
+        allDays[day] = false;
+      });
+      setExpandedDays(allDays);
       setActiveTab('result');
     } catch (error: any) {
       console.error('Error:', error);
@@ -744,64 +765,111 @@ export default function SmartScheduleBuilder() {
             </div>
             </AnimatedContent>
 
-            {/* Weekly Schedule - 3 Column Grid for Better Readability */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-              {editedOptimizedSchedule && Object.entries(editedOptimizedSchedule.optimizedSchedule).map(([day, schedule], dayIndex) => (
-                <AnimatedContent key={day} delay={dayIndex * 0.1}>
-                <div className="bg-neutral-800 rounded-xl p-5 border border-gray-600 shadow-sm hover:shadow-lg transition-all">
-                  <h3 className="text-xl font-bold text-white mb-4 pb-3 border-b-2 border-gray-600 uppercase tracking-wider" style={{ textShadow: '0 0 8px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.5)' }}>
-                    {day}
-                  </h3>
-                  <div className="space-y-3">
-                    {schedule.map((item, index) => (
-                      <div
-                        key={index}
-                        className="bg-neutral-700 rounded-lg p-3 border-l-4 border-white hover:shadow-md transition-all"
+            {/* Weekly Schedule - Collapsible Grid */}
+            <div className="space-y-6">
+              {/* First Row - 3 Days */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {editedOptimizedSchedule && Object.entries(editedOptimizedSchedule.optimizedSchedule).slice(0, 3).map(([day, schedule], dayIndex) => (
+                  <AnimatedContent key={day} delay={dayIndex * 0.05}>
+                    <div className="flex flex-col gap-4">
+                      {/* Day Header - Clickable */}
+                      <button
+                        onClick={() => toggleDay(day)}
+                        className="bg-gradient-to-br from-neutral-700 to-neutral-800 border border-gray-600 rounded-lg p-5 text-center hover:from-neutral-600 hover:to-neutral-700 transition-all cursor-pointer"
                       >
-                        {/* Time Badge */}
-                        <div className="flex items-center gap-3 mb-2">
-                          <div className="bg-white/10 px-2 py-1 rounded border border-white/20">
-                            <div className="text-white font-mono text-xs font-bold">
-                              {item.time}
-                            </div>
-                          </div>
-                          <span className={`w-2 h-2 rounded-full ${getColorClass(item.color)}`}></span>
+                        <h3 className="text-xl font-bold text-white uppercase tracking-wider" style={{ textShadow: '0 0 8px rgba(255, 255, 255, 0.7)' }}>
+                          {day}
+                        </h3>
+                        <div className="text-xs text-gray-400 mt-1">
+                          {expandedDays[day] ? '▼ Tutup' : '▶ Lihat Jadwal'}
                         </div>
+                      </button>
 
-                        {/* Content */}
-                        <input
-                          type="text"
-                          value={item.activity}
-                          onChange={(e) => handleScheduleItemChange(day, index, 'activity', e.target.value)}
-                          className="w-full bg-transparent text-gray-200 font-semibold mb-1 focus:outline-none border-b border-transparent focus:border-gray-600"
-                        />
-                        
-                        <textarea
-                          value={item.description || ''}
-                          onChange={(e) => handleScheduleItemChange(day, index, 'description', e.target.value)}
-                          className="w-full bg-transparent text-gray-400 text-sm mb-1 focus:outline-none border-b border-transparent focus:border-gray-600 resize-none"
-                          rows={1}
-                        />
-                        
-                        <input
-                          type="text"
-                          value={item.location || ''}
-                          onChange={(e) => handleScheduleItemChange(day, index, 'location', e.target.value)}
-                          className="w-full bg-transparent text-gray-400 text-xs focus:outline-none border-b border-transparent focus:border-gray-600"
-                        />
-
-                        {/* Type Badge */}
-                        <div className="mt-2">
-                          <span className="inline-block px-2 py-1 rounded text-xs font-semibold bg-white/10 text-white border border-white/20">
-                            {item.type.toUpperCase()}
-                          </span>
+                      {/* Schedule Table - Collapsible */}
+                      {expandedDays[day] && (
+                        <div className="bg-neutral-800/50 border border-gray-600 rounded-lg overflow-hidden animate-fadeIn">
+                          <table className="w-full">
+                            <tbody>
+                              {schedule.map((item, index) => (
+                                <tr key={index} className="border-b border-gray-700 hover:bg-neutral-700/30 transition-colors">
+                                  <td className="p-3 align-top w-32">
+                                    <div className="text-green-300 font-mono text-sm font-bold whitespace-nowrap">
+                                      {item.time}
+                                    </div>
+                                  </td>
+                                  <td className="p-3">
+                                    <input
+                                      type="text"
+                                      value={item.activity}
+                                      onChange={(e) => handleScheduleItemChange(day, index, 'activity', e.target.value)}
+                                      className="w-full bg-transparent text-white text-sm font-semibold focus:outline-none border-b border-transparent focus:border-gray-500"
+                                    />
+                                    {item.location && (
+                                      <div className="text-xs text-gray-400 mt-1">📍 {item.location}</div>
+                                    )}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                </AnimatedContent>
-              ))}
+                      )}
+                    </div>
+                  </AnimatedContent>
+                ))}
+              </div>
+
+              {/* Second Row - 4 Days */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                {editedOptimizedSchedule && Object.entries(editedOptimizedSchedule.optimizedSchedule).slice(3, 7).map(([day, schedule], dayIndex) => (
+                  <AnimatedContent key={day} delay={(dayIndex + 3) * 0.05}>
+                    <div className="flex flex-col gap-4">
+                      {/* Day Header - Clickable */}
+                      <button
+                        onClick={() => toggleDay(day)}
+                        className="bg-gradient-to-br from-neutral-700 to-neutral-800 border border-gray-600 rounded-lg p-5 text-center hover:from-neutral-600 hover:to-neutral-700 transition-all cursor-pointer"
+                      >
+                        <h3 className="text-xl font-bold text-white uppercase tracking-wider" style={{ textShadow: '0 0 8px rgba(255, 255, 255, 0.7)' }}>
+                          {day}
+                        </h3>
+                        <div className="text-xs text-gray-400 mt-1">
+                          {expandedDays[day] ? '▼ Tutup' : '▶ Lihat Jadwal'}
+                        </div>
+                      </button>
+
+                      {/* Schedule Table - Collapsible */}
+                      {expandedDays[day] && (
+                        <div className="bg-neutral-800/50 border border-gray-600 rounded-lg overflow-hidden animate-fadeIn">
+                          <table className="w-full">
+                            <tbody>
+                              {schedule.map((item, index) => (
+                                <tr key={index} className="border-b border-gray-700 hover:bg-neutral-700/30 transition-colors">
+                                  <td className="p-3 align-top w-32">
+                                    <div className="text-green-300 font-mono text-sm font-bold whitespace-nowrap">
+                                      {item.time}
+                                    </div>
+                                  </td>
+                                  <td className="p-3">
+                                    <input
+                                      type="text"
+                                      value={item.activity}
+                                      onChange={(e) => handleScheduleItemChange(day, index, 'activity', e.target.value)}
+                                      className="w-full bg-transparent text-white text-sm font-semibold focus:outline-none border-b border-transparent focus:border-gray-500"
+                                    />
+                                    {item.location && (
+                                      <div className="text-xs text-gray-400 mt-1">📍 {item.location}</div>
+                                    )}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      )}
+                    </div>
+                  </AnimatedContent>
+                ))}
+              </div>
             </div>
 
             {/* Recommendations & Tips - 2 Column Grid */}
