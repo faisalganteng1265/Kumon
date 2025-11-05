@@ -237,8 +237,7 @@ export default function ChatInterface() {
 
             {/* Mode Selection */}
             <div className="bg-gray-800/40 rounded-2xl p-6 border border-gray-700/50 backdrop-blur-sm">
-              <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
-                <span className="text-2xl">🎯</span>
+              <h3 className="text-white font-semibold mb-4">
                 Pilih Mode Chat
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -251,7 +250,7 @@ export default function ChatInterface() {
                   }`}
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="text-4xl">🎓</span>
+                    <Image src="/AKADEMIKICON.png" alt="Akademik Icon" width={48} height={48} className="object-contain" />
                     <h4 className="text-xl font-bold text-white">Mode Kampus</h4>
                   </div>
                   <p className="text-gray-300 text-sm">
@@ -268,7 +267,7 @@ export default function ChatInterface() {
                   }`}
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="text-4xl">🌐</span>
+                    <Image src="/GENERALICON.png" alt="General Icon" width={64} height={64} className="object-contain" />
                     <h4 className="text-xl font-bold text-white">Mode Umum</h4>
                   </div>
                   <p className="text-gray-300 text-sm">
