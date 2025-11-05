@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Atom } from 'react-loading-indicators';
 import StaggeredMenu from './StaggeredMenu';
 import PixelBlast from './PixelBlast';
@@ -53,6 +53,7 @@ export default function EventRecommender() {
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [allEvents, setAllEvents] = useState<Event[]>([]);
 
   const toggleInterest = (interest: string) => {
     setSelectedInterests(prev =>
@@ -63,32 +64,44 @@ export default function EventRecommender() {
   };
 
   const getRecommendations = async () => {
-    if (selectedInterests.length === 0) {
-      alert('Pilih minimal 1 minat!');
-      return;
-    }
-
     setIsLoading(true);
     setHasSearched(true);
 
     try {
-      const response = await fetch('/api/events', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          interests: selectedInterests,
-        }),
-      });
+      // If no interests selected, get all events
+      if (selectedInterests.length === 0) {
+        const response = await fetch('/api/events', {
+          method: 'GET',
+        });
 
-      if (!response.ok) {
-        throw new Error('Failed to get recommendations');
+        if (!response.ok) {
+          throw new Error('Failed to get all events');
+        }
+
+        const data = await response.json();
+        setAllEvents(data.events);
+        setRecommendations(data.events);
+        setSummary(`Menampilkan semua ${data.events.length} event yang tersedia. Pilih minat untuk filter yang lebih spesifik.`);
+      } else {
+        // Get filtered recommendations based on interests
+        const response = await fetch('/api/events', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            interests: selectedInterests,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to get recommendations');
+        }
+
+        const data: RecommendationResponse = await response.json();
+        setRecommendations(data.recommendations);
+        setSummary(data.summary);
       }
-
-      const data: RecommendationResponse = await response.json();
-      setRecommendations(data.recommendations);
-      setSummary(data.summary);
     } catch (error) {
       console.error('Error:', error);
       alert('Terjadi kesalahan. Silakan coba lagi.');
@@ -96,6 +109,29 @@ export default function EventRecommender() {
       setIsLoading(false);
     }
   };
+
+  // Load all events on component mount
+  const loadAllEvents = async () => {
+    try {
+      const response = await fetch('/api/events', {
+        method: 'GET',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get all events');
+      }
+
+      const data = await response.json();
+      setAllEvents(data.events);
+    } catch (error) {
+      console.error('Error loading all events:', error);
+    }
+  };
+
+  // Load all events when component mounts
+  useEffect(() => {
+    loadAllEvents();
+  }, []);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -202,7 +238,7 @@ export default function EventRecommender() {
 
               <button
                 onClick={getRecommendations}
-                disabled={isLoading || selectedInterests.length === 0}
+                disabled={isLoading}
                 className="w-full bg-gray-700/30 border border-gray-600/50 hover:bg-white/95 hover:border-white text-gray-200 hover:text-gray-800 font-bold py-3 rounded-xl hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isLoading ? (
@@ -334,8 +370,92 @@ export default function EventRecommender() {
               </>
             )}
 
-            {!hasSearched && (
+            {!hasSearched && allEvents.length > 0 && (
+              <>
+                {/* Default display - show all events */}
+                <div className="bg-neutral-800 border border-gray-600 rounded-2xl p-6 mb-8 shadow-md">
+                  <div className="flex items-start gap-3">
+                    <div className="relative flex-shrink-0">
+                      <div className="absolute inset-0 blur-xl bg-white/40 rounded-full"></div>
+                      <img
+                        src="/GEMINIICON.png"
+                        alt="AI Icon"
+                        className="w-12 h-12 object-contain relative z-10"
+                        style={{
+                          filter: 'drop-shadow(0 0 10px rgba(255, 255, 255, 1)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 30px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.4))'
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <h3 className="text-white font-semibold mb-2" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6)' }}>SEMUA EVENT TERSEDIA:</h3>
+                      <p className="text-gray-300">Menampilkan {allEvents.length} event yang tersedia. Pilih minat dan klik "Cari Event" untuk filter yang lebih spesifik.</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Event Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {allEvents.map((event, index) => (
+                    <div
+                      key={event.id}
+                      onClick={() => setSelectedEvent(event)}
+                      className="bg-neutral-800 rounded-2xl p-6 border border-gray-600 hover:border-white transition-all hover:shadow-lg shadow-md cursor-pointer flex flex-col h-full"
+                    >
+                      {/* Header: Number & Organizer */}
+                      <div className="flex items-start justify-between mb-3">
+                        <span className="text-3xl font-bold text-white">#{index + 1}</span>
+                        <div className="text-right flex-shrink-0 ml-2">
+                          <p className="text-xs text-gray-500">Penyelenggara</p>
+                          <p className="text-xs font-bold text-white">{event.organizer}</p>
+                        </div>
+                      </div>
+
+                      {/* Badge */}
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className={`${categoryColors[event.category] || 'bg-gray-500'} text-white px-3 py-1 rounded-full text-xs font-medium`}>
+                          {event.category}
+                        </span>
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-xl font-bold text-white mb-3 line-clamp-1">{event.title}</h3>
+
+                      {/* Event Image */}
+                      <div className="w-full h-40 bg-gray-700 rounded-lg overflow-hidden mb-4 flex-grow">
+                        <img
+                          src="/FOTO3.jpg"
+                          alt={event.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+
+                      {/* Kuota Progress Bar */}
+                      <div className="mt-auto">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-semibold text-gray-400">Kuota Peserta</span>
+                          <span className="text-xs text-white font-bold">
+                            {Math.floor(event.quota * 0.5)} / {event.quota} orang
+                          </span>
+                        </div>
+                        <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                          <div
+                            className="bg-[#00d9ff] h-full rounded-full transition-all"
+                            style={{ width: `${(Math.floor(event.quota * 0.5) / event.quota) * 100}%` }}
+                          ></div>
+                        </div>
+                      </div>
+
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {!hasSearched && allEvents.length === 0 && (
               <div className="text-center py-12">
+                <div className="text-6xl mb-4">🔄</div>
+                <h3 className="text-2xl font-bold text-white mb-2">Memuat Event...</h3>
+                <p className="text-gray-400">Sedang mengambil data event yang tersedia</p>
               </div>
             )}
           </div>
