@@ -122,10 +122,10 @@ function StatItem({ end, label, suffix = '', icon }: StatItemProps) {
             <div className="w-16 h-16 mx-auto bg-emerald-500/10 backdrop-blur-md rounded-xl flex items-center justify-center border border-emerald-500/20">
               <span className="text-4xl">{icon}</span>
             </div>
-            <div className="text-5xl md:text-6xl font-bold text-white" style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}>
+            <div className="text-5xl md:text-6xl font-bold text-white" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
               {count}{suffix}
             </div>
-            <div className="text-lg text-emerald-200/90 font-medium" style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}>{label}</div>
+            <div className="text-lg text-emerald-200/90 font-medium" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>{label}</div>
           </div>
         </div>
       </ElectricBorder>
@@ -256,9 +256,12 @@ export default function FeaturesSection() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-start mb-16">
-          <h2 className=" text-5xl md:text-6xl mb-4 text-emerald-400" style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif', letterSpacing: '0.02em' }}>
-            Ada Fitur Apa Aja Sih?
+          <h2 className="text-5xl md:text-6xl mb-4 text-emerald-400 font-bold" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif', letterSpacing: '-0.02em' }}>
+            Fitur Unggulan Kami
           </h2>
+          <p className="text-xl text-gray-300 max-w-2xl" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+            Temukan berbagai fitur inovatif yang dirancang khusus untuk meningkatkan pengalaman kampus Anda
+          </p>
         </div>
 
         {/* Decorative Line with Dot */}
@@ -373,21 +376,21 @@ export default function FeaturesSection() {
                   </div>
 
                   {/* Title with Gradient */}
-                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg">
+                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     AI Campus Guide Chatbot
                   </h3>
 
-                  <p className="text-white/95 mb-6 leading-relaxed text-base font-medium drop-shadow">
+                  <p className="text-white/95 mb-6 leading-relaxed text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     Tanya apa saja tentang kampus! Dari cara mengisi KRS, lokasi gedung, info dosen, hingga prosedur beasiswa. AI siap membantu 24/7.
                   </p>
                 </div>
 
                 {/* Tags with Better Design */}
                 <div className="flex flex-wrap gap-2 relative z-10">
-                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105">KRS</span>
-                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105">Info Gedung</span>
-                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105">Beasiswa</span>
-                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105">Info Dosen</span>
+                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>KRS</span>
+                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>Info Gedung</span>
+                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>Beasiswa</span>
+                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>Info Dosen</span>
                 </div>
               </div>
             </Card>
@@ -429,21 +432,21 @@ export default function FeaturesSection() {
                   </div>
 
                   {/* Title with Gradient */}
-                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg">
+                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     Event Recommender
                   </h3>
 
-                  <p className="text-white/95 mb-6 leading-relaxed text-base font-medium drop-shadow">
+                  <p className="text-white/95 mb-6 leading-relaxed text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     Dapatkan rekomendasi kegiatan yang sesuai dengan minatmu! Seminar, lomba, UKM, volunteering - semua disesuaikan untukmu.
                   </p>
                 </div>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 relative z-10">
-                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105">Seminar</span>
-                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105">Lomba</span>
-                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105">UKM</span>
-                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105">Volunteering</span>
+                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>Seminar</span>
+                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>Lomba</span>
+                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>UKM</span>
+                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>Volunteering</span>
                 </div>
               </div>
             </Card>
@@ -485,20 +488,20 @@ export default function FeaturesSection() {
                   </div>
 
                   {/* Title with Gradient */}
-                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg">
+                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     Smart Schedule Builder
                   </h3>
 
-                  <p className="text-white/95 mb-6 leading-relaxed text-base font-medium drop-shadow">
+                  <p className="text-white/95 mb-6 leading-relaxed text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     AI bantu atur jadwal kuliah dan kegiatanmu agar seimbang. Tidak ada lagi bentrok jadwal atau overload kegiatan!
                   </p>
                 </div>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 relative z-10">
-                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105">Auto Arrange</span>
-                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105">Conflict Free</span>
-                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105">Work-Life Balance</span>
+                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>Auto Arrange</span>
+                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>Conflict Free</span>
+                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>Work-Life Balance</span>
                 </div>
               </div>
             </Card>
@@ -540,20 +543,20 @@ export default function FeaturesSection() {
                   </div>
 
                   {/* Title with Gradient */}
-                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg">
+                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     Peer Connect AI
                   </h3>
 
-                  <p className="text-white/95 mb-6 leading-relaxed text-base font-medium drop-shadow">
+                  <p className="text-white/95 mb-6 leading-relaxed text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     Temukan teman atau mentor dengan minat yang sama! AI mencocokkan kamu dengan orang-orang yang tepat untuk berkembang bersama.
                   </p>
                 </div>
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2 relative z-10">
-                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105">Find Friends</span>
-                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105">Mentorship</span>
-                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105">Study Group</span>
+                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>Find Friends</span>
+                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>Mentorship</span>
+                  <span className="px-4 py-2 bg-gradient-to-r from-white/25 to-white/10 text-white rounded-full text-xs font-semibold border border-white/30 backdrop-blur-md shadow-lg hover:shadow-emerald-400/50 transition-all hover:scale-105" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>Study Group</span>
                 </div>
               </div>
             </Card>

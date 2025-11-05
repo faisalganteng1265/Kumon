@@ -318,7 +318,9 @@ export default function SmartScheduleBuilder() {
               className={`px-8 py-3 rounded-lg font-semibold transition-all ${
                 activeTab === 'result'
                   ? 'bg-white/95 text-gray-800 shadow-lg'
-                  : 'bg-gray-700/30 text-gray-200 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white'
+                  : optimizedSchedule
+                    ? 'bg-gray-700/30 text-gray-200 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white'
+                    : 'bg-gray-700/20 text-gray-500 border border-gray-600/30 cursor-not-allowed opacity-50'
               }`}
               disabled={!optimizedSchedule}
             >
