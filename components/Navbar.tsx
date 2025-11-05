@@ -1,12 +1,65 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import CardNav from './CardNav';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const hideTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Navigation items for CardNav - matching GallerySection features
+  const navItems = [
+    {
+      label: 'AI Campus Guide',
+      bgColor: '#10b981', // emerald-500
+      textColor: '#ffffff',
+      links: [
+        {
+          label: 'Navigasi Kampus',
+          href: '/fitur-1',
+          ariaLabel: 'Pergi ke AI Campus Guide'
+        }
+      ]
+    },
+    {
+      label: 'Event Recommender',
+      bgColor: '#3b82f6', // blue-500
+      textColor: '#ffffff',
+      links: [
+        {
+          label: 'Rekomendasi Event',
+          href: '/fitur-2',
+          ariaLabel: 'Pergi ke Event Recommender'
+        }
+      ]
+    },
+    {
+      label: 'Peer Connect AI',
+      bgColor: '#8b5cf6', // violet-500
+      textColor: '#ffffff',
+      links: [
+        {
+          label: 'Hubungkan dengan Teman',
+          href: '#',
+          ariaLabel: 'Pergi ke Peer Connect AI'
+        }
+      ]
+    },
+    {
+      label: 'Smart Schedule Builder',
+      bgColor: '#f59e0b', // amber-500
+      textColor: '#ffffff',
+      links: [
+        {
+          label: 'Atur Jadwal',
+          href: '/fitur-3',
+          ariaLabel: 'Pergi ke Smart Schedule Builder'
+        }
+      ]
+    }
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,92 +111,15 @@ export default function Navbar() {
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
       isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
     }`}>
-      <div className={`transition-all duration-300 ${
-        isScrolled
-          ? 'max-w-7xl mx-auto px-6 py-4'
-          : 'w-full px-8 py-6'
-      }`}>
-        <div
-          className={`transition-all duration-300 ${
-            isScrolled
-              ? 'bg-gray-900/95 backdrop-blur-md shadow-lg rounded-2xl px-6 py-3'
-              : 'bg-transparent'
-          }`}
-        >
-          <div className="flex items-center justify-between">
-            {/* Logo Section */}
-            <div className="flex items-center gap-3">
-              <div className={`transition-all duration-300 ${
-                isScrolled ? 'w-10 h-10' : 'w-12 h-12'
-              } bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg`}>
-                <span className="text-emerald-500 font-bold text-xl">AI</span>
-              </div>
-              <div className="text-white">
-                <div className="font-bold text-lg leading-tight">CAMPUS</div>
-                <div className="text-sm font-medium leading-tight">NAVIGATOR</div>
-              </div>
-            </div>
-
-            {/* Menu Items - Centered */}
-            <div className="hidden md:flex gap-8 items-center absolute left-1/2 transform -translate-x-1/2">
-              <a
-                href="#features"
-                className={`font-medium transition-colors ${
-                  isScrolled ? 'text-gray-300 hover:text-white' : 'text-white/90 hover:text-white'
-                }`}
-              >
-                Fitur
-              </a>
-              <a
-                href="#how-it-works"
-                className={`font-medium transition-colors ${
-                  isScrolled ? 'text-gray-300 hover:text-white' : 'text-white/90 hover:text-white'
-                }`}
-              >
-                Cara Kerja
-              </a>
-              <a
-                href="#about"
-                className={`font-medium transition-colors ${
-                  isScrolled ? 'text-gray-300 hover:text-white' : 'text-white/90 hover:text-white'
-                }`}
-              >
-                Tentang
-              </a>
-            </div>
-
-            {/* CTA Button */}
-            <div className="hidden md:block">
-              <button
-                className={`px-6 py-2.5 rounded-full font-medium transition-all ${
-                  isScrolled
-                    ? 'bg-emerald-500 text-white hover:bg-emerald-600'
-                    : 'border-2 border-emerald-400 text-emerald-400 hover:bg-emerald-400 hover:text-white'
-                }`}
-              >
-                Mulai Sekarang
-              </button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button className="md:hidden">
-              <svg
-                className="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
+      <CardNav
+        logo="/logo.png" // Update dengan path logo Anda
+        logoAlt="AI Campus Navigator"
+        items={navItems}
+        baseColor={isScrolled ? '#1f2937' : 'rgba(31, 41, 55, 0.8)'} // gray-800 with transparency
+        menuColor="#ffffff"
+        buttonBgColor="#10b981" // emerald-500
+        buttonTextColor="#ffffff"
+      />
     </nav>
   );
 }
