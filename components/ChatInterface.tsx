@@ -44,6 +44,8 @@ export default function ChatInterface() {
   const [showInitialForm, setShowInitialForm] = useState(true);
   const [selectedQuestion, setSelectedQuestion] = useState('');
   const [selectedMode, setSelectedMode] = useState<'campus' | 'general' | ''>('');
+  const [directAnswer, setDirectAnswer] = useState<string>('');
+  const [isAnswerLoading, setIsAnswerLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -165,10 +167,47 @@ export default function ChatInterface() {
     }
   };
 
-  const handleQuestionSelect = (question: string) => {
+  const handleQuestionSelect = async (question: string) => {
     // Set pertanyaan yang dipilih
     setSelectedQuestion(question);
     setCustomQuestion('');
+    
+    // If in campus mode, fetch direct answer
+    if (selectedMode === 'campus' && selectedUniversity) {
+      setIsAnswerLoading(true);
+      setDirectAnswer('');
+      
+      try {
+        const fullMessage = `[Universitas: ${selectedUniversity}]\n${question}`;
+        
+        // Call the campus API directly
+        const response = await fetch('/api/chat/campus', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: fullMessage,
+            history: [],
+            university: selectedUniversity,
+          }),
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+          console.error('API Error:', data);
+          throw new Error(data.error || 'Failed to get response');
+        }
+        
+        setDirectAnswer(data.response);
+      } catch (error: any) {
+        console.error('Error:', error);
+        setDirectAnswer(`Maaf, terjadi kesalahan: ${error.message}. Silakan coba lagi.`);
+      } finally {
+        setIsAnswerLoading(false);
+      }
+    }
   };
 
   return (
@@ -322,14 +361,11 @@ export default function ChatInterface() {
               </div>
             )}
 
-            {/* Start Button */}
-            {selectedMode && (
+            {/* Start Button - Only for General Mode */}
+            {selectedMode === 'general' && (
               <button
                 onClick={handleStartChat}
-                disabled={
-                  (selectedMode === 'campus' && (!selectedUniversity || !selectedQuestion)) ||
-                  (selectedMode === 'general' && !customQuestion.trim())
-                }
+                disabled={!customQuestion.trim()}
                 className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-green-500 disabled:hover:to-green-600 hover:shadow-lg hover:shadow-green-500/50 hover:scale-105 flex items-center justify-center gap-3"
               >
                 <span className="text-xl">💬</span>
@@ -348,6 +384,36 @@ export default function ChatInterface() {
                   />
                 </svg>
               </button>
+            )}
+            
+            {/* Direct Answer Display - Only for Campus Mode */}
+            {selectedMode === 'campus' && selectedQuestion && selectedUniversity && (
+              <div className="bg-gray-800/40 rounded-2xl p-6 border border-gray-700/50 backdrop-blur-sm">
+                <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
+                  <span className="text-xl">💡</span>
+                  Jawaban
+                </h3>
+                
+                {isAnswerLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <div className="flex gap-2">
+                      <span className="w-3 h-3 bg-green-400 rounded-full animate-bounce"></span>
+                      <span
+                        className="w-3 h-3 bg-green-400 rounded-full animate-bounce"
+                        style={{ animationDelay: '0.2s' }}
+                      ></span>
+                      <span
+                        className="w-3 h-3 bg-green-400 rounded-full animate-bounce"
+                        style={{ animationDelay: '0.4s' }}
+                      ></span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-gray-900/50 rounded-xl p-5 border border-gray-700">
+                    <p className="text-gray-100 leading-relaxed whitespace-pre-wrap">{directAnswer}</p>
+                  </div>
+                )}
+              </div>
             )}
           </div>
         </div>
