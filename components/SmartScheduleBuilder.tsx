@@ -871,69 +871,6 @@ export default function SmartScheduleBuilder() {
                 ))}
               </div>
             </div>
-
-            {/* Recommendations & Tips - 2 Column Grid */}
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* Recommendations */}
-              <AnimatedContent direction="horizontal" reverse={true} delay={0.3}>
-              <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 shadow-sm">
-                <h2 className="text-2xl font-bold text-white mb-4 uppercase tracking-wider" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6)' }}>
-                  REKOMENDASI AI
-                </h2>
-                <ul className="space-y-3">
-                  {editedOptimizedSchedule && editedOptimizedSchedule.recommendations.map((rec, i) => (
-                    <li key={i} className="flex items-start gap-3 bg-neutral-700 p-3 rounded-lg border-l-4 border-white">
-                      <span className="text-white font-bold text-lg">✓</span>
-                      <textarea
-                        value={rec}
-                        onChange={(e) => {
-                          if (!editedOptimizedSchedule) return;
-                          const updatedRecs = [...editedOptimizedSchedule.recommendations];
-                          updatedRecs[i] = e.target.value;
-                          setEditedOptimizedSchedule({
-                            ...editedOptimizedSchedule,
-                            recommendations: updatedRecs,
-                          });
-                        }}
-                        className="w-full bg-transparent text-gray-300 text-sm focus:outline-none border-b border-transparent focus:border-gray-600 resize-none"
-                        rows={1}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              </AnimatedContent>
-
-              {/* Tips */}
-              <AnimatedContent direction="horizontal" delay={0.3}>
-              <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 shadow-sm">
-                <h2 className="text-2xl font-bold text-white mb-4 uppercase tracking-wider" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6)' }}>
-                  TIPS PRODUKTIVITAS
-                </h2>
-                <ul className="space-y-3">
-                  {editedOptimizedSchedule && editedOptimizedSchedule.tips.map((tip, i) => (
-                    <li key={i} className="flex items-start gap-3 bg-neutral-700 p-3 rounded-lg border-l-4 border-white">
-                      <span className="text-white font-bold text-lg">★</span>
-                      <textarea
-                        value={tip}
-                        onChange={(e) => {
-                          if (!editedOptimizedSchedule) return;
-                          const updatedTips = [...editedOptimizedSchedule.tips];
-                          updatedTips[i] = e.target.value;
-                          setEditedOptimizedSchedule({
-                            ...editedOptimizedSchedule,
-                            tips: updatedTips,
-                          });
-                        }}
-                        className="w-full bg-transparent text-gray-300 text-sm focus:outline-none border-b border-transparent focus:border-gray-600 resize-none"
-                        rows={1}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              </AnimatedContent>
-            </div>
           </div>
           </AnimatedContent>
         )}
