@@ -13,7 +13,7 @@ export default function Navbar() {
   const navItems = [
     {
       label: 'AI Campus Guide',
-      bgColor: '#10b981', // emerald-500
+      bgColor: '#22c55e', // green-500
       textColor: '#ffffff',
       links: [
         {
@@ -25,7 +25,7 @@ export default function Navbar() {
     },
     {
       label: 'Event Recommender',
-      bgColor: '#3b82f6', // blue-500
+      bgColor: '#14b8a6', // teal-500
       textColor: '#ffffff',
       links: [
         {
@@ -37,7 +37,7 @@ export default function Navbar() {
     },
     {
       label: 'Peer Connect AI',
-      bgColor: '#8b5cf6', // violet-500
+      bgColor: '#84cc16', // lime-500
       textColor: '#ffffff',
       links: [
         {
@@ -49,7 +49,7 @@ export default function Navbar() {
     },
     {
       label: 'Smart Schedule Builder',
-      bgColor: '#f59e0b', // amber-500
+      bgColor: '#06b6d4', // cyan-500
       textColor: '#ffffff',
       links: [
         {
@@ -113,11 +113,11 @@ export default function Navbar() {
     }`}>
       <CardNav
         logo="/logo.png" // Update dengan path logo Anda
-        logoAlt="AI Campus Navigator"
+        logoAlt="AICampus"
         items={navItems}
-        baseColor={isScrolled ? '#1f2937' : 'rgba(31, 41, 55, 0.8)'} // gray-800 with transparency
+        baseColor={isScrolled ? '#rgba(152, 47, 47, 0.8)' : 'rgba(0, 0, 0, 0.8)'} // gray-800 with transparency
         menuColor="#ffffff"
-        buttonBgColor="#10b981" // emerald-500
+        buttonBgColor="#08300f" // green-500
         buttonTextColor="#ffffff"
       />
     </nav>
