@@ -105,24 +105,24 @@ export default function ChatInterface() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-gray-900">
+    <div className="flex flex-col h-full bg-black">
       {/* Header */}
-      <div className="bg-gradient-to-r from-emerald-600 to-teal-600 p-6 shadow-lg">
+      <div className="bg-gray-800/40 backdrop-blur-sm p-6 border-b border-gray-700/50">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg">
+            <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg border border-white/20">
               <span className="text-4xl">🤖</span>
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">AI Campus Guide Chatbot</h1>
-              <p className="text-emerald-100">Asisten virtual UNS - Siap membantu 24/7</p>
+              <h1 className="text-2xl font-bold text-white" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6)' }}>AI Campus Chatbot</h1>
+              <p className="text-gray-400">Asisten virtual - Siap membantu 24/7</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Messages Container */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-gray-800">
+      <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-black">
         <div className="max-w-4xl mx-auto space-y-6">
           {messages.map((message, index) => (
             <div
@@ -133,7 +133,7 @@ export default function ChatInterface() {
                 {/* Avatar */}
                 <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
                   message.role === 'user'
-                    ? 'bg-gradient-to-br from-emerald-500 to-teal-600'
+                    ? 'bg-gradient-to-br from-green-500 to-green-600'
                     : 'bg-gray-700'
                 }`}>
                   <span className="text-xl">
@@ -146,14 +146,14 @@ export default function ChatInterface() {
                   <div
                     className={`rounded-2xl px-5 py-3 shadow-md ${
                       message.role === 'user'
-                        ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white'
-                        : 'bg-gray-700 text-gray-100'
+                        ? 'bg-green-500 text-white'
+                        : 'bg-gray-800 text-gray-100 border border-gray-700'
                     }`}
                   >
                     <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
                   </div>
                   <p className={`text-xs mt-1 px-2 ${
-                    message.role === 'user' ? 'text-emerald-300' : 'text-gray-500'
+                    message.role === 'user' ? 'text-green-300' : 'text-gray-500'
                   }`}>
                     {message.timestamp.toLocaleTimeString('id-ID', {
                       hour: '2-digit',
@@ -167,7 +167,7 @@ export default function ChatInterface() {
 
           {/* Quick Questions */}
           {showQuickQuestions && messages.length === 1 && (
-            <div className="bg-gray-700/50 rounded-2xl p-6 backdrop-blur-sm border border-gray-600">
+            <div className="bg-gray-800/40 rounded-2xl p-6 backdrop-blur-sm border border-gray-700/50">
               <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
                 <span>⚡</span>
                 Pertanyaan Cepat:
@@ -177,14 +177,14 @@ export default function ChatInterface() {
                   <button
                     key={index}
                     onClick={() => handleQuickQuestion(item.question)}
-                    className="flex items-start gap-3 p-4 bg-gray-800 hover:bg-gray-750 rounded-xl transition-all text-left group border border-gray-600 hover:border-emerald-500"
+                    className="flex items-start gap-3 p-4 bg-gray-800/40 hover:bg-white/95 rounded-xl transition-all text-left group border border-gray-700/50 hover:border-white hover:text-gray-800"
                   >
                     <span className="text-2xl flex-shrink-0">{item.icon}</span>
                     <div className="flex-1">
-                      <p className="text-sm text-gray-300 group-hover:text-white transition-colors">
+                      <p className="text-sm text-gray-300 group-hover:text-gray-800 transition-colors">
                         {item.question}
                       </p>
-                      <span className="text-xs text-emerald-400 mt-1 inline-block">
+                      <span className="text-xs text-green-400 mt-1 inline-block group-hover:text-green-600">
                         {item.category}
                       </span>
                     </div>
@@ -198,18 +198,18 @@ export default function ChatInterface() {
           {isLoading && (
             <div className="flex justify-start">
               <div className="flex gap-3 max-w-[80%]">
-                <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-gray-700">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-gray-800 border border-gray-700">
                   <span className="text-xl">🤖</span>
                 </div>
-                <div className="bg-gray-700 text-gray-100 rounded-2xl px-5 py-3">
+                <div className="bg-gray-800 text-gray-100 rounded-2xl px-5 py-3 border border-gray-700">
                   <div className="flex gap-2">
-                    <span className="w-2 h-2 bg-emerald-400 rounded-full animate-bounce"></span>
+                    <span className="w-2 h-2 bg-green-400 rounded-full animate-bounce"></span>
                     <span
-                      className="w-2 h-2 bg-emerald-400 rounded-full animate-bounce"
+                      className="w-2 h-2 bg-green-400 rounded-full animate-bounce"
                       style={{ animationDelay: '0.2s' }}
                     ></span>
                     <span
-                      className="w-2 h-2 bg-emerald-400 rounded-full animate-bounce"
+                      className="w-2 h-2 bg-green-400 rounded-full animate-bounce"
                       style={{ animationDelay: '0.4s' }}
                     ></span>
                   </div>
@@ -223,7 +223,7 @@ export default function ChatInterface() {
       </div>
 
       {/* Input Area */}
-      <div className="bg-gray-900 border-t border-gray-700 p-6 shadow-lg">
+      <div className="bg-black border-t border-gray-800 p-6">
         <div className="max-w-4xl mx-auto">
           <form
             onSubmit={(e) => {
@@ -238,13 +238,13 @@ export default function ChatInterface() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ketik pertanyaan tentang kampus..."
-              className="flex-1 bg-gray-800 text-white rounded-full px-6 py-4 focus:outline-none focus:ring-2 focus:ring-emerald-500 placeholder-gray-400 border border-gray-700"
+              className="flex-1 bg-gray-800/40 text-white rounded-full px-6 py-4 focus:outline-none focus:ring-2 focus:ring-green-500 placeholder-gray-400 border border-gray-700/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white transition-all"
               disabled={isLoading}
             />
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
-              className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-full px-8 py-4 font-medium hover:shadow-lg hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2"
+              className="bg-gray-700/30 border border-gray-600/50 hover:bg-white/95 hover:border-white text-gray-200 hover:text-gray-800 rounded-full px-8 py-4 font-medium hover:shadow-lg hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2"
             >
               <svg
                 className="w-5 h-5"
@@ -264,7 +264,7 @@ export default function ChatInterface() {
           </form>
 
           {/* Helper Text */}
-          <p className="text-gray-500 text-xs mt-3 text-center">
+          <p className="text-gray-400 text-xs mt-3 text-center">
             💡 Tips: Tanya tentang KRS, gedung, dosen, beasiswa, atau kehidupan kampus
           </p>
         </div>
