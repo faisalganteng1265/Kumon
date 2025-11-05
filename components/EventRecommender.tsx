@@ -173,11 +173,11 @@ export default function EventRecommender() {
       </div>
 
       {/* Main Content - Sidebar Layout */}
-      <div className="max-w-7xl mx-auto px-3 pb-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+      <div className="max-w-full mx-auto px-20 pb-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
           {/* LEFT SIDEBAR - Filter */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-800/40 rounded-2xl p-6 border border-gray-700/50 shadow-md sticky top-6">
+            <div className="bg-neutral-800 border border-gray-600 rounded-2xl p-6 border border-gray-700/50 shadow-md sticky top-6">
               <h3 className="text-white font-semibold mb-4 text-lg flex items-center gap-2">
                 <img src="/LISTICON.png" alt="Filter Icon" className="w-5 h-5 object-contain" />
                 <span>Filter Minat</span>
@@ -221,7 +221,7 @@ export default function EventRecommender() {
           </div>
 
           {/* RIGHT CONTENT - Results */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-4">
             {isLoading && (
               <div className="text-center py-12">
                 <div className="flex justify-center mb-6">
@@ -272,7 +272,7 @@ export default function EventRecommender() {
                 )}
 
                 {/* Event Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {recommendations.map((event, index) => (
                     <div
                       key={event.id}
