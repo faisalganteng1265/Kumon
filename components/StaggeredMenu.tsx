@@ -8,6 +8,7 @@ export interface StaggeredMenuItem {
   label: string;
   ariaLabel: string;
   link: string;
+  color?: string; // Add color property for active item
 }
 
 export interface StaggeredMenuSocialItem {
@@ -31,6 +32,7 @@ export interface StaggeredMenuProps {
   onMenuOpen?: () => void;
   onMenuClose?: () => void;
   isFixed?: boolean;
+  activeItemColor?: string; // Add color for active menu item
 }
 
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
@@ -47,6 +49,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   changeMenuColorOnOpen = true,
   accentColor = '#ffffff',
   isFixed = true,
+  activeItemColor,
   onMenuOpen,
   onMenuClose
 }: StaggeredMenuProps) => {
@@ -408,8 +411,22 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             {items && items.length ? (
               items.map((it, idx) => (
                 <li className="sm-panel-itemWrap" key={it.label + idx}>
-                  <a className="sm-panel-item" href={it.link} aria-label={it.ariaLabel} data-index={idx + 1}>
-                    <span className="sm-panel-itemLabel">{it.label}</span>
+                  <a
+                    className="sm-panel-item"
+                    href={it.link}
+                    aria-label={it.ariaLabel}
+                    data-index={idx + 1}
+                    style={it.color ? { color: it.color } : undefined}
+                  >
+                    <span
+                      className="sm-panel-itemLabel"
+                      style={it.color ? {
+                        color: it.color,
+                        textShadow: `0 0 10px ${it.color}80, 0 0 20px ${it.color}60`
+                      } : undefined}
+                    >
+                      {it.label}
+                    </span>
                   </a>
                 </li>
               ))

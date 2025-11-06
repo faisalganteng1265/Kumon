@@ -169,7 +169,9 @@ export default function EventRecommender() {
         items={[
           { label: 'HOME', ariaLabel: 'Go to home page', link: '/' },
           { label: 'AI Campus Chatbot', ariaLabel: 'Go to feature 1', link: '/fitur-1' },
-          { label: 'Smart Schedule', ariaLabel: 'Go to feature 3', link: '/fitur-3' }
+          { label: 'Event Recommender', ariaLabel: 'Go to feature 2', link: '/fitur-2', color: '#22c55e' },
+          { label: 'Smart Schedule', ariaLabel: 'Go to feature 3', link: '/fitur-3' },
+          { label: 'Peer Connect', ariaLabel: 'Go to feature 4', link: '/fitur-4' }
         ]}
         displaySocials={false}
         displayItemNumbering={true}
