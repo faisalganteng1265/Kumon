@@ -302,7 +302,7 @@ export default function SmartScheduleBuilder() {
         ]}
         displaySocials={false}
         displayItemNumbering={true}
-        logoUrl="/logo.png"
+        logoUrl="/AICAMPUS.png"
         menuButtonColor="#fff"
         openMenuButtonColor="#fff"
         accentColor="#ffffff"

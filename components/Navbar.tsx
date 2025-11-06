@@ -42,7 +42,7 @@ export default function Navbar() {
       links: [
         {
           label: 'Hubungkan dengan Teman',
-          href: '#',
+          href: '/fitur-4',
           ariaLabel: 'Pergi ke Peer Connect AI'
         }
       ]
@@ -112,7 +112,7 @@ export default function Navbar() {
       isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
     }`}>
       <CardNav
-        logo="/logo.png" // Update dengan path logo Anda
+        logo="/AICAMPUS.png"
         logoAlt="AICampus"
         items={navItems}
         baseColor={isScrolled ? '#rgba(152, 47, 47, 0.8)' : 'rgba(0, 0, 0, 0.8)'} // gray-800 with transparency

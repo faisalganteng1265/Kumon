@@ -130,6 +130,9 @@ export default function GallerySection() {
       case 1:
         router.push('/fitur-2');
         break;
+      case 2:
+        router.push('/fitur-4');
+        break;
       case 3:
         router.push('/fitur-3');
         break;

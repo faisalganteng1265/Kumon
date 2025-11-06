@@ -173,7 +173,7 @@ export default function EventRecommender() {
         ]}
         displaySocials={false}
         displayItemNumbering={true}
-        logoUrl="/logo.png"
+        logoUrl="/AICAMPUS.png"
         menuButtonColor="#fff"
         openMenuButtonColor="#fff"
         accentColor="#ffffff"
