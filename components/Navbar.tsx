@@ -91,7 +91,7 @@ export default function Navbar() {
         logo="/AICAMPUS.png"
         logoAlt="AICampus"
         items={navItems}
-        baseColor={isScrolled ? 'rgba(17, 24, 39, 0.95)' : 'rgba(31, 41, 55, 0.9)'} // gray-900/gray-800 with transparency
+        baseColor={isScrolled ? 'rgba(17, 24, 39, 0.95)' : 'rgba(0, 0, 0, 0)'} // Transparent when not scrolled, solid when scrolled
         menuColor="#ffffff"
         buttonBgColor="#84cc16" // lime-500
         buttonTextColor="#000000"
