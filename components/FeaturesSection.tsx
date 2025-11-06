@@ -120,7 +120,7 @@ function StatItem({ end, label, suffix = '', icon }: StatItemProps) {
 
           <div className="relative z-10 text-center space-y-4">
             <div className="w-16 h-16 mx-auto bg-emerald-500/10 backdrop-blur-md rounded-xl flex items-center justify-center border border-emerald-500/20">
-              <span className="text-4xl">{icon}</span>
+              <img src={icon} alt={label} className="w-10 h-10 object-contain" />
             </div>
             <div className="text-5xl md:text-6xl font-bold text-white" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
               {count}{suffix}
@@ -564,13 +564,12 @@ export default function FeaturesSection() {
         </div>
       </div>
 
-      {/* Stats Section */}
-      <div className="max-w-7xl mx-auto relative z-10 mt-20 px-6">
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid md:grid-cols-4 gap-6">
-          <StatItem end={1000} label="Mahasiswa Aktif" suffix="+" icon="👥" />
-          <StatItem end={50} label="Event per Bulan" suffix="+" icon="📅" />
-          <StatItem end={95} label="Kepuasan Pengguna" suffix="%" icon="⭐" />
-          <StatItem end={24} label="AI Support" suffix="/7" icon="🤖" />
+          <StatItem end={1000} label="Mahasiswa Aktif" suffix="+" icon="/AKADEMIKICON.png" />
+          <StatItem end={50} label="Event per Bulan" suffix="+" icon="/JADWALICON.png" />
+          <StatItem end={95} label="Kepuasan Pengguna" suffix="%" icon="/BINTANGICON.png" />
+          <StatItem end={24} label="AI Support" suffix="/7" icon="/GEMINIICON.png" />
         </div>
       </div>
 
