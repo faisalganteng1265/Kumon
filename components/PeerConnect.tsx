@@ -18,9 +18,24 @@ interface Peer {
 interface Message {
   id: number;
   senderId: number;
+  senderName?: string;
+  senderAvatar?: string;
   text: string;
   timestamp: Date;
   isMe: boolean;
+}
+
+interface GroupChat {
+  id: string;
+  name: string;
+  interest: string;
+  icon: string;
+  memberCount: number;
+  members: Peer[];
+  lastMessage?: string;
+  lastMessageTime?: Date;
+  unreadCount?: number;
+  messages: Message[];
 }
 
 const interestOptions = [
@@ -78,18 +93,177 @@ const mockPeers: Peer[] = [
     interests: ['teknologi', 'akademik'],
     online: true,
   },
+  {
+    id: 6,
+    name: 'Rina Maharani',
+    avatar: '/FOTO3.jpg',
+    interests: ['seni', 'sosial'],
+    online: true,
+  },
+  {
+    id: 7,
+    name: 'Fajar Nugroho',
+    avatar: '/FOTO4.jpg',
+    interests: ['teknologi', 'akademik'],
+    online: false,
+  },
+  {
+    id: 8,
+    name: 'Siti Rahmawati',
+    avatar: '/FOTO5.png',
+    interests: ['bisnis', 'leadership'],
+    online: true,
+  },
 ];
+
+// Mock data untuk grup chat berdasarkan minat
+const generateGroupChats = (selectedInterests: string[]): GroupChat[] => {
+  const now = new Date();
+  const groups: GroupChat[] = [];
+
+  selectedInterests.forEach((interest) => {
+    const interestOption = interestOptions.find(opt => opt.value === interest);
+    if (!interestOption) return;
+
+    // Filter peers yang punya interest yang sama
+    const groupMembers = mockPeers.filter(peer =>
+      peer.interests.includes(interest)
+    );
+
+    if (groupMembers.length === 0) return;
+
+    // Generate past conversations untuk grup ini
+    const pastMessages: Message[] = [];
+    const randomMembersForChat = groupMembers.slice(0, Math.min(4, groupMembers.length));
+
+    // Generate 5-8 pesan past conversation
+    const messageCount = Math.floor(Math.random() * 4) + 5;
+    const conversationStarters: { [key: string]: string[] } = {
+      teknologi: [
+        'Ada yang udah coba framework baru yang lagi hype?',
+        'Sharing dong tips belajar programming yang efektif',
+        'Guys, ada rekomendasi course online yang bagus?',
+        'Lagi develop project apa nih sekarang?',
+        'Ada yang pernah join hackathon? Gimana pengalamannya?',
+      ],
+      bisnis: [
+        'Ada yang tertarik bikin startup bareng?',
+        'Sharing tips pitching ke investor dong',
+        'Lagi mikir ide bisnis yang sustainable nih',
+        'Ada info lomba business plan gak?',
+        'Gimana caranya validate ide bisnis ya?',
+      ],
+      seni: [
+        'Ada exhibition art yang menarik minggu ini?',
+        'Lagi ngerjain project design apa nih?',
+        'Sharing portfolio kalian dong!',
+        'Ada yang mau collab project creative?',
+        'Tips overcome creative block dong',
+      ],
+      sosial: [
+        'Ada kegiatan volunteer weekend ini?',
+        'Yuk organize kegiatan sosial bareng!',
+        'Sharing pengalaman volunteer kalian dong',
+        'Ada yang mau join donasi untuk anak yatim?',
+        'Mari kita buat impact untuk komunitas!',
+      ],
+      akademik: [
+        'Ada yang lagi research tentang AI?',
+        'Sharing paper menarik yang kalian baca dong',
+        'Tips nulis paper yang bagus gimana ya?',
+        'Ada yang mau diskusi tentang penelitian?',
+        'Lagi ngerjain skripsi/thesis apa nih?',
+      ],
+      olahraga: [
+        'Yuk main futsal weekend ini!',
+        'Ada yang mau join lari pagi?',
+        'Sharing tips fitness routine dong',
+        'Ada turnamen olahraga yang seru nih',
+        'Gimana cara maintain healthy lifestyle?',
+      ],
+      leadership: [
+        'Sharing pengalaman lead organisasi dong',
+        'Tips manage tim yang efektif gimana ya?',
+        'Ada training leadership yang recommended?',
+        'Gimana cara develop leadership skill?',
+        'Sharing best practice project management dong',
+      ],
+      lingkungan: [
+        'Yuk kita mulai campaign zero waste!',
+        'Ada yang tertarik urban farming?',
+        'Sharing tips hidup sustainable dong',
+        'Gimana cara reduce carbon footprint kita?',
+        'Ada program environmental yang bisa kita join?',
+      ],
+    };
+
+    const responses: string[] = [
+      'Wah menarik nih! Count me in!',
+      'Setuju banget! Aku juga lagi mikirin hal yang sama',
+      'Boleh nih, aku tertarik join!',
+      'Good idea! Kapan kita execute?',
+      'Aku punya pengalaman soal ini, bisa sharing nanti',
+      'Yes! Finally ada yang sepemikiran',
+      'Aku bisa bantu nih kalo mau',
+      'Mantap! Langsung action yuk',
+      'Aku ada beberapa ide juga nih',
+      'Let\'s go! Aku support banget',
+    ];
+
+    let messageId = 1;
+    const starters = conversationStarters[interest] || conversationStarters.teknologi;
+
+    for (let i = 0; i < messageCount; i++) {
+      const member = randomMembersForChat[i % randomMembersForChat.length];
+      const isStarter = i % 3 === 0; // Setiap 3 pesan ada yang mulai topik baru
+      const text = isStarter
+        ? starters[Math.floor(Math.random() * starters.length)]
+        : responses[Math.floor(Math.random() * responses.length)];
+
+      pastMessages.push({
+        id: messageId++,
+        senderId: member.id,
+        senderName: member.name,
+        senderAvatar: member.avatar,
+        text,
+        timestamp: new Date(now.getTime() - (messageCount - i) * 300000), // 5 menit interval
+        isMe: false,
+      });
+    }
+
+    const lastMsg = pastMessages[pastMessages.length - 1];
+
+    groups.push({
+      id: `group-${interest}`,
+      name: `Grup ${interestOption.label}`,
+      interest,
+      icon: interestOption.icon,
+      memberCount: groupMembers.length,
+      members: groupMembers,
+      lastMessage: lastMsg?.text,
+      lastMessageTime: lastMsg?.timestamp,
+      unreadCount: Math.floor(Math.random() * 5) + 1,
+      messages: pastMessages,
+    });
+  });
+
+  return groups;
+};
 
 export default function PeerConnect() {
   const [showInterestPopup, setShowInterestPopup] = useState(true);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showChat, setShowChat] = useState(false);
-  const [peers, setPeers] = useState<Peer[]>([]);
+  const [groups, setGroups] = useState<GroupChat[]>([]);
+  const [selectedGroup, setSelectedGroup] = useState<GroupChat | null>(null);
   const [selectedPeer, setSelectedPeer] = useState<Peer | null>(null);
+  const [chatMode, setChatMode] = useState<'group' | 'private'>('group');
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
+  const [privateChatHistory, setPrivateChatHistory] = useState<{[key: number]: Message[]}>({});
+  const [activePrivateChats, setActivePrivateChats] = useState<Peer[]>([]); // Track active private chats
 
   const toggleInterest = (interest: string) => {
     setSelectedInterests(prev =>
@@ -110,46 +284,83 @@ export default function PeerConnect() {
 
     // Simulate loading
     setTimeout(() => {
-      // Filter peers based on selected interests
-      const matchedPeers = mockPeers.filter(peer =>
-        peer.interests.some(interest => selectedInterests.includes(interest))
-      );
-      setPeers(matchedPeers.length > 0 ? matchedPeers : mockPeers);
+      // Generate groups berdasarkan selected interests
+      const generatedGroups = generateGroupChats(selectedInterests);
+      setGroups(generatedGroups);
+
+      // Auto select first group
+      if (generatedGroups.length > 0) {
+        handleGroupSelect(generatedGroups[0]);
+      }
+
       setIsLoading(false);
       setShowChat(true);
     }, 3000);
   };
 
-  const handlePeerSelect = (peer: Peer) => {
+  const handleGroupSelect = (group: GroupChat) => {
+    setSelectedGroup(group);
+    setChatMode('group');
+    setSelectedPeer(null);
+    setMessages(group.messages);
+  };
+
+  const handleMemberClick = (member: Peer) => {
+    setChatMode('private');
+    setSelectedPeer(member);
+    setSelectedGroup(null);
+
+    // Add to active private chats if not already there
+    if (!activePrivateChats.find(p => p.id === member.id)) {
+      setActivePrivateChats(prev => [...prev, member]);
+    }
+
+    // Load private chat history atau create new
+    if (privateChatHistory[member.id]) {
+      setMessages(privateChatHistory[member.id]);
+    } else {
+      // Initialize private chat dengan greeting
+      const initialMessages: Message[] = [
+        {
+          id: 1,
+          senderId: member.id,
+          senderName: member.name,
+          senderAvatar: member.avatar,
+          text: `Halo! Saya ${member.name}. Senang bisa chat pribadi dengan kamu!`,
+          timestamp: new Date(Date.now() - 60000),
+          isMe: false,
+        },
+      ];
+      setMessages(initialMessages);
+      setPrivateChatHistory(prev => ({
+        ...prev,
+        [member.id]: initialMessages,
+      }));
+    }
+  };
+
+  const handlePrivateChatSelect = (peer: Peer) => {
+    setChatMode('private');
     setSelectedPeer(peer);
-    // Load mock messages for selected peer
-    setMessages([
-      {
-        id: 1,
-        senderId: peer.id,
-        text: `Halo! Saya ${peer.name}. Senang bertemu denganmu!`,
-        timestamp: new Date(Date.now() - 60000),
-        isMe: false,
-      },
-      {
-        id: 2,
-        senderId: 0,
-        text: 'Halo juga! Senang bisa connect dengan kamu!',
-        timestamp: new Date(Date.now() - 30000),
-        isMe: true,
-      },
-      {
-        id: 3,
-        senderId: peer.id,
-        text: peer.lastMessage || 'Ayo kita diskusi tentang minat kita!',
-        timestamp: new Date(Date.now() - 10000),
-        isMe: false,
-      },
-    ]);
+    setSelectedGroup(null);
+    setMessages(privateChatHistory[peer.id] || []);
+  };
+
+  const getLastMessage = (peer: Peer) => {
+    const history = privateChatHistory[peer.id];
+    if (!history || history.length === 0) return 'Belum ada pesan';
+    return history[history.length - 1].text;
+  };
+
+  const getLastMessageTime = (peer: Peer) => {
+    const history = privateChatHistory[peer.id];
+    if (!history || history.length === 0) return null;
+    return history[history.length - 1].timestamp;
   };
 
   const handleSendMessage = async () => {
-    if (!inputMessage.trim() || !selectedPeer || isSending) return;
+    if (!inputMessage.trim() || isSending) return;
+    if (!selectedPeer && !selectedGroup) return;
 
     const userMessage: Message = {
       id: messages.length + 1,
@@ -167,44 +378,111 @@ export default function PeerConnect() {
     setIsSending(true);
 
     try {
-      // Call API untuk get AI response
-      const response = await fetch('/api/peer-chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          peerId: selectedPeer.id,
-          message: currentMessage,
-          chatHistory: currentMessages.slice(-10), // Send last 10 messages untuk context
-        }),
-      });
+      if (chatMode === 'private' && selectedPeer) {
+        // Private chat - balasan dari peer yang dipilih
+        const response = await fetch('/api/peer-chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            peerId: selectedPeer.id,
+            message: currentMessage,
+            chatHistory: currentMessages.slice(-10),
+          }),
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (data.success && data.reply) {
-        const aiMessage: Message = {
-          id: currentMessages.length + 1,
-          senderId: selectedPeer.id,
-          text: data.reply,
-          timestamp: new Date(),
-          isMe: false,
-        };
-        setMessages(prev => [...prev, aiMessage]);
-      } else {
-        throw new Error('Failed to get response');
+        if (data.success && data.reply) {
+          const aiMessage: Message = {
+            id: currentMessages.length + 1,
+            senderId: selectedPeer.id,
+            senderName: selectedPeer.name,
+            senderAvatar: selectedPeer.avatar,
+            text: data.reply,
+            timestamp: new Date(),
+            isMe: false,
+          };
+          const updatedMessages = [...currentMessages, aiMessage];
+          setMessages(updatedMessages);
+
+          // Save to private chat history
+          setPrivateChatHistory(prev => ({
+            ...prev,
+            [selectedPeer.id]: updatedMessages,
+          }));
+        } else {
+          throw new Error('Failed to get response');
+        }
+      } else if (chatMode === 'group' && selectedGroup) {
+        // Group chat - balasan acak dari member grup
+        const onlineMembers = selectedGroup.members.filter(m => m.online);
+        if (onlineMembers.length === 0) {
+          throw new Error('No online members');
+        }
+
+        // Pilih random member untuk balas
+        const randomMember = onlineMembers[Math.floor(Math.random() * onlineMembers.length)];
+
+        const response = await fetch('/api/peer-chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            peerId: randomMember.id,
+            message: currentMessage,
+            chatHistory: currentMessages.slice(-10),
+            isGroupChat: true,
+            groupTopic: selectedGroup.interest,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.success && data.reply) {
+          const aiMessage: Message = {
+            id: currentMessages.length + 1,
+            senderId: randomMember.id,
+            senderName: randomMember.name,
+            senderAvatar: randomMember.avatar,
+            text: data.reply,
+            timestamp: new Date(),
+            isMe: false,
+          };
+          const updatedMessages = [...currentMessages, aiMessage];
+          setMessages(updatedMessages);
+
+          // Update group messages
+          setGroups(prev => prev.map(g =>
+            g.id === selectedGroup.id
+              ? { ...g, messages: updatedMessages, lastMessage: data.reply, lastMessageTime: new Date() }
+              : g
+          ));
+        } else {
+          throw new Error('Failed to get response');
+        }
       }
     } catch (error) {
       console.error('Error sending message:', error);
-      // Fallback message jika API error
-      const errorMessage: Message = {
-        id: currentMessages.length + 1,
-        senderId: selectedPeer.id,
-        text: 'Waduh, koneksi error nih. Coba lagi ya! 😅',
-        timestamp: new Date(),
-        isMe: false,
-      };
-      setMessages(prev => [...prev, errorMessage]);
+      // Fallback message
+      const fallbackSender = chatMode === 'private' && selectedPeer
+        ? selectedPeer
+        : selectedGroup?.members[0];
+
+      if (fallbackSender) {
+        const errorMessage: Message = {
+          id: currentMessages.length + 1,
+          senderId: fallbackSender.id,
+          senderName: fallbackSender.name,
+          senderAvatar: fallbackSender.avatar,
+          text: 'Waduh, koneksi error nih. Coba lagi ya!',
+          timestamp: new Date(),
+          isMe: false,
+        };
+        setMessages(prev => [...prev, errorMessage]);
+      }
     } finally {
       setIsSending(false);
     }
@@ -364,7 +642,7 @@ export default function PeerConnect() {
                     PEER CONNECT AI
                   </h1>
                   <p className="text-gray-400 text-sm">
-                    {peers.length} peers ditemukan berdasarkan minatmu
+                    {groups.length} grup ditemukan berdasarkan minatmu
                   </p>
                 </div>
               </div>
@@ -375,79 +653,149 @@ export default function PeerConnect() {
           <div className="flex-1 overflow-hidden">
             <div className="max-w-7xl mx-auto h-full px-6 py-6">
               <div className="grid grid-cols-12 gap-6 h-full">
-                {/* Peers List */}
+                {/* Chat List (Groups + Private Chats) */}
                 <div className="col-span-4 bg-neutral-900/50 rounded-2xl border border-gray-800/50 backdrop-blur-sm overflow-hidden flex flex-col">
                   <div className="p-4 border-b border-gray-800/50">
-                    <h2 className="text-white font-semibold text-lg">Peers ({peers.length})</h2>
+                    <h2 className="text-white font-semibold text-lg">Chats</h2>
                   </div>
                   <div className="flex-1 overflow-y-auto custom-scrollbar">
-                    {peers.map((peer) => (
+                    {/* Groups Section */}
+                    <div className="px-3 py-2 bg-gray-800/30">
+                      <p className="text-xs text-gray-400 font-semibold uppercase">Grup Chat</p>
+                    </div>
+                    {groups.map((group) => (
                       <div
-                        key={peer.id}
-                        onClick={() => handlePeerSelect(peer)}
+                        key={group.id}
+                        onClick={() => handleGroupSelect(group)}
                         className={`p-4 border-b border-gray-800/30 hover:bg-lime-500/10 cursor-pointer transition-all ${
-                          selectedPeer?.id === peer.id ? 'bg-lime-500/20 border-l-4 border-l-lime-500' : ''
+                          selectedGroup?.id === group.id && chatMode === 'group' ? 'bg-lime-500/20 border-l-4 border-l-lime-500' : ''
                         }`}
                       >
                         <div className="flex items-center gap-3">
                           <div className="relative">
-                            <img
-                              src={peer.avatar}
-                              alt={peer.name}
-                              className="w-12 h-12 rounded-full object-cover"
-                            />
-                            {peer.online && (
-                              <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-neutral-900"></div>
-                            )}
+                            <div className="w-12 h-12 bg-gradient-to-br from-lime-500 to-green-600 rounded-full flex items-center justify-center">
+                              <img
+                                src={group.icon}
+                                alt={group.name}
+                                className="w-7 h-7 object-contain"
+                              />
+                            </div>
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between">
-                              <h3 className="text-white font-semibold text-sm truncate">{peer.name}</h3>
-                              {peer.unreadCount && (
+                              <h3 className="text-white font-semibold text-sm truncate">{group.name}</h3>
+                              {group.unreadCount && group.unreadCount > 0 && (
                                 <span className="bg-lime-500 text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                                  {peer.unreadCount}
+                                  {group.unreadCount}
                                 </span>
                               )}
                             </div>
                             <p className="text-gray-400 text-xs truncate">
-                              {peer.lastMessage || 'Belum ada pesan'}
+                              {group.lastMessage || 'Belum ada pesan'}
                             </p>
-                            <div className="flex gap-1 mt-1">
-                              {peer.interests.slice(0, 2).map((interest) => (
-                                <span key={interest} className="text-xs bg-gray-800 text-gray-300 px-2 py-0.5 rounded">
-                                  {interestOptions.find(opt => opt.value === interest)?.label.split(' ')[0]}
-                                </span>
-                              ))}
-                            </div>
+                            <p className="text-gray-500 text-xs mt-1">
+                              {group.memberCount} members
+                            </p>
                           </div>
                         </div>
                       </div>
                     ))}
+
+                    {/* Private Chats Section */}
+                    {activePrivateChats.length > 0 && (
+                      <>
+                        <div className="px-3 py-2 bg-gray-800/30 mt-2">
+                          <p className="text-xs text-gray-400 font-semibold uppercase">Chat Pribadi</p>
+                        </div>
+                        {activePrivateChats.map((peer) => (
+                          <div
+                            key={`private-${peer.id}`}
+                            onClick={() => handlePrivateChatSelect(peer)}
+                            className={`p-4 border-b border-gray-800/30 hover:bg-lime-500/10 cursor-pointer transition-all ${
+                              selectedPeer?.id === peer.id && chatMode === 'private' ? 'bg-lime-500/20 border-l-4 border-l-lime-500' : ''
+                            }`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className="relative">
+                                <img
+                                  src={peer.avatar}
+                                  alt={peer.name}
+                                  className="w-12 h-12 rounded-full object-cover"
+                                />
+                                {peer.online && (
+                                  <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-neutral-900"></div>
+                                )}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between">
+                                  <h3 className="text-white font-semibold text-sm truncate">{peer.name}</h3>
+                                </div>
+                                <p className="text-gray-400 text-xs truncate">
+                                  {getLastMessage(peer)}
+                                </p>
+                                <p className="text-gray-500 text-xs mt-1">
+                                  {peer.online ? 'Online' : 'Offline'}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </>
+                    )}
                   </div>
                 </div>
 
                 {/* Chat Window */}
                 <div className="col-span-8 bg-neutral-900/50 rounded-2xl border border-gray-800/50 backdrop-blur-sm flex flex-col overflow-hidden">
-                  {selectedPeer ? (
+                  {(selectedGroup && chatMode === 'group') || (selectedPeer && chatMode === 'private') ? (
                     <>
                       {/* Chat Header */}
-                      <div className="p-4 border-b border-gray-800/50 flex items-center gap-3">
-                        <div className="relative">
-                          <img
-                            src={selectedPeer.avatar}
-                            alt={selectedPeer.name}
-                            className="w-10 h-10 rounded-full object-cover"
-                          />
-                          {selectedPeer.online && (
-                            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-neutral-900"></div>
-                          )}
-                        </div>
-                        <div>
-                          <h3 className="text-white font-semibold">{selectedPeer.name}</h3>
-                          <p className="text-xs text-gray-400">
-                            {selectedPeer.online ? 'Online' : 'Offline'}
-                          </p>
-                        </div>
+                      <div className="p-4 border-b border-gray-800/50">
+                        {chatMode === 'group' && selectedGroup ? (
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 bg-gradient-to-br from-lime-500 to-green-600 rounded-full flex items-center justify-center">
+                                <img
+                                  src={selectedGroup.icon}
+                                  alt={selectedGroup.name}
+                                  className="w-6 h-6 object-contain"
+                                />
+                              </div>
+                              <div>
+                                <h3 className="text-white font-semibold">{selectedGroup.name}</h3>
+                                <p className="text-xs text-gray-400">{selectedGroup.memberCount} members</p>
+                              </div>
+                            </div>
+                            <button
+                              onClick={() => {
+                                const detailText = selectedGroup.members.map(m => `• ${m.name} ${m.online ? '(Online)' : '(Offline)'}`).join('\n');
+                                alert(`Member Grup:\n\n${detailText}`);
+                              }}
+                              className="text-xs text-lime-500 hover:text-lime-400 underline"
+                            >
+                              Lihat Members
+                            </button>
+                          </div>
+                        ) : selectedPeer && chatMode === 'private' ? (
+                          <div className="flex items-center gap-3">
+                            <div className="relative">
+                              <img
+                                src={selectedPeer.avatar}
+                                alt={selectedPeer.name}
+                                className="w-10 h-10 rounded-full object-cover"
+                              />
+                              {selectedPeer.online && (
+                                <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-neutral-900"></div>
+                              )}
+                            </div>
+                            <div>
+                              <h3 className="text-white font-semibold">{selectedPeer.name}</h3>
+                              <p className="text-xs text-gray-400">
+                                {selectedPeer.online ? 'Online' : 'Offline'}
+                              </p>
+                            </div>
+                          </div>
+                        ) : null}
                       </div>
 
                       {/* Messages */}
@@ -457,6 +805,22 @@ export default function PeerConnect() {
                             key={message.id}
                             className={`flex ${message.isMe ? 'justify-end' : 'justify-start'}`}
                           >
+                            {!message.isMe && chatMode === 'group' && message.senderAvatar && (
+                              <div className="flex-shrink-0 mr-2">
+                                <img
+                                  src={message.senderAvatar}
+                                  alt={message.senderName}
+                                  className="w-8 h-8 rounded-full object-cover cursor-pointer hover:ring-2 hover:ring-lime-500 transition-all"
+                                  onClick={() => {
+                                    const member = selectedGroup?.members.find(m => m.id === message.senderId);
+                                    if (member) {
+                                      handleMemberClick(member);
+                                    }
+                                  }}
+                                  title={`Klik untuk chat dengan ${message.senderName}`}
+                                />
+                              </div>
+                            )}
                             <div
                               className={`max-w-[70%] rounded-2xl p-3 ${
                                 message.isMe
@@ -464,6 +828,11 @@ export default function PeerConnect() {
                                   : 'bg-gray-800 text-white'
                               }`}
                             >
+                              {!message.isMe && chatMode === 'group' && message.senderName && (
+                                <p className="text-xs font-semibold text-lime-400 mb-1">
+                                  {message.senderName}
+                                </p>
+                              )}
                               <p className="text-sm">{message.text}</p>
                               <p className={`text-xs mt-1 ${message.isMe ? 'text-black/60' : 'text-gray-400'}`}>
                                 {formatTime(message.timestamp)}
@@ -512,8 +881,8 @@ export default function PeerConnect() {
                     <div className="flex-1 flex items-center justify-center">
                       <div className="text-center">
                         <div className="text-6xl mb-4">💬</div>
-                        <h3 className="text-xl font-bold text-white mb-2">Pilih Peer untuk Mulai Chat</h3>
-                        <p className="text-gray-400">Klik salah satu peer di sebelah kiri untuk memulai percakapan</p>
+                        <h3 className="text-xl font-bold text-white mb-2">Pilih Grup untuk Mulai Chat</h3>
+                        <p className="text-gray-400">Klik salah satu grup di sebelah kiri untuk memulai percakapan</p>
                       </div>
                     </div>
                   )}

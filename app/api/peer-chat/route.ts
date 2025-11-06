@@ -43,7 +43,7 @@ Jangan terlalu formal, jawab singkat tapi insightful (2-3 kalimat).`,
 
 export async function POST(request: NextRequest) {
   try {
-    const { peerId, message, chatHistory } = await request.json();
+    const { peerId, message, chatHistory, isGroupChat, groupTopic } = await request.json();
 
     if (!peerId || !message) {
       return NextResponse.json(
@@ -53,7 +53,24 @@ export async function POST(request: NextRequest) {
     }
 
     // Get personality untuk peer ini
-    const personality = peerPersonalities[peerId] || peerPersonalities[1];
+    let personality = peerPersonalities[peerId] || peerPersonalities[1];
+
+    // Jika ini group chat, tambahkan context tentang group topic
+    if (isGroupChat && groupTopic) {
+      const topicContexts: { [key: string]: string } = {
+        teknologi: 'Ini adalah grup diskusi tentang Teknologi & IT. Fokus pembicaraan seputar programming, AI, software development, dan tech trends.',
+        bisnis: 'Ini adalah grup diskusi tentang Bisnis & Entrepreneurship. Fokus pembicaraan seputar startup, business plan, pitching, dan entrepreneurship.',
+        seni: 'Ini adalah grup diskusi tentang Seni & Kreatif. Fokus pembicaraan seputar design, art projects, portfolio, dan creative collaboration.',
+        sosial: 'Ini adalah grup diskusi tentang Sosial & Volunteering. Fokus pembicaraan seputar kegiatan volunteer, social impact, dan community service.',
+        akademik: 'Ini adalah grup diskusi tentang Akademik & Penelitian. Fokus pembicaraan seputar research, paper, thesis, dan academic topics.',
+        olahraga: 'Ini adalah grup diskusi tentang Olahraga & Kesehatan. Fokus pembicaraan seputar fitness, sports events, dan healthy lifestyle.',
+        leadership: 'Ini adalah grup diskusi tentang Leadership & Organisasi. Fokus pembicaraan seputar management, leadership skills, dan organizational development.',
+        lingkungan: 'Ini adalah grup diskusi tentang Lingkungan & Sustainability. Fokus pembicaraan seputar environmental issues, sustainability, dan eco-friendly practices.',
+      };
+
+      const topicContext = topicContexts[groupTopic] || '';
+      personality = `${personality}\n\n${topicContext}\nKamu sedang chat di grup, jadi respons kamu relevan dengan topik grup dan bisa berinteraksi dengan konteks percakapan yang ada.`;
+    }
 
     const model = genAI.getGenerativeModel({
       model: 'gemini-2.0-flash-thinking-exp-1219',
