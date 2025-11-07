@@ -922,7 +922,14 @@ export default function PeerConnect() {
           { label: 'Smart Schedule', ariaLabel: 'Go to feature 3', link: '/fitur-3' },
           { label: 'Peer Connect', ariaLabel: 'Go to feature 4', link: '/fitur-4',  color: '#22c55e' }
         ]}
-        
+         logoUrl=""
+        displaySocials={false}
+        displayItemNumbering={true}
+        menuButtonColor="#fff"
+        openMenuButtonColor="#fff"
+        accentColor="#ffffff"
+        changeMenuColorOnOpen={true}
+        isFixed={true}
       />
       {showChat && (
         <div className="relative z-10 h-screen flex flex-col">
