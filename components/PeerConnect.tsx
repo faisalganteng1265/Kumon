@@ -922,19 +922,12 @@ export default function PeerConnect() {
           { label: 'Smart Schedule', ariaLabel: 'Go to feature 3', link: '/fitur-3' },
           { label: 'Peer Connect', ariaLabel: 'Go to feature 4', link: '/fitur-4',  color: '#22c55e' }
         ]}
-        logoUrl=""
-        displaySocials={false}
-        displayItemNumbering={true}
-        menuButtonColor="#fff"
-        openMenuButtonColor="#fff"
-        accentColor="#ffffff"
-        changeMenuColorOnOpen={true}
-        isFixed={true}
+        
       />
       {showChat && (
         <div className="relative z-10 h-screen flex flex-col">
           {/* Top Header */}
-          <div className="bg-black/30 backdrop-blur-md border-b border-gray-700 p-4">
+          <div className="bg-black/50 backdrop-blur-md border-b border-gray-700 p-4">
             <h1 className="text-3xl font-bold text-white text-left flex items-center justify-start">
               <Image
                 src="/AICAMPUS.png"
@@ -949,9 +942,9 @@ export default function PeerConnect() {
 
           <div className="flex-1 flex overflow-hidden">
             {/* Left Sidebar - Group & Private Chat List */}
-            <div className="bg-black/10 backdrop-blur-md border-r border-gray-700 overflow-y-auto custom-scrollbar">
+            <div className="w-80 bg-black/50 backdrop-blur-md border-r border-gray-700 overflow-y-auto custom-scrollbar">
               {/* Group Chats Section */}
-              <div className="p-4 border-b border-gray-700">
+              <div className="p-4 border-b border-black/50">
                 <h2 className="text-white font-bold mb-3 flex items-center gap-2">
                   <Image
                     src="/TEXTICON.png"
@@ -1057,7 +1050,7 @@ export default function PeerConnect() {
             <div className="flex-1 flex flex-col">
               {/* Chat Header */}
               {(selectedGroup || selectedPeer) && (
-                <div className="bg-black/10 backdrop-blur-md border-b border-gray-700 p-4">
+                <div className="bg-black/50 backdrop-blur-md border-b border-gray-700 p-4">
                   {chatMode === 'group' && selectedGroup && (
                     <div className="flex items-center gap-4">
                       <Image
@@ -1180,7 +1173,7 @@ export default function PeerConnect() {
 
               {/* Input Area */}
               {(selectedGroup || selectedPeer) && (
-                <div className="bg-transparent backdrop-blur-md border-t border-gray-700 p-4">
+                <div className="bg-black/50 backdrop-blur-md border-t border-gray-700 p-4">
                   <div className="flex gap-3">
                     <input
                       type="text"
@@ -1209,7 +1202,7 @@ export default function PeerConnect() {
 
             {/* Right Sidebar - Members List */}
             {selectedGroup && (
-              <div className="w-64 bg-black/10 backdrop-blur-md border-l border-gray-700 overflow-y-auto custom-scrollbar">
+              <div className="w-64 bg-black/50 backdrop-blur-md border-l border-gray-700 overflow-y-auto custom-scrollbar">
                 <div className="p-4">
                   <h2 className="text-white font-bold mb-4">
                     Members ({selectedGroup.memberCount})
