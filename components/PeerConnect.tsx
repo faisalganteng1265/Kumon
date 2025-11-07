@@ -671,11 +671,21 @@ export default function PeerConnect() {
   // Event Handlers
   // ====================================
 
-  const handleGroupSelect = (group: GroupChat) => {
+  const handleGroupSelect = async (group: GroupChat) => {
     setSelectedGroup(group);
     setChatMode('group');
     setSelectedPeer(null);
-    setMessages(group.messages);
+
+    // Fetch fresh messages from database
+    const freshMessages = await fetchGroupMessages(group.id);
+    setMessages(freshMessages);
+
+    // Update the group's messages in state
+    setGroups(prevGroups =>
+      prevGroups.map(g =>
+        g.id === group.id ? { ...g, messages: freshMessages } : g
+      )
+    );
   };
 
   // Fetch list of users who have private chat history with current user
