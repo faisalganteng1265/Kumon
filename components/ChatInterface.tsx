@@ -70,6 +70,12 @@ export default function ChatInterface() {
       return;
     }
 
+    // Check if university is UNS - only UNS is available for now
+    if (selectedMode === 'campus' && selectedUniversity !== 'Universitas Sebelas Maret (UNS)') {
+      alert('Coming Soon! Saat ini hanya tersedia untuk Universitas Sebelas Maret (UNS). Universitas lain akan segera hadir.');
+      return;
+    }
+
     const questionToAsk = selectedMode === 'campus' ? selectedQuestion : customQuestion;
     if (!questionToAsk.trim()) {
       alert('Silakan pilih atau ketik pertanyaan!');
@@ -180,15 +186,21 @@ export default function ChatInterface() {
     // Set pertanyaan yang dipilih
     setSelectedQuestion(question);
     setCustomQuestion('');
-    
+
     // If in campus mode, fetch direct answer
     if (selectedMode === 'campus' && selectedUniversity) {
+      // Check if university is UNS - only UNS is available for now
+      if (selectedUniversity !== 'Universitas Sebelas Maret (UNS)') {
+        setDirectAnswer('🚧 Coming Soon!\n\nSaat ini AI Campus Navigator hanya tersedia untuk Universitas Sebelas Maret (UNS). Data untuk universitas lain sedang dalam proses pengembangan dan akan segera hadir.\n\nTerima kasih atas pengertiannya! 🙏');
+        return;
+      }
+
       setIsAnswerLoading(true);
       setDirectAnswer('');
-      
+
       try {
         const fullMessage = `[Universitas: ${selectedUniversity}]\n${question}`;
-        
+
         // Call the campus API directly
         const response = await fetch('/api/chat/campus', {
           method: 'POST',
@@ -412,7 +424,7 @@ export default function ChatInterface() {
             {selectedMode === 'campus' && selectedQuestion && selectedUniversity && (
               <div className="bg-transparent rounded-2xl p-6 border border-gray-700/20 backdrop-blur-sm">
                 <h3 className="text-white font-semibold mb-3 flex items-center gap-2">
-                  <span className="text-xl">💡</span>
+                  <Image src="/ICONLAMPU.png" alt="Jawaban" width={24} height={24} className="object-contain" />
                   Jawaban
                 </h3>
                 
@@ -626,6 +638,20 @@ export default function ChatInterface() {
           </div>
         </>
       )}
+
+      {/* Custom Scrollbar Styles - Hidden */}
+      <style jsx global>{`
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .flex-1.overflow-y-auto.bg-transparent::-webkit-scrollbar {
+          display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .flex-1.overflow-y-auto.bg-transparent {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+        }
+      `}</style>
     </div>
   );
 }

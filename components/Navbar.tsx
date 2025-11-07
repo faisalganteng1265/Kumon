@@ -2,13 +2,17 @@
 
 import { useEffect, useState, useRef } from 'react';
 import CardNav from './CardNav';
+import AuthModal from './AuthModal';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const hideTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const { user, signOut } = useAuth();
 
   // Navigation items for CardNav - matching GallerySection features
   const navItems = [
@@ -81,20 +85,37 @@ export default function Navbar() {
     };
   }, [lastScrollY, isMenuOpen]);
 
+  const handleLoginClick = () => {
+    if (user) {
+      // If user is logged in, show logout confirmation
+      if (confirm('Are you sure you want to logout?')) {
+        signOut();
+      }
+    } else {
+      // If not logged in, open auth modal
+      setIsAuthModalOpen(true);
+    }
+  };
+
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-      isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
-    }`}>
-      <CardNav
-        logo="/AICAMPUS.png"
-        logoAlt="AICampus"
-        items={navItems}
-        baseColor={isScrolled ? 'rgba(17, 24, 39, 0.95)' : 'rgba(0, 0, 0, 0)'} // Transparent when not scrolled, solid when scrolled
-        menuColor="#ffffff"
-        buttonBgColor="#84cc16" // lime-500
-        buttonTextColor="#000000"
-        onMenuToggle={setIsMenuOpen}
-      />
-    </nav>
+    <>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+      }`}>
+        <CardNav
+          logo="/AICAMPUS.png"
+          logoAlt="AICampus"
+          items={navItems}
+          baseColor={isScrolled ? 'rgba(17, 24, 39, 0.95)' : 'rgba(0, 0, 0, 0)'} // Transparent when not scrolled, solid when scrolled
+          menuColor="#ffffff"
+          buttonBgColor="#84cc16" // lime-500
+          buttonTextColor="#000000"
+          onMenuToggle={setIsMenuOpen}
+          onLoginClick={handleLoginClick}
+        />
+      </nav>
+
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+    </>
   );
 }
