@@ -8,6 +8,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import Image from 'next/image';
 import VideoCallModal from './VideoCallModal';
+import UserProfileModal from './UserProfileModal';
 
 // ====================================
 // TypeScript Interfaces
@@ -125,6 +126,8 @@ export default function PeerConnect() {
   const [isVideoCallOpen, setIsVideoCallOpen] = useState(false);
   const [showGroupChats, setShowGroupChats] = useState(true); // State for group chat dropdown
   const [showPrivateChats, setShowPrivateChats] = useState(true); // State for private chat dropdown
+  const [selectedUserProfile, setSelectedUserProfile] = useState<Peer | null>(null);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom when messages change
@@ -822,6 +825,53 @@ export default function PeerConnect() {
     }
   };
 
+  const handleUserProfileClick = async (senderId: string, senderName: string) => {
+    // Don't show profile for own messages
+    if (senderId === user?.id) return;
+
+    try {
+      // Fetch full user profile data
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('id, username, avatar_url')
+        .eq('id', senderId)
+        .single();
+
+      if (profileError) throw profileError;
+
+      // Fetch user interests
+      const { data: userDataArray } = await supabase
+        .from('user_data')
+        .select('user_id, minat')
+        .eq('user_id', senderId);
+
+      // Get first item from array
+      const userData = userDataArray && userDataArray.length > 0 ? userDataArray[0] : null;
+
+      // Parse interests if available
+      const minat = userData?.minat || '';
+      const interests = minat ? parseInterests(minat) : [];
+
+      // Set profile data and open modal
+      setSelectedUserProfile({
+        id: profileData.id,
+        name: profileData.username || senderName,
+        avatar: profileData.avatar_url,
+        interests: interests,
+        online: true, // You can add online status logic later
+      });
+      setIsProfileModalOpen(true);
+    } catch (error) {
+      console.error('[handleUserProfileClick] Error:', error);
+    }
+  };
+
+  const handleSendMessageFromProfile = () => {
+    if (selectedUserProfile) {
+      handlePeerSelect(selectedUserProfile);
+    }
+  };
+
   const handleSendPrivateMessage = async () => {
     if (!inputMessage.trim() || !selectedPeer || !user) return;
 
@@ -1184,7 +1234,10 @@ export default function PeerConnect() {
                       className={`flex gap-3 ${message.isMe ? 'justify-end' : 'justify-start'}`}
                     >
                       {!message.isMe && (
-                        <div className="flex-shrink-0">
+                        <div
+                          className="flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
+                          onClick={() => handleUserProfileClick(message.senderId, message.senderName)}
+                        >
                           {message.senderAvatar ? (
                             <Image
                               src={message.senderAvatar}
@@ -1202,7 +1255,10 @@ export default function PeerConnect() {
                       )}
                       <div className={`max-w-lg ${message.isMe ? 'items-end' : 'items-start'}`}>
                         {!message.isMe && (
-                          <p className="text-white-400 text-sm font-semibold mb-1">
+                          <p
+                            className="text-white-400 text-sm font-semibold mb-1 cursor-pointer hover:text-lime-500 transition-colors"
+                            onClick={() => handleUserProfileClick(message.senderId, message.senderName)}
+                          >
                             {message.senderName}
                           </p>
                         )}
@@ -1230,7 +1286,7 @@ export default function PeerConnect() {
 
               {/* Input Area */}
               {(selectedGroup || selectedPeer) && (
-                <div className="bg-black/50 backdrop-blur-md border-t border-gray-700 p-4">
+                <div className="bg-black/50 backdrop-blur-md p-4">
                   <div className="flex gap-3">
                     <input
                       type="text"
@@ -1346,6 +1402,17 @@ export default function PeerConnect() {
           userAvatar={user.user_metadata?.avatar_url}
         />
       )}
+
+      {/* User Profile Modal */}
+      <UserProfileModal
+        isOpen={isProfileModalOpen}
+        onClose={() => {
+          setIsProfileModalOpen(false);
+          setSelectedUserProfile(null);
+        }}
+        user={selectedUserProfile}
+        onSendMessage={handleSendMessageFromProfile}
+      />
     </div>
   );
 }
