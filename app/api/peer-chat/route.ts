@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Also ensure alternating pattern - remove consecutive same roles
-    chatHistoryFormatted = chatHistoryFormatted.filter((msg, idx) => {
+    chatHistoryFormatted = chatHistoryFormatted.filter((msg: any, idx: number) => {
       if (idx === 0) return true;
       return msg.role !== chatHistoryFormatted[idx - 1].role;
     });
