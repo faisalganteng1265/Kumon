@@ -1263,7 +1263,7 @@ export default function PeerConnect() {
         <VideoCallModal
           isOpen={isVideoCallOpen}
           onClose={() => setIsVideoCallOpen(false)}
-          roomName={`aicampus-private-${user.id}-${selectedPeer.id}`}
+          roomName={`aicampus-private-${[user.id, selectedPeer.id].sort().join('-')}`}
           userName={user.user_metadata?.username || user.email?.split('@')[0] || 'User'}
           userAvatar={user.user_metadata?.avatar_url}
         />
