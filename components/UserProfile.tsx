@@ -73,9 +73,22 @@ export default function UserProfile() {
   };
 
   const confirmLogout = async () => {
-    await signOut();
-    setIsDropdownOpen(false);
-    setIsLogoutModalOpen(false);
+    try {
+      await signOut();
+      setIsDropdownOpen(false);
+      setIsLogoutModalOpen(false);
+
+      // Force page reload to clear any cached state
+      if (typeof window !== 'undefined') {
+        window.location.href = '/';
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Force reload anyway to clear state
+      if (typeof window !== 'undefined') {
+        window.location.href = '/';
+      }
+    }
   };
 
   // Get initial from username

@@ -75,7 +75,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    try {
+      // Sign out from Supabase
+      const { error } = await supabase.auth.signOut();
+
+      if (error) {
+        console.error('Error signing out:', error);
+        throw error;
+      }
+
+      // Clear local state immediately
+      setUser(null);
+      setSession(null);
+
+      // Clear any browser storage manually as backup
+      if (typeof window !== 'undefined') {
+        // Clear localStorage keys related to Supabase
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && key.startsWith('sb-')) {
+            keysToRemove.push(key);
+          }
+        }
+        keysToRemove.forEach(key => localStorage.removeItem(key));
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Even if there's an error, clear local state
+      setUser(null);
+      setSession(null);
+    }
   };
 
   const value = {
