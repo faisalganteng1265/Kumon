@@ -7,6 +7,7 @@ import Particles from './Particles';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import Image from 'next/image';
+import VideoCallModal from './VideoCallModal';
 
 // ====================================
 // TypeScript Interfaces
@@ -121,6 +122,7 @@ export default function PeerConnect() {
   const [activePrivateChats, setActivePrivateChats] = useState<Peer[]>([]);
   const [loadingMessage, setLoadingMessage] = useState('Memuat data autentikasi...');
   const [hasInitialized, setHasInitialized] = useState(false);
+  const [isVideoCallOpen, setIsVideoCallOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom when messages change
@@ -1046,31 +1048,43 @@ export default function PeerConnect() {
                     </div>
                   )}
                   {chatMode === 'private' && selectedPeer && (
-                    <div className="flex items-center gap-4">
-                      {selectedPeer.avatar ? (
-                        <Image
-                          src={selectedPeer.avatar}
-                          alt={selectedPeer.name}
-                          width={48}
-                          height={48}
-                          className="rounded-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl">
-                          {selectedPeer.name.charAt(0).toUpperCase()}
+                    <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center gap-4">
+                        {selectedPeer.avatar ? (
+                          <Image
+                            src={selectedPeer.avatar}
+                            alt={selectedPeer.name}
+                            width={48}
+                            height={48}
+                            className="rounded-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl">
+                            {selectedPeer.name.charAt(0).toUpperCase()}
+                          </div>
+                        )}
+                        <div>
+                          <h2 className="text-white font-bold text-xl">{selectedPeer.name}</h2>
+                          <p className="text-gray-400 text-sm flex items-center gap-2">
+                            <span
+                              className={`w-2 h-2 rounded-full ${
+                                selectedPeer.online ? 'bg-lime-400' : 'bg-gray-500'
+                              }`}
+                            ></span>
+                            {selectedPeer.online ? 'Online' : 'Offline'}
+                          </p>
                         </div>
-                      )}
-                      <div>
-                        <h2 className="text-white font-bold text-xl">{selectedPeer.name}</h2>
-                        <p className="text-gray-400 text-sm flex items-center gap-2">
-                          <span
-                            className={`w-2 h-2 rounded-full ${
-                              selectedPeer.online ? 'bg-lime-400' : 'bg-gray-500'
-                            }`}
-                          ></span>
-                          {selectedPeer.online ? 'Online' : 'Offline'}
-                        </p>
                       </div>
+                      {/* Video Call Button */}
+                      <button
+                        onClick={() => setIsVideoCallOpen(true)}
+                        className="flex items-center gap-2 bg-gradient-to-r from-green-500 to-lime-500 hover:from-green-600 hover:to-lime-600 text-white px-4 py-2 rounded-lg font-semibold transition-all hover:scale-105 shadow-lg hover:shadow-green-500/50"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                        Video Call
+                      </button>
                     </div>
                   )}
                 </div>
@@ -1243,6 +1257,17 @@ export default function PeerConnect() {
           scrollbar-color: rgba(132, 204, 22, 0.3) rgba(0, 0, 0, 0.2);
         }
       `}</style>
+
+      {/* Video Call Modal */}
+      {selectedPeer && user && (
+        <VideoCallModal
+          isOpen={isVideoCallOpen}
+          onClose={() => setIsVideoCallOpen(false)}
+          roomName={`aicampus-private-${user.id}-${selectedPeer.id}`}
+          userName={user.user_metadata?.username || user.email?.split('@')[0] || 'User'}
+          userAvatar={user.user_metadata?.avatar_url}
+        />
+      )}
     </div>
   );
 }
