@@ -19,7 +19,13 @@ export const metadata: Metadata = {
   title: "AICAMPUS",
   description: "AI-powered campus community platform",
   icons: {
-    icon: "/AICAMPUS.png",
+    icon: [
+      {
+        url: "/AICAMPUS.png",
+        sizes: "any",
+      },
+    ],
+    apple: "/AICAMPUS.png",
   },
 };
 
@@ -31,6 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/AICAMPUS.png" type="image/png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet" />
