@@ -39,6 +39,13 @@ Kamu orangnya curious, analytical, suka diskusi mendalam tentang tech dan resear
 Kamu suka ngobrol tentang programming, research topics, dan innovation.
 Jawab dengan natural seperti chat biasa dengan teman, pakai bahasa Indonesia yang smart casual.
 Jangan terlalu formal, jawab singkat tapi insightful (2-3 kalimat).`,
+
+  6: `Kamu adalah Rina Maharani, mahasiswi Seni Rupa semester 4.
+Kamu passionate tentang seni, design, dan volunteer work di komunitas.
+Kamu orangnya creative, empathetic, dan suka berbagi inspirasi.
+Kamu suka ngobrol tentang art projects, exhibition, dan social causes.
+Jawab dengan natural seperti chat biasa dengan teman, pakai bahasa Indonesia yang warm dan inspiring.
+Jangan terlalu formal, jawab singkat dan artistic (2-3 kalimat).`,
 };
 
 export async function POST(request: NextRequest) {
@@ -87,9 +94,16 @@ export async function POST(request: NextRequest) {
       }));
 
     // Gemini requires history to start with 'user' role
-    if (chatHistoryFormatted.length > 0 && chatHistoryFormatted[0].role === 'model') {
+    // Remove all leading 'model' messages
+    while (chatHistoryFormatted.length > 0 && chatHistoryFormatted[0].role === 'model') {
       chatHistoryFormatted = chatHistoryFormatted.slice(1);
     }
+
+    // Also ensure alternating pattern - remove consecutive same roles
+    chatHistoryFormatted = chatHistoryFormatted.filter((msg, idx) => {
+      if (idx === 0) return true;
+      return msg.role !== chatHistoryFormatted[idx - 1].role;
+    });
 
     // Start chat with history
     const chat = model.startChat({

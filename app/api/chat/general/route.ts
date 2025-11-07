@@ -54,9 +54,16 @@ Kamu bisa menjawab berbagai topik: teknologi, sains, budaya, kehidupan sehari-ha
       }));
 
     // Gemini requires history to start with 'user' role
-    if (chatHistory.length > 0 && chatHistory[0].role === 'model') {
+    // Remove all leading 'model' messages
+    while (chatHistory.length > 0 && chatHistory[0].role === 'model') {
       chatHistory = chatHistory.slice(1);
     }
+
+    // Also ensure alternating pattern - remove consecutive same roles
+    chatHistory = chatHistory.filter((msg, idx) => {
+      if (idx === 0) return true;
+      return msg.role !== chatHistory[idx - 1].role;
+    });
 
     // Start chat with history
     const chat = model.startChat({

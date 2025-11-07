@@ -379,39 +379,29 @@ export default function PeerConnect() {
 
     try {
       if (chatMode === 'private' && selectedPeer) {
-        // Private chat - balasan dari peer yang dipilih menggunakan AI Campus
-        // Build history - exclude the last user message (already in message param)
-        let history = currentMessages.slice(0, -1).slice(-10).map(msg => ({
-          role: msg.isMe ? 'user' : 'assistant',
-          content: msg.text
-        }));
-
-        // Ensure history starts with 'user' role
-        if (history.length > 0 && history[0].role === 'assistant') {
-          history = history.slice(1);
-        }
-
-        const response = await fetch('/api/chat/campus', {
+        // Private chat - balasan dari peer yang dipilih menggunakan Peer Chat API
+        const response = await fetch('/api/peer-chat', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
+            peerId: selectedPeer.id,
             message: currentMessage,
-            history: history,
-            university: 'UNS'
+            chatHistory: currentMessages.slice(0, -1).slice(-10), // Exclude last message
+            isGroupChat: false,
           }),
         });
 
         const data = await response.json();
 
-        if (data.response) {
+        if (data.reply) {
           const aiMessage: Message = {
             id: currentMessages.length + 1,
             senderId: selectedPeer.id,
             senderName: selectedPeer.name,
             senderAvatar: selectedPeer.avatar,
-            text: data.response,
+            text: data.reply,
             timestamp: new Date(),
             isMe: false,
           };
@@ -427,7 +417,7 @@ export default function PeerConnect() {
           throw new Error(data.error || 'Failed to get response');
         }
       } else if (chatMode === 'group' && selectedGroup) {
-        // Group chat - balasan acak dari member grup menggunakan AI Campus
+        // Group chat - balasan acak dari member grup menggunakan Peer Chat API
         const onlineMembers = selectedGroup.members.filter(m => m.online);
         if (onlineMembers.length === 0) {
           throw new Error('No online members');
@@ -436,38 +426,29 @@ export default function PeerConnect() {
         // Pilih random member untuk balas
         const randomMember = onlineMembers[Math.floor(Math.random() * onlineMembers.length)];
 
-        // Build history - exclude the last user message (already in message param)
-        let history = currentMessages.slice(0, -1).slice(-10).map(msg => ({
-          role: msg.isMe ? 'user' : 'assistant',
-          content: msg.text
-        }));
-
-        // Ensure history starts with 'user' role
-        if (history.length > 0 && history[0].role === 'assistant') {
-          history = history.slice(1);
-        }
-
-        const response = await fetch('/api/chat/campus', {
+        const response = await fetch('/api/peer-chat', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
+            peerId: randomMember.id,
             message: currentMessage,
-            history: history,
-            university: 'UNS'
+            chatHistory: currentMessages.slice(0, -1).slice(-10), // Exclude last message
+            isGroupChat: true,
+            groupTopic: selectedGroup.interest,
           }),
         });
 
         const data = await response.json();
 
-        if (data.response) {
+        if (data.reply) {
           const aiMessage: Message = {
             id: currentMessages.length + 1,
             senderId: randomMember.id,
             senderName: randomMember.name,
             senderAvatar: randomMember.avatar,
-            text: data.response,
+            text: data.reply,
             timestamp: new Date(),
             isMe: false,
           };
@@ -477,7 +458,7 @@ export default function PeerConnect() {
           // Update group messages
           setGroups(prev => prev.map(g =>
             g.id === selectedGroup.id
-              ? { ...g, messages: updatedMessages, lastMessage: data.response, lastMessageTime: new Date() }
+              ? { ...g, messages: updatedMessages, lastMessage: data.reply, lastMessageTime: new Date() }
               : g
           ));
         } else {
