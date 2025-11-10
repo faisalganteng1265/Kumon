@@ -54,6 +54,11 @@
   background: transparent;
   position: relative;
   z-index: 1001;
+  pointer-events: none;
+}
+
+.staggered-menu-header > * {
+  pointer-events: auto;
 }
 
 .sm-logo {

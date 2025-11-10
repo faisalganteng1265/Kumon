@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { getAllProjects } from '@/lib/supabase/projects';
 import type { Project } from '@/types/projects';
@@ -10,12 +10,15 @@ import MyProjectsTab from '@/components/fitur-6/MyProjectsTab';
 import MyApplicationsTab from '@/components/fitur-6/MyApplicationsTab';
 import { Plus, Briefcase, Users, FileText } from 'lucide-react';
 import StaggeredMenu from '@/components/StaggeredMenu';
+import Image from 'next/image';
+import ProfileModal from '@/components/ProfileModal';
 import UserProfile from '@/components/UserProfile';
+import { supabase } from '@/lib/supabase';
 
 type TabType = 'all' | 'my-projects' | 'my-applications';
 
 export default function ProjectCollaborationPage() {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const [activeTab, setActiveTab] = useState<TabType>('all');
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -25,6 +28,7 @@ export default function ProjectCollaborationPage() {
   useEffect(() => {
     loadProjects();
   }, [filterStatus]);
+
 
   const loadProjects = async () => {
     try {
@@ -45,14 +49,13 @@ export default function ProjectCollaborationPage() {
   };
 
 
-  return (
-
+  const pageContent = (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
-      {/* Top Right Navigation */}
-      <div className="fixed top-4 right-4 z-50 pr-35 pt-1 flex items-center gap-4">
+      {/* Top Left Navigation */}
+      <div className="fixed top-4 left-24 z-[1005] pt-1 flex items-center gap-4">
         {user && (
           <>
-            <UserProfile />
+            <UserProfile position="inline" />
             <button
               onClick={() => setIsCreateModalOpen(true)}
               className="px-4 py-2 bg-white/10 backdrop-blur-lg text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 hover:scale-105 flex items-center gap-2 shadow-lg"
@@ -234,6 +237,30 @@ export default function ProjectCollaborationPage() {
           userId={user.id}
         />
       )}
+
     </div>
+  );
+
+  // Add CSS for fade-in animation
+  return (
+    <>
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fade-in {
+          animation: fade-in 0.2s ease-out;
+        }
+      `}</style>
+      {pageContent}
+    </>
   );
 }

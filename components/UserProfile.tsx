@@ -7,7 +7,7 @@ import Image from 'next/image';
 import ProfileModal from './ProfileModal';
 import { supabase } from '@/lib/supabase';
 
-export default function UserProfile() {
+export default function UserProfile({ position = 'fixed' }: { position?: 'fixed' | 'inline' }) {
   const { user, signOut } = useAuth();
   const { hideNavbar, showNavbar } = useNavbarVisibility();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -105,22 +105,32 @@ export default function UserProfile() {
   // Get initial from username
   const initial = username.charAt(0).toUpperCase();
 
+  const containerClass = position === 'fixed'
+    ? 'fixed top-10 left-20 z-[1005]'
+    : 'relative z-[1005]';
+
   return (
-    <div className="fixed top-10 left-20 z-[60]" ref={dropdownRef}>
+    <div className={containerClass} ref={dropdownRef}>
       <div className="relative">
         {/* Profile Button */}
         <button
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className="flex items-center gap-3 rounded-full transition-all duration-300 group overflow-hidden"
+          onMouseEnter={() => {
+            console.log('UserProfile hover entered');
+            setIsHovered(true);
+          }}
+          onMouseLeave={() => {
+            console.log('UserProfile hover left');
+            setIsHovered(false);
+          }}
+          className="flex items-center gap-3 rounded-full transition-all duration-300 relative hover:bg-gray-800/50"
           style={{
-            padding: isHovered ? '0.75rem 1rem' : '0',
-            width: isHovered ? 'auto' : 'fit-content',
+            padding: isHovered ? '0.75rem 1rem' : '0.5rem',
             background: isHovered ? 'linear-gradient(to bottom right, rgba(17, 24, 39, 0.95), rgba(31, 41, 55, 0.95))' : 'transparent',
             backdropFilter: isHovered ? 'blur(12px)' : 'none',
             border: isHovered ? '1px solid rgba(107, 114, 128, 0.5)' : 'none',
             boxShadow: isHovered ? '0 10px 15px -3px rgba(132, 204, 22, 0.2)' : 'none',
+            cursor: 'pointer',
           }}
         >
           {/* Avatar */}
@@ -141,38 +151,31 @@ export default function UserProfile() {
           )}
 
           {/* User Info - Only show on hover */}
-          <div
-            className="flex flex-col items-start whitespace-nowrap transition-all duration-300"
-            style={{
-              opacity: isHovered ? 1 : 0,
-              width: isHovered ? 'auto' : 0,
-              overflow: 'hidden',
-            }}
-          >
-            <span className="text-white font-semibold text-sm">{username}</span>
-            <span className="text-gray-400 text-xs">{user.email}</span>
-          </div>
+          {isHovered && (
+            <div className="flex flex-col items-start whitespace-nowrap transition-all duration-300 animate-fade-in-fast">
+              <span className="text-white font-semibold text-sm">{username}</span>
+              <span className="text-gray-400 text-xs">{user.email}</span>
+            </div>
+          )}
 
           {/* Dropdown Arrow - Only show on hover */}
-          <svg
-            className={`w-4 h-4 text-gray-400 transition-all duration-300 flex-shrink-0 ${
-              isDropdownOpen ? 'rotate-180' : ''
-            }`}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            style={{
-              opacity: isHovered ? 1 : 0,
-              width: isHovered ? '1rem' : 0,
-            }}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
+          {isHovered && (
+            <svg
+              className={`w-4 h-4 text-gray-400 transition-all duration-300 flex-shrink-0 animate-fade-in-fast ${
+                isDropdownOpen ? 'rotate-180' : ''
+              }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          )}
         </button>
 
         {/* Dropdown Menu */}
         {isDropdownOpen && (
-          <div className="absolute top-full left-0 mt-2 w-64 bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-md rounded-xl border border-gray-700/50 shadow-2xl overflow-hidden animate-fade-in">
+          <div className={`absolute top-full mt-2 w-64 bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-md rounded-xl border border-gray-700/50 shadow-2xl overflow-hidden animate-fade-in z-[1003] ${position === 'inline' ? 'left-0' : 'left-0'}`}>
             {/* User Info Section */}
             <div className="p-4 border-b border-gray-700/50">
               <div className="flex items-center gap-3 mb-3">
@@ -335,8 +338,23 @@ export default function UserProfile() {
           }
         }
 
+        @keyframes fade-in-fast {
+          from {
+            opacity: 0;
+            transform: translateX(-5px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
         .animate-fade-in {
           animation: fade-in 0.2s ease-out;
+        }
+
+        .animate-fade-in-fast {
+          animation: fade-in-fast 0.15s ease-out;
         }
       `}</style>
     </div>
