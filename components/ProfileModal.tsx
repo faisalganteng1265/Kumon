@@ -707,6 +707,91 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
           )}
         </div>
       </div>
+
+      {/* Custom Scrollbar Styles */}
+      <style jsx>{`
+        /* Chrome, Safari, Edge */
+        div[class*="rounded-3xl"]::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+
+        div[class*="rounded-3xl"]::-webkit-scrollbar-track {
+          background: rgba(0, 0, 0, 0.3);
+          border-radius: 10px;
+        }
+
+        div[class*="rounded-3xl"]::-webkit-scrollbar-thumb {
+          background: linear-gradient(to bottom, #22c55e, #84cc16);
+          border-radius: 10px;
+          border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        div[class*="rounded-3xl"]::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(to bottom, #16a34a, #65a30d);
+          border: 1px solid rgba(34, 197, 94, 0.5);
+        }
+
+        /* Firefox */
+        div[class*="rounded-3xl"] {
+          scrollbar-width: thin;
+          scrollbar-color: #22c55e rgba(0, 0, 0, 0.3);
+        }
+
+        /* Textarea specific scrollbar */
+        textarea::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+
+        textarea::-webkit-scrollbar-track {
+          background: rgba(0, 0, 0, 0.3);
+          border-radius: 10px;
+        }
+
+        textarea::-webkit-scrollbar-thumb {
+          background: linear-gradient(to bottom, #22c55e, #84cc16);
+          border-radius: 10px;
+          border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        textarea::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(to bottom, #16a34a, #65a30d);
+          border: 1px solid rgba(34, 197, 94, 0.5);
+        }
+
+        textarea {
+          scrollbar-width: thin;
+          scrollbar-color: #22c55e rgba(0, 0, 0, 0.3);
+        }
+
+        /* Select specific scrollbar */
+        select::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+
+        select::-webkit-scrollbar-track {
+          background: rgba(0, 0, 0, 0.3);
+          border-radius: 10px;
+        }
+
+        select::-webkit-scrollbar-thumb {
+          background: linear-gradient(to bottom, #22c55e, #84cc16);
+          border-radius: 10px;
+          border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        select::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(to bottom, #16a34a, #65a30d);
+          border: 1px solid rgba(34, 197, 94, 0.5);
+        }
+
+        select {
+          scrollbar-width: thin;
+          scrollbar-color: #22c55e rgba(0, 0, 0, 0.3);
+        }
+      `}</style>
     </div>
   );
 }
