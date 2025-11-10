@@ -49,7 +49,20 @@ export default function ProjectCollaborationPage() {
 
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
       {/* Top Right Navigation */}
-      
+      <div className="fixed top-4 right-4 z-50 pr-35 pt-1 flex items-center gap-4">
+        {user && (
+          <>
+            <UserProfile />
+            <button
+              onClick={() => setIsCreateModalOpen(true)}
+              className="px-4 py-2 bg-white/10 backdrop-blur-lg text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 hover:scale-105 flex items-center gap-2 shadow-lg"
+            >
+              <Plus className="w-4 h-4" />
+              Buat Projek
+            </button>
+          </>
+        )}
+      </div>
 
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 py-16">
