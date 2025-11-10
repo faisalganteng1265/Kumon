@@ -435,7 +435,7 @@ export default function SmartTaskManager() {
               width={40}
               height={40}
             />
-            HEADER
+            Smart Task Manager
           </h1>
         </div>
 

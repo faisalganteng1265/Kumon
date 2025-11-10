@@ -9,6 +9,7 @@ import CreateProjectModal from '@/components/fitur-6/CreateProjectModal';
 import MyProjectsTab from '@/components/fitur-6/MyProjectsTab';
 import MyApplicationsTab from '@/components/fitur-6/MyApplicationsTab';
 import { Plus, Briefcase, Users, FileText } from 'lucide-react';
+import StaggeredMenu from '@/components/StaggeredMenu';
 
 type TabType = 'all' | 'my-projects' | 'my-applications';
 
@@ -42,6 +43,7 @@ export default function ProjectCollaborationPage() {
     setIsCreateModalOpen(false);
   };
 
+    
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
       {/* Hero Section */}
@@ -161,6 +163,29 @@ export default function ProjectCollaborationPage() {
             </select>
           </div>
         )}
+
+           {/* Staggered Menu Navigation */}
+        <StaggeredMenu
+          position="right"
+          colors={['#0a0a0a', '#1a1a1a', '#2a2a2a']}
+          items={[
+            { label: 'HOME', ariaLabel: 'Go to home page', link: '/' },
+            { label: 'AI Campus Chatbot', ariaLabel: 'Go to feature 1', link: '/fitur-1' },
+            { label: 'Event Recomend', ariaLabel: 'Go to feature 2', link: '/fitur-2' },
+            { label: 'Smart Schedule', ariaLabel: 'Go to feature 3', link: '/fitur-3', color: '#22c55e' },
+            { label: 'Peer Connect', ariaLabel: 'Go to feature 4', link: '/fitur-4' },
+            { label: 'Smart Task Manager', ariaLabel: 'Go to feature 5', link: '/fitur-5' },
+            { label: 'Project Colabollator', ariaLabel: 'Go to feature 6', link: '/fitur-6' }
+          ]}
+          displaySocials={false}
+          displayItemNumbering={true}
+          logoUrl="/AICAMPUS.png"
+          menuButtonColor="#fff"
+          openMenuButtonColor="#fff"
+          accentColor="#ffffff"
+          changeMenuColorOnOpen={true}
+          isFixed={true}
+        />  
 
         {/* Content based on active tab */}
         <div className="mt-8">

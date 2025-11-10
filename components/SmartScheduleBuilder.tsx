@@ -305,7 +305,9 @@ export default function SmartScheduleBuilder() {
           { label: 'AI Campus Chatbot', ariaLabel: 'Go to feature 1', link: '/fitur-1' },
           { label: 'Event Recomend', ariaLabel: 'Go to feature 2', link: '/fitur-2' },
           { label: 'Smart Schedule', ariaLabel: 'Go to feature 3', link: '/fitur-3', color: '#22c55e' },
-          { label: 'Peer Connect', ariaLabel: 'Go to feature 4', link: '/fitur-4' }
+          { label: 'Peer Connect', ariaLabel: 'Go to feature 4', link: '/fitur-4' },
+          { label: 'Smart Task Manager', ariaLabel: 'Go to feature 5', link: '/fitur-5' },
+          { label: 'Project Colabollator', ariaLabel: 'Go to feature 6', link: '/fitur-6' }
         ]}
         displaySocials={false}
         displayItemNumbering={true}
