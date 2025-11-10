@@ -63,6 +63,13 @@ export default function EventRecommender() {
     );
   };
 
+  const clearFilters = () => {
+    setSelectedInterests([]);
+    setHasSearched(false);
+    setRecommendations([]);
+    setSummary('');
+  };
+
   const getRecommendations = async () => {
     setIsLoading(true);
     setHasSearched(true);
@@ -216,10 +223,22 @@ export default function EventRecommender() {
           {/* LEFT SIDEBAR - Filter */}
           <div className="lg:col-span-1">
             <div className="bg-neutral-800 border border-gray-600 rounded-2xl p-6 border border-gray-700/50 shadow-md sticky top-6">
-              <h3 className="text-white font-semibold mb-4 text-lg flex items-center gap-2">
-                <img src="/LISTICON.png" alt="Filter Icon" className="w-5 h-5 object-contain" />
-                <span>Filter Minat</span>
-              </h3>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-white font-semibold text-lg flex items-center gap-2">
+                  <img src="/LISTICON.png" alt="Filter Icon" className="w-5 h-5 object-contain" />
+                  <span>Filter Minat</span>
+                </h3>
+                {selectedInterests.length > 0 && (
+                  <button
+                    onClick={clearFilters}
+                    disabled={isLoading}
+                    className="bg-red-500/20 border border-red-500/50 hover:bg-red-500 hover:border-red-500 text-red-400 hover:text-white font-semibold px-3 py-1.5 rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5 text-xs"
+                  >
+                    <span>✕</span>
+                    <span>Clear</span>
+                  </button>
+                )}
+              </div>
 
               <div className="space-y-3 mb-6">
                 {interestOptions.map((interest) => (

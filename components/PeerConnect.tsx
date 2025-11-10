@@ -1315,7 +1315,7 @@ export default function PeerConnect() {
 
             {/* Right Sidebar - Members List */}
             {selectedGroup && (
-              <div className="w-64 bg-black/50 backdrop-blur-md border-l border-gray-700 overflow-y-auto custom-scrollbar">
+              <div className="w-64 bg-black/50 backdrop-blur-md overflow-y-auto custom-scrollbar">
                 <div className="p-4">
                   <h2 className="text-white font-bold mb-4">
                     Members ({selectedGroup.memberCount})
