@@ -132,8 +132,8 @@ export async function GET(req: NextRequest) {
     // Fetch events from Google Calendar
     const response = await calendar.events.list({
       calendarId: 'primary',
-      timeMin: timeMin || new Date().toISOString(),
-      timeMax: timeMax,
+      timeMin: timeMin || undefined || new Date().toISOString(),
+      timeMax: timeMax || undefined,
       maxResults: 100,
       singleEvents: true,
       orderBy: 'startTime',
