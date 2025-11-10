@@ -23,6 +23,7 @@ export default function Navbar() {
     { label: 'Smart Schedule Builder', href: '/fitur-3' },
     { label: 'Peer Connect AI', href: '/fitur-4' },
     { label: 'Smart Task Manager', href: '/fitur-5' },
+    { label: 'Project Collaboration', href: '/fitur-6' },
   ];
 
   // Main navigation items

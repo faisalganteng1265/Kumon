@@ -106,7 +106,7 @@ export default function UserProfile() {
   const initial = username.charAt(0).toUpperCase();
 
   return (
-    <div className="fixed top-10 left-20 z-40" ref={dropdownRef}>
+    <div className="fixed top-10 left-20 z-[60]" ref={dropdownRef}>
       <div className="relative">
         {/* Profile Button */}
         <button
