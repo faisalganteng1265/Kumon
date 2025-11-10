@@ -14,6 +14,7 @@ import Image from 'next/image';
 import ProfileModal from '@/components/ProfileModal';
 import UserProfile from '@/components/UserProfile';
 import { supabase } from '@/lib/supabase';
+import ParticleBackground from '@/components/ParticleBackground';
 
 type TabType = 'all' | 'my-projects' | 'my-applications';
 
@@ -50,7 +51,10 @@ export default function ProjectCollaborationPage() {
 
 
   const pageContent = (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900">
+    <div className="min-h-screen bg-0">
+      {/* Particle Background */}
+      <ParticleBackground />
+
       {/* Top Left Navigation */}
       <div className="fixed top-4 left-24 z-[1005] pt-1 flex items-center gap-4">
         {user && (
@@ -68,7 +72,7 @@ export default function ProjectCollaborationPage() {
       </div>
 
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 py-16">
+      <div className="relative overflow-hidden p-t bg-0">
         
         <div className="absolute inset-0 bg-black opacity-20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,15 +84,6 @@ export default function ProjectCollaborationPage() {
               Temukan proyek menarik atau buat proyek Anda sendiri.
               Kolaborasi dengan talenta terbaik untuk mewujudkan ide-ide hebat!
             </p>
-            {user && (
-              <button
-                onClick={() => setIsCreateModalOpen(true)}
-                className="inline-flex items-center px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl"
-              >
-                <Plus className="w-5 h-5 mr-2" />
-                Buat Project Baru
-              </button>
-            )}
           </div>
         </div>
       </div>

@@ -145,10 +145,10 @@ export default function ProjectDetailModal({
       )}
       
       
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="bg-gray-900 border border-gray-700 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
           {/* Header */}
-          <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-t-2xl">
+          <div className="sticky top-0 bg-gradient-to-r from-gray-800 to-gray-900 text-white p-6 rounded-t-2xl border-b border-gray-700">
             <div className="flex justify-between items-start">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
@@ -159,7 +159,7 @@ export default function ProjectDetailModal({
                     {statusLabels[project.status]}
                   </span>
                 </div>
-                <div className="flex items-center text-blue-100 text-sm">
+                <div className="flex items-center text-gray-300 text-sm">
                   <User className="w-4 h-4 mr-1" />
                   <span>
                     By{' '}
@@ -182,37 +182,37 @@ export default function ProjectDetailModal({
           <div className="p-6 space-y-6">
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-blue-50 rounded-lg p-4">
-                <div className="flex items-center text-blue-600 mb-1">
+              <div className="bg-gray-800/50 backdrop-blur-md rounded-lg p-4 border border-gray-700">
+                <div className="flex items-center text-blue-400 mb-1">
                   <Users className="w-5 h-5 mr-2" />
                   <span className="text-sm font-semibold">Collaborators</span>
                 </div>
-                <p className="text-2xl font-bold text-blue-900">
+                <p className="text-2xl font-bold text-white">
                   {totalRolesFilled}/{totalRolesNeeded}
                 </p>
               </div>
-              <div className="bg-purple-50 rounded-lg p-4">
-                <div className="flex items-center text-purple-600 mb-1">
+              <div className="bg-gray-800/50 backdrop-blur-md rounded-lg p-4 border border-gray-700">
+                <div className="flex items-center text-purple-400 mb-1">
                   <Briefcase className="w-5 h-5 mr-2" />
                   <span className="text-sm font-semibold">Roles</span>
                 </div>
-                <p className="text-2xl font-bold text-purple-900">{project.roles?.length || 0}</p>
+                <p className="text-2xl font-bold text-white">{project.roles?.length || 0}</p>
               </div>
-              <div className="bg-green-50 rounded-lg p-4">
-                <div className="flex items-center text-green-600 mb-1">
+              <div className="bg-gray-800/50 backdrop-blur-md rounded-lg p-4 border border-gray-700">
+                <div className="flex items-center text-green-400 mb-1">
                   <CheckCircle className="w-5 h-5 mr-2" />
                   <span className="text-sm font-semibold">Applications</span>
                 </div>
-                <p className="text-2xl font-bold text-green-900">
+                <p className="text-2xl font-bold text-white">
                   {applications.filter((a) => a.status === 'pending').length}
                 </p>
               </div>
-              <div className="bg-orange-50 rounded-lg p-4">
-                <div className="flex items-center text-orange-600 mb-1">
+              <div className="bg-gray-800/50 backdrop-blur-md rounded-lg p-4 border border-gray-700">
+                <div className="flex items-center text-orange-400 mb-1">
                   <Calendar className="w-5 h-5 mr-2" />
                   <span className="text-sm font-semibold">Created</span>
                 </div>
-                <p className="text-sm font-bold text-orange-900">
+                <p className="text-sm font-bold text-white">
                   {new Date(project.created_at).toLocaleDateString('id-ID')}
                 </p>
               </div>
@@ -220,12 +220,12 @@ export default function ProjectDetailModal({
 
             {/* Description */}
             <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Deskripsi Project</h3>
-              <p className="text-gray-700 whitespace-pre-wrap">{project.description}</p>
+              <h3 className="text-lg font-bold text-white mb-3">Deskripsi Project</h3>
+              <p className="text-gray-300 whitespace-pre-wrap">{project.description}</p>
             </div>
 
             {/* Progress Slider */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
               <ProgressSlider
                 projectId={project.id}
                 currentProgress={currentProgress}
@@ -236,8 +236,8 @@ export default function ProjectDetailModal({
 
             {/* Deadline */}
             {project.deadline && (
-              <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-                <div className="flex items-center text-orange-700">
+              <div className="bg-gray-800/50 border border-orange-600/50 rounded-lg p-4">
+                <div className="flex items-center text-orange-400">
                   <Clock className="w-5 h-5 mr-2" />
                   <span className="font-semibold">
                     Deadline: {new Date(project.deadline).toLocaleDateString('id-ID')}
@@ -248,24 +248,24 @@ export default function ProjectDetailModal({
 
             {/* Roles Needed */}
             <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Role yang Dibutuhkan</h3>
+              <h3 className="text-lg font-bold text-white mb-3">Role yang Dibutuhkan</h3>
               <div className="space-y-3">
                 {project.roles?.map((role) => (
                   <div
                     key={role.id}
-                    className="bg-gray-50 border border-gray-200 rounded-lg p-4"
+                    className="bg-gray-800/50 border border-gray-700 rounded-lg p-4"
                   >
                     <div className="flex justify-between items-start mb-2">
-                      <h4 className="font-semibold text-gray-900">{role.role_name}</h4>
-                      <span className="text-sm text-gray-600">
+                      <h4 className="font-semibold text-white">{role.role_name}</h4>
+                      <span className="text-sm text-gray-400">
                         {role.filled_count}/{role.required_count} filled
                       </span>
                     </div>
                     {role.description && (
-                      <p className="text-gray-600 text-sm">{role.description}</p>
+                      <p className="text-gray-400 text-sm">{role.description}</p>
                     )}
                     {role.filled_count >= role.required_count && (
-                      <div className="mt-2 flex items-center text-green-600 text-sm">
+                      <div className="mt-2 flex items-center text-green-400 text-sm">
                         <CheckCircle className="w-4 h-4 mr-1" />
                         <span>Role sudah terpenuhi</span>
                       </div>
@@ -278,21 +278,21 @@ export default function ProjectDetailModal({
             {/* User's Applications */}
             {userApplications.length > 0 && (
               <div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Aplikasi Anda</h3>
+                <h3 className="text-lg font-bold text-white mb-3">Aplikasi Anda</h3>
                 <div className="space-y-2">
                   {userApplications.map((app) => (
                     <div
                       key={app.id}
                       className={`border rounded-lg p-3 ${
                         app.status === 'accepted'
-                          ? 'bg-green-50 border-green-200'
+                          ? 'bg-green-900/30 border-green-600/50'
                           : app.status === 'rejected'
-                          ? 'bg-red-50 border-red-200'
-                          : 'bg-yellow-50 border-yellow-200'
+                          ? 'bg-red-900/30 border-red-600/50'
+                          : 'bg-yellow-900/30 border-yellow-600/50'
                       }`}
                     >
                       <div className="flex justify-between items-center">
-                        <span className="font-semibold text-gray-900">
+                        <span className="font-semibold text-white">
                           {app.role?.role_name}
                         </span>
                         <span
