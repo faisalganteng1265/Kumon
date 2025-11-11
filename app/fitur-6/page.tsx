@@ -79,17 +79,17 @@ export default function ProjectCollaborationPage() {
             <UserProfile position="inline" />
             <button
               onClick={() => setIsCreateModalOpen(true)}
-              className="px-4 py-2 bg-white/10 backdrop-blur-lg text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 hover:scale-105 flex items-center gap-2 shadow-lg"
+              className="px-4 py-2 bg-white/10 backdrop-blur-lg text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/20 hover:scale-105 flex items-center gap-2 shadow-lg cursor-pointer"
             >
               <Plus className="w-4 h-4" />
-              Buat Projek
+              Buat Project
             </button>
           </>
         )}
       </div>
 
       {/* Hero Section */}
-      <div className="relative overflow-hidden p-t bg-0">
+      <div className="relative overflow-hidden pt-8 bg-0">
         
         <div className="absolute inset-0 bg-black opacity-20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -147,7 +147,7 @@ export default function ProjectCollaborationPage() {
         <div className="flex flex-wrap gap-2 mb-8">
           <button
             onClick={() => setActiveTab('all')}
-            className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+            className={`px-6 py-3 rounded-lg font-semibold transition-all cursor-pointer ${
               activeTab === 'all'
                 ? 'bg-white text-blue-600 shadow-lg'
                 : 'bg-white/10 text-white hover:bg-white/20'
@@ -159,7 +159,7 @@ export default function ProjectCollaborationPage() {
             <>
               <button
                 onClick={() => setActiveTab('my-projects')}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                className={`px-6 py-3 rounded-lg font-semibold transition-all cursor-pointer ${
                   activeTab === 'my-projects'
                     ? 'bg-white text-blue-600 shadow-lg'
                     : 'bg-white/10 text-white hover:bg-white/20'
@@ -169,7 +169,7 @@ export default function ProjectCollaborationPage() {
               </button>
               <button
                 onClick={() => setActiveTab('my-applications')}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                className={`px-6 py-3 rounded-lg font-semibold transition-all cursor-pointer ${
                   activeTab === 'my-applications'
                     ? 'bg-white text-blue-600 shadow-lg'
                     : 'bg-white/10 text-white hover:bg-white/20'
@@ -188,13 +188,13 @@ export default function ProjectCollaborationPage() {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value as Project['status'] | 'all')}
-              className="bg-white/10 border border-white/20 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="bg-white/10 border border-white/20 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
             >
-              <option value="all" className="bg-gray-900 text-white">Semua Status</option>
-              <option value="open" className="bg-gray-900 text-white">Open</option>
-              <option value="in_progress" className="bg-gray-900 text-white">In Progress</option>
-              <option value="completed" className="bg-gray-900 text-white">Completed</option>
-              <option value="cancelled" className="bg-gray-900 text-white">Cancelled</option>
+              <option value="all" className="bg-gray-900 text-white cursor-pointer">Semua Status</option>
+              <option value="open" className="bg-gray-900 text-white cursor-pointer">Open</option>
+              <option value="in_progress" className="bg-gray-900 text-white cursor-pointer">In Progress</option>
+              <option value="completed" className="bg-gray-900 text-white cursor-pointer">Completed</option>
+              <option value="cancelled" className="bg-gray-900 text-white cursor-pointer">Cancelled</option>
             </select>
           </div>
         )}

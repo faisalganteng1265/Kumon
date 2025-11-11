@@ -28,7 +28,7 @@ export default function CreateProjectModal({
     title: '',
     description: '',
     deadline: '',
-    max_collaborators: 10,
+    max_collaborators: '',
   });
   const [roles, setRoles] = useState<RoleInput[]>([
     { role_name: '', description: '', required_count: 1 },
@@ -49,6 +49,10 @@ export default function CreateProjectModal({
       setError('Deskripsi project harus diisi');
       return;
     }
+    if (!formData.max_collaborators || formData.max_collaborators === '') {
+      setError('Max collaborators harus diisi');
+      return;
+    }
     const validRoles = roles.filter(r => r.role_name.trim());
     if (validRoles.length === 0) {
       setError('Minimal tambahkan 1 role yang dibutuhkan');
@@ -61,7 +65,7 @@ export default function CreateProjectModal({
         title: formData.title,
         description: formData.description,
         deadline: formData.deadline || undefined,
-        max_collaborators: formData.max_collaborators,
+        max_collaborators: parseInt(formData.max_collaborators.toString()),
         roles: validRoles,
       };
 
@@ -72,7 +76,7 @@ export default function CreateProjectModal({
         title: '',
         description: '',
         deadline: '',
-        max_collaborators: 10,
+        max_collaborators: '',
       });
       setRoles([{ role_name: '', description: '', required_count: 1 }]);
 
@@ -105,13 +109,13 @@ export default function CreateProjectModal({
 
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-gray-900 border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-gray-900 border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto dark-scrollbar">
         {/* Header */}
         <div className="sticky top-0 bg-gray-900 text-white p-6 rounded-t-2xl flex justify-between items-center border-b border-gray-700">
           <h2 className="text-2xl font-bold">Buat Project Baru</h2>
           <button
             onClick={onClose}
-            className="text-white hover:bg-white/20 rounded-full p-2 transition-all"
+            className="text-white hover:bg-white/20 rounded-full p-2 transition-all cursor-pointer"
           >
             <X className="w-6 h-6" />
           </button>
@@ -174,10 +178,11 @@ export default function CreateProjectModal({
               <input
                 type="number"
                 value={formData.max_collaborators}
-                onChange={(e) => setFormData({ ...formData, max_collaborators: parseInt(e.target.value) || 10 })}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => setFormData({ ...formData, max_collaborators: e.target.value === '' ? '' : (parseInt(e.target.value) || '').toString() })}
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
                 min="1"
                 max="100"
+                placeholder="Masukkan jumlah maksimal"
               />
             </div>
           </div>
@@ -191,7 +196,7 @@ export default function CreateProjectModal({
               <button
                 type="button"
                 onClick={addRole}
-                className="flex items-center px-3 py-2 bg-white text-black rounded-lg hover:bg-gray-100 hover:scale-105 hover:shadow-xl active:scale-95 transition-all duration-200 text-sm shadow-md font-semibold"
+                className="flex items-center px-3 py-2 bg-white text-black rounded-lg hover:bg-gray-100 hover:scale-105 hover:shadow-xl active:scale-95 transition-all duration-200 text-sm shadow-md font-semibold cursor-pointer"
               >
                 <Plus className="w-4 h-4 mr-1" />
                 Tambah Role
@@ -259,14 +264,14 @@ export default function CreateProjectModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-6 py-3 border border-gray-600 text-gray-300 rounded-lg font-semibold hover:bg-gray-800 hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-200"
+              className="flex-1 px-6 py-3 border border-gray-600 text-gray-300 rounded-lg font-semibold hover:bg-gray-800 hover:scale-105 hover:shadow-lg active:scale-95 transition-all duration-200 cursor-pointer"
               disabled={loading}
             >
               Batal
             </button>
             <button
               type="submit"
-              className="flex-1 px-6 py-3 bg-white text-black rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 hover:shadow-2xl active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100 disabled:cursor-not-allowed shadow-lg"
+              className="flex-1 px-6 py-3 bg-white text-black rounded-lg font-semibold hover:bg-gray-100 hover:scale-105 hover:shadow-2xl active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:hover:scale-100 disabled:cursor-not-allowed shadow-lg cursor-pointer"
               disabled={loading}
             >
               {loading ? 'Membuat...' : 'Buat Project'}

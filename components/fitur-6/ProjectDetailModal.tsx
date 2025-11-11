@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import type { Project, ProjectApplication } from '@/types/projects';
-import { getProjectApplications } from '@/lib/supabase/projects';
+import { getProjectApplications, updateProjectStatus } from '@/lib/supabase/projects';
 import ApplyModal from './ApplyModal';
 import ManageApplicationsModal from './ManageApplicationsModal';
 import ProgressSlider from './ProgressSlider';
@@ -17,6 +17,7 @@ import {
   CheckCircle,
   XCircle,
   Settings,
+  Edit3,
 } from 'lucide-react';
 
 interface ProjectDetailModalProps {
@@ -55,18 +56,22 @@ export default function ProjectDetailModal({
   const [lastProjectId, setLastProjectId] = useState(project.id);
   const [showProgressNotification, setShowProgressNotification] = useState(false);
   const [notificationProgress, setNotificationProgress] = useState(0);
+  const [currentStatus, setCurrentStatus] = useState(project.status);
+  const [isEditingStatus, setIsEditingStatus] = useState(false);
+  const [updatingStatus, setUpdatingStatus] = useState(false);
   const notificationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const isInitiator = user?.id === project.initiator_id;
 
-  // Only reset progress when opening modal or switching to a different project
+  // Only reset progress and status when opening modal or switching to a different project
   useEffect(() => {
     if (isOpen && project.id !== lastProjectId) {
       console.log('Project changed, resetting progress to:', project.progress);
       setCurrentProgress(project.progress || 0);
+      setCurrentStatus(project.status);
       setLastProjectId(project.id);
     }
-  }, [isOpen, project.id, project.progress, lastProjectId]);
+  }, [isOpen, project.id, project.progress, project.status, lastProjectId]);
 
   // Cleanup timeout on unmount
   useEffect(() => {
@@ -110,26 +115,50 @@ export default function ProjectDetailModal({
     console.log('Local state updated to:', newProgress);
     // Force a re-render by updating the project object's progress property
     project.progress = newProgress;
-    
+
+    // If progress is 100%, also update status to completed
+    if (newProgress === 100) {
+      setCurrentStatus('completed');
+      project.status = 'completed';
+    }
+
     // Clear any existing timeout
     if (notificationTimeoutRef.current) {
       clearTimeout(notificationTimeoutRef.current);
     }
-    
+
     // Show progress notification
     console.log('Setting notification progress to:', newProgress);
     setNotificationProgress(newProgress);
     console.log('Setting showProgressNotification to true');
     setShowProgressNotification(true);
-    
+
     // Hide notification after 3 seconds
     notificationTimeoutRef.current = setTimeout(() => {
       console.log('Hiding notification after 3 seconds');
       setShowProgressNotification(false);
     }, 3000);
-    
+
     // Refresh the project list in parent (this will update the card view)
     onRefresh();
+  };
+
+  const handleStatusChange = async (newStatus: Project['status']) => {
+    if (!isInitiator) return;
+
+    try {
+      setUpdatingStatus(true);
+      await updateProjectStatus(project.id, newStatus);
+      setCurrentStatus(newStatus);
+      project.status = newStatus;
+      setIsEditingStatus(false);
+      onRefresh();
+    } catch (error) {
+      console.error('Error updating status:', error);
+      alert('Failed to update status');
+    } finally {
+      setUpdatingStatus(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -146,18 +175,59 @@ export default function ProjectDetailModal({
       
       
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div className="bg-gray-900 border border-gray-700 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="bg-gray-900 border border-gray-700 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto dark-scrollbar">
           {/* Header - Sticky */}
           <div className="sticky top-0 bg-gray-900 text-white p-6 rounded-t-2xl border-b border-gray-700 z-10 backdrop-blur-md shadow-lg">
             <div className="flex justify-between items-start">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
                   <h2 className="text-2xl font-bold">{project.title}</h2>
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold ${statusColors[project.status]}`}
-                  >
-                    {statusLabels[project.status]}
-                  </span>
+
+                  {/* Status Display/Edit */}
+                  {isInitiator && !isEditingStatus ? (
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-semibold ${statusColors[currentStatus]}`}
+                      >
+                        {statusLabels[currentStatus]}
+                      </span>
+                      <button
+                        onClick={() => setIsEditingStatus(true)}
+                        className="text-blue-400 hover:text-blue-300 transition-all"
+                        title="Change status"
+                      >
+                        <Edit3 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ) : isInitiator && isEditingStatus ? (
+                    <div className="flex items-center gap-2">
+                      <select
+                        value={currentStatus}
+                        onChange={(e) => handleStatusChange(e.target.value as Project['status'])}
+                        disabled={updatingStatus}
+                        className="bg-gray-800 border border-gray-600 text-white rounded-lg px-5 py-2.5 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer w-[160px]"
+                      >
+                        <option value="open" className="bg-gray-900">Open</option>
+                        <option value="in_progress" className="bg-gray-900">In Progress</option>
+                        <option value="completed" className="bg-gray-900">Completed</option>
+                        <option value="cancelled" className="bg-gray-900">Cancelled</option>
+                      </select>
+                      <button
+                        onClick={() => setIsEditingStatus(false)}
+                        disabled={updatingStatus}
+                        className="text-gray-400 hover:text-gray-300 transition-all"
+                        title="Cancel"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ) : (
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${statusColors[currentStatus]}`}
+                    >
+                      {statusLabels[currentStatus]}
+                    </span>
+                  )}
                 </div>
                 <div className="flex items-center text-gray-300 text-sm">
                   <User className="w-4 h-4 mr-1" />

@@ -160,9 +160,27 @@ export async function updateProjectProgress(projectId: string, progress: number)
     throw new Error('Progress must be between 0 and 100');
   }
 
+  // Automatically update status to 'completed' when progress reaches 100%
+  const updates: any = { progress };
+  if (progress === 100) {
+    updates.status = 'completed';
+  }
+
   const { data, error } = await supabase
     .from('projects')
-    .update({ progress })
+    .update(updates)
+    .eq('id', projectId)
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+export async function updateProjectStatus(projectId: string, status: Project['status']) {
+  const { data, error } = await supabase
+    .from('projects')
+    .update({ status })
     .eq('id', projectId)
     .select()
     .single();
