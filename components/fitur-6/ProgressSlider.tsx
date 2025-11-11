@@ -72,10 +72,10 @@ export default function ProgressSlider({
       <div>
         <div className="flex justify-between items-center mb-2">
           <div className="flex items-center gap-2">
-            <TrendingUp className="w-4 h-4 text-gray-600" />
-            <span className="text-sm font-semibold text-gray-700">Project Progress</span>
+            <TrendingUp className="w-4 h-4 text-white" />
+            <span className="text-sm font-semibold text-white">Project Progress</span>
           </div>
-          <span className="text-2xl font-bold text-gray-900">{currentProgress}%</span>
+          <span className="text-2xl font-bold text-white">{currentProgress}%</span>
         </div>
 
         {/* Progress Bar */}
@@ -93,21 +93,22 @@ export default function ProgressSlider({
           {!isEditing ? (
             <button
               onClick={() => setIsEditing(true)}
-              className="text-sm text-blue-600 hover:text-blue-700 font-semibold transition-colors"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-md flex items-center gap-2"
             >
+              <TrendingUp className="w-4 h-4" />
               Update Progress
             </button>
           ) : (
-            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-3">
+            <div className="bg-gray-900 border border-gray-700 rounded-lg p-4 space-y-3">
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded text-sm">
+                <div className="bg-red-900/30 border border-red-600 text-red-400 px-3 py-2 rounded text-sm">
                   {error}
                 </div>
               )}
 
               {/* Slider with Dynamic Color */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label className="block text-sm font-semibold text-white mb-2">
                   Set Progress: {progress}%
                 </label>
                 <input
@@ -129,15 +130,15 @@ export default function ProgressSlider({
                 <button
                   onClick={handleSave}
                   disabled={saving || progress === currentProgress}
-                  className="flex-1 flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 flex items-center justify-center px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
                 >
                   <Save className="w-4 h-4 mr-2" />
-                  {saving ? 'Saving...' : 'Save'}
+                  {saving ? 'Saving...' : 'Save Progress'}
                 </button>
                 <button
                   onClick={handleCancel}
                   disabled={saving}
-                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-all disabled:opacity-50"
+                  className="px-4 py-2 border border-gray-600 text-gray-300 rounded-lg font-semibold hover:bg-gray-800 transition-all disabled:opacity-50"
                 >
                   <X className="w-4 h-4" />
                 </button>

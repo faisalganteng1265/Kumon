@@ -148,7 +148,7 @@ export default function ProjectDetailModal({
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div className="bg-gray-900 border border-gray-700 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
           {/* Header */}
-          <div className="sticky top-0 bg-gradient-to-r from-gray-800 to-gray-900 text-white p-6 rounded-t-2xl border-b border-gray-700">
+          <div className="sticky top-0 bg-black/880 text-white p-6 rounded-t-2xl border-b border-gray-700">
             <div className="flex justify-between items-start">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
@@ -318,11 +318,11 @@ export default function ProjectDetailModal({
             )}
 
             {/* Action Buttons */}
-            <div className="flex gap-3 pt-4 border-t">
+            <div className="flex gap-3 pt-4 border-t border-gray-700">
               {isInitiator && (
                 <button
                   onClick={() => setShowManageModal(true)}
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all flex items-center justify-center"
+                  className="flex-1 px-6 py-3 bg-gray-700/50 text-white rounded-lg font-semibold hover:bg-gray-600/50 transition-all flex items-center justify-center border border-gray-600"
                 >
                   <Settings className="w-5 h-5 mr-2" />
                   Kelola Aplikasi
@@ -339,7 +339,7 @@ export default function ProjectDetailModal({
               )}
               <button
                 onClick={onClose}
-                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-all"
+                className="px-6 py-3 border border-gray-600 text-gray-300 rounded-lg font-semibold hover:bg-gray-800 transition-all"
               >
                 Tutup
               </button>

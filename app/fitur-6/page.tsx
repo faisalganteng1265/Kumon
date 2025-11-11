@@ -55,8 +55,25 @@ export default function ProjectCollaborationPage() {
       {/* Particle Background */}
       <ParticleBackground />
 
+      {/* Logo - Top Left */}
+      <div className="fixed top-4 left-4 z-[1005]">
+        <a
+          href="/"
+          aria-label="Go to home page"
+          className="block transition-all duration-300 hover:scale-110 active:scale-95"
+        >
+          <Image
+            src="/AICAMPUS.png"
+            alt="AI Campus Logo"
+            width={50}
+            height={40}
+            className="drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.6)] transition-all duration-300"
+          />
+        </a>
+      </div>
+
       {/* Top Left Navigation */}
-      <div className="fixed top-4 left-24 z-[1005] pt-1 flex items-center gap-4">
+      <div className="fixed top-4 left-40 z-[1005] pt-1 flex items-center gap-4">
         {user && (
           <>
             <UserProfile position="inline" />
