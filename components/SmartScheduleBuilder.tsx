@@ -993,7 +993,7 @@ export default function SmartScheduleBuilder() {
           onClick={() => setShowPopup(null)}
         >
           <div
-            className="bg-gray-800 rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border-2 border-white/20 relative"
+            className="bg-gray-700/40 backdrop-blur-xl rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border-2 border-white/40 relative"
             onClick={(e) => e.stopPropagation()}
           >
             {showPopup === 'jadwal' && (
