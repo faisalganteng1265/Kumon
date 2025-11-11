@@ -1,80 +1,61 @@
+import Image from 'next/image';
+
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-12 px-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-                <span className="text-white text-xl font-bold">AI</span>
-              </div>
-              <span className="text-xl font-bold">Campus Navigator</span>
-            </div>
-            <p className="text-gray-400">Panduan kehidupan kampus cerdas dengan teknologi AI</p>
+    <footer className="bg-gray-900 text-white py-4 px-6">
+      <div className="max-w-full mx-auto px-4">
+        <div className="relative flex flex-col md:flex-row items-center gap-4">
+          {/* Left: Logo and Brand */}
+          <div className="flex items-center gap-2">
+            <Image
+              src="/AICAMPUS.png"
+              alt="AI Campus Logo"
+              width={30}
+              height={30}
+              className="object-contain"
+            />
+            <span className="text-base font-bold whitespace-nowrap">Campus Navigator</span>
           </div>
-          <div>
-            <h4 className="font-semibold mb-4">Produk</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Fitur
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Harga
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Demo
-                </a>
-              </li>
-            </ul>
+
+          {/* Navigation Links */}
+          <div className="flex items-center gap-4 text-sm text-gray-400">
+            <a href="#features" className="hover:text-white transition-colors">
+              Produk
+            </a>
+            <span className="text-gray-600">|</span>
+            <a href="#" className="hover:text-white transition-colors">
+              Perusahaan
+            </a>
+            <span className="text-gray-600">|</span>
+            <a href="#about-us" className="hover:text-white transition-colors">
+              Dukungan
+            </a>
           </div>
-          <div>
-            <h4 className="font-semibold mb-4">Perusahaan</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Tentang Kami
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Tim
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Kontak
-                </a>
-              </li>
-            </ul>
+
+          {/* Center: Copyright */}
+          <div className="md:absolute md:left-1/2 md:-translate-x-1/2 text-sm text-gray-400">
+            &copy; 2024 Campus Navigator. All rights reserved.
           </div>
-          <div>
-            <h4 className="font-semibold mb-4">Dukungan</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Bantuan
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  FAQ
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors">
-                  Privacy
-                </a>
-              </li>
-            </ul>
+
+          {/* Right: GitHub Icon */}
+          <div className="md:ml-auto">
+            <a
+              href="https://github.com/faisalganteng1265/AI-Campus"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors"
+              aria-label="GitHub"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg>
+            </a>
           </div>
-        </div>
-        <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-          <p>&copy; 2025 AI Campus Navigator. All rights reserved.</p>
         </div>
       </div>
     </footer>
