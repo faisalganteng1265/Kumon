@@ -106,7 +106,7 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
   const initial = username.charAt(0).toUpperCase();
 
   const containerClass = position === 'fixed'
-    ? 'fixed top-10 left-20 z-[1005]'
+    ? 'fixed top-6 left-20 z-[1005]'
     : 'relative z-[1005]';
 
   return (

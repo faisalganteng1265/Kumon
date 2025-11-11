@@ -70,18 +70,7 @@ export default function Navbar() {
           <div className={`flex items-center justify-between transition-all duration-500 ${
             isScrolled ? 'h-14 px-6' : 'h-16'
           }`}>
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <Link href="/" className="flex items-center">
-                <Image
-                  src="/AICAMPUS.png"
-                  alt="AICampus"
-                  width={120}
-                  height={40}
-                  className="h-10 w-auto"
-                />
-              </Link>
-            </div>
+            
 
             {/* Desktop Navigation - Centered */}
             <div className="hidden md:flex flex-1 justify-center">

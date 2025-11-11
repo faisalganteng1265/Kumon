@@ -45,6 +45,20 @@ export default function HeroSection() {
           AICAMPUS
         </motion.h1>
 
+        {/* Logo below AICAMPUS text */}
+        <motion.div
+          className="mt-8 flex justify-center"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+        >
+          <img
+            src="/LOGOSVG.svg"
+            alt="AI Campus Logo"
+            className="w-[40vw] md:w-[30vw] lg:w-[20vw] max-w-md"
+          />
+        </motion.div>
+
         {/* Subtle glow effect */}
         <motion.div
           className="absolute inset-0 blur-3xl opacity-20 bg-gradient-to-r from-emerald-500 to-teal-500 -z-10"

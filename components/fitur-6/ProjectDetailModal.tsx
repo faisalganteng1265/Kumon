@@ -294,7 +294,7 @@ export default function ProjectDetailModal({
               {/* Left Column - Description, Progress, Deadline */}
               <div className="lg:col-span-2 space-y-6">
                 {/* Description */}
-                <div>
+                <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
                   <h3 className="text-lg font-bold text-white mb-3">Deskripsi Project</h3>
                   <p className="text-gray-300 whitespace-pre-wrap">{project.description}</p>
                 </div>
@@ -324,30 +324,32 @@ export default function ProjectDetailModal({
 
               {/* Right Column - Roles Needed */}
               <div className="lg:col-span-1">
-                <h3 className="text-lg font-bold text-white mb-3">Role yang Dibutuhkan</h3>
-                <div className="space-y-3">
-                  {project.roles?.map((role) => (
-                    <div
-                      key={role.id}
-                      className="bg-gray-800/50 border border-gray-700 rounded-lg p-4"
-                    >
-                      <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-semibold text-white">{role.role_name}</h4>
-                        <span className="text-sm text-gray-400">
-                          {role.filled_count}/{role.required_count} filled
-                        </span>
-                      </div>
-                      {role.description && (
-                        <p className="text-gray-400 text-sm">{role.description}</p>
-                      )}
-                      {role.filled_count >= role.required_count && (
-                        <div className="mt-2 flex items-center text-green-400 text-sm">
-                          <CheckCircle className="w-4 h-4 mr-1" />
-                          <span>Role sudah terpenuhi</span>
+                <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
+                  <h3 className="text-lg font-bold text-white mb-3">Role yang Dibutuhkan</h3>
+                  <div className="space-y-3">
+                    {project.roles?.map((role) => (
+                      <div
+                        key={role.id}
+                        className="bg-gray-900/50 border border-gray-600 rounded-lg p-3"
+                      >
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className="font-semibold text-white">{role.role_name}</h4>
+                          <span className="text-sm text-gray-400">
+                            {role.filled_count}/{role.required_count} filled
+                          </span>
                         </div>
-                      )}
-                    </div>
-                  ))}
+                        {role.description && (
+                          <p className="text-gray-400 text-sm">{role.description}</p>
+                        )}
+                        {role.filled_count >= role.required_count && (
+                          <div className="mt-2 flex items-center text-green-400 text-sm">
+                            <CheckCircle className="w-4 h-4 mr-1" />
+                            <span>Role sudah terpenuhi</span>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
