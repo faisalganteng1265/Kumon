@@ -190,11 +190,11 @@ export default function ProjectCollaborationPage() {
               onChange={(e) => setFilterStatus(e.target.value as Project['status'] | 'all')}
               className="bg-white/10 border border-white/20 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="all">Semua Status</option>
-              <option value="open">Open</option>
-              <option value="in_progress">In Progress</option>
-              <option value="completed">Completed</option>
-              <option value="cancelled">Cancelled</option>
+              <option value="all" className="bg-gray-900 text-white">Semua Status</option>
+              <option value="open" className="bg-gray-900 text-white">Open</option>
+              <option value="in_progress" className="bg-gray-900 text-white">In Progress</option>
+              <option value="completed" className="bg-gray-900 text-white">Completed</option>
+              <option value="cancelled" className="bg-gray-900 text-white">Cancelled</option>
             </select>
           </div>
         )}

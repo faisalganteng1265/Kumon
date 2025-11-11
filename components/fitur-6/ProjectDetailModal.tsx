@@ -147,8 +147,8 @@ export default function ProjectDetailModal({
       
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div className="bg-gray-900 border border-gray-700 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-          {/* Header */}
-          <div className="sticky top-0 bg-black/880 text-white p-6 rounded-t-2xl border-b border-gray-700">
+          {/* Header - Sticky */}
+          <div className="sticky top-0 bg-gray-900 text-white p-6 rounded-t-2xl border-b border-gray-700 z-10 backdrop-blur-md shadow-lg">
             <div className="flex justify-between items-start">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
@@ -176,13 +176,10 @@ export default function ProjectDetailModal({
                 <X className="w-6 h-6" />
               </button>
             </div>
-          </div>
 
-          {/* Content */}
-          <div className="p-6 space-y-6">
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-gray-800/50 backdrop-blur-md rounded-lg p-4 border border-gray-700">
+            {/* Stats - Also sticky with header */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+              <div className="bg-gray-800/80 backdrop-blur-md rounded-lg p-4 border border-gray-700">
                 <div className="flex items-center text-blue-400 mb-1">
                   <Users className="w-5 h-5 mr-2" />
                   <span className="text-sm font-semibold">Collaborators</span>
@@ -191,14 +188,14 @@ export default function ProjectDetailModal({
                   {totalRolesFilled}/{totalRolesNeeded}
                 </p>
               </div>
-              <div className="bg-gray-800/50 backdrop-blur-md rounded-lg p-4 border border-gray-700">
+              <div className="bg-gray-800/80 backdrop-blur-md rounded-lg p-4 border border-gray-700">
                 <div className="flex items-center text-purple-400 mb-1">
                   <Briefcase className="w-5 h-5 mr-2" />
                   <span className="text-sm font-semibold">Roles</span>
                 </div>
                 <p className="text-2xl font-bold text-white">{project.roles?.length || 0}</p>
               </div>
-              <div className="bg-gray-800/50 backdrop-blur-md rounded-lg p-4 border border-gray-700">
+              <div className="bg-gray-800/80 backdrop-blur-md rounded-lg p-4 border border-gray-700">
                 <div className="flex items-center text-green-400 mb-1">
                   <CheckCircle className="w-5 h-5 mr-2" />
                   <span className="text-sm font-semibold">Applications</span>
@@ -207,7 +204,7 @@ export default function ProjectDetailModal({
                   {applications.filter((a) => a.status === 'pending').length}
                 </p>
               </div>
-              <div className="bg-gray-800/50 backdrop-blur-md rounded-lg p-4 border border-gray-700">
+              <div className="bg-gray-800/80 backdrop-blur-md rounded-lg p-4 border border-gray-700">
                 <div className="flex items-center text-orange-400 mb-1">
                   <Calendar className="w-5 h-5 mr-2" />
                   <span className="text-sm font-semibold">Created</span>
@@ -217,6 +214,10 @@ export default function ProjectDetailModal({
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* Content */}
+          <div className="p-6 space-y-6">
 
             {/* Description */}
             <div>
