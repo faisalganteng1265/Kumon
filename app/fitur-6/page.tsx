@@ -149,7 +149,7 @@ export default function ProjectCollaborationPage() {
             onClick={() => setActiveTab('all')}
             className={`px-6 py-3 rounded-lg font-semibold transition-all cursor-pointer ${
               activeTab === 'all'
-                ? 'bg-white text-blue-600 shadow-lg'
+                ? 'bg-white text-black shadow-lg'
                 : 'bg-white/10 text-white hover:bg-white/20'
             }`}
           >
@@ -161,7 +161,7 @@ export default function ProjectCollaborationPage() {
                 onClick={() => setActiveTab('my-projects')}
                 className={`px-6 py-3 rounded-lg font-semibold transition-all cursor-pointer ${
                   activeTab === 'my-projects'
-                    ? 'bg-white text-blue-600 shadow-lg'
+                    ? 'bg-white text-black shadow-lg'
                     : 'bg-white/10 text-white hover:bg-white/20'
                 }`}
               >
@@ -171,7 +171,7 @@ export default function ProjectCollaborationPage() {
                 onClick={() => setActiveTab('my-applications')}
                 className={`px-6 py-3 rounded-lg border-2px font-semibold transition-all cursor-pointer ${
                   activeTab === 'my-applications'
-                    ? 'bg-white text-blue-600 shadow-lg'
+                    ? 'bg-white text-black shadow-lg'
                     : 'bg-white/10 text-white hover:bg-white/20'
                 }`}
               >

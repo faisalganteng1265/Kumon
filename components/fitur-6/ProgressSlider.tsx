@@ -63,7 +63,7 @@ export default function ProgressSlider({
       color1 = '#22c55e'; // green-500
       color2 = '#16a34a'; // green-600
     }
-    return `linear-gradient(to right, ${color1} 0%, ${color1} ${value}%, #e5e7eb ${value}%, #e5e7eb 100%)`;
+    return `linear-gradient(to right, ${color1} 0%, ${color1} ${value}%, #1f2937 ${value}%, #1f2937 100%)`;
   };
 
   return (

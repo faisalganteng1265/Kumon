@@ -177,7 +177,7 @@ export default function ProjectDetailModal({
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div className="bg-gray-900 border border-gray-700 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto dark-scrollbar">
           {/* Header - Sticky */}
-          <div className="sticky top-0 bg-gray-900 text-white p-6 rounded-t-2xl border-b border-gray-700 z-10 backdrop-blur-md shadow-lg">
+          <div className="sticky top-0 bg-gray-900 text-white p-6 pb-0 rounded-t-2xl z-10 backdrop-blur-md">
             <div className="flex justify-between items-start">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
@@ -248,7 +248,7 @@ export default function ProjectDetailModal({
             </div>
 
             {/* Stats - Also sticky with header */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pb-6">
               <div className="bg-gray-800/80 backdrop-blur-md rounded-lg p-4 border border-gray-700">
                 <div className="flex items-center text-blue-400 mb-1">
                   <Users className="w-5 h-5 mr-2" />
