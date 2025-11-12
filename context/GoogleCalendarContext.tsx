@@ -8,7 +8,21 @@ interface GoogleCalendarContextType {
   accessToken: string | null;
   login: () => void;
   logout: () => void;
-  syncToGoogleCalendar: (events: CalendarEvent[]) => Promise<void>;
+  syncToGoogleCalendar: (events: CalendarEvent[]) => Promise<SyncResult>;
+}
+
+export interface SyncResult {
+  success: boolean;
+  syncedCount: number;
+  syncedEvents?: Array<{
+    localId: string;
+    googleEventId: string;
+    htmlLink: string;
+  }>;
+  errors?: Array<{
+    event: string;
+    error: string;
+  }>;
 }
 
 export interface CalendarEvent {
@@ -54,7 +68,7 @@ function GoogleCalendarProviderInner({ children }: { children: React.ReactNode }
     localStorage.removeItem('google_calendar_token');
   };
 
-  const syncToGoogleCalendar = async (events: CalendarEvent[]) => {
+  const syncToGoogleCalendar = async (events: CalendarEvent[]): Promise<SyncResult> => {
     if (!accessToken) {
       throw new Error('Not authenticated with Google Calendar');
     }
@@ -75,7 +89,7 @@ function GoogleCalendarProviderInner({ children }: { children: React.ReactNode }
         throw new Error('Failed to sync with Google Calendar');
       }
 
-      const data = await response.json();
+      const data: SyncResult = await response.json();
       return data;
     } catch (error) {
       console.error('Error syncing to Google Calendar:', error);

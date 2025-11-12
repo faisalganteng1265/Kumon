@@ -5,7 +5,7 @@ import { Calendar, momentLocalizer, View } from 'react-big-calendar';
 import moment from 'moment';
 import 'moment/locale/id';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { useGoogleCalendar } from '@/context/GoogleCalendarContext';
+import { useGoogleCalendar, type SyncResult } from '@/context/GoogleCalendarContext';
 
 moment.locale('id');
 const localizer = momentLocalizer(moment);
