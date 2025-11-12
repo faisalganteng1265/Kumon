@@ -68,10 +68,48 @@ export default function CalendarView({ optimizedSchedule, scheduleItems }: Calen
   const [date, setDate] = useState(new Date());
   const { isAuthenticated, login, syncToGoogleCalendar } = useGoogleCalendar();
   const [isSyncing, setIsSyncing] = useState(false);
+  const [calendarWidth, setCalendarWidth] = useState<number>(0);
+  const [isResizing, setIsResizing] = useState(false);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  // Handle resize functionality
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsResizing(true);
+    e.preventDefault();
+  };
+
+  React.useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isResizing || !containerRef.current) return;
+
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const newWidth = e.clientX - containerRect.left;
+
+      // Set min and max width constraints
+      if (newWidth >= 400 && newWidth <= containerRect.width) {
+        setCalendarWidth(newWidth);
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsResizing(false);
+    };
+
+    if (isResizing) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isResizing]);
 
   // Convert optimized schedule to calendar events
   const events: CalendarEvent[] = useMemo(() => {
     const calendarEvents: CalendarEvent[] = [];
+    const eventKeys = new Set<string>(); // To track unique events
 
     if (optimizedSchedule) {
       Object.entries(optimizedSchedule).forEach(([day, schedules]) => {
@@ -96,6 +134,13 @@ export default function CalendarView({ optimizedSchedule, scheduleItems }: Calen
           const start = eventDate.clone().hour(startHour).minute(startMinute).toDate();
           const end = eventDate.clone().hour(endHour).minute(endMinute).toDate();
 
+          // Create unique key for this event
+          const eventKey = `${day}-${schedule.activity}-${startTime}-${endTime}`;
+
+          // Skip if already added
+          if (eventKeys.has(eventKey)) return;
+          eventKeys.add(eventKey);
+
           calendarEvents.push({
             id: `${day}-${index}`,
             title: schedule.activity,
@@ -112,13 +157,20 @@ export default function CalendarView({ optimizedSchedule, scheduleItems }: Calen
       });
     }
 
-    // Also add events from scheduleItems if available
+    // Also add events from scheduleItems if available (skip duplicates)
     if (scheduleItems) {
       scheduleItems.forEach((item) => {
         if (!item.day || !item.startTime || !item.endTime) return;
 
         const dayNumber = dayNameMap[item.day];
         if (dayNumber === undefined) return;
+
+        // Create unique key for this event
+        const eventKey = `${item.day}-${item.name}-${item.startTime}-${item.endTime}`;
+
+        // Skip if already added
+        if (eventKeys.has(eventKey)) return;
+        eventKeys.add(eventKey);
 
         const today = moment().startOf('week');
         const eventDate = today.clone().day(dayNumber);
@@ -215,34 +267,41 @@ export default function CalendarView({ optimizedSchedule, scheduleItems }: Calen
   };
 
   const eventStyleGetter = (event: CalendarEvent) => {
-    let backgroundColor = '#3b82f6'; // Default blue
+    let backgroundColor = '#1f2937'; // Default dark gray
+    let borderColor = '#60a5fa'; // Default light blue border
 
     switch (event.resource.type) {
       case 'kuliah':
-        backgroundColor = '#3b82f6'; // Blue
+        backgroundColor = '#1e40af'; // Dark blue
+        borderColor = '#60a5fa'; // Light blue
         break;
       case 'kegiatan':
-        backgroundColor = '#10b981'; // Green
+        backgroundColor = '#047857'; // Dark green
+        borderColor = '#34d399'; // Light green
         break;
       case 'seminar':
-        backgroundColor = '#f59e0b'; // Yellow
+        backgroundColor = '#d97706'; // Dark orange
+        borderColor = '#fbbf24'; // Light yellow
         break;
       case 'lomba':
-        backgroundColor = '#ef4444'; // Red
+        backgroundColor = '#b91c1c'; // Dark red
+        borderColor = '#f87171'; // Light red
         break;
       case 'ukm':
-        backgroundColor = '#06b6d4'; // Cyan
+        backgroundColor = '#0e7490'; // Dark cyan
+        borderColor = '#22d3ee'; // Light cyan
         break;
     }
 
     return {
       style: {
         backgroundColor,
-        borderRadius: '5px',
-        opacity: 0.9,
+        borderRadius: '8px',
+        opacity: 1,
         color: 'white',
-        border: '0px',
+        border: `2px solid ${borderColor}`,
         display: 'block',
+        fontWeight: '600',
       },
     };
   };
@@ -257,15 +316,15 @@ export default function CalendarView({ optimizedSchedule, scheduleItems }: Calen
   );
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow-lg">
+    <div className="bg-neutral-900 border border-neutral-700 rounded-xl p-6 shadow-lg max-w-6xl mx-auto">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Kalender Jadwal</h2>
+        <h2 className="text-2xl font-bold text-white">Kalender Jadwal</h2>
         <button
           onClick={handleSyncToGoogle}
           disabled={isSyncing}
           className={`px-4 py-2 rounded-lg font-semibold transition-all ${
             isSyncing
-              ? 'bg-gray-400 cursor-not-allowed'
+              ? 'bg-gray-600 cursor-not-allowed text-gray-400'
               : 'bg-blue-600 hover:bg-blue-700 text-white'
           }`}
         >
@@ -277,30 +336,30 @@ export default function CalendarView({ optimizedSchedule, scheduleItems }: Calen
         </button>
       </div>
 
-      <div className="mb-4 flex gap-2 flex-wrap">
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-blue-500 rounded"></div>
-          <span className="text-sm">Kuliah</span>
+      <div className="mb-4 flex gap-3 flex-wrap">
+        <div className="flex items-center gap-2 bg-neutral-800 px-3 py-2 rounded-lg border border-neutral-700">
+          <div className="w-4 h-4 bg-blue-700 rounded border-2 border-blue-400"></div>
+          <span className="text-sm font-semibold text-white">Kuliah</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-green-500 rounded"></div>
-          <span className="text-sm">Kegiatan</span>
+        <div className="flex items-center gap-2 bg-neutral-800 px-3 py-2 rounded-lg border border-neutral-700">
+          <div className="w-4 h-4 bg-green-700 rounded border-2 border-green-400"></div>
+          <span className="text-sm font-semibold text-white">Kegiatan</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-yellow-500 rounded"></div>
-          <span className="text-sm">Seminar</span>
+        <div className="flex items-center gap-2 bg-neutral-800 px-3 py-2 rounded-lg border border-neutral-700">
+          <div className="w-4 h-4 bg-orange-600 rounded border-2 border-yellow-400"></div>
+          <span className="text-sm font-semibold text-white">Seminar</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-red-500 rounded"></div>
-          <span className="text-sm">Lomba</span>
+        <div className="flex items-center gap-2 bg-neutral-800 px-3 py-2 rounded-lg border border-neutral-700">
+          <div className="w-4 h-4 bg-red-700 rounded border-2 border-red-400"></div>
+          <span className="text-sm font-semibold text-white">Lomba</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-cyan-500 rounded"></div>
-          <span className="text-sm">UKM</span>
+        <div className="flex items-center gap-2 bg-neutral-800 px-3 py-2 rounded-lg border border-neutral-700">
+          <div className="w-4 h-4 bg-cyan-700 rounded border-2 border-cyan-400"></div>
+          <span className="text-sm font-semibold text-white">UKM</span>
         </div>
       </div>
 
-      <div style={{ height: '600px' }}>
+      <div className="px-4" style={{ height: '600px' }}>
         <Calendar
           localizer={localizer}
           events={events}
@@ -339,47 +398,176 @@ export default function CalendarView({ optimizedSchedule, scheduleItems }: Calen
       <style jsx global>{`
         .rbc-calendar {
           font-family: 'Inter', sans-serif;
+          background-color: #171717;
+          color: #f5f5f5;
         }
         .rbc-header {
-          padding: 10px 3px;
-          font-weight: 600;
+          padding: 12px 3px;
+          font-weight: 700;
           font-size: 14px;
-          background-color: #f3f4f6;
-          border-bottom: 2px solid #e5e7eb;
+          background-color: #262626;
+          color: #ffffff;
+          border-bottom: 2px solid #404040;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
         }
         .rbc-time-view {
-          border: 1px solid #e5e7eb;
+          background-color: #1a1a1a;
+          border: 1px solid #404040;
           border-radius: 8px;
           overflow: hidden;
         }
         .rbc-time-slot {
           min-height: 40px;
+          border-top: 1px solid #2a2a2a;
+        }
+        .rbc-time-content {
+          border-top: 2px solid #404040;
+        }
+        .rbc-day-slot .rbc-time-slot {
+          border-top: 1px solid #2a2a2a;
+        }
+        .rbc-timeslot-group {
+          min-height: 80px;
+          border-left: 1px solid #404040;
+        }
+        .rbc-day-slot .rbc-events-container {
+          margin-right: 0;
+        }
+        .rbc-time-header-content {
+          border-left: 1px solid #404040;
+        }
+        .rbc-time-content > * + * > * {
+          border-left: 1px solid #404040;
+        }
+        .rbc-current-time-indicator {
+          background-color: #3b82f6;
+          height: 2px;
         }
         .rbc-today {
-          background-color: #eff6ff;
+          background-color: #1e3a8a;
+        }
+        .rbc-label {
+          color: #d1d5db;
+          font-weight: 600;
+          padding: 8px 12px;
+        }
+        .rbc-toolbar {
+          background-color: #262626;
+          padding: 16px;
+          border-radius: 8px;
+          margin-bottom: 16px;
+          border: 1px solid #404040;
         }
         .rbc-toolbar button {
-          color: #374151;
+          color: #f5f5f5;
           font-weight: 500;
-          border: 1px solid #d1d5db;
+          border: 1px solid #404040;
+          background-color: #171717;
           padding: 8px 16px;
           border-radius: 6px;
           transition: all 0.2s;
         }
         .rbc-toolbar button:hover {
-          background-color: #f3f4f6;
+          background-color: #262626;
+          border-color: #525252;
         }
         .rbc-toolbar button.rbc-active {
           background-color: #3b82f6;
           color: white;
           border-color: #3b82f6;
         }
+        .rbc-toolbar-label {
+          color: #ffffff;
+          font-weight: 700;
+          font-size: 16px;
+        }
         .rbc-event {
-          padding: 2px 5px;
-          font-size: 12px;
+          padding: 4px 6px;
+          font-size: 13px;
+          font-weight: 600;
         }
         .rbc-event-label {
           font-size: 11px;
+        }
+        .rbc-event-content {
+          font-weight: 600;
+        }
+        .rbc-header + .rbc-header {
+          border-left: 1px solid #404040;
+        }
+        .rbc-month-view {
+          background-color: #171717;
+          border: 1px solid #404040;
+          border-radius: 8px;
+        }
+        .rbc-month-row {
+          border-top: 1px solid #404040;
+        }
+        .rbc-day-bg + .rbc-day-bg {
+          border-left: 1px solid #2a2a2a;
+        }
+        .rbc-off-range-bg {
+          background-color: #0a0a0a;
+        }
+        .rbc-date-cell {
+          padding: 8px;
+        }
+        .rbc-button-link {
+          color: #d1d5db;
+          font-weight: 600;
+        }
+        .rbc-show-more {
+          background-color: #262626;
+          color: #60a5fa;
+          font-weight: 600;
+          padding: 2px 6px;
+          border-radius: 4px;
+          margin: 2px 0;
+        }
+        .rbc-overlay {
+          background-color: #1a1a1a;
+          border: 2px solid #404040;
+          border-radius: 8px;
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        .rbc-overlay-header {
+          background-color: #262626;
+          border-bottom: 2px solid #404040;
+          padding: 12px;
+          font-weight: 700;
+          color: #ffffff;
+        }
+
+        /* Custom Scrollbar Styling */
+        .rbc-time-content::-webkit-scrollbar {
+          width: 14px;
+        }
+        .rbc-time-content::-webkit-scrollbar-track {
+          background: transparent;
+          margin: 8px 0;
+        }
+        .rbc-time-content::-webkit-scrollbar-thumb {
+          background: #404040;
+          border-radius: 10px;
+          border: 3px solid #1a1a1a;
+          background-clip: padding-box;
+        }
+        .rbc-time-content::-webkit-scrollbar-thumb:hover {
+          background: #525252;
+          border: 3px solid #1a1a1a;
+          background-clip: padding-box;
+        }
+
+        /* Firefox scrollbar */
+        .rbc-time-content {
+          scrollbar-width: thin;
+          scrollbar-color: #404040 transparent;
+        }
+
+        /* Add padding to time content for scrollbar spacing */
+        .rbc-time-content {
+          padding-right: 4px;
         }
       `}</style>
     </div>
