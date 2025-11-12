@@ -45,7 +45,7 @@ function GoogleCalendarProviderInner({ children }: { children: React.ReactNode }
     onError: (error) => {
       console.error('Login Failed:', error);
     },
-    scope: 'https://www.googleapis.com/auth/calendar.events',
+    scope: 'https://www.googleapis.com/auth/calendar',
   });
 
   const logout = () => {

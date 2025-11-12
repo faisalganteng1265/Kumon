@@ -155,21 +155,60 @@ export default function CalendarView({ optimizedSchedule, scheduleItems }: Calen
 
     try {
       setIsSyncing(true);
-      const eventsToSync = events.map(event => ({
-        id: event.id,
-        title: event.title,
-        start: event.start,
-        end: event.end,
-        description: event.resource.description,
-        location: event.resource.location,
-        type: event.resource.type,
-      }));
 
-      await syncToGoogleCalendar(eventsToSync);
-      alert('Jadwal berhasil disinkronkan ke Google Calendar!');
+      // Filter and validate events - skip routine events and ensure valid dates
+      const eventsToSync = events
+        .filter(event => {
+          // Skip routine events
+          if (event.resource.type === 'routine') return false;
+
+          // Validate dates
+          const start = new Date(event.start);
+          const end = new Date(event.end);
+
+          if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+            console.warn('Invalid date for event:', event.title);
+            return false;
+          }
+
+          if (end <= start) {
+            console.warn('End time before start time for event:', event.title);
+            return false;
+          }
+
+          return true;
+        })
+        .map(event => ({
+          id: event.id,
+          title: event.title,
+          start: new Date(event.start),
+          end: new Date(event.end),
+          description: event.resource.description || '',
+          location: event.resource.location || '',
+          type: event.resource.type,
+        }));
+
+      console.log('Total events:', events.length);
+      console.log('Events to sync (after filtering):', eventsToSync.length);
+      console.log('First event sample:', eventsToSync[0]);
+
+      if (eventsToSync.length === 0) {
+        alert('Tidak ada jadwal untuk disinkronkan. Silakan generate jadwal terlebih dahulu.');
+        return;
+      }
+
+      const result = await syncToGoogleCalendar(eventsToSync);
+      console.log('Sync result:', result);
+
+      if (result.errors && result.errors.length > 0) {
+        console.error('Sync errors:', result.errors);
+        alert(`Berhasil sync ${result.syncedCount} dari ${eventsToSync.length} jadwal.\n\nGagal: ${result.errors.length} jadwal.\nSilakan cek console untuk detail error.`);
+      } else {
+        alert(`Berhasil menyinkronkan ${result.syncedCount} jadwal ke Google Calendar! Silakan cek Google Calendar Anda.`);
+      }
     } catch (error) {
       console.error('Error syncing to Google Calendar:', error);
-      alert('Gagal menyinkronkan ke Google Calendar. Silakan coba lagi.');
+      alert(`Gagal menyinkronkan ke Google Calendar. Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setIsSyncing(false);
     }

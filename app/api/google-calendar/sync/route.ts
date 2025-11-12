@@ -15,7 +15,12 @@ export async function POST(req: NextRequest) {
   try {
     const { accessToken, events } = await req.json();
 
+    console.log('Google Calendar Sync API called');
+    console.log('Events count:', events?.length);
+    console.log('First event sample:', events?.[0]);
+
     if (!accessToken) {
+      console.error('No access token provided');
       return NextResponse.json(
         { error: 'Access token is required' },
         { status: 400 }
@@ -23,6 +28,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (!events || !Array.isArray(events)) {
+      console.error('Invalid events array');
       return NextResponse.json(
         { error: 'Events array is required' },
         { status: 400 }
@@ -57,10 +63,14 @@ export async function POST(req: NextRequest) {
           colorId: getColorIdByType(event.type),
         };
 
+        console.log('Creating event:', event.title);
+
         const response = await calendar.events.insert({
           calendarId: 'primary',
           requestBody: googleEvent,
         });
+
+        console.log('Event created successfully:', response.data.id);
 
         syncedEvents.push({
           localId: event.id,
@@ -68,12 +78,15 @@ export async function POST(req: NextRequest) {
           htmlLink: response.data.htmlLink,
         });
       } catch (error) {
+        console.error('Error creating event:', event.title, error);
         errors.push({
           event: event.title,
           error: error instanceof Error ? error.message : 'Unknown error',
         });
       }
     }
+
+    console.log('Sync complete - Success:', syncedEvents.length, 'Errors:', errors.length);
 
     return NextResponse.json({
       success: true,

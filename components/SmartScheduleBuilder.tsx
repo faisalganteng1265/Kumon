@@ -783,32 +783,34 @@ export default function SmartScheduleBuilder() {
           <AnimatedContent>
           <div className="space-y-8">
             {/* Analysis Cards - 4 Column Grid */}
+            {optimizedSchedule.analysis && (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <AnimatedContent direction="horizontal" reverse={true}>
               <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 text-center shadow-md">
-                <div className="text-4xl font-bold text-white mb-2">{optimizedSchedule.analysis.totalKuliah}</div>
+                <div className="text-4xl font-bold text-white mb-2">{optimizedSchedule.analysis?.totalKuliah || 0}</div>
                 <div className="text-gray-400 text-sm uppercase tracking-wider">Total Kuliah</div>
               </div>
               </AnimatedContent>
               <AnimatedContent direction="horizontal" reverse={true} delay={0.1}>
               <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 text-center shadow-md">
-                <div className="text-4xl font-bold text-white mb-2">{optimizedSchedule.analysis.totalKegiatan}</div>
+                <div className="text-4xl font-bold text-white mb-2">{optimizedSchedule.analysis?.totalKegiatan || 0}</div>
                 <div className="text-gray-400 text-sm uppercase tracking-wider">Total Kegiatan</div>
               </div>
               </AnimatedContent>
               <AnimatedContent direction="horizontal" delay={0.1}>
               <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 text-center shadow-md">
-                <div className="text-4xl font-bold text-white mb-2">{optimizedSchedule.analysis.avgStudyHoursPerDay.toFixed(1)}h</div>
+                <div className="text-4xl font-bold text-white mb-2">{(optimizedSchedule.analysis?.avgStudyHoursPerDay || 0).toFixed(1)}h</div>
                 <div className="text-gray-400 text-sm uppercase tracking-wider">Belajar/Hari</div>
               </div>
               </AnimatedContent>
               <AnimatedContent direction="horizontal" delay={0.2}>
               <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 text-center shadow-md">
-                <div className="text-2xl font-bold text-white mb-2">{optimizedSchedule.analysis.workLoadBalance}</div>
+                <div className="text-2xl font-bold text-white mb-2">{optimizedSchedule.analysis?.workLoadBalance || 'N/A'}</div>
                 <div className="text-gray-400 text-sm uppercase tracking-wider">Beban Kerja</div>
               </div>
               </AnimatedContent>
             </div>
+            )}
 
             {/* Warnings */}
             {optimizedSchedule.warnings && optimizedSchedule.warnings.length > 0 && (
