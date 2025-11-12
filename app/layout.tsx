@@ -5,6 +5,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { GoogleCalendarProvider } from "@/context/GoogleCalendarContext";
 import { NavbarVisibilityProvider } from "@/contexts/NavbarVisibilityContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { UserProfileHoverProvider } from "@/contexts/UserProfileHoverContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,11 +47,13 @@ export default function RootLayout({
       >
         <LanguageProvider>
           <NavbarVisibilityProvider>
-            <AuthProvider>
-              <GoogleCalendarProvider>
-                {children}
-              </GoogleCalendarProvider>
-            </AuthProvider>
+            <UserProfileHoverProvider>
+              <AuthProvider>
+                <GoogleCalendarProvider>
+                  {children}
+                </GoogleCalendarProvider>
+              </AuthProvider>
+            </UserProfileHoverProvider>
           </NavbarVisibilityProvider>
         </LanguageProvider>
       </body>

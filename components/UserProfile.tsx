@@ -2,6 +2,7 @@
 
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavbarVisibility } from '@/contexts/NavbarVisibilityContext';
+import { useUserProfileHover } from '@/contexts/UserProfileHoverContext';
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import ProfileModal from './ProfileModal';
@@ -10,6 +11,7 @@ import { supabase } from '@/lib/supabase';
 export default function UserProfile({ position = 'fixed' }: { position?: 'fixed' | 'inline' }) {
   const { user, signOut } = useAuth();
   const { hideNavbar, showNavbar } = useNavbarVisibility();
+  const { setIsUserProfileHovered } = useUserProfileHover();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -118,10 +120,12 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
           onMouseEnter={() => {
             console.log('UserProfile hover entered');
             setIsHovered(true);
+            setIsUserProfileHovered(true);
           }}
           onMouseLeave={() => {
             console.log('UserProfile hover left');
             setIsHovered(false);
+            setIsUserProfileHovered(false);
           }}
           className="flex items-center gap-3 rounded-full transition-all duration-300 relative hover:bg-gray-800/50"
           style={{

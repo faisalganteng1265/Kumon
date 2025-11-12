@@ -7,6 +7,7 @@ import AuthModal from './AuthModal';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavbarVisibility } from '@/contexts/NavbarVisibilityContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useUserProfileHover } from '@/contexts/UserProfileHoverContext';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,6 +18,7 @@ export default function Navbar() {
   const { user, signOut } = useAuth();
   const { isNavbarVisible: isNavbarVisibleFromContext } = useNavbarVisibility();
   const { language, setLanguage, t } = useLanguage();
+  const { isUserProfileHovered } = useUserProfileHover();
 
   // Pages dropdown items (fitur-fitur)
   const pageItems = [
@@ -74,7 +76,10 @@ export default function Navbar() {
 
 {/* Desktop Navigation - Left Aligned */}
 <div className="hidden md:flex flex-1">
-  <div className="flex items-baseline space-x-4">
+  {/* Navigation Items - Will shift right when user profile is hovered (only when navbar is not scrolled) */}
+  <div className={`flex items-baseline space-x-4 transition-transform duration-300 ${
+    isUserProfileHovered && !isScrolled ? 'translate-x-32' : 'translate-x-0'
+  }`}>
     {/* Pages Dropdown */}
     <div className="relative">
       <button

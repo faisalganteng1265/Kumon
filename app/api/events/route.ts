@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import Groq from 'groq-sdk';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY || '',
+});
 
 // Fungsi untuk fetch event data dari berbagai sumber
 async function fetchEventsFromWeb() {
@@ -159,9 +161,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!process.env.GEMINI_API_KEY) {
+    if (!process.env.GROQ_API_KEY) {
       return NextResponse.json(
-        { error: 'Gemini API key not configured' },
+        { error: 'Groq API key not configured' },
         { status: 500 }
       );
     }
@@ -176,11 +178,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Use Gemini AI to analyze and recommend events based on user interests
-    const model = genAI.getGenerativeModel({
-      model: 'gemini-2.0-flash-thinking-exp-1219'
-    });
-
+    // Use Groq AI to analyze and recommend events based on user interests
     const prompt = `Kamu adalah AI Event Recommender untuk kampus UNS.
 
 User memiliki minat di: ${interests.join(', ')}
@@ -208,9 +206,25 @@ Format response dalam JSON:
 
 PENTING: Response harus dalam format JSON yang valid!`;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    let text = response.text();
+    console.log('Generating event recommendations with AI...');
+    const completion = await groq.chat.completions.create({
+      messages: [
+        {
+          role: 'system',
+          content: 'You are an AI Event Recommender for campus events. Always respond with valid JSON format.'
+        },
+        {
+          role: 'user',
+          content: prompt
+        }
+      ],
+      model: 'llama-3.3-70b-versatile',
+      temperature: 0.7,
+      max_tokens: 2000,
+      response_format: { type: 'json_object' }
+    });
+
+    let text = completion.choices[0]?.message?.content || '{}';
 
     // Clean JSON response (remove markdown code blocks if any)
     text = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
