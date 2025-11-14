@@ -101,6 +101,61 @@ const translations: Record<Language, Record<string, string>> = {
     'peerconnect.videoFeature1': 'Video HD dengan audio jernih',
     'peerconnect.videoFeature2': 'Screen sharing untuk presentasi',
     'peerconnect.videoFeature3': 'Record meeting untuk dokumentasi',
+
+    // AI Campus Section
+    'aicampus.title': 'AI Campus Chatbot',
+    'aicampus.subtitle': 'Asisten virtual cerdas untuk menjawab pertanyaan seputar kampus',
+    'aicampus.campusMode': 'Mode Kampus',
+    'aicampus.campusModeDesc': 'Tanya tentang informasi kampus, KRS, gedung, dosen, beasiswa, dan segala hal terkait kampus',
+    'aicampus.campusFeature1': 'Informasi KRS, mata kuliah, dan jadwal',
+    'aicampus.campusFeature2': 'Data dosen, gedung, dan fasilitas kampus',
+    'aicampus.campusFeature3': 'Info beasiswa dan program akademik',
+    'aicampus.generalMode': 'Mode General',
+    'aicampus.generalModeDesc': 'Tanya apapun! AI siap membantu menjawab pertanyaan umum, tugas, atau hal lainnya',
+    'aicampus.generalFeature1': 'Bantuan mengerjakan tugas dan PR',
+    'aicampus.generalFeature2': 'Penjelasan konsep dan materi pelajaran',
+    'aicampus.generalFeature3': 'Pertanyaan umum tentang apapun',
+
+    // Event Reminder Section
+    'eventreminder.title': 'Event Reminder',
+    'eventreminder.subtitle': 'Rekomendasi event kampus yang sesuai dengan minat dan kebutuhanmu',
+    'eventreminder.recommendations': 'Rekomendasi Event',
+    'eventreminder.recommendationsDesc': 'Dapatkan rekomendasi event kampus yang sesuai dengan minat dan kebutuhanmu',
+    'eventreminder.feature1': 'Notifikasi acara berdasarkan preferensi',
+    'eventreminder.feature2': 'Kalender terintegrasi untuk pelacakan',
+    'eventreminder.feature3': 'Konfirmasi dan pendaftaran langsung',
+
+    // Smart Schedule Section
+    'smartschedule.title': 'Smart Schedule',
+    'smartschedule.subtitle': 'Kelola jadwal kuliah, tugas, dan aktivitas kampus dengan cerdas',
+    'smartschedule.optimization': 'Optimalisasi Jadwal',
+    'smartschedule.optimizationDesc': 'Kelola dan optimalkan jadwal kuliah, tugas, dan aktivitas kampus dengan cerdas',
+    'smartschedule.optimizationFeature1': 'Optimasi jadwal berbasis AI',
+    'smartschedule.optimizationFeature2': 'Pengingat otomatis untuk tenggat waktu',
+    'smartschedule.optimizationFeature3': 'Tampilan visual jadwal mingguan',
+    'smartschedule.integration': 'Integrasi ke Kalender',
+    'smartschedule.integrationDesc': 'Sinkronisasi jadwal dengan Kalender Google dan platform lainnya',
+    'smartschedule.integrationFeature1': 'Sinkronisasi dengan Kalender Google',
+    'smartschedule.integrationFeature2': 'Ekspor jadwal ke berbagai format',
+    'smartschedule.integrationFeature3': 'Sinkronisasi otomatis secara real-time',
+
+    // Task Manager Section
+    'taskmanager.title': 'Task Manager',
+    'taskmanager.subtitle': 'Kelola tugas kuliah dan proyek dengan sistem manajemen yang efektif',
+    'taskmanager.manageTasks': 'Kelola Tugas',
+    'taskmanager.manageTasksDesc': 'Kelola tugas kuliah dan proyek dengan sistem manajemen yang efektif',
+    'taskmanager.feature1': 'Daftar tugas dengan sistem prioritas',
+    'taskmanager.feature2': 'Pelacakan kemajuan untuk setiap tugas',
+    'taskmanager.feature3': 'Kolaborasi tim untuk proyek kelompok',
+
+    // Collaboration Section
+    'collaboration.title': 'Project Collaboration',
+    'collaboration.subtitle': 'Terhubung dengan teman sekelas dan dosen melalui platform komunikasi terintegrasi',
+    'collaboration.project': 'Kolaborasi Project',
+    'collaboration.projectDesc': 'Platform kolaborasi untuk proyek kelompok yang lebih produktif',
+    'collaboration.feature1': 'Alat kolaborasi secara real-time',
+    'collaboration.feature2': 'Berbagi file dan kontrol versi',
+    'collaboration.feature3': 'Pembagian tugas untuk anggota tim',
   },
   en: {
     // Navigation
@@ -189,6 +244,61 @@ const translations: Record<Language, Record<string, string>> = {
     'peerconnect.videoFeature1': 'HD video with clear audio',
     'peerconnect.videoFeature2': 'Screen sharing for presentations',
     'peerconnect.videoFeature3': 'Record meetings for documentation',
+
+    // AI Campus Section
+    'aicampus.title': 'AI Campus Chatbot',
+    'aicampus.subtitle': 'Smart virtual assistant to answer questions about campus',
+    'aicampus.campusMode': 'Campus Mode',
+    'aicampus.campusModeDesc': 'Ask about campus information, KRS, buildings, lecturers, scholarships, and everything related to campus',
+    'aicampus.campusFeature1': 'KRS information, courses, and schedules',
+    'aicampus.campusFeature2': 'Lecturer data, buildings, and campus facilities',
+    'aicampus.campusFeature3': 'Scholarship and academic program info',
+    'aicampus.generalMode': 'General Mode',
+    'aicampus.generalModeDesc': 'Ask anything! AI is ready to help answer general questions, assignments, or anything else',
+    'aicampus.generalFeature1': 'Help with homework and assignments',
+    'aicampus.generalFeature2': 'Explanation of concepts and learning materials',
+    'aicampus.generalFeature3': 'General questions about anything',
+
+    // Event Reminder Section
+    'eventreminder.title': 'Event Reminder',
+    'eventreminder.subtitle': 'Campus event recommendations that match your interests and needs',
+    'eventreminder.recommendations': 'Event Recommendations',
+    'eventreminder.recommendationsDesc': 'Get campus event recommendations that match your interests and needs',
+    'eventreminder.feature1': 'Event notifications based on preferences',
+    'eventreminder.feature2': 'Integrated calendar for tracking',
+    'eventreminder.feature3': 'Direct confirmation and registration',
+
+    // Smart Schedule Section
+    'smartschedule.title': 'Smart Schedule',
+    'smartschedule.subtitle': 'Manage class schedules, assignments, and campus activities smartly',
+    'smartschedule.optimization': 'Schedule Optimization',
+    'smartschedule.optimizationDesc': 'Manage and optimize class schedules, assignments, and campus activities smartly',
+    'smartschedule.optimizationFeature1': 'AI-based schedule optimization',
+    'smartschedule.optimizationFeature2': 'Automatic reminders for deadlines',
+    'smartschedule.optimizationFeature3': 'Visual display of weekly schedule',
+    'smartschedule.integration': 'Calendar Integration',
+    'smartschedule.integrationDesc': 'Synchronize schedule with Google Calendar and other platforms',
+    'smartschedule.integrationFeature1': 'Synchronization with Google Calendar',
+    'smartschedule.integrationFeature2': 'Export schedule to various formats',
+    'smartschedule.integrationFeature3': 'Automatic real-time synchronization',
+
+    // Task Manager Section
+    'taskmanager.title': 'Task Manager',
+    'taskmanager.subtitle': 'Manage college assignments and projects with an effective management system',
+    'taskmanager.manageTasks': 'Manage Tasks',
+    'taskmanager.manageTasksDesc': 'Manage college assignments and projects with an effective management system',
+    'taskmanager.feature1': 'Task list with priority system',
+    'taskmanager.feature2': 'Progress tracking for each task',
+    'taskmanager.feature3': 'Team collaboration for group projects',
+
+    // Collaboration Section
+    'collaboration.title': 'Project Collaboration',
+    'collaboration.subtitle': 'Connect with classmates and lecturers through an integrated communication platform',
+    'collaboration.project': 'Project Collaboration',
+    'collaboration.projectDesc': 'Collaboration platform for more productive group projects',
+    'collaboration.feature1': 'Real-time collaboration tools',
+    'collaboration.feature2': 'File sharing and version control',
+    'collaboration.feature3': 'Task assignment for team members',
   }
 };
 

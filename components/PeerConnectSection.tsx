@@ -150,11 +150,11 @@ export default function PeerConnectSection() {
             }`}
           >
             <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent">
-              {currentFeature.id === 'peerconnect' ? 'PeerConnect' :
-               currentFeature.id === 'aicampus' ? 'AI Campus Chatbot' :
-               currentFeature.id === 'eventreminder' ? 'Event Reminder' :
-               currentFeature.id === 'smartschedule' ? 'Smart Schedule' :
-               currentFeature.id === 'taskmanager' ? 'Task Manager' : 'Project Collaboration'}
+              {currentFeature.id === 'peerconnect' ? t('peerconnect.title') :
+               currentFeature.id === 'aicampus' ? t('aicampus.title') :
+               currentFeature.id === 'eventreminder' ? t('eventreminder.title') :
+               currentFeature.id === 'smartschedule' ? t('smartschedule.title') :
+               currentFeature.id === 'taskmanager' ? t('taskmanager.title') : t('collaboration.title')}
             </span>
           </h2>
           <p
@@ -165,11 +165,11 @@ export default function PeerConnectSection() {
             }`}
           >
             {currentFeature.id === 'peerconnect' && t('peerconnect.subtitle')}
-            {currentFeature.id === 'aicampus' && 'Asisten virtual cerdas untuk menjawab pertanyaan seputar kampus'}
-            {currentFeature.id === 'eventreminder' && 'Rekomendasi event kampus yang sesuai dengan minat dan kebutuhanmu'}
-            {currentFeature.id === 'smartschedule' && 'Kelola jadwal kuliah, tugas, dan aktivitas kampus dengan cerdas'}
-            {currentFeature.id === 'taskmanager' && 'Kelola tugas kuliah dan proyek dengan sistem manajemen yang efektif'}
-            {currentFeature.id === 'collaboration' && 'Terhubung dengan teman sekelas dan dosen melalui platform komunikasi terintegrasi'}
+            {currentFeature.id === 'aicampus' && t('aicampus.subtitle')}
+            {currentFeature.id === 'eventreminder' && t('eventreminder.subtitle')}
+            {currentFeature.id === 'smartschedule' && t('smartschedule.subtitle')}
+            {currentFeature.id === 'taskmanager' && t('taskmanager.subtitle')}
+            {currentFeature.id === 'collaboration' && t('collaboration.subtitle')}
           </p>
         </div>
 
@@ -249,7 +249,7 @@ export default function PeerConnectSection() {
                           : 'text-gray-400 hover:text-white'
                       }`}
                     >
-                      Mode Kampus
+                      {t('aicampus.campusMode')}
                     </button>
                     <button
                       onClick={() => setActiveTab('general')}
@@ -259,7 +259,7 @@ export default function PeerConnectSection() {
                           : 'text-gray-400 hover:text-white'
                       }`}
                     >
-                      Mode General
+                      {t('aicampus.generalMode')}
                     </button>
                   </div>
                 </div>
@@ -273,7 +273,7 @@ export default function PeerConnectSection() {
                       onClick={() => setActiveTab('recommendations')}
                       className="flex-1 py-3 px-4 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold"
                     >
-                      Rekomendasi Event
+                      {t('eventreminder.recommendations')}
                     </button>
                   </div>
                 </div>
@@ -291,7 +291,7 @@ export default function PeerConnectSection() {
                           : 'text-gray-400 hover:text-white'
                       }`}
                     >
-                      Optimalisasi Jadwal
+                      {t('smartschedule.optimization')}
                     </button>
                     <button
                       onClick={() => setActiveTab('integration')}
@@ -301,7 +301,7 @@ export default function PeerConnectSection() {
                           : 'text-gray-400 hover:text-white'
                       }`}
                     >
-                      Integrasi ke Kalender
+                      {t('smartschedule.integration')}
                     </button>
                   </div>
                 </div>
