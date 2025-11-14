@@ -315,7 +315,7 @@ export default function PeerConnectSection() {
                       onClick={() => setActiveTab('tasks')}
                       className="flex-1 py-3 px-4 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold"
                     >
-                      Kelola Tugas
+                      {t('taskmanager.manageTasks')}
                     </button>
                   </div>
                 </div>
@@ -329,7 +329,7 @@ export default function PeerConnectSection() {
                       onClick={() => setActiveTab('project')}
                       className="flex-1 py-3 px-4 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold"
                     >
-                      Kolaborasi Project
+                      {t('collaboration.project')}
                     </button>
                   </div>
                 </div>
@@ -408,22 +408,22 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'aicampus' && activeTab === 'campus' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Mode Kampus</h3>
+                  <h3 className="text-2xl font-bold text-white mb-4">{t('aicampus.campusMode')}</h3>
                   <p className="text-gray-300 mb-4 text-sm">
-                    Tanya tentang informasi kampus, KRS, gedung, dosen, beasiswa, dan segala hal terkait kampus
+                    {t('aicampus.campusModeDesc')}
                   </p>
                   <ul className="space-y-2 text-gray-300 text-sm">
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Informasi KRS, mata kuliah, dan jadwal</span>
+                      <span>{t('aicampus.campusFeature1')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Data dosen, gedung, dan fasilitas kampus</span>
+                      <span>{t('aicampus.campusFeature2')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Info beasiswa dan program akademik</span>
+                      <span>{t('aicampus.campusFeature3')}</span>
                     </li>
                   </ul>
                 </div>
@@ -431,22 +431,22 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'aicampus' && activeTab === 'general' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Mode General</h3>
+                  <h3 className="text-2xl font-bold text-white mb-4">{t('aicampus.generalMode')}</h3>
                   <p className="text-gray-300 mb-4 text-sm">
-                    Tanya apapun! AI siap membantu menjawab pertanyaan umum, tugas, atau hal lainnya
+                    {t('aicampus.generalModeDesc')}
                   </p>
                   <ul className="space-y-2 text-gray-300 text-sm">
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Bantuan mengerjakan tugas dan PR</span>
+                      <span>{t('aicampus.generalFeature1')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Penjelasan konsep dan materi pelajaran</span>
+                      <span>{t('aicampus.generalFeature2')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Pertanyaan umum tentang apapun</span>
+                      <span>{t('aicampus.generalFeature3')}</span>
                     </li>
                   </ul>
                 </div>
@@ -454,22 +454,22 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'eventreminder' && activeTab === 'recommendations' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Rekomendasi Event</h3>
+                  <h3 className="text-2xl font-bold text-white mb-4">{t('eventreminder.recommendations')}</h3>
                   <p className="text-gray-300 mb-4 text-sm">
-                    Dapatkan rekomendasi event kampus yang sesuai dengan minat dan kebutuhanmu
+                    {t('eventreminder.recommendationsDesc')}
                   </p>
                   <ul className="space-y-2 text-gray-300 text-sm">
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Notifikasi acara berdasarkan preferensi</span>
+                      <span>{t('eventreminder.feature1')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Kalender terintegrasi untuk pelacakan</span>
+                      <span>{t('eventreminder.feature2')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Konfirmasi dan pendaftaran langsung</span>
+                      <span>{t('eventreminder.feature3')}</span>
                     </li>
                   </ul>
                 </div>
@@ -477,22 +477,22 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'smartschedule' && activeTab === 'optimization' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Optimalisasi Jadwal</h3>
+                  <h3 className="text-2xl font-bold text-white mb-4">{t('smartschedule.optimization')}</h3>
                   <p className="text-gray-300 mb-4 text-sm">
-                    Kelola dan optimalkan jadwal kuliah, tugas, dan aktivitas kampus dengan cerdas
+                    {t('smartschedule.optimizationDesc')}
                   </p>
                   <ul className="space-y-2 text-gray-300 text-sm">
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Optimasi jadwal berbasis AI</span>
+                      <span>{t('smartschedule.optimizationFeature1')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Pengingat otomatis untuk tenggat waktu</span>
+                      <span>{t('smartschedule.optimizationFeature2')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Tampilan visual jadwal mingguan</span>
+                      <span>{t('smartschedule.optimizationFeature3')}</span>
                     </li>
                   </ul>
                 </div>
@@ -500,22 +500,22 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'smartschedule' && activeTab === 'integration' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Integrasi ke Kalender</h3>
+                  <h3 className="text-2xl font-bold text-white mb-4">{t('smartschedule.integration')}</h3>
                   <p className="text-gray-300 mb-4 text-sm">
-                    Sinkronisasi jadwal dengan Kalender Google dan platform lainnya
+                    {t('smartschedule.integrationDesc')}
                   </p>
                   <ul className="space-y-2 text-gray-300 text-sm">
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Sinkronisasi dengan Kalender Google</span>
+                      <span>{t('smartschedule.integrationFeature1')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Ekspor jadwal ke berbagai format</span>
+                      <span>{t('smartschedule.integrationFeature2')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Sinkronisasi otomatis secara real-time</span>
+                      <span>{t('smartschedule.integrationFeature3')}</span>
                     </li>
                   </ul>
                 </div>
@@ -523,22 +523,22 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'taskmanager' && activeTab === 'tasks' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Kelola Tugas</h3>
+                  <h3 className="text-2xl font-bold text-white mb-4">{t('taskmanager.manageTasks')}</h3>
                   <p className="text-gray-300 mb-4 text-sm">
-                    Kelola tugas kuliah dan proyek dengan sistem manajemen yang efektif
+                    {t('taskmanager.manageTasksDesc')}
                   </p>
                   <ul className="space-y-2 text-gray-300 text-sm">
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Daftar tugas dengan sistem prioritas</span>
+                      <span>{t('taskmanager.feature1')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Pelacakan kemajuan untuk setiap tugas</span>
+                      <span>{t('taskmanager.feature2')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Kolaborasi tim untuk proyek kelompok</span>
+                      <span>{t('taskmanager.feature3')}</span>
                     </li>
                   </ul>
                 </div>
@@ -546,22 +546,22 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'collaboration' && activeTab === 'project' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Kolaborasi Project</h3>
+                  <h3 className="text-2xl font-bold text-white mb-4">{t('collaboration.project')}</h3>
                   <p className="text-gray-300 mb-4 text-sm">
-                    Platform kolaborasi untuk proyek kelompok yang lebih produktif
+                    {t('collaboration.projectDesc')}
                   </p>
                   <ul className="space-y-2 text-gray-300 text-sm">
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Alat kolaborasi secara real-time</span>
+                      <span>{t('collaboration.feature1')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Berbagi file dan kontrol versi</span>
+                      <span>{t('collaboration.feature2')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-emerald-400 mr-2">✓</span>
-                      <span>Pembagian tugas untuk anggota tim</span>
+                      <span>{t('collaboration.feature3')}</span>
                     </li>
                   </ul>
                 </div>

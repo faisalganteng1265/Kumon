@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { Pie } from 'react-chartjs-2';
@@ -497,15 +498,16 @@ export default function SmartTaskManager() {
         </div>
 
         {/* AI Assistant Buttons */}
-        <div className="bg-gradient-to-br from-purple-900/40 to-blue-900/40 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-purple-500/30">
+        <div className="bg-gray-900/40 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-gray-700">
           <h3 className="text-white font-bold text-sm mb-3 flex items-center gap-2">
-            <span className="text-lg">🤖</span> AI Assistant
+            <Image src="/GEMINIICON.png" alt="AI Assistant" width={24} height={24} className="object-contain" />
+            AI Assistant
           </h3>
           <div className="space-y-2">
             <button
               onClick={() => handleAIAnalysis('prioritize')}
               disabled={stats.pending === 0}
-              className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-2 text-sm"
+              className="w-full bg-gray-300 hover:bg-white text-purple-600 py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-2 text-sm"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
@@ -515,7 +517,7 @@ export default function SmartTaskManager() {
             <button
               onClick={() => handleAIAnalysis('estimate')}
               disabled={stats.pending === 0}
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-2 text-sm"
+              className="w-full bg-gray-300 hover:bg-white text-blue-600 py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-2 text-sm"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -547,19 +549,24 @@ export default function SmartTaskManager() {
       {/* Particle Background */}
       <ParticleBackground />
 
+      {/* Logo positioned at top-left corner */}
+      <Link href="/" className="absolute top-4 left-4 z-50 hover:opacity-80 transition-opacity cursor-pointer">
+        <Image
+          src="/AICAMPUS.png"
+          alt="AI Campus Logo"
+          width={50}
+          height={50}
+          className="object-contain"
+        />
+      </Link>
+
       {/* Main Content with z-index */}
       <div className="relative z-10 h-screen flex flex-col overflow-hidden">
       {/* Top Headers Row */}
       <div className="flex">
         {/* Left Header - HEADER */}
-        <div className="w-[70%] bg-black/880 p-4 flex items-center justify-center ">
-          <h1 className="text-2xl font-bold text-white text-center flex items-center gap-3">
-            <Image
-              src="/AICAMPUS.png"
-              alt="Smart Task Manager"
-              width={40}
-              height={40}
-            />
+        <div className="w-[70%] bg-black/880 p-4 flex items-center justify-center">
+          <h1 className="text-2xl font-bold text-white text-center">
             Smart Task Manager
           </h1>
         </div>
@@ -583,7 +590,7 @@ export default function SmartTaskManager() {
                   onClick={() => setShowFilterDropdown(!showFilterDropdown)}
                   className="px-6 py-3 rounded-xl font-semibold bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-white/50 hover:bg-gray-700 transition-all duration-300 cursor-pointer flex items-center gap-2"
                 >
-                  <span>📚</span>
+                  <Image src="/TASKICON.png" alt="Task" width={20} height={20} className="object-contain" />
                   {filterCategory === 'all' ? 'Semua Mata Kuliah' : filterCategory}
                   <svg className={`w-4 h-4 transition-transform duration-300 ${showFilterDropdown ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -594,7 +601,7 @@ export default function SmartTaskManager() {
                 {showFilterDropdown && (
                   <div className="absolute top-full left-0 mt-2 w-[400px] bg-gray-900/95 backdrop-blur-xl border-2 border-gray-700/50 rounded-2xl shadow-2xl z-50 p-6">
                     <h3 className="text-white font-bold text-sm mb-3 flex items-center gap-2">
-                      <span>📚</span> Pilih Mata Kuliah
+                      <Image src="/TASKICON.png" alt="Task" width={20} height={20} className="object-contain" /> Pilih Mata Kuliah
                     </h3>
                     <div className="space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar">
                       <button
@@ -747,8 +754,8 @@ export default function SmartTaskManager() {
 
                           <div className="flex flex-wrap items-center gap-3">
                             {task.category && (
-                              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-900/50 text-blue-200 border border-blue-700/50 backdrop-blur-sm">
-                                📖 {task.category}
+                              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-900/50 text-blue-200 border border-blue-700/50 backdrop-blur-sm flex items-center gap-1">
+                                <Image src="/TASKICON.png" alt="Task" width={14} height={14} className="object-contain" /> {task.category}
                               </span>
                             )}
 
@@ -766,12 +773,12 @@ export default function SmartTaskManager() {
                             </span>
 
                             {task.deadline && (
-                              <span className={`px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm ${
+                              <span className={`px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm flex items-center gap-1 ${
                                 isOverdue
                                   ? 'bg-red-900/50 text-red-200 border border-red-700/50'
                                   : 'bg-gray-700/50 text-gray-200 border border-gray-600/50'
                               }`}>
-                                📅 {new Date(task.deadline).toLocaleDateString('id-ID', {
+                                <Image src="/TASKICON.png" alt="Task" width={14} height={14} className="object-contain" /> {new Date(task.deadline).toLocaleDateString('id-ID', {
                                   day: 'numeric',
                                   month: 'short',
                                   year: 'numeric'
@@ -812,10 +819,10 @@ export default function SmartTaskManager() {
       {/* AI Assistant Modal */}
       {showAIModal && (
         <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-gradient-to-br from-purple-900/90 to-blue-900/90 rounded-3xl p-8 max-w-3xl w-full border border-purple-500/50 animate-fade-in shadow-2xl shadow-purple-500/20 max-h-[90vh] overflow-hidden flex flex-col">
+          <div className="bg-gray-800/95 rounded-3xl p-8 max-w-3xl w-full border border-gray-700 animate-fade-in shadow-2xl max-h-[90vh] overflow-hidden flex flex-col">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                <span className="text-3xl">🤖</span>
+                <Image src="/GEMINIICON.png" alt="AI Assistant" width={32} height={32} className="object-contain" />
                 {aiAnalysisType === 'prioritize' ? 'Rekomendasi Prioritas Tugas' : 'Estimasi Waktu Pengerjaan'}
               </h2>
               <button
@@ -832,21 +839,21 @@ export default function SmartTaskManager() {
               {isAILoading ? (
                 <div className="flex flex-col items-center justify-center py-12">
                   <div className="flex gap-3 mb-6">
-                    <span className="w-4 h-4 bg-purple-400 rounded-full animate-bounce"></span>
+                    <span className="w-4 h-4 bg-gray-400 rounded-full animate-bounce"></span>
                     <span
-                      className="w-4 h-4 bg-purple-400 rounded-full animate-bounce"
+                      className="w-4 h-4 bg-gray-400 rounded-full animate-bounce"
                       style={{ animationDelay: '0.2s' }}
                     ></span>
                     <span
-                      className="w-4 h-4 bg-purple-400 rounded-full animate-bounce"
+                      className="w-4 h-4 bg-gray-400 rounded-full animate-bounce"
                       style={{ animationDelay: '0.4s' }}
                     ></span>
                   </div>
                   <p className="text-white text-lg">AI sedang menganalisis tugas-tugas kamu...</p>
-                  <p className="text-purple-300 text-sm mt-2">Mohon tunggu sebentar</p>
+                  <p className="text-gray-300 text-sm mt-2">Mohon tunggu sebentar</p>
                 </div>
               ) : (
-                <div className="bg-black/40 rounded-2xl p-6 border border-purple-500/30">
+                <div className="bg-gray-900/60 rounded-2xl p-6 border border-gray-700">
                   <div className="prose prose-invert max-w-none">
                     <pre className="whitespace-pre-wrap font-sans text-gray-100 leading-relaxed text-sm">
                       {aiResponse}
@@ -857,7 +864,7 @@ export default function SmartTaskManager() {
             </div>
 
             {!isAILoading && (
-              <div className="mt-6 pt-4 border-t border-purple-500/30">
+              <div className="mt-6 pt-4 border-t border-gray-700">
                 <button
                   onClick={() => setShowAIModal(false)}
                   className="w-full bg-white/10 hover:bg-white/20 text-white py-3 rounded-xl font-bold transition-all duration-300 hover:scale-[1.02] border border-white/30"
@@ -934,9 +941,9 @@ export default function SmartTaskManager() {
                     onChange={(e) => setNewTask({ ...newTask, priority: e.target.value as any })}
                     className="w-full bg-gray-800/70 text-white rounded-xl px-4 py-3 border border-gray-600/50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition-all"
                   >
-                    <option value="low">🟢 Rendah</option>
-                    <option value="medium">🟡 Sedang</option>
-                    <option value="high">🔴 Tinggi</option>
+                    <option value="low">Rendah</option>
+                    <option value="medium">Sedang</option>
+                    <option value="high">Tinggi</option>
                   </select>
                 </div>
 

@@ -25,12 +25,12 @@ export default function Fitur5Page() {
         ]}
        displaySocials={false}
           displayItemNumbering={true}
-          logoUrl="/AICAMPUS.png"
           menuButtonColor="#fff"
           openMenuButtonColor="#fff"
           accentColor="#ffffff"
           changeMenuColorOnOpen={true}
           isFixed={true}
+          logoUrl=""
       />
 
       <SmartTaskManager />
