@@ -138,12 +138,12 @@ export default function PeerConnectSection() {
   const currentFeature = features[activeFeature];
 
   return (
-    <section id="features" className="py-20 px-4 bg-gradient-to-b from-black via-gray-900 to-gray-800">
+    <section id="features" className="py-12 sm:py-16 md:py-20 px-4 bg-gradient-to-b from-black via-gray-900 to-gray-800">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div ref={headerRef} className="text-center mb-12">
+        <div ref={headerRef} className="text-center mb-8 sm:mb-10 md:mb-12">
           <h2
-            className={`text-5xl md:text-6xl font-bold mb-4 transition-all duration-1000 ease-out ${
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 transition-all duration-1000 ease-out ${
               isHeaderVisible
                 ? 'opacity-100 scale-100 translate-x-0'
                 : 'opacity-0 scale-95 translate-x-10'
@@ -158,7 +158,7 @@ export default function PeerConnectSection() {
             </span>
           </h2>
           <p
-            className={`text-gray-300 text-lg max-w-3xl mx-auto transition-all duration-1000 ease-out ${
+            className={`text-gray-300 text-sm sm:text-base md:text-lg max-w-3xl mx-auto px-2 transition-all duration-1000 ease-out ${
               isHeaderVisible
                 ? 'opacity-100 scale-100 translate-x-0 delay-200'
                 : 'opacity-0 scale-95 translate-x-10 delay-0'
@@ -196,16 +196,16 @@ export default function PeerConnectSection() {
             </svg>
           </button>
 
-          <div className="grid lg:grid-cols-5 gap-8 items-stretch">
+          <div className="grid lg:grid-cols-5 gap-4 sm:gap-6 md:gap-8 items-stretch">
             {/* Left Side - Feature Description */}
-            <div className="order-2 lg:order-1 lg:col-span-2 flex flex-col">
+            <div className="order-2 lg:order-1 lg:col-span-2 flex flex-col px-2 sm:px-0">
               {/* Tab Navigation - For PeerConnect */}
               {currentFeature.id === 'peerconnect' && (
-                <div className="bg-gray-800/50 rounded-xl p-1 mb-6 border border-gray-700">
+                <div className="bg-gray-800/50 rounded-xl p-1 mb-4 sm:mb-6 border border-gray-700">
                   <div className="flex gap-1">
                     <button
                       onClick={() => setActiveTab('group')}
-                      className={`flex-1 py-3 px-4 rounded-lg transition-all ${
+                      className={`flex-1 py-2 sm:py-3 px-2 sm:px-4 rounded-lg transition-all text-xs sm:text-sm md:text-base ${
                         activeTab === 'group'
                           ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold'
                           : 'text-gray-400 hover:text-white'
@@ -215,7 +215,7 @@ export default function PeerConnectSection() {
                     </button>
                     <button
                       onClick={() => setActiveTab('private')}
-                      className={`flex-1 py-3 px-4 rounded-lg transition-all ${
+                      className={`flex-1 py-2 sm:py-3 px-2 sm:px-4 rounded-lg transition-all text-xs sm:text-sm md:text-base ${
                         activeTab === 'private'
                           ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold'
                           : 'text-gray-400 hover:text-white'
@@ -225,7 +225,7 @@ export default function PeerConnectSection() {
                     </button>
                     <button
                       onClick={() => setActiveTab('call')}
-                      className={`flex-1 py-3 px-4 rounded-lg transition-all ${
+                      className={`flex-1 py-2 sm:py-3 px-2 sm:px-4 rounded-lg transition-all text-xs sm:text-sm md:text-base ${
                         activeTab === 'call'
                           ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold'
                           : 'text-gray-400 hover:text-white'
@@ -336,24 +336,24 @@ export default function PeerConnectSection() {
               )}
 
               {/* Feature Description Box */}
-              <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700 flex-1 flex flex-col justify-center">
+              <div className="bg-gray-800/50 rounded-xl p-4 sm:p-5 md:p-6 border border-gray-700 flex-1 flex flex-col justify-center">
                 {currentFeature.id === 'peerconnect' && activeTab === 'group' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{t('peerconnect.groupChat')}</h3>
-                  <p className="text-gray-300 mb-4 text-sm">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">{t('peerconnect.groupChat')}</h3>
+                  <p className="text-gray-300 mb-3 sm:mb-4 text-xs sm:text-sm">
                     {t('peerconnect.groupChatDesc')}
                   </p>
-                  <ul className="space-y-2 text-gray-300 text-sm">
+                  <ul className="space-y-1.5 sm:space-y-2 text-gray-300 text-xs sm:text-sm">
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-emerald-400 mr-2 flex-shrink-0">✓</span>
                       <span>{t('peerconnect.groupFeature1')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-emerald-400 mr-2 flex-shrink-0">✓</span>
                       <span>{t('peerconnect.groupFeature2')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-emerald-400 mr-2 flex-shrink-0">✓</span>
                       <span>{t('peerconnect.groupFeature3')}</span>
                     </li>
                   </ul>
@@ -570,33 +570,33 @@ export default function PeerConnectSection() {
             </div>
 
             {/* Dot Indicators and Counter - Fixed Below Content */}
-            <div className="order-3 lg:order-3 lg:col-span-5 mt-8">
-              <div className="flex justify-center gap-2 flex-wrap">
+            <div className="order-3 lg:order-3 lg:col-span-5 mt-6 sm:mt-8">
+              <div className="flex justify-center gap-1.5 sm:gap-2 flex-wrap px-2">
                 {features.map((feature, index) => (
                   <button
                     key={feature.id}
                     onClick={() => handleDotClick(index)}
                     className={`rounded-full transition-all duration-300 cursor-pointer ${
                       activeFeature === index
-                        ? 'bg-gradient-to-r from-emerald-500 to-teal-500 w-10 h-3'
-                        : 'bg-gray-600 hover:bg-gray-500 w-3 h-3'
+                        ? 'bg-gradient-to-r from-emerald-500 to-teal-500 w-8 sm:w-10 h-2.5 sm:h-3'
+                        : 'bg-gray-600 hover:bg-gray-500 w-2.5 sm:w-3 h-2.5 sm:h-3'
                     }`}
                     aria-label={`Go to ${feature.id}`}
                   />
                 ))}
               </div>
-              <div className="text-center mt-4">
-                <p className="text-gray-400 text-sm">
+              <div className="text-center mt-3 sm:mt-4">
+                <p className="text-gray-400 text-xs sm:text-sm">
                   {activeFeature + 1} / {features.length}
                 </p>
               </div>
             </div>
 
             {/* Right Side - Image Preview */}
-            <div className="order-1 lg:order-2 lg:col-span-3">
+            <div className="order-1 lg:order-2 lg:col-span-3 px-2 sm:px-0">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl blur-2xl opacity-20"></div>
-                <div className="relative bg-gray-800/50 rounded-2xl p-2 border border-gray-700 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl sm:rounded-2xl blur-xl sm:blur-2xl opacity-20"></div>
+                <div className="relative bg-gray-800/50 rounded-xl sm:rounded-2xl p-1.5 sm:p-2 border border-gray-700 overflow-hidden">
                   <Image
                     key={`${activeFeature}-${activeTab}`}
                     src={

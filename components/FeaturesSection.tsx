@@ -75,17 +75,17 @@ function StatItem({ end, label, suffix = '', icon }: StatItemProps) {
         className="h-full"
         style={{ borderRadius: '1rem' }}
       >
-        <div className="relative bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 h-full overflow-hidden">
+        <div className="relative bg-gray-900/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-8 h-full overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-          <div className="relative z-10 text-center space-y-4">
-            <div className="w-16 h-16 mx-auto bg-emerald-500/10 backdrop-blur-md rounded-xl flex items-center justify-center border border-emerald-500/20">
-              <img src={icon} alt={label} className="w-10 h-10 object-contain" />
+          <div className="relative z-10 text-center space-y-2 sm:space-y-3 md:space-y-4">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto bg-emerald-500/10 backdrop-blur-md rounded-xl flex items-center justify-center border border-emerald-500/20">
+              <img src={icon} alt={label} className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 object-contain" />
             </div>
-            <div className="text-5xl md:text-6xl font-bold text-white" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
               {count}{suffix}
             </div>
-            <div className="text-lg text-emerald-200/90 font-medium" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>{label}</div>
+            <div className="text-sm sm:text-base md:text-lg text-emerald-200/90 font-medium" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>{label}</div>
           </div>
         </div>
       </ElectricBorder>
@@ -297,10 +297,10 @@ export default function FeaturesSection() {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10 px-4">
         <div ref={titleRef} className="text-start mb-16">
           <h2
-            className={`text-5xl md:text-6xl mb-4 text-emerald-400 font-bold transition-all duration-1000 ease-out ${
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 text-emerald-400 font-bold transition-all duration-1000 ease-out ${
               isTitleVisible
                 ? 'opacity-100 translate-x-0'
                 : 'opacity-0 -translate-x-32'
@@ -310,7 +310,7 @@ export default function FeaturesSection() {
             {t('features.title')}
           </h2>
           <p
-            className={`text-xl text-gray-300 max-w-2xl transition-all duration-1000 ease-out ${
+            className={`text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl transition-all duration-1000 ease-out ${
               isTitleVisible
                 ? 'opacity-100 translate-x-0 delay-300'
                 : 'opacity-0 -translate-x-32 delay-0'
@@ -383,19 +383,20 @@ export default function FeaturesSection() {
         </div>
 
         {/* CardSwap Implementation */}
-        <div className="flex justify-end items-center min-h-[600px] pl-150 pt-10">
-          <CardSwap
-            width={450}
-            height={350}
-            cardDistance={50}
-            verticalDistance={60}
-            delay={4000}
-            pauseOnHover={false}
-            skewAmount={4}
-            easing="elastic"
-            onSwapTrigger={handleSwapTrigger}
-            onPauseResume={handlePauseResume}
-          >
+        <div className="flex justify-center md:justify-end items-center min-h-[400px] sm:min-h-[500px] md:min-h-[600px] pl-0 md:pl-150 pt-10">
+          <div className="scale-[0.65] sm:scale-75 md:scale-90 lg:scale-100 origin-center">
+            <CardSwap
+              width={450}
+              height={350}
+              cardDistance={50}
+              verticalDistance={60}
+              delay={4000}
+              pauseOnHover={false}
+              skewAmount={4}
+              easing="elastic"
+              onSwapTrigger={handleSwapTrigger}
+              onPauseResume={handlePauseResume}
+            >
             {/* Feature 1: AI Campus Guide - Modern Dark Design */}
             <Card className={`relative overflow-hidden ${activeCardIndex === 0 ? 'card-active' : ''}`}>
               {/* Dark Background */}
@@ -425,19 +426,19 @@ export default function FeaturesSection() {
 
                 <div className="relative z-10">
                   {/* Icon Container - Premium Style */}
-                  <div className="relative w-20 h-20 mb-6 group">
+                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-4 sm:mb-6 group">
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/30 to-teal-500/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
                     <div className="relative w-full h-full bg-gradient-to-br from-white/25 to-white/5 backdrop-blur-xl rounded-2xl flex items-center justify-center border border-white/30 shadow-2xl">
-                      <Image src="/GEMINIICON.png" alt="AI Campus Guide" width={50} height={50} className="object-contain drop-shadow-lg" />
+                      <Image src="/GEMINIICON.png" alt="AI Campus Guide" width={50} height={50} className="object-contain drop-shadow-lg w-8 h-8 sm:w-12 sm:h-12" />
                     </div>
                   </div>
 
                   {/* Title with Gradient */}
-                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     {t('features.aiCampusGuide')}
                   </h3>
 
-                  <p className="text-white/95 mb-6 leading-relaxed text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                  <p className="text-white/95 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     {t('features.aiCampusGuideDesc')}
                   </p>
                 </div>
@@ -481,19 +482,19 @@ export default function FeaturesSection() {
 
                 <div className="relative z-10">
                   {/* Icon Container */}
-                  <div className="relative w-20 h-20 mb-6 group">
+                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-4 sm:mb-6 group">
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/30 to-teal-500/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
                     <div className="relative w-full h-full bg-gradient-to-br from-white/25 to-white/5 backdrop-blur-xl rounded-2xl flex items-center justify-center border border-white/30 shadow-2xl">
-                      <Image src="/ICONLAMPU.png" alt="Event Recommender" width={50} height={50} className="object-contain drop-shadow-lg" />
+                      <Image src="/ICONLAMPU.png" alt="Event Recommender" width={50} height={50} className="object-contain drop-shadow-lg w-8 h-8 sm:w-12 sm:h-12" />
                     </div>
                   </div>
 
                   {/* Title with Gradient */}
-                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     {t('features.eventRecommender')}
                   </h3>
 
-                  <p className="text-white/95 mb-6 leading-relaxed text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                  <p className="text-white/95 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     {t('features.eventRecommenderDesc')}
                   </p>
                 </div>
@@ -537,19 +538,19 @@ export default function FeaturesSection() {
 
                 <div className="relative z-10">
                   {/* Icon Container */}
-                  <div className="relative w-20 h-20 mb-6 group">
+                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-4 sm:mb-6 group">
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/30 to-teal-500/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
                     <div className="relative w-full h-full bg-gradient-to-br from-white/25 to-white/5 backdrop-blur-xl rounded-2xl flex items-center justify-center border border-white/30 shadow-2xl">
-                      <Image src="/JADWALICON.png" alt="Smart Schedule" width={50} height={50} className="object-contain drop-shadow-lg" />
+                      <Image src="/JADWALICON.png" alt="Smart Schedule" width={50} height={50} className="object-contain drop-shadow-lg w-8 h-8 sm:w-12 sm:h-12" />
                     </div>
                   </div>
 
                   {/* Title with Gradient */}
-                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     {t('features.smartSchedule')}
                   </h3>
 
-                  <p className="text-white/95 mb-6 leading-relaxed text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                  <p className="text-white/95 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     {t('features.smartScheduleDesc')}
                   </p>
                 </div>
@@ -592,19 +593,19 @@ export default function FeaturesSection() {
 
                 <div className="relative z-10">
                   {/* Icon Container */}
-                  <div className="relative w-20 h-20 mb-6 group">
+                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-4 sm:mb-6 group">
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/30 to-teal-500/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
                     <div className="relative w-full h-full bg-gradient-to-br from-white/25 to-white/5 backdrop-blur-xl rounded-2xl flex items-center justify-center border border-white/30 shadow-2xl">
-                      <Image src="/SOSIALICON.png" alt="Peer Connect" width={50} height={50} className="object-contain drop-shadow-lg" />
+                      <Image src="/SOSIALICON.png" alt="Peer Connect" width={50} height={50} className="object-contain drop-shadow-lg w-8 h-8 sm:w-12 sm:h-12" />
                     </div>
                   </div>
 
                   {/* Title with Gradient */}
-                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     {t('features.peerConnect')}
                   </h3>
 
-                  <p className="text-white/95 mb-6 leading-relaxed text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                  <p className="text-white/95 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     {t('features.peerConnectDesc')}
                   </p>
                 </div>
@@ -647,19 +648,19 @@ export default function FeaturesSection() {
 
                 <div className="relative z-10">
                   {/* Icon Container */}
-                  <div className="relative w-20 h-20 mb-6 group">
+                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-4 sm:mb-6 group">
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/30 to-teal-500/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
                     <div className="relative w-full h-full bg-gradient-to-br from-white/25 to-white/5 backdrop-blur-xl rounded-2xl flex items-center justify-center border border-white/30 shadow-2xl">
-                      <Image src="/TASKICON.png" alt="Smart Task Manager" width={50} height={50} className="object-contain drop-shadow-lg" />
+                      <Image src="/TASKICON.png" alt="Smart Task Manager" width={50} height={50} className="object-contain drop-shadow-lg w-8 h-8 sm:w-12 sm:h-12" />
                     </div>
                   </div>
 
                   {/* Title with Gradient */}
-                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     {t('features.taskManager')}
                   </h3>
 
-                  <p className="text-white/95 mb-6 leading-relaxed text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                  <p className="text-white/95 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     {t('features.taskManagerDesc')}
                   </p>
                 </div>
@@ -702,19 +703,19 @@ export default function FeaturesSection() {
 
                 <div className="relative z-10">
                   {/* Icon Container */}
-                  <div className="relative w-20 h-20 mb-6 group">
+                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 mb-4 sm:mb-6 group">
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/30 to-teal-500/30 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
                     <div className="relative w-full h-full bg-gradient-to-br from-white/25 to-white/5 backdrop-blur-xl rounded-2xl flex items-center justify-center border border-white/30 shadow-2xl">
-                      <Image src="/PROJEKICON.png" alt="Project Collaboration" width={50} height={50} className="object-contain drop-shadow-lg" />
+                      <Image src="/PROJEKICON.png" alt="Project Collaboration" width={50} height={50} className="object-contain drop-shadow-lg w-8 h-8 sm:w-12 sm:h-12" />
                     </div>
                   </div>
 
                   {/* Title with Gradient */}
-                  <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-white via-emerald-100 to-white bg-clip-text text-transparent drop-shadow-lg" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     {t('features.projectCollab')}
                   </h3>
 
-                  <p className="text-white/95 mb-6 leading-relaxed text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                  <p className="text-white/95 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base font-medium drop-shadow" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                     {t('features.projectCollabDesc')}
                   </p>
                 </div>
@@ -728,11 +729,12 @@ export default function FeaturesSection() {
               </div>
             </Card>
           </CardSwap>
+          </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto relative z-10 pt-30">
-        <div className="grid md:grid-cols-4 gap-6">
+      <div className="max-w-7xl mx-auto relative z-10 pt-30 px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           <StatItem end={1000} label={t('stats.activeStudents')} suffix="+" icon="/AKADEMIKICON.png" />
           <StatItem end={50} label={t('stats.eventsPerMonth')} suffix="+" icon="/JADWALICON.png" />
           <StatItem end={95} label={t('stats.userSatisfaction')} suffix="%" icon="/BINTANGICON.png" />
@@ -740,7 +742,7 @@ export default function FeaturesSection() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style jsx global>{`
         @keyframes spotlight-sweep {
           0%, 100% {
             opacity: 0.3;
@@ -750,7 +752,7 @@ export default function FeaturesSection() {
           }
         }
 
-        :global(.spotlight-beam) {
+        .spotlight-beam {
           animation: spotlight-sweep 3s ease-in-out infinite;
         }
 
@@ -773,6 +775,22 @@ export default function FeaturesSection() {
         .blob-5 {
           border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
           filter: blur(40px);
+        }
+
+        /* CardSwap active card positioning - centered on mobile */
+        @media (max-width: 1023px) {
+          .card-swap-container .card-active {
+            transform: translate(-50%, -50%) translateX(0) !important;
+            z-index: 9999 !important;
+          }
+        }
+
+        /* CardSwap active card positioning - right side on desktop */
+        @media (min-width: 1024px) {
+          .card-swap-container .card-active {
+            transform: translate(-50%, -50%) translateX(100px) !important;
+            z-index: 9999 !important;
+          }
         }
       `}</style>
     </section>

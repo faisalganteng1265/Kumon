@@ -135,7 +135,7 @@ export default function Navbar() {
       }`}>
         <div className={`transition-all duration-500 ${
           isScrolled
-            ? 'max-w-4xl mt-8 mx-auto lg:px-0 rounded-2xl bg-gray-900/95 backdrop-blur-sm shadow-2xl border border-gray-800'
+            ? 'max-w-4xl md:mt-8 mx-auto md:rounded-2xl bg-gray-900/95 backdrop-blur-sm shadow-2xl border-b md:border border-gray-800'
             : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6'
         }`}>
           <div className={`flex items-center justify-between transition-all duration-500 ${

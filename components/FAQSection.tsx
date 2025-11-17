@@ -169,14 +169,14 @@ export default function FAQSection() {
   };
 
   return (
-    <section ref={sectionRef} id="about-us" className="py-20 px-0 bg-gradient-to-b from-gray-800 to-black relative overflow-hidden">
+    <section ref={sectionRef} id="about-us" className="py-12 sm:py-16 md:py-20 px-0 bg-gradient-to-b from-gray-800 to-black relative overflow-hidden">
       <div className="w-full relative z-10">
         {/* Title */}
-        <div className="text-center mb-16 px-8">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16 px-4 sm:px-6 md:px-8">
           <TextType
             text={t('faq.title')}
             as="h2"
-            className="text-5xl md:text-6xl mb-8 text-white"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-6 sm:mb-8 text-white"
             style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif', letterSpacing: '0.02em' }}
             typingSpeed={80}
             loop={false}
@@ -190,7 +190,7 @@ export default function FAQSection() {
         {/* Two Column Layout */}
         <div className="grid lg:grid-cols-[100%] gap-0">
           {/* Left Column - FAQ */}
-          <div className="px-8 md:px-16">
+          <div className="px-4 sm:px-6 md:px-8 lg:px-16">
             <div className="space-y-0">
               {faqs.map((faq, index) => (
                 <motion.div
@@ -208,10 +208,10 @@ export default function FAQSection() {
                   {/* Question Button */}
                   <button
                     onClick={() => toggleFAQ(index)}
-                    className="w-full px-0 py-6 flex items-center justify-between text-left relative z-10 group"
+                    className="w-full px-0 py-4 sm:py-5 md:py-6 flex items-center justify-between text-left relative z-10 group"
                   >
                     <span
-                      className="text-lg md:text-xl font-normal text-white pr-4"
+                      className="text-base sm:text-lg md:text-xl font-normal text-white pr-3 sm:pr-4"
                       style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}
                     >
                       {faq.question}
@@ -220,7 +220,7 @@ export default function FAQSection() {
                     {/* Chevron Icon */}
                     <div className={`flex-shrink-0 transition-all duration-300 ${openIndex === index ? 'rotate-180' : ''}`}>
                       <svg
-                        className="w-5 h-5 text-emerald-400 transition-transform duration-300"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 transition-transform duration-300"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -241,9 +241,9 @@ export default function FAQSection() {
                       openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                     }`}
                   >
-                    <div className="px-0 pb-6 relative z-10">
+                    <div className="px-0 pb-4 sm:pb-5 md:pb-6 relative z-10">
                       <p
-                        className="text-gray-300 leading-relaxed text-base"
+                        className="text-gray-300 leading-relaxed text-sm sm:text-base"
                         style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}
                       >
                         {faq.answer}

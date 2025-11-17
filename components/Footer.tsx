@@ -2,9 +2,9 @@ import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-4 px-6">
-      <div className="max-w-full mx-auto px-4">
-        <div className="relative flex flex-col md:flex-row items-center gap-4">
+    <footer className="bg-gray-900 text-white py-3 sm:py-4 px-4 sm:px-6">
+      <div className="max-w-full mx-auto px-2 sm:px-4">
+        <div className="relative flex flex-col md:flex-row items-center gap-3 sm:gap-4">
           {/* Left: Logo and Brand */}
           <div className="flex items-center gap-2">
             <Image
@@ -12,28 +12,28 @@ export default function Footer() {
               alt="AI Campus Logo"
               width={30}
               height={30}
-              className="object-contain"
+              className="object-contain w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8"
             />
-            <span className="text-base font-bold whitespace-nowrap">Campus Navigator</span>
+            <span className="text-sm sm:text-base font-bold whitespace-nowrap">Campus Navigator</span>
           </div>
 
           {/* Navigation Links */}
-          <div className="flex items-center gap-4 text-sm text-gray-400">
-            <a href="#features" className="hover:text-white transition-colors">
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm text-gray-400 flex-wrap justify-center">
+            <a href="#features" className="hover:text-white transition-colors whitespace-nowrap">
               Produk
             </a>
             <span className="text-gray-600">|</span>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-white transition-colors whitespace-nowrap">
               Perusahaan
             </a>
             <span className="text-gray-600">|</span>
-            <a href="#about-us" className="hover:text-white transition-colors">
+            <a href="#about-us" className="hover:text-white transition-colors whitespace-nowrap">
               Dukungan
             </a>
           </div>
 
           {/* Center: Copyright */}
-          <div className="md:absolute md:left-1/2 md:-translate-x-1/2 text-sm text-gray-400">
+          <div className="md:absolute md:left-1/2 md:-translate-x-1/2 text-xs sm:text-sm text-gray-400 text-center">
             &copy; 2024 Campus Navigator. All rights reserved.
           </div>
 
@@ -47,7 +47,7 @@ export default function Footer() {
               aria-label="GitHub"
             >
               <svg
-                className="w-6 h-6"
+                className="w-5 h-5 sm:w-6 sm:h-6"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"

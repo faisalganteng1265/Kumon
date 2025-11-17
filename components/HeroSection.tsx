@@ -77,16 +77,16 @@ export default function HeroSection() {
 
       {/* Slogan - Bottom Left */}
       <motion.div
-        className="absolute bottom-8 left-8 z-20 max-w-xs md:max-w-sm"
+        className="absolute bottom-8 left-4 md:left-8 z-20 max-w-xs md:max-w-sm px-2"
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: false, amount: 0.3 }}
         transition={{ duration: 0.8, delay: 0.5 }}
       >
-        <p className="text-white/90 text-base md:text-lg font-medium tracking-wide mb-2">
+        <p className="text-white/90 text-sm md:text-base lg:text-lg font-medium tracking-wide mb-1 md:mb-2">
           {t('hero.empowering')}
         </p>
-        <p className="text-white/70 text-sm md:text-base font-light mb-1">
+        <p className="text-white/70 text-xs md:text-sm lg:text-base font-light mb-1">
           {t('hero.companion')}
         </p>
         <p className="text-white/60 text-xs md:text-sm font-light mb-1">
