@@ -88,7 +88,6 @@ export default function Navbar() {
   // Pages dropdown items (fitur-fitur)
   const pageItems = [
     { label: t('page.aiCampusGuide'), href: '/fitur-1' },
-    { label: t('page.eventRecommender'), href: '/fitur-2' },
     { label: t('page.smartScheduleBuilder'), href: '/fitur-3' },
     { label: t('page.peerConnectAI'), href: '/fitur-4' },
     { label: t('page.smartTaskManager'), href: '/fitur-5' },

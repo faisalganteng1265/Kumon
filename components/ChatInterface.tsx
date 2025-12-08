@@ -39,11 +39,12 @@ export default function ChatInterface() {
   const [isLoading, setIsLoading] = useState(false);
   const [showInitialForm, setShowInitialForm] = useState(true);
   const [selectedQuestion, setSelectedQuestion] = useState('');
-  const [selectedMode, setSelectedMode] = useState<'campus' | 'general' | ''>('');
+  const [selectedMode, setSelectedMode] = useState<'campus' | 'general' | 'challenge' | ''>('');
   const [directAnswer, setDirectAnswer] = useState<string>('');
   const [isAnswerLoading, setIsAnswerLoading] = useState(false);
   const [isLoadingProfile, setIsLoadingProfile] = useState(false);
   const [hasInitialized, setHasInitialized] = useState(false);
+  const [challengeTopic, setChallengeTopic] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const answerSectionRef = useRef<HTMLDivElement>(null);
@@ -171,6 +172,20 @@ export default function ChatInterface() {
       return;
     }
 
+    // Untuk challenge mode, langsung ke chat interface
+    if (selectedMode === 'challenge') {
+      setShowInitialForm(false);
+
+      const welcomeMessage: Message = {
+        role: 'assistant',
+        content: t('chat.welcomeChallenge'),
+        timestamp: new Date(),
+      };
+
+      setMessages([welcomeMessage]);
+      return;
+    }
+
     const questionToAsk = selectedMode === 'campus' ? selectedQuestion : customQuestion;
     if (!questionToAsk.trim()) {
       alert(t('chat.alertSelectQuestion'));
@@ -205,6 +220,7 @@ export default function ChatInterface() {
 
     // Gunakan parameter isCustomQuestion jika diberikan, jika tidak gunakan state selectedMode
     const useGeneralMode = isCustomQuestion !== undefined ? isCustomQuestion : selectedMode === 'general';
+    const useChallengeMode = selectedMode === 'challenge';
 
     const userMessage: Message = {
       role: 'user',
@@ -216,12 +232,27 @@ export default function ChatInterface() {
     setInput('');
     setIsLoading(true);
 
+    // Update challenge topic dari pesan pertama user
+    if (useChallengeMode && !challengeTopic && messageText.trim()) {
+      setChallengeTopic(messageText);
+    }
+
     try {
       // Pilih API endpoint berdasarkan mode
-      const apiEndpoint = useGeneralMode ? '/api/chat/general' : '/api/chat/campus';
+      const apiEndpoint = useChallengeMode
+        ? '/api/chat/challenge'
+        : useGeneralMode
+        ? '/api/chat/general'
+        : '/api/chat/campus';
 
       // Siapkan body request sesuai mode
-      const requestBody = useGeneralMode
+      const requestBody = useChallengeMode
+        ? {
+            message: messageText,
+            history: messages,
+            topic: challengeTopic || messageText,
+          }
+        : useGeneralMode
         ? {
             message: messageText,
             history: messages,
@@ -370,7 +401,7 @@ export default function ChatInterface() {
               <h3 className="text-white font-semibold mb-3 sm:mb-4 text-sm sm:text-base">
                 {t('chat.selectMode')}
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                 <button
                   onClick={() => setSelectedMode('campus')}
                   className={`p-4 sm:p-6 rounded-lg sm:rounded-xl transition-all text-left border ${
@@ -402,6 +433,23 @@ export default function ChatInterface() {
                   </div>
                   <p className="text-gray-300 text-xs sm:text-sm">
                     {t('chat.generalModeDesc')}
+                  </p>
+                </button>
+
+                <button
+                  onClick={() => setSelectedMode('challenge')}
+                  className={`p-4 sm:p-6 rounded-lg sm:rounded-xl transition-all text-left border ${
+                    selectedMode === 'challenge'
+                      ? 'bg-green-500/20 border-green-500 ring-2 ring-green-500'
+                      : 'bg-gray-900/50 border-gray-700 hover:bg-white/10 hover:border-white/50'
+                  }`}
+                >
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                    <span className="text-3xl sm:text-4xl">🎯</span>
+                    <h4 className="text-base sm:text-xl font-bold text-white">{t('chat.challengeMode')}</h4>
+                  </div>
+                  <p className="text-gray-300 text-xs sm:text-sm">
+                    {t('chat.challengeModeDesc')}
                   </p>
                 </button>
               </div>
@@ -534,14 +582,14 @@ export default function ChatInterface() {
               </div>
             )}
 
-            {/* Start Button - Only for General Mode */}
-            {selectedMode === 'general' && (
+            {/* Start Button - For General Mode and Challenge Mode */}
+            {(selectedMode === 'general' || selectedMode === 'challenge') && (
               <button
                 onClick={handleStartChat}
-                disabled={!customQuestion.trim()}
+                disabled={selectedMode === 'general' && !customQuestion.trim()}
                 className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-lg sm:rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-green-500 disabled:hover:to-green-600 hover:shadow-lg hover:shadow-green-500/50 hover:scale-105 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base"
               >
-                <span className="text-lg sm:text-xl">💬</span>
+                <span className="text-lg sm:text-xl">{selectedMode === 'challenge' ? '🎯' : '💬'}</span>
                 <span>{t('chat.startChat')}</span>
                 <svg
                   className="w-4 h-4 sm:w-5 sm:h-5"
@@ -609,10 +657,18 @@ export default function ChatInterface() {
                   </div>
                   <div>
                     <h1 className="text-lg font-bold text-white">
-                      {selectedMode === 'general' ? t('chat.aiAssistant') : t('chat.welcome')}
+                      {selectedMode === 'challenge'
+                        ? t('chat.challengeMode')
+                        : selectedMode === 'general'
+                        ? t('chat.aiAssistant')
+                        : t('chat.welcome')}
                     </h1>
                     <p className="text-gray-400 text-sm">
-                      {selectedMode === 'general' ? t('chat.generalMode') : selectedUniversity}
+                      {selectedMode === 'challenge'
+                        ? challengeTopic || t('chat.challengeModeSubtitle')
+                        : selectedMode === 'general'
+                        ? t('chat.generalMode')
+                        : selectedUniversity}
                     </p>
                   </div>
                 </div>
@@ -624,6 +680,7 @@ export default function ChatInterface() {
                     setSelectedQuestion('');
                     setCustomQuestion('');
                     setSelectedMode('');
+                    setChallengeTopic('');
                   }}
                   className="text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2"
                 >
@@ -738,7 +795,9 @@ export default function ChatInterface() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder={
-                    selectedMode === 'general'
+                    selectedMode === 'challenge'
+                      ? t('chat.inputPlaceholderChallenge')
+                      : selectedMode === 'general'
                       ? t('chat.inputPlaceholderGeneral')
                       : t('chat.inputPlaceholderCampus')
                   }
@@ -769,7 +828,9 @@ export default function ChatInterface() {
 
               {/* Helper Text */}
               <p className="text-gray-400 text-xs mt-3 text-center">
-                {selectedMode === 'general'
+                {selectedMode === 'challenge'
+                  ? t('chat.challengeModeTip')
+                  : selectedMode === 'general'
                   ? t('chat.generalModeTip')
                   : t('chat.campusModeTip')}
               </p>
