@@ -22,15 +22,52 @@ export default function HeroSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.8, delay: 0.3 }}
+            style={{ position: 'relative' }}
           >
+            {/* Pensil Icon on C */}
+            <img
+              src="/pensil.png"
+              alt="Pensil"
+              className="absolute w-24 md:w-32 lg:w-40 xl:w-48"
+              style={{
+                top: '-80px',
+                left: '-110px',
+                zIndex: 20,
+                pointerEvents: 'none'
+              }}
+            />
+            {/* Buku Icon on G in LEARNING */}
+            <img
+              src="/buku.png"
+              alt="Buku"
+              className="absolute w-20 md:w-24 lg:w-32 xl:w-40"
+              style={{
+                top: '330px',
+                left: '700px',
+                zIndex: 20,
+                pointerEvents: 'none'
+              }}
+            />
+            {/* Tumpuk Icon on E in EXPERIENCE */}
+            <img
+              src="/tumpuk.png"
+              alt="Tumpuk"
+              className="absolute w-32 md:w-40 lg:w-52 xl:w-64"
+              style={{
+                top: '500px',
+                left: '-10px',
+                zIndex: 20,
+                pointerEvents: 'none'
+              }}
+            />
             <h1
-              className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-none text-white whitespace-nowrap text-center"
+              className="text-6xl md:text-7xl lg:text-8xl xl:text-[10rem] font-black leading-none text-white whitespace-nowrap"
               style={{ fontFamily: 'Impact, sans-serif', letterSpacing: '0.02em' }}
             >
-              <span className="block">CREATE  A  MORE</span>
-              <span className="block">STRUCTURED</span>
-              <span className="block">LEARNING</span>
-              <span className="block">EXPERIENCE</span>
+              <span className="block text-center" style={{ wordSpacing: '0.15em' }}>CREATE  A  MORE</span>
+              <span className="block text-left" style={{ color: '#F7D050' }}>STRUCTURED</span>
+              <span className="block" style={{ position: 'relative', left: '120px', color: 'transparent', WebkitTextStroke: '0.75px white' }}>LEARNING</span>
+              <span className="block" style={{ position: 'relative', left: '200px', color: '#77b9c7' }}>EXPERIENCE</span>
             </h1>
           </motion.div>
         </motion.div>
