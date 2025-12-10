@@ -316,16 +316,16 @@ export default function CalendarView({ optimizedSchedule, scheduleItems }: Calen
   );
 
   return (
-    <div className="bg-neutral-900 border border-neutral-700 rounded-xl p-6 shadow-lg max-w-6xl mx-auto">
+    <div className="bg-white border-2 border-black rounded-3xl p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-w-6xl mx-auto">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-white">Kalender Jadwal</h2>
+        <h2 className="text-2xl font-bold text-black">Kalender Jadwal</h2>
         <button
           onClick={handleSyncToGoogle}
           disabled={isSyncing}
-          className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+          className={`px-4 py-2 rounded-3xl font-semibold transition-all border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
             isSyncing
-              ? 'bg-gray-600 cursor-not-allowed text-gray-400'
-              : 'bg-blue-600 hover:bg-blue-700 text-white'
+              ? 'bg-gray-300 cursor-not-allowed text-gray-500'
+              : 'bg-[#ff5757] hover:bg-[#ff3333] text-white hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]'
           }`}
         >
           {isSyncing
@@ -337,25 +337,25 @@ export default function CalendarView({ optimizedSchedule, scheduleItems }: Calen
       </div>
 
       <div className="mb-4 flex gap-3 flex-wrap">
-        <div className="flex items-center gap-2 bg-neutral-800 px-3 py-2 rounded-lg border border-neutral-700">
+        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
           <div className="w-4 h-4 bg-blue-700 rounded border-2 border-blue-400"></div>
-          <span className="text-sm font-semibold text-white">Kuliah</span>
+          <span className="text-sm font-semibold text-black">Kuliah</span>
         </div>
-        <div className="flex items-center gap-2 bg-neutral-800 px-3 py-2 rounded-lg border border-neutral-700">
+        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
           <div className="w-4 h-4 bg-green-700 rounded border-2 border-green-400"></div>
-          <span className="text-sm font-semibold text-white">Kegiatan</span>
+          <span className="text-sm font-semibold text-black">Kegiatan</span>
         </div>
-        <div className="flex items-center gap-2 bg-neutral-800 px-3 py-2 rounded-lg border border-neutral-700">
+        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
           <div className="w-4 h-4 bg-orange-600 rounded border-2 border-yellow-400"></div>
-          <span className="text-sm font-semibold text-white">Seminar</span>
+          <span className="text-sm font-semibold text-black">Seminar</span>
         </div>
-        <div className="flex items-center gap-2 bg-neutral-800 px-3 py-2 rounded-lg border border-neutral-700">
+        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
           <div className="w-4 h-4 bg-red-700 rounded border-2 border-red-400"></div>
-          <span className="text-sm font-semibold text-white">Lomba</span>
+          <span className="text-sm font-semibold text-black">Lomba</span>
         </div>
-        <div className="flex items-center gap-2 bg-neutral-800 px-3 py-2 rounded-lg border border-neutral-700">
+        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
           <div className="w-4 h-4 bg-cyan-700 rounded border-2 border-cyan-400"></div>
-          <span className="text-sm font-semibold text-white">UKM</span>
+          <span className="text-sm font-semibold text-black">UKM</span>
         </div>
       </div>
 
@@ -398,87 +398,91 @@ export default function CalendarView({ optimizedSchedule, scheduleItems }: Calen
       <style jsx global>{`
         .rbc-calendar {
           font-family: 'Inter', sans-serif;
-          background-color: #171717;
-          color: #f5f5f5;
+          background-color: #fef9ed;
+          color: #000000;
         }
         .rbc-header {
           padding: 12px 3px;
           font-weight: 700;
           font-size: 14px;
-          background-color: #262626;
-          color: #ffffff;
-          border-bottom: 2px solid #404040;
+          background-color: #ffffff;
+          color: #000000;
+          border-bottom: 2px solid #000000;
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
         .rbc-time-view {
-          background-color: #1a1a1a;
-          border: 1px solid #404040;
-          border-radius: 8px;
+          background-color: #ffffff;
+          border: 2px solid #000000;
+          border-radius: 12px;
           overflow: hidden;
         }
         .rbc-time-slot {
           min-height: 40px;
-          border-top: 1px solid #2a2a2a;
+          border-top: 1px solid #e5e5e5;
         }
         .rbc-time-content {
-          border-top: 2px solid #404040;
+          border-top: 2px solid #000000;
         }
         .rbc-day-slot .rbc-time-slot {
-          border-top: 1px solid #2a2a2a;
+          border-top: 1px solid #e5e5e5;
         }
         .rbc-timeslot-group {
           min-height: 80px;
-          border-left: 1px solid #404040;
+          border-left: 1px solid #cccccc;
         }
         .rbc-day-slot .rbc-events-container {
           margin-right: 0;
         }
         .rbc-time-header-content {
-          border-left: 1px solid #404040;
+          border-left: 1px solid #cccccc;
         }
         .rbc-time-content > * + * > * {
-          border-left: 1px solid #404040;
+          border-left: 1px solid #cccccc;
         }
         .rbc-current-time-indicator {
-          background-color: #3b82f6;
+          background-color: #ff5757;
           height: 2px;
         }
         .rbc-today {
-          background-color: #1e3a8a;
+          background-color: #ffe5e5;
         }
         .rbc-label {
-          color: #d1d5db;
+          color: #000000;
           font-weight: 600;
           padding: 8px 12px;
         }
         .rbc-toolbar {
-          background-color: #262626;
+          background-color: #ffffff;
           padding: 16px;
-          border-radius: 8px;
+          border-radius: 12px;
           margin-bottom: 16px;
-          border: 1px solid #404040;
+          border: 2px solid #000000;
+          box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
         }
         .rbc-toolbar button {
-          color: #f5f5f5;
+          color: #000000;
           font-weight: 500;
-          border: 1px solid #404040;
-          background-color: #171717;
+          border: 2px solid #000000;
+          background-color: #ffffff;
           padding: 8px 16px;
-          border-radius: 6px;
+          border-radius: 8px;
           transition: all 0.2s;
+          box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
         }
         .rbc-toolbar button:hover {
-          background-color: #262626;
-          border-color: #525252;
+          background-color: #ff5757;
+          color: #ffffff;
+          border-color: #000000;
+          box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 1);
         }
         .rbc-toolbar button.rbc-active {
-          background-color: #3b82f6;
+          background-color: #ff5757;
           color: white;
-          border-color: #3b82f6;
+          border-color: #000000;
         }
         .rbc-toolbar-label {
-          color: #ffffff;
+          color: #000000;
           font-weight: 700;
           font-size: 16px;
         }
@@ -494,49 +498,49 @@ export default function CalendarView({ optimizedSchedule, scheduleItems }: Calen
           font-weight: 600;
         }
         .rbc-header + .rbc-header {
-          border-left: 1px solid #404040;
+          border-left: 1px solid #cccccc;
         }
         .rbc-month-view {
-          background-color: #171717;
-          border: 1px solid #404040;
-          border-radius: 8px;
+          background-color: #ffffff;
+          border: 2px solid #000000;
+          border-radius: 12px;
         }
         .rbc-month-row {
-          border-top: 1px solid #404040;
+          border-top: 1px solid #cccccc;
         }
         .rbc-day-bg + .rbc-day-bg {
-          border-left: 1px solid #2a2a2a;
+          border-left: 1px solid #e5e5e5;
         }
         .rbc-off-range-bg {
-          background-color: #0a0a0a;
+          background-color: #f5f5f5;
         }
         .rbc-date-cell {
           padding: 8px;
         }
         .rbc-button-link {
-          color: #d1d5db;
+          color: #000000;
           font-weight: 600;
         }
         .rbc-show-more {
-          background-color: #262626;
-          color: #60a5fa;
+          background-color: #ff5757;
+          color: #ffffff;
           font-weight: 600;
           padding: 2px 6px;
           border-radius: 4px;
           margin: 2px 0;
         }
         .rbc-overlay {
-          background-color: #1a1a1a;
-          border: 2px solid #404040;
-          border-radius: 8px;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+          background-color: #ffffff;
+          border: 2px solid #000000;
+          border-radius: 12px;
+          box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
         }
         .rbc-overlay-header {
-          background-color: #262626;
-          border-bottom: 2px solid #404040;
+          background-color: #fef9ed;
+          border-bottom: 2px solid #000000;
           padding: 12px;
           font-weight: 700;
-          color: #ffffff;
+          color: #000000;
         }
 
         /* Custom Scrollbar Styling */
@@ -548,21 +552,21 @@ export default function CalendarView({ optimizedSchedule, scheduleItems }: Calen
           margin: 8px 0;
         }
         .rbc-time-content::-webkit-scrollbar-thumb {
-          background: #404040;
+          background: #cccccc;
           border-radius: 10px;
-          border: 3px solid #1a1a1a;
+          border: 3px solid #ffffff;
           background-clip: padding-box;
         }
         .rbc-time-content::-webkit-scrollbar-thumb:hover {
-          background: #525252;
-          border: 3px solid #1a1a1a;
+          background: #999999;
+          border: 3px solid #ffffff;
           background-clip: padding-box;
         }
 
         /* Firefox scrollbar */
         .rbc-time-content {
           scrollbar-width: thin;
-          scrollbar-color: #404040 transparent;
+          scrollbar-color: #cccccc transparent;
         }
 
         /* Add padding to time content for scrollbar spacing */

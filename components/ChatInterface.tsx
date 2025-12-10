@@ -598,7 +598,7 @@ export default function ChatInterface() {
                   onChange={(e) => setCustomQuestion(e.target.value)}
                   placeholder={t('chat.generalModePlaceholder')}
                   rows={5}
-                  className="w-full bg-gray-100 text-black rounded-3xl px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder-gray-500 resize-none text-xs sm:text-sm"
+                  className="w-full bg-white text-black rounded-3xl px-3 sm:px-4 py-2.5 sm:py-3 border-2 border-black focus:outline-none focus:border-[#ff5757] transition-all placeholder-gray-500 resize-none text-xs sm:text-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
                 />
               </div>
             )}
@@ -666,32 +666,21 @@ export default function ChatInterface() {
           <div className="p-4" style={{ backgroundColor: '#fef9ed' }}>
             <div className="max-w-4xl mx-auto">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg border border-white/20 overflow-hidden p-1">
-                    <Image
-                      src="/GEMINIICON.png"
-                      alt="AI Assistant"
-                      width={36}
-                      height={36}
-                      className="object-contain"
-                    />
-                  </div>
-                  <div>
-                    <h1 className="text-lg font-bold text-white">
-                      {selectedMode === 'challenge'
-                        ? t('chat.challengeMode')
-                        : selectedMode === 'general'
-                        ? t('chat.aiAssistant')
-                        : t('chat.welcome')}
-                    </h1>
-                    <p className="text-gray-400 text-sm">
-                      {selectedMode === 'challenge'
-                        ? challengeTopic || t('chat.challengeModeSubtitle')
-                        : selectedMode === 'general'
-                        ? t('chat.generalMode')
-                        : selectedUniversity}
-                    </p>
-                  </div>
+                <div className="flex flex-col">
+                  <h1 className="text-2xl font-bold text-black pt-10" style={{ fontFamily: "'Organic Relief', sans-serif" }}>
+                    {selectedMode === 'challenge'
+                      ? t('chat.challengeMode')
+                      : selectedMode === 'general'
+                      ? t('chat.aiAssistant')
+                      : t('chat.welcome')}
+                  </h1>
+                  <p className="text-black text-2xl mt-1 pt-5" style={{ fontFamily: "'Fredoka', sans-serif" }}>
+                    {selectedMode === 'challenge'
+                      ? challengeTopic || t('chat.challengeModeSubtitle')
+                      : selectedMode === 'general'
+                      ? t('chat.generalModeLabel')
+                      : selectedUniversity}
+                  </p>
                 </div>
                 <button
                   onClick={() => {
@@ -703,7 +692,7 @@ export default function ChatInterface() {
                     setSelectedMode('');
                     setChallengeTopic('');
                   }}
-                  className="text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2"
+                  className="bg-white hover:bg-[#ff5757] text-black hover:text-white transition-all text-sm flex items-center gap-2 px-4 py-2 rounded-3xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -836,13 +825,13 @@ export default function ChatInterface() {
                       ? t('chat.inputPlaceholderGeneral')
                       : t('chat.inputPlaceholderCampus')
                   }
-                  className="flex-1 bg-gray-800/40 text-white rounded-full px-6 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400 border border-gray-700/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white transition-all"
+                  className="flex-1 bg-white text-black rounded-3xl px-6 py-4 focus:outline-none focus:border-[#ff5757] placeholder-gray-500 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all"
                   disabled={isLoading}
                 />
                 <button
                   type="submit"
                   disabled={isLoading || !input.trim()}
-                  className="bg-gray-700/30 border border-gray-600/50 hover:bg-white/95 hover:border-white text-gray-200 hover:text-gray-800 rounded-full px-8 py-4 font-medium hover:shadow-lg hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2"
+                  className="bg-[#ff5757] hover:bg-[#ff3333] text-white rounded-3xl px-8 py-4 font-medium hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center gap-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
                 >
                   <svg
                     className="w-5 h-5"
@@ -862,7 +851,7 @@ export default function ChatInterface() {
               </form>
 
               {/* Helper Text */}
-              <p className="text-gray-400 text-xs mt-3 text-center">
+              <p className="text-black text-xs mt-3 text-center">
                 {selectedMode === 'challenge'
                   ? t('chat.challengeModeTip')
                   : selectedMode === 'general'

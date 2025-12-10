@@ -850,42 +850,42 @@ export default function SmartScheduleBuilder() {
             {/* Weekly Schedule Title */}
             <AnimatedContent>
             <div className="text-center">
-              <h2 className="text-3xl font-bold text-white" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)' }}>
+              <h2 className="text-3xl font-bold text-black" style={{ fontFamily: "'Organic Relief', sans-serif" }}>
                 {t('schedule.weekly.title')}
               </h2>
-              <div className="h-1 w-32 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mt-3" style={{ boxShadow: '0 0 10px rgba(255, 255, 255, 0.6)' }}></div>
+              <div className="h-1 w-32 bg-gradient-to-r from-transparent via-black to-transparent mx-auto mt-3"></div>
             </div>
             </AnimatedContent>
 
             {/* Weekly Schedule - Collapsible Grid */}
             <div className="space-y-6">
-              {/* First Row - 3 Days */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {editedOptimizedSchedule && Object.entries(editedOptimizedSchedule.optimizedSchedule).slice(0, 3).map(([day, schedule], dayIndex) => (
+              {/* First Row - 4 Days */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                {editedOptimizedSchedule && Object.entries(editedOptimizedSchedule.optimizedSchedule).slice(0, 4).map(([day, schedule], dayIndex) => (
                   <AnimatedContent key={day} delay={dayIndex * 0.05}>
                     <div className="flex flex-col gap-4">
                       {/* Day Header - Clickable */}
                       <button
                         onClick={() => toggleDay(day)}
-                        className="bg-gradient-to-br from-neutral-700 to-neutral-800 border border-gray-600 rounded-lg p-5 text-center hover:from-neutral-600 hover:to-neutral-700 transition-all cursor-pointer"
+                        className="bg-white border-2 border-black rounded-3xl p-5 text-center hover:bg-[#ff5757] transition-all cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] group"
                       >
-                        <h3 className="text-xl font-bold text-white uppercase tracking-wider" style={{ textShadow: '0 0 8px rgba(255, 255, 255, 0.7)' }}>
+                        <h3 className="text-xl font-bold uppercase tracking-wider text-black group-hover:text-white transition-colors">
                           {day}
                         </h3>
-                        <div className="text-xs text-gray-400 mt-1">
+                        <div className="text-xs mt-1 text-black group-hover:text-white transition-colors">
                           {expandedDays[day] ? t('schedule.collapse.close') : t('schedule.collapse.open')}
                         </div>
                       </button>
 
                       {/* Schedule Table - Collapsible */}
                       {expandedDays[day] && (
-                        <div className="bg-neutral-800/50 border border-gray-600 rounded-lg overflow-hidden animate-fadeIn">
+                        <div className="bg-white border-2 border-black rounded-3xl overflow-hidden animate-fadeIn shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                           <table className="w-full">
                             <tbody>
                               {schedule.map((item, index) => (
-                                <tr key={index} className="border-b border-gray-700 hover:bg-neutral-700/30 transition-colors">
+                                <tr key={index} className="border-b border-gray-300 hover:bg-[#ff5757]/10 transition-colors">
                                   <td className="p-3 align-top w-32">
-                                    <div className="text-green-300 font-mono text-sm font-bold whitespace-nowrap">
+                                    <div className="text-[#ff5757] font-mono text-sm font-bold whitespace-nowrap">
                                       {item.time}
                                     </div>
                                   </td>
@@ -894,10 +894,10 @@ export default function SmartScheduleBuilder() {
                                       type="text"
                                       value={item.activity}
                                       onChange={(e) => handleScheduleItemChange(day, index, 'activity', e.target.value)}
-                                      className="w-full bg-transparent text-white text-sm font-semibold focus:outline-none border-b border-transparent focus:border-gray-500"
+                                      className="w-full bg-transparent text-black text-sm font-semibold focus:outline-none border-b border-transparent focus:border-[#ff5757]"
                                     />
                                     {item.location && (
-                                      <div className="text-xs text-gray-400 mt-1">📍 {item.location}</div>
+                                      <div className="text-xs text-gray-600 mt-1">📍 {item.location}</div>
                                     )}
                                   </td>
                                 </tr>
@@ -911,33 +911,33 @@ export default function SmartScheduleBuilder() {
                 ))}
               </div>
 
-              {/* Second Row - 4 Days */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                {editedOptimizedSchedule && Object.entries(editedOptimizedSchedule.optimizedSchedule).slice(3, 7).map(([day, schedule], dayIndex) => (
-                  <AnimatedContent key={day} delay={(dayIndex + 3) * 0.05}>
+              {/* Second Row - 3 Days */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {editedOptimizedSchedule && Object.entries(editedOptimizedSchedule.optimizedSchedule).slice(4, 7).map(([day, schedule], dayIndex) => (
+                  <AnimatedContent key={day} delay={(dayIndex + 4) * 0.05}>
                     <div className="flex flex-col gap-4">
                       {/* Day Header - Clickable */}
                       <button
                         onClick={() => toggleDay(day)}
-                        className="bg-gradient-to-br from-neutral-700 to-neutral-800 border border-gray-600 rounded-lg p-5 text-center hover:from-neutral-600 hover:to-neutral-700 transition-all cursor-pointer"
+                        className="bg-white border-2 border-black rounded-3xl p-5 text-center hover:bg-[#ff5757] transition-all cursor-pointer shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] group"
                       >
-                        <h3 className="text-xl font-bold text-white uppercase tracking-wider" style={{ textShadow: '0 0 8px rgba(255, 255, 255, 0.7)' }}>
+                        <h3 className="text-xl font-bold uppercase tracking-wider text-black group-hover:text-white transition-colors">
                           {day}
                         </h3>
-                        <div className="text-xs text-gray-400 mt-1">
+                        <div className="text-xs mt-1 text-black group-hover:text-white transition-colors">
                           {expandedDays[day] ? t('schedule.collapse.close') : t('schedule.collapse.open')}
                         </div>
                       </button>
 
                       {/* Schedule Table - Collapsible */}
                       {expandedDays[day] && (
-                        <div className="bg-neutral-800/50 border border-gray-600 rounded-lg overflow-hidden animate-fadeIn">
+                        <div className="bg-white border-2 border-black rounded-3xl overflow-hidden animate-fadeIn shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                           <table className="w-full">
                             <tbody>
                               {schedule.map((item, index) => (
-                                <tr key={index} className="border-b border-gray-700 hover:bg-neutral-700/30 transition-colors">
+                                <tr key={index} className="border-b border-gray-300 hover:bg-[#ff5757]/10 transition-colors">
                                   <td className="p-3 align-top w-32">
-                                    <div className="text-green-300 font-mono text-sm font-bold whitespace-nowrap">
+                                    <div className="text-[#ff5757] font-mono text-sm font-bold whitespace-nowrap">
                                       {item.time}
                                     </div>
                                   </td>
@@ -946,10 +946,10 @@ export default function SmartScheduleBuilder() {
                                       type="text"
                                       value={item.activity}
                                       onChange={(e) => handleScheduleItemChange(day, index, 'activity', e.target.value)}
-                                      className="w-full bg-transparent text-white text-sm font-semibold focus:outline-none border-b border-transparent focus:border-gray-500"
+                                      className="w-full bg-transparent text-black text-sm font-semibold focus:outline-none border-b border-transparent focus:border-[#ff5757]"
                                     />
                                     {item.location && (
-                                      <div className="text-xs text-gray-400 mt-1">📍 {item.location}</div>
+                                      <div className="text-xs text-gray-600 mt-1">📍 {item.location}</div>
                                     )}
                                   </td>
                                 </tr>
@@ -968,12 +968,12 @@ export default function SmartScheduleBuilder() {
         )}
 
         {activeTab === 'result' && !optimizedSchedule && (
-          <div className="text-center py-20 bg-neutral-800 rounded-2xl border border-gray-600 shadow-md">
-            <h3 className="text-3xl font-bold text-white mb-3" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6)' }}>{t('schedule.empty.title')}</h3>
-            <p className="text-gray-400 mb-6">{t('schedule.empty.description')}</p>
+          <div className="text-center py-20 bg-white rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+            <h3 className="text-3xl font-bold text-black mb-3" style={{ fontFamily: "'Organic Relief', sans-serif" }}>{t('schedule.empty.title')}</h3>
+            <p className="text-black mb-6">{t('schedule.empty.description')}</p>
             <button
               onClick={() => setActiveTab('input')}
-              className="bg-gray-700/30 border border-gray-600/50 hover:bg-white/95 hover:border-white text-gray-200 hover:text-gray-800 px-8 py-3 rounded-lg font-bold transition-all shadow-md"
+              className="bg-white border-2 border-black hover:bg-[#ff5757] text-black hover:text-white px-8 py-3 rounded-3xl font-bold transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
             >
               {t('schedule.empty.button')}
             </button>
@@ -991,12 +991,12 @@ export default function SmartScheduleBuilder() {
         )}
 
         {activeTab === 'calendar' && !optimizedSchedule && (
-          <div className="text-center py-20 bg-neutral-800 rounded-2xl border border-gray-600 shadow-md">
-            <h3 className="text-3xl font-bold text-white mb-3" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6)' }}>{t('schedule.empty.title')}</h3>
-            <p className="text-gray-400 mb-6">{t('schedule.empty.description')}</p>
+          <div className="text-center py-20 bg-white rounded-3xl border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+            <h3 className="text-3xl font-bold text-black mb-3" style={{ fontFamily: "'Organic Relief', sans-serif" }}>{t('schedule.empty.title')}</h3>
+            <p className="text-black mb-6">{t('schedule.empty.description')}</p>
             <button
               onClick={() => setActiveTab('input')}
-              className="bg-gray-700/30 border border-gray-600/50 hover:bg-white/95 hover:border-white text-gray-200 hover:text-gray-800 px-8 py-3 rounded-lg font-bold transition-all shadow-md"
+              className="bg-white border-2 border-black hover:bg-[#ff5757] text-black hover:text-white px-8 py-3 rounded-3xl font-bold transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
             >
               {t('schedule.empty.button')}
             </button>
@@ -1011,7 +1011,7 @@ export default function SmartScheduleBuilder() {
           onClick={() => setShowPopup(null)}
         >
           <div
-            className="bg-gray-700/40 backdrop-blur-xl rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border-2 border-white/40 relative"
+            className="bg-white backdrop-blur-xl rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border-2 border-black relative"
             onClick={(e) => e.stopPropagation()}
           >
             {showPopup === 'jadwal' && (
@@ -1020,12 +1020,12 @@ export default function SmartScheduleBuilder() {
                 <div className="flex justify-end -mt-2 -mr-2 mb-2">
                   <button
                     onClick={() => setShowPopup(null)}
-                    className="text-gray-400 hover:text-white text-3xl font-bold transition-all hover:scale-125 active:scale-95 hover:rotate-90"
+                    className="text-black hover:text-[#ff5757] text-3xl font-bold transition-all hover:scale-125 active:scale-95 hover:rotate-90"
                   >
                     ×
                   </button>
                 </div>
-                <h2 className="text-3xl font-bold text-white mb-6" >
+                <h2 className="text-3xl font-bold text-black mb-6" style={{ fontFamily: "'Organic Relief', sans-serif" }}>
                   {t('schedule.modal.addCourse')}
                 </h2>
 
@@ -1034,52 +1034,52 @@ export default function SmartScheduleBuilder() {
                   placeholder={t('schedule.placeholders.courseName')}
                   value={newCourse.name}
                   onChange={(e) => setNewCourse({ ...newCourse, name: e.target.value })}
-                  className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all placeholder:text-gray-500 hover:placeholder:text-gray-400 focus:placeholder:text-gray-400"
+                  className="w-full bg-white text-black rounded-3xl px-4 py-3 border-2 border-black hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all placeholder:text-gray-500 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                 />
 
                 <select
                   value={newCourse.day}
                   onChange={(e) => setNewCourse({ ...newCourse, day: e.target.value })}
-                  className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
+                  className="w-full bg-white text-black rounded-3xl px-4 py-3 border-2 border-black hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                 >
                   {days.map(day => (
-                    <option key={day} value={day} className="bg-neutral-700 text-gray-200">{day}</option>
+                    <option key={day} value={day} className="bg-white text-black">{day}</option>
                   ))}
                 </select>
 
                 <select
                   value={newCourse.courseType}
                   onChange={(e) => setNewCourse({ ...newCourse, courseType: e.target.value as any })}
-                  className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
+                  className="w-full bg-white text-black rounded-3xl px-4 py-3 border-2 border-black hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                 >
-                  <option value="teori" className="bg-neutral-700 text-gray-200">{t('schedule.courseTypes.theory')}</option>
-                  <option value="praktikum" className="bg-neutral-700 text-gray-200">{t('schedule.courseTypes.practicum')}</option>
-                  <option value="lab" className="bg-neutral-700 text-gray-200">{t('schedule.courseTypes.lab')}</option>
-                  <option value="seminar" className="bg-neutral-700 text-gray-200">{t('schedule.courseTypes.seminar')}</option>
+                  <option value="teori" className="bg-white text-black">{t('schedule.courseTypes.theory')}</option>
+                  <option value="praktikum" className="bg-white text-black">{t('schedule.courseTypes.practicum')}</option>
+                  <option value="lab" className="bg-white text-black">{t('schedule.courseTypes.lab')}</option>
+                  <option value="seminar" className="bg-white text-black">{t('schedule.courseTypes.seminar')}</option>
                 </select>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-gray-400 text-sm mb-2 block">{t('schedule.labels.startTime')}</label>
+                    <label className="text-black text-sm mb-2 block font-semibold">{t('schedule.labels.startTime')}</label>
                     <select
                       value={newCourse.startTime}
                       onChange={(e) => setNewCourse({ ...newCourse, startTime: e.target.value })}
-                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
+                      className="w-full bg-white text-black rounded-3xl px-4 py-3 border-2 border-black hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                     >
                       {timeSlots.map(time => (
-                        <option key={time} value={time} className="bg-neutral-700 text-gray-200">{time}</option>
+                        <option key={time} value={time} className="bg-white text-black">{time}</option>
                       ))}
                     </select>
                   </div>
                   <div>
-                    <label className="text-gray-400 text-sm mb-2 block">{t('schedule.labels.endTime')}</label>
+                    <label className="text-black text-sm mb-2 block font-semibold">{t('schedule.labels.endTime')}</label>
                     <select
                       value={newCourse.endTime}
                       onChange={(e) => setNewCourse({ ...newCourse, endTime: e.target.value })}
-                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
+                      className="w-full bg-white text-black rounded-3xl px-4 py-3 border-2 border-black hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                     >
                       {timeSlots.map(time => (
-                        <option key={time} value={time} className="bg-neutral-700 text-gray-200">{time}</option>
+                        <option key={time} value={time} className="bg-white text-black">{time}</option>
                       ))}
                     </select>
                   </div>
@@ -1090,7 +1090,7 @@ export default function SmartScheduleBuilder() {
                   placeholder={t('schedule.placeholders.location')}
                   value={newCourse.location || ''}
                   onChange={(e) => setNewCourse({ ...newCourse, location: e.target.value })}
-                  className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all placeholder:text-gray-500 hover:placeholder:text-gray-400 focus:placeholder:text-gray-400"
+                  className="w-full bg-white text-black rounded-3xl px-4 py-3 border-2 border-black hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all placeholder:text-gray-500 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                 />
 
                 <input
@@ -1098,7 +1098,7 @@ export default function SmartScheduleBuilder() {
                   placeholder={t('schedule.placeholders.description')}
                   value={newCourse.description}
                   onChange={(e) => setNewCourse({ ...newCourse, description: e.target.value })}
-                  className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all placeholder:text-gray-500 hover:placeholder:text-gray-400 focus:placeholder:text-gray-400"
+                  className="w-full bg-white text-black rounded-3xl px-4 py-3 border-2 border-black hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all placeholder:text-gray-500 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                 />
 
                 <button
@@ -1106,7 +1106,7 @@ export default function SmartScheduleBuilder() {
                     addCourse();
                     setShowPopup(null);
                   }}
-                  className="w-full bg-white/95 hover:bg-white text-gray-800 px-6 py-3 rounded-lg font-bold transition-all shadow-md hover:shadow-lg hover:scale-105 active:scale-95"
+                  className="w-full bg-[#ff5757] hover:bg-red-600 text-white px-6 py-3 rounded-3xl font-bold transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:scale-105 active:scale-95 border-2 border-black"
                 >
                   {t('schedule.buttons.addCourse')}
                 </button>
@@ -1119,12 +1119,12 @@ export default function SmartScheduleBuilder() {
                 <div className="flex justify-end -mt-2 -mr-2 mb-2">
                   <button
                     onClick={() => setShowPopup(null)}
-                    className="text-gray-400 hover:text-white text-3xl font-bold transition-all hover:scale-125 active:scale-95 hover:rotate-90"
+                    className="text-black hover:text-[#ff5757] text-3xl font-bold transition-all hover:scale-125 active:scale-95 hover:rotate-90"
                   >
                     ×
                   </button>
                 </div>
-                <h2 className="text-3xl font-bold text-white mb-6">
+                <h2 className="text-3xl font-bold text-black mb-6" style={{ fontFamily: "'Organic Relief', sans-serif" }}>
                   {t('schedule.modal.addActivity')}
                 </h2>
 
@@ -1132,10 +1132,10 @@ export default function SmartScheduleBuilder() {
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     onClick={() => setActivityMode('flexible')}
-                    className={`py-4 px-4 rounded-lg font-semibold transition-all hover:scale-105 active:scale-95 ${
+                    className={`py-4 px-4 rounded-3xl font-semibold transition-all hover:scale-105 active:scale-95 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
                       activityMode === 'flexible'
-                        ? 'bg-white/95 text-gray-800 shadow-lg'
-                        : 'bg-gray-700/30 text-gray-200 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white'
+                        ? 'bg-[#ff5757] text-white'
+                        : 'bg-white text-black hover:bg-[#ff5757] hover:text-white'
                     }`}
                   >
                     <div className="text-sm">{t('schedule.mode.flexible')}</div>
@@ -1143,10 +1143,10 @@ export default function SmartScheduleBuilder() {
                   </button>
                   <button
                     onClick={() => setActivityMode('specific')}
-                    className={`py-4 px-4 rounded-lg font-semibold transition-all hover:scale-105 active:scale-95 ${
+                    className={`py-4 px-4 rounded-3xl font-semibold transition-all hover:scale-105 active:scale-95 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
                       activityMode === 'specific'
-                        ? 'bg-white/95 text-gray-800 shadow-lg'
-                        : 'bg-gray-700/30 text-gray-200 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white'
+                        ? 'bg-[#ff5757] text-white'
+                        : 'bg-white text-black hover:bg-[#ff5757] hover:text-white'
                     }`}
                   >
                     <div className="text-sm">{t('schedule.mode.specific')}</div>
@@ -1162,41 +1162,41 @@ export default function SmartScheduleBuilder() {
                       placeholder={t('schedule.placeholders.activityName')}
                       value={newActivity.name}
                       onChange={(e) => setNewActivity({ ...newActivity, name: e.target.value })}
-                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all placeholder:text-gray-500 hover:placeholder:text-gray-400 focus:placeholder:text-gray-400"
+                      className="w-full bg-gray-100 text-black rounded-3xl px-4 py-3 border-2 border-gray-300 hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all placeholder:text-gray-500"
                     />
 
                     <select
                       value={newActivity.duration}
                       onChange={(e) => setNewActivity({ ...newActivity, duration: Number(e.target.value) })}
-                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
+                      className="w-full bg-gray-100 text-black rounded-3xl px-4 py-3 border-2 border-gray-300 hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all"
                     >
-                      <option value={30} className="bg-neutral-700 text-gray-200">{t('schedule.durations.30min')}</option>
-                      <option value={60} className="bg-neutral-700 text-gray-200">{t('schedule.durations.1hour')}</option>
-                      <option value={90} className="bg-neutral-700 text-gray-200">{t('schedule.durations.1.5hours')}</option>
-                      <option value={120} className="bg-neutral-700 text-gray-200">{t('schedule.durations.2hours')}</option>
-                      <option value={180} className="bg-neutral-700 text-gray-200">{t('schedule.durations.3hours')}</option>
+                      <option value={30} className="bg-white text-black">{t('schedule.durations.30min')}</option>
+                      <option value={60} className="bg-white text-black">{t('schedule.durations.1hour')}</option>
+                      <option value={90} className="bg-white text-black">{t('schedule.durations.1.5hours')}</option>
+                      <option value={120} className="bg-white text-black">{t('schedule.durations.2hours')}</option>
+                      <option value={180} className="bg-white text-black">{t('schedule.durations.3hours')}</option>
                     </select>
 
                     <select
                       value={newActivity.priority}
                       onChange={(e) => setNewActivity({ ...newActivity, priority: e.target.value as any })}
-                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
+                      className="w-full bg-gray-100 text-black rounded-3xl px-4 py-3 border-2 border-gray-300 hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all"
                     >
-                      <option value="tinggi" className="bg-neutral-700 text-gray-200">{t('schedule.priorities.high')}</option>
-                      <option value="sedang" className="bg-neutral-700 text-gray-200">{t('schedule.priorities.medium')}</option>
-                      <option value="rendah" className="bg-neutral-700 text-gray-200">{t('schedule.priorities.low')}</option>
+                      <option value="tinggi" className="bg-white text-black">{t('schedule.priorities.high')}</option>
+                      <option value="sedang" className="bg-white text-black">{t('schedule.priorities.medium')}</option>
+                      <option value="rendah" className="bg-white text-black">{t('schedule.priorities.low')}</option>
                     </select>
 
                     <select
                       value={newActivity.mustBeBefore || ''}
                       onChange={(e) => setNewActivity({ ...newActivity, mustBeBefore: e.target.value || undefined })}
-                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
+                      className="w-full bg-gray-100 text-black rounded-3xl px-4 py-3 border-2 border-gray-300 hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all"
                     >
-                      <option value="" className="bg-neutral-700 text-gray-200">{t('schedule.timing.anytime')}</option>
-                      <option value="12:00" className="bg-neutral-700 text-gray-200">{t('schedule.timing.before12')}</option>
-                      <option value="15:00" className="bg-neutral-700 text-gray-200">{t('schedule.timing.before15')}</option>
-                      <option value="18:00" className="bg-neutral-700 text-gray-200">{t('schedule.timing.before18')}</option>
-                      <option value="20:00" className="bg-neutral-700 text-gray-200">{t('schedule.timing.before20')}</option>
+                      <option value="" className="bg-white text-black">{t('schedule.timing.anytime')}</option>
+                      <option value="12:00" className="bg-white text-black">{t('schedule.timing.before12')}</option>
+                      <option value="15:00" className="bg-white text-black">{t('schedule.timing.before15')}</option>
+                      <option value="18:00" className="bg-white text-black">{t('schedule.timing.before18')}</option>
+                      <option value="20:00" className="bg-white text-black">{t('schedule.timing.before20')}</option>
                     </select>
 
                     <input
@@ -1204,7 +1204,7 @@ export default function SmartScheduleBuilder() {
                       placeholder={t('schedule.placeholders.description')}
                       value={newActivity.description}
                       onChange={(e) => setNewActivity({ ...newActivity, description: e.target.value })}
-                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all placeholder:text-gray-500 hover:placeholder:text-gray-400 focus:placeholder:text-gray-400"
+                      className="w-full bg-gray-100 text-black rounded-3xl px-4 py-3 border-2 border-gray-300 hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all placeholder:text-gray-500"
                     />
                   </div>
                 )}
@@ -1217,39 +1217,39 @@ export default function SmartScheduleBuilder() {
                       placeholder={t('schedule.placeholders.activityName')}
                       value={newActivity.name}
                       onChange={(e) => setNewActivity({ ...newActivity, name: e.target.value })}
-                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all placeholder:text-gray-500 hover:placeholder:text-gray-400 focus:placeholder:text-gray-400"
+                      className="w-full bg-gray-100 text-black rounded-3xl px-4 py-3 border-2 border-gray-300 hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all placeholder:text-gray-500"
                     />
 
                     <select
                       value={newActivity.specificDay || 'Senin'}
                       onChange={(e) => setNewActivity({ ...newActivity, specificDay: e.target.value })}
-                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
+                      className="w-full bg-gray-100 text-black rounded-3xl px-4 py-3 border-2 border-gray-300 hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all"
                     >
                       {days.map(day => (
-                        <option key={day} value={day} className="bg-neutral-700 text-gray-200">{day}</option>
+                        <option key={day} value={day} className="bg-white text-black">{day}</option>
                       ))}
                     </select>
 
                     <select
                       value={newActivity.specificTime || '09:00'}
                       onChange={(e) => setNewActivity({ ...newActivity, specificTime: e.target.value })}
-                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
+                      className="w-full bg-gray-100 text-black rounded-3xl px-4 py-3 border-2 border-gray-300 hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all"
                     >
                       {timeSlots.map(time => (
-                        <option key={time} value={time} className="bg-neutral-700 text-gray-200">{time}</option>
+                        <option key={time} value={time} className="bg-white text-black">{time}</option>
                       ))}
                     </select>
 
                     <select
                       value={newActivity.duration}
                       onChange={(e) => setNewActivity({ ...newActivity, duration: Number(e.target.value) })}
-                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all"
+                      className="w-full bg-gray-100 text-black rounded-3xl px-4 py-3 border-2 border-gray-300 hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all"
                     >
-                      <option value={30} className="bg-neutral-700 text-gray-200">{t('schedule.durations.30min')}</option>
-                      <option value={60} className="bg-neutral-700 text-gray-200">{t('schedule.durations.1hour')}</option>
-                      <option value={90} className="bg-neutral-700 text-gray-200">{t('schedule.durations.1.5hours')}</option>
-                      <option value={120} className="bg-neutral-700 text-gray-200">{t('schedule.durations.2hours')}</option>
-                      <option value={180} className="bg-neutral-700 text-gray-200">{t('schedule.durations.3hours')}</option>
+                      <option value={30} className="bg-white text-black">{t('schedule.durations.30min')}</option>
+                      <option value={60} className="bg-white text-black">{t('schedule.durations.1hour')}</option>
+                      <option value={90} className="bg-white text-black">{t('schedule.durations.1.5hours')}</option>
+                      <option value={120} className="bg-white text-black">{t('schedule.durations.2hours')}</option>
+                      <option value={180} className="bg-white text-black">{t('schedule.durations.3hours')}</option>
                     </select>
 
                     <input
@@ -1257,7 +1257,7 @@ export default function SmartScheduleBuilder() {
                       placeholder={t('schedule.placeholders.description')}
                       value={newActivity.description}
                       onChange={(e) => setNewActivity({ ...newActivity, description: e.target.value })}
-                      className="w-full bg-gray-700/30 text-gray-200 rounded-lg px-4 py-3 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white focus:bg-white/95 focus:text-gray-800 focus:border-white focus:outline-none focus:ring-1 focus:ring-white transition-all placeholder:text-gray-500 hover:placeholder:text-gray-400 focus:placeholder:text-gray-400"
+                      className="w-full bg-gray-100 text-black rounded-3xl px-4 py-3 border-2 border-gray-300 hover:border-[#ff5757] focus:border-[#ff5757] focus:outline-none transition-all placeholder:text-gray-500"
                     />
                   </div>
                 )}
@@ -1267,7 +1267,7 @@ export default function SmartScheduleBuilder() {
                     addActivity();
                     setShowPopup(null);
                   }}
-                  className="w-full bg-white/95 hover:bg-white text-gray-800 px-6 py-3 rounded-lg font-bold transition-all shadow-md hover:shadow-lg hover:scale-105 active:scale-95 mt-6"
+                  className="w-full bg-[#ff5757] hover:bg-red-600 text-white px-6 py-3 rounded-3xl font-bold transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:scale-105 active:scale-95 border-2 border-black mt-6"
                 >
                   {t('schedule.buttons.addActivity')}
                 </button>
