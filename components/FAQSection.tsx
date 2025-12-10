@@ -169,14 +169,14 @@ export default function FAQSection() {
   };
 
   return (
-    <section ref={sectionRef} id="about-us" className="py-12 sm:py-16 md:py-20 px-0 bg-gradient-to-b from-gray-800 to-black relative overflow-hidden">
+    <section ref={sectionRef} id="about-us" className="py-12 sm:py-16 md:py-20 px-0 relative overflow-hidden" style={{ backgroundColor: '#fef9ed' }}>
       <div className="w-full relative z-10">
         {/* Title */}
         <div className="text-center mb-8 sm:mb-12 md:mb-16 px-4 sm:px-6 md:px-8">
           <TextType
             text={t('faq.title')}
             as="h2"
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-6 sm:mb-8 text-white"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-6 sm:mb-8 text-black"
             style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif', letterSpacing: '0.02em' }}
             typingSpeed={80}
             loop={false}
@@ -195,7 +195,7 @@ export default function FAQSection() {
               {faqs.map((faq, index) => (
                 <motion.div
                   key={index}
-                  className="group border-t border-gray-700 last:border-b last:border-gray-700 transition-all duration-300"
+                  className="group border-t border-gray-300 last:border-b last:border-gray-300 transition-all duration-300"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, amount: 0.3 }}
@@ -211,7 +211,7 @@ export default function FAQSection() {
                     className="w-full px-0 py-4 sm:py-5 md:py-6 flex items-center justify-between text-left relative z-10 group"
                   >
                     <span
-                      className="text-base sm:text-lg md:text-xl font-normal text-white pr-3 sm:pr-4"
+                      className="text-base sm:text-lg md:text-xl font-normal text-black pr-3 sm:pr-4"
                       style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}
                     >
                       {faq.question}
@@ -243,7 +243,7 @@ export default function FAQSection() {
                   >
                     <div className="px-0 pb-4 sm:pb-5 md:pb-6 relative z-10">
                       <p
-                        className="text-gray-300 leading-relaxed text-sm sm:text-base"
+                        className="text-gray-800 leading-relaxed text-sm sm:text-base"
                         style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}
                       >
                         {faq.answer}

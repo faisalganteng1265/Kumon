@@ -6,6 +6,8 @@ import UserProfile from '@/components/UserProfile';
 import HeroSection from '@/components/HeroSection';
 import FeaturesSection from '@/components/FeaturesSection';
 import PeerConnectSection from '@/components/PeerConnectSection';
+import HowToUseSection from '@/components/HowToUseSection';
+import PoweredBySection from '@/components/PoweredBySection';
 import FAQSection from '@/components/FAQSection';
 import Footer from '@/components/Footer';
 
@@ -22,6 +24,8 @@ export default function Home() {
       <HeroSection />
       <FeaturesSection />
       <PeerConnectSection />
+      <HowToUseSection />
+      <PoweredBySection />
       <FAQSection />
       <Footer />
     </div>
