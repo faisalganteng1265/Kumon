@@ -14,6 +14,10 @@ export default function PeerConnectSection() {
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
 
+  // Rocket image offset
+  const [rocketOffsetX, setRocketOffsetX] = useState(0);
+  const [rocketOffsetY, setRocketOffsetY] = useState(0);
+
   // Intersection Observer for header animation
   useEffect(() => {
     const currentRef = headerRef.current;
@@ -141,15 +145,34 @@ export default function PeerConnectSection() {
     <section id="features" className="py-12 sm:py-16 md:py-20 px-4 bg-[#fef9ed]">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div ref={headerRef} className="text-center mb-8 sm:mb-10 md:mb-12">
+        <div ref={headerRef} className="text-center mb-8 sm:mb-10 md:mb-12 relative">
+          {/* Rocket Image with Offset Controls */}
+          <div
+            className="absolute z-10"
+            style={{
+              left: `${rocketOffsetX}px`,
+              top: `${rocketOffsetY}px`,
+              transform: 'translate(-125%, -20%)'
+            }}
+          >
+            <Image
+              src="/roket.png"
+              alt="Rocket"
+              width={200}
+              height={200}
+              className="w-32 sm:w-40 md:w-48 lg:w-56"
+            />
+          </div>
+
           <h2
-            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 transition-all duration-1000 ease-out ${
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 transition-all duration-1000 ease-out uppercase ${
               isHeaderVisible
                 ? 'opacity-100 scale-100 translate-x-0'
                 : 'opacity-0 scale-95 translate-x-10'
             }`}
+            style={{ fontFamily: "'Organic Relief', sans-serif" }}
           >
-            <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 bg-clip-text text-transparent">
+            <span className="text-black">
               {currentFeature.id === 'peerconnect' ? t('peerconnect.title') :
                currentFeature.id === 'aicampus' ? t('aicampus.title') :
                currentFeature.id === 'eventreminder' ? t('eventreminder.title') :
@@ -158,11 +181,12 @@ export default function PeerConnectSection() {
             </span>
           </h2>
           <p
-            className={`text-gray-300 text-sm sm:text-base md:text-lg max-w-3xl mx-auto px-2 transition-all duration-1000 ease-out ${
+            className={`text-black text-sm sm:text-base md:text-lg max-w-3xl mx-auto px-2 transition-all duration-1000 ease-out ${
               isHeaderVisible
                 ? 'opacity-100 scale-100 translate-x-0 delay-200'
                 : 'opacity-0 scale-95 translate-x-10 delay-0'
             }`}
+            style={{ fontFamily: "'Fredoka', sans-serif" }}
           >
             {currentFeature.id === 'peerconnect' && t('peerconnect.subtitle')}
             {currentFeature.id === 'aicampus' && t('aicampus.subtitle')}
@@ -177,7 +201,7 @@ export default function PeerConnectSection() {
           {/* Left Arrow Button - Positioned Absolutely */}
           <button
             onClick={handlePrev}
-            className="absolute -left-20 top-1/2 -translate-y-1/2 z-10 bg-gray-800/90 hover:bg-emerald-500/90 border border-gray-700 hover:border-emerald-500 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 shadow-lg hidden lg:block"
+            className="absolute -left-20 top-1/2 -translate-y-1/2 z-10 bg-gray-800/90 hover:bg-[#F7D050]/90 border border-gray-700 hover:border-[#F7D050] text-white p-4 rounded-full transition-all duration-300 hover:scale-110 shadow-lg hidden lg:block"
             aria-label="Previous feature"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -188,7 +212,7 @@ export default function PeerConnectSection() {
           {/* Right Arrow Button - Positioned Absolutely */}
           <button
             onClick={handleNext}
-            className="absolute -right-20 top-1/2 -translate-y-1/2 z-10 bg-gray-800/90 hover:bg-emerald-500/90 border border-gray-700 hover:border-emerald-500 text-white p-4 rounded-full transition-all duration-300 hover:scale-110 shadow-lg hidden lg:block"
+            className="absolute -right-20 top-1/2 -translate-y-1/2 z-10 bg-gray-800/90 hover:bg-[#F7D050]/90 border border-gray-700 hover:border-[#F7D050] text-white p-4 rounded-full transition-all duration-300 hover:scale-110 shadow-lg hidden lg:block"
             aria-label="Next feature"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -201,14 +225,14 @@ export default function PeerConnectSection() {
             <div className="order-2 lg:order-1 lg:col-span-2 flex flex-col px-2 sm:px-0">
               {/* Tab Navigation - For PeerConnect */}
               {currentFeature.id === 'peerconnect' && (
-                <div className="bg-gray-800/50 rounded-xl p-1 mb-4 sm:mb-6 border border-gray-700">
+                <div className="bg-transparent rounded-xl p-1 mb-4 sm:mb-6 border border-gray-700" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                   <div className="flex gap-1">
                     <button
                       onClick={() => setActiveTab('group')}
                       className={`flex-1 py-2 sm:py-3 px-2 sm:px-4 rounded-lg transition-all text-xs sm:text-sm md:text-base ${
                         activeTab === 'group'
-                          ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold'
-                          : 'text-gray-400 hover:text-white'
+                          ? 'bg-[#F7D050] text-white font-semibold'
+                          : 'text-black hover:text-gray-700'
                       }`}
                     >
                       {t('peerconnect.groupChat')}
@@ -217,8 +241,8 @@ export default function PeerConnectSection() {
                       onClick={() => setActiveTab('private')}
                       className={`flex-1 py-2 sm:py-3 px-2 sm:px-4 rounded-lg transition-all text-xs sm:text-sm md:text-base ${
                         activeTab === 'private'
-                          ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold'
-                          : 'text-gray-400 hover:text-white'
+                          ? 'bg-[#F7D050] text-white font-semibold'
+                          : 'text-black hover:text-gray-700'
                       }`}
                     >
                       {t('peerconnect.privateChat')}
@@ -227,8 +251,8 @@ export default function PeerConnectSection() {
                       onClick={() => setActiveTab('call')}
                       className={`flex-1 py-2 sm:py-3 px-2 sm:px-4 rounded-lg transition-all text-xs sm:text-sm md:text-base ${
                         activeTab === 'call'
-                          ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold'
-                          : 'text-gray-400 hover:text-white'
+                          ? 'bg-[#F7D050] text-white font-semibold'
+                          : 'text-black hover:text-gray-700'
                       }`}
                     >
                       {t('peerconnect.videoCall')}
@@ -239,14 +263,14 @@ export default function PeerConnectSection() {
 
               {/* Tab Navigation - For AI Campus */}
               {currentFeature.id === 'aicampus' && (
-                <div className="bg-gray-800/50 rounded-xl p-1 mb-6 border border-gray-700">
+                <div className="bg-transparent rounded-xl p-1 mb-6 border border-gray-700" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                   <div className="flex gap-1">
                     <button
                       onClick={() => setActiveTab('campus')}
                       className={`flex-1 py-3 px-4 rounded-lg transition-all ${
                         activeTab === 'campus'
-                          ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold'
-                          : 'text-gray-400 hover:text-white'
+                          ? 'bg-[#F7D050] text-white font-semibold'
+                          : 'text-black hover:text-gray-700'
                       }`}
                     >
                       {t('aicampus.campusMode')}
@@ -255,8 +279,8 @@ export default function PeerConnectSection() {
                       onClick={() => setActiveTab('general')}
                       className={`flex-1 py-3 px-4 rounded-lg transition-all ${
                         activeTab === 'general'
-                          ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold'
-                          : 'text-gray-400 hover:text-white'
+                          ? 'bg-[#F7D050] text-white font-semibold'
+                          : 'text-black hover:text-gray-700'
                       }`}
                     >
                       {t('aicampus.generalMode')}
@@ -267,11 +291,11 @@ export default function PeerConnectSection() {
 
               {/* Tab Navigation - For Event Reminder */}
               {currentFeature.id === 'eventreminder' && (
-                <div className="bg-gray-800/50 rounded-xl p-1 mb-6 border border-gray-700">
+                <div className="bg-transparent rounded-xl p-1 mb-6 border border-gray-700" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                   <div className="flex gap-1">
                     <button
                       onClick={() => setActiveTab('recommendations')}
-                      className="flex-1 py-3 px-4 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold"
+                      className="flex-1 py-3 px-4 rounded-lg bg-[#F7D050] text-white font-semibold"
                     >
                       {t('eventreminder.recommendations')}
                     </button>
@@ -281,14 +305,14 @@ export default function PeerConnectSection() {
 
               {/* Tab Navigation - For Smart Schedule */}
               {currentFeature.id === 'smartschedule' && (
-                <div className="bg-gray-800/50 rounded-xl p-1 mb-6 border border-gray-700">
+                <div className="bg-transparent rounded-xl p-1 mb-6 border border-gray-700" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                   <div className="flex gap-1">
                     <button
                       onClick={() => setActiveTab('optimization')}
                       className={`flex-1 py-3 px-4 rounded-lg transition-all ${
                         activeTab === 'optimization'
-                          ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold'
-                          : 'text-gray-400 hover:text-white'
+                          ? 'bg-[#F7D050] text-white font-semibold'
+                          : 'text-black hover:text-gray-700'
                       }`}
                     >
                       {t('smartschedule.optimization')}
@@ -297,8 +321,8 @@ export default function PeerConnectSection() {
                       onClick={() => setActiveTab('integration')}
                       className={`flex-1 py-3 px-4 rounded-lg transition-all ${
                         activeTab === 'integration'
-                          ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold'
-                          : 'text-gray-400 hover:text-white'
+                          ? 'bg-[#F7D050] text-white font-semibold'
+                          : 'text-black hover:text-gray-700'
                       }`}
                     >
                       {t('smartschedule.integration')}
@@ -309,11 +333,11 @@ export default function PeerConnectSection() {
 
               {/* Tab Navigation - For Task Manager */}
               {currentFeature.id === 'taskmanager' && (
-                <div className="bg-gray-800/50 rounded-xl p-1 mb-6 border border-gray-700">
+                <div className="bg-transparent rounded-xl p-1 mb-6 border border-gray-700" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                   <div className="flex gap-1">
                     <button
                       onClick={() => setActiveTab('tasks')}
-                      className="flex-1 py-3 px-4 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold"
+                      className="flex-1 py-3 px-4 rounded-lg bg-[#F7D050] text-white font-semibold"
                     >
                       {t('taskmanager.manageTasks')}
                     </button>
@@ -323,11 +347,11 @@ export default function PeerConnectSection() {
 
               {/* Tab Navigation - For Project Collaboration */}
               {currentFeature.id === 'collaboration' && (
-                <div className="bg-gray-800/50 rounded-xl p-1 mb-6 border border-gray-700">
+                <div className="bg-transparent rounded-xl p-1 mb-6 border border-gray-700" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                   <div className="flex gap-1">
                     <button
                       onClick={() => setActiveTab('project')}
-                      className="flex-1 py-3 px-4 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold"
+                      className="flex-1 py-3 px-4 rounded-lg bg-[#F7D050] text-white font-semibold"
                     >
                       {t('collaboration.project')}
                     </button>
@@ -336,24 +360,24 @@ export default function PeerConnectSection() {
               )}
 
               {/* Feature Description Box */}
-              <div className="bg-gray-800/50 rounded-xl p-4 sm:p-5 md:p-6 border border-gray-700 flex-1 flex flex-col justify-center">
+              <div className="bg-transparent rounded-xl p-4 sm:p-5 md:p-6 border border-gray-700 flex-1 flex flex-col justify-center" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                 {currentFeature.id === 'peerconnect' && activeTab === 'group' && (
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">{t('peerconnect.groupChat')}</h3>
-                  <p className="text-gray-300 mb-3 sm:mb-4 text-xs sm:text-sm">
+                  <h3 className="text-xl sm:text-2xl font-bold text-black mb-3 sm:mb-4">{t('peerconnect.groupChat')}</h3>
+                  <p className="text-black mb-3 sm:mb-4 text-xs sm:text-sm">
                     {t('peerconnect.groupChatDesc')}
                   </p>
-                  <ul className="space-y-1.5 sm:space-y-2 text-gray-300 text-xs sm:text-sm">
+                  <ul className="space-y-1.5 sm:space-y-2 text-black text-xs sm:text-sm">
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2 flex-shrink-0">✓</span>
+                      <span className="text-[#F7D050] mr-2 flex-shrink-0">✓</span>
                       <span>{t('peerconnect.groupFeature1')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2 flex-shrink-0">✓</span>
+                      <span className="text-[#F7D050] mr-2 flex-shrink-0">✓</span>
                       <span>{t('peerconnect.groupFeature2')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2 flex-shrink-0">✓</span>
+                      <span className="text-[#F7D050] mr-2 flex-shrink-0">✓</span>
                       <span>{t('peerconnect.groupFeature3')}</span>
                     </li>
                   </ul>
@@ -362,21 +386,21 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'peerconnect' && activeTab === 'private' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{t('peerconnect.privateChat')}</h3>
-                  <p className="text-gray-300 mb-4 text-sm">
+                  <h3 className="text-2xl font-bold text-black mb-4">{t('peerconnect.privateChat')}</h3>
+                  <p className="text-black mb-4 text-sm">
                     {t('peerconnect.privateChatDesc')}
                   </p>
-                  <ul className="space-y-2 text-gray-300 text-sm">
+                  <ul className="space-y-2 text-black text-sm">
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('peerconnect.privateFeature1')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('peerconnect.privateFeature2')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('peerconnect.privateFeature3')}</span>
                     </li>
                   </ul>
@@ -385,21 +409,21 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'peerconnect' && activeTab === 'call' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{t('peerconnect.videoCall')}</h3>
-                  <p className="text-gray-300 mb-4 text-sm">
+                  <h3 className="text-2xl font-bold text-black mb-4">{t('peerconnect.videoCall')}</h3>
+                  <p className="text-black mb-4 text-sm">
                     {t('peerconnect.videoCallDesc')}
                   </p>
-                  <ul className="space-y-2 text-gray-300 text-sm">
+                  <ul className="space-y-2 text-black text-sm">
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('peerconnect.videoFeature1')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('peerconnect.videoFeature2')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('peerconnect.videoFeature3')}</span>
                     </li>
                   </ul>
@@ -408,21 +432,21 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'aicampus' && activeTab === 'campus' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{t('aicampus.campusMode')}</h3>
-                  <p className="text-gray-300 mb-4 text-sm">
+                  <h3 className="text-2xl font-bold text-black mb-4">{t('aicampus.campusMode')}</h3>
+                  <p className="text-black mb-4 text-sm">
                     {t('aicampus.campusModeDesc')}
                   </p>
-                  <ul className="space-y-2 text-gray-300 text-sm">
+                  <ul className="space-y-2 text-black text-sm">
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('aicampus.campusFeature1')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('aicampus.campusFeature2')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('aicampus.campusFeature3')}</span>
                     </li>
                   </ul>
@@ -431,21 +455,21 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'aicampus' && activeTab === 'general' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{t('aicampus.generalMode')}</h3>
-                  <p className="text-gray-300 mb-4 text-sm">
+                  <h3 className="text-2xl font-bold text-black mb-4">{t('aicampus.generalMode')}</h3>
+                  <p className="text-black mb-4 text-sm">
                     {t('aicampus.generalModeDesc')}
                   </p>
-                  <ul className="space-y-2 text-gray-300 text-sm">
+                  <ul className="space-y-2 text-black text-sm">
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('aicampus.generalFeature1')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('aicampus.generalFeature2')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('aicampus.generalFeature3')}</span>
                     </li>
                   </ul>
@@ -454,21 +478,21 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'eventreminder' && activeTab === 'recommendations' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{t('eventreminder.recommendations')}</h3>
-                  <p className="text-gray-300 mb-4 text-sm">
+                  <h3 className="text-2xl font-bold text-black mb-4">{t('eventreminder.recommendations')}</h3>
+                  <p className="text-black mb-4 text-sm">
                     {t('eventreminder.recommendationsDesc')}
                   </p>
-                  <ul className="space-y-2 text-gray-300 text-sm">
+                  <ul className="space-y-2 text-black text-sm">
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('eventreminder.feature1')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('eventreminder.feature2')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('eventreminder.feature3')}</span>
                     </li>
                   </ul>
@@ -477,21 +501,21 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'smartschedule' && activeTab === 'optimization' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{t('smartschedule.optimization')}</h3>
-                  <p className="text-gray-300 mb-4 text-sm">
+                  <h3 className="text-2xl font-bold text-black mb-4">{t('smartschedule.optimization')}</h3>
+                  <p className="text-black mb-4 text-sm">
                     {t('smartschedule.optimizationDesc')}
                   </p>
-                  <ul className="space-y-2 text-gray-300 text-sm">
+                  <ul className="space-y-2 text-black text-sm">
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('smartschedule.optimizationFeature1')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('smartschedule.optimizationFeature2')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('smartschedule.optimizationFeature3')}</span>
                     </li>
                   </ul>
@@ -500,21 +524,21 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'smartschedule' && activeTab === 'integration' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{t('smartschedule.integration')}</h3>
-                  <p className="text-gray-300 mb-4 text-sm">
+                  <h3 className="text-2xl font-bold text-black mb-4">{t('smartschedule.integration')}</h3>
+                  <p className="text-black mb-4 text-sm">
                     {t('smartschedule.integrationDesc')}
                   </p>
-                  <ul className="space-y-2 text-gray-300 text-sm">
+                  <ul className="space-y-2 text-black text-sm">
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('smartschedule.integrationFeature1')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('smartschedule.integrationFeature2')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('smartschedule.integrationFeature3')}</span>
                     </li>
                   </ul>
@@ -523,21 +547,21 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'taskmanager' && activeTab === 'tasks' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{t('taskmanager.manageTasks')}</h3>
-                  <p className="text-gray-300 mb-4 text-sm">
+                  <h3 className="text-2xl font-bold text-black mb-4">{t('taskmanager.manageTasks')}</h3>
+                  <p className="text-black mb-4 text-sm">
                     {t('taskmanager.manageTasksDesc')}
                   </p>
-                  <ul className="space-y-2 text-gray-300 text-sm">
+                  <ul className="space-y-2 text-black text-sm">
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('taskmanager.feature1')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('taskmanager.feature2')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('taskmanager.feature3')}</span>
                     </li>
                   </ul>
@@ -546,21 +570,21 @@ export default function PeerConnectSection() {
 
               {currentFeature.id === 'collaboration' && activeTab === 'project' && (
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{t('collaboration.project')}</h3>
-                  <p className="text-gray-300 mb-4 text-sm">
+                  <h3 className="text-2xl font-bold text-black mb-4">{t('collaboration.project')}</h3>
+                  <p className="text-black mb-4 text-sm">
                     {t('collaboration.projectDesc')}
                   </p>
-                  <ul className="space-y-2 text-gray-300 text-sm">
+                  <ul className="space-y-2 text-black text-sm">
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('collaboration.feature1')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('collaboration.feature2')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-emerald-400 mr-2">✓</span>
+                      <span className="text-[#F7D050] mr-2">✓</span>
                       <span>{t('collaboration.feature3')}</span>
                     </li>
                   </ul>
@@ -578,7 +602,7 @@ export default function PeerConnectSection() {
                     onClick={() => handleDotClick(index)}
                     className={`rounded-full transition-all duration-300 cursor-pointer ${
                       activeFeature === index
-                        ? 'bg-gradient-to-r from-emerald-500 to-teal-500 w-8 sm:w-10 h-2.5 sm:h-3'
+                        ? 'bg-[#F7D050] w-8 sm:w-10 h-2.5 sm:h-3'
                         : 'bg-gray-600 hover:bg-gray-500 w-2.5 sm:w-3 h-2.5 sm:h-3'
                     }`}
                     aria-label={`Go to ${feature.id}`}
@@ -595,7 +619,7 @@ export default function PeerConnectSection() {
             {/* Right Side - Image Preview */}
             <div className="order-1 lg:order-2 lg:col-span-3 px-2 sm:px-0">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl sm:rounded-2xl blur-xl sm:blur-2xl opacity-20"></div>
+                <div className="absolute inset-0 bg-[#F7D050] rounded-xl sm:rounded-2xl blur-xl sm:blur-2xl opacity-20"></div>
                 <div className="relative bg-gray-800/50 rounded-xl sm:rounded-2xl p-1.5 sm:p-2 border border-gray-700 overflow-hidden">
                   <Image
                     key={`${activeFeature}-${activeTab}`}
