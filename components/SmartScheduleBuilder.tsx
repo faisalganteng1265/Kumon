@@ -305,7 +305,7 @@ export default function SmartScheduleBuilder() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-gray-200 relative">
+    <div className="min-h-screen relative" style={{ backgroundColor: '#fef9ed' }}>
       {/* Particle Background */}
       <ParticleBackground />
 
@@ -333,13 +333,13 @@ export default function SmartScheduleBuilder() {
       />
 
       {/* Header */}
-      <div className="bg-black py-8 px-6 shadow-sm relative z-10">
+      <div className="py-8 px-6 shadow-sm relative z-10" style={{ backgroundColor: '#fef9ed' }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-6">
-            <h1 className="text-5xl font-bold text-white mb-3" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)' }}>
+            <h1 className="text-5xl font-bold text-black mb-3 pt-25" style={{ fontFamily: "'Organic Relief', sans-serif" }}>
               {t('schedule.title')}
             </h1>
-            <p className="text-gray-400 text-lg">
+            <p className="text-black text-lg pt-10 sm:text-3xl" style={{ fontFamily: "'Fredoka', sans-serif" }}>
               {t('schedule.subtitle')}
             </p>
           </div>
@@ -348,22 +348,22 @@ export default function SmartScheduleBuilder() {
           <div className="flex justify-center gap-4">
             <button
               onClick={() => setActiveTab('input')}
-              className={`px-8 py-3 rounded-lg font-semibold transition-all ${
+              className={`px-8 py-3 rounded-3xl font-semibold transition-all border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
                 activeTab === 'input'
-                  ? 'bg-white/95 text-gray-800 shadow-lg'
-                  : 'bg-gray-700/30 text-gray-200 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white'
+                  ? 'bg-[#ff5757] text-white'
+                  : 'bg-white text-black hover:bg-[#ff5757] hover:text-white'
               }`}
             >
               {t('schedule.tabs.input')}
             </button>
             <button
               onClick={() => setActiveTab('result')}
-              className={`px-8 py-3 rounded-lg font-semibold transition-all ${
+              className={`px-8 py-3 rounded-3xl font-semibold transition-all border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
                 activeTab === 'result'
-                  ? 'bg-white/95 text-gray-800 shadow-lg'
+                  ? 'bg-[#ff5757] text-white'
                   : optimizedSchedule
-                    ? 'bg-gray-700/30 text-gray-200 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white'
-                    : 'bg-gray-700/20 text-gray-500 border border-gray-600/30 cursor-not-allowed opacity-50'
+                    ? 'bg-white text-black hover:bg-[#ff5757] hover:text-white'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50'
               }`}
               disabled={!optimizedSchedule}
             >
@@ -371,12 +371,12 @@ export default function SmartScheduleBuilder() {
             </button>
             <button
               onClick={() => setActiveTab('calendar')}
-              className={`px-8 py-3 rounded-lg font-semibold transition-all ${
+              className={`px-8 py-3 rounded-3xl font-semibold transition-all border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
                 activeTab === 'calendar'
-                  ? 'bg-white/95 text-gray-800 shadow-lg'
+                  ? 'bg-[#ff5757] text-white'
                   : optimizedSchedule
-                    ? 'bg-gray-700/30 text-gray-200 border border-gray-600/50 hover:bg-white/95 hover:text-gray-800 hover:border-white'
-                    : 'bg-gray-700/20 text-gray-500 border border-gray-600/30 cursor-not-allowed opacity-50'
+                    ? 'bg-white text-black hover:bg-[#ff5757] hover:text-white'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50'
               }`}
               disabled={!optimizedSchedule}
             >
@@ -396,16 +396,16 @@ export default function SmartScheduleBuilder() {
 
               {/* LEFT SIDE - JADWAL KULIAH */}
               <AnimatedContent direction="horizontal" reverse={true} delay={0.2}>
-              <div className="space-y-6 bg-gray-800/40 p-8 rounded-xl shadow-lg border-2 border-gray-700/50 min-h-[500px] flex flex-col hover:border-white/30 transition-all">
+              <div className="space-y-6 bg-white p-8 rounded-3xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-2 border-black min-h-[500px] flex flex-col transition-all">
                 {/* Clickable Header Box */}
                 <button
                   onClick={() => setShowPopup('jadwal')}
-                  className="relative bg-gradient-to-r from-gray-700/50 to-gray-800/50 p-3 rounded-lg border-2 border-gray-600/70 hover:border-white/70 hover:bg-gray-700/70 hover:scale-105 active:scale-95 transition-all duration-200 group"
+                  className="relative bg-white p-3 rounded-3xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-[#ff5757] hover:text-white hover:scale-105 active:scale-95 transition-all duration-200 group"
                 >
                   <div className="flex items-center justify-between">
-                    <h3 className="text-2xl font-bold text-white" >{t('schedule.courses.title')}</h3>
-                    <div className="px-3 py-1 bg-white/10 border border-white/20 rounded-full">
-                      <span className="text-white text-sm font-semibold">{courses.length} {t('schedule.courses.count')}</span>
+                    <h3 className="text-2xl font-bold text-black group-hover:text-white" >{t('schedule.courses.title')}</h3>
+                    <div className="px-3 py-1 bg-[#ff5757]/20 border border-black rounded-full">
+                      <span className="text-black group-hover:text-white text-sm font-semibold">{courses.length} {t('schedule.courses.count')}</span>
                     </div>
                   </div>
                 </button>
@@ -499,26 +499,26 @@ export default function SmartScheduleBuilder() {
                 {courses.length > 0 && (
                   <div className="space-y-4 flex-1">
                     {courses.map(course => (
-                      <div key={course.id} className="bg-gradient-to-r from-gray-700/60 to-gray-800/60 border-2 border-white/30 rounded-xl p-5 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all">
+                      <div key={course.id} className="bg-white border-2 border-black rounded-3xl p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:scale-[1.02] transition-all">
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
-                            <h4 className="text-white font-bold text-xl mb-2" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.5)' }}>
+                            <h4 className="text-black font-bold text-xl mb-2">
                               {course.name}
                             </h4>
                             <div className="flex items-center gap-2 mb-2">
-                              <div className="px-3 py-1 bg-white/20 border border-white/30 rounded-lg">
-                                <p className="text-white text-sm font-semibold">
+                              <div className="px-3 py-1 bg-[#ff5757]/20 border border-black rounded-lg">
+                                <p className="text-black text-sm font-semibold">
                                   {course.day}
                                 </p>
                               </div>
-                              <div className="px-3 py-1 bg-white/20 border border-white/30 rounded-lg">
-                                <p className="text-white text-sm font-semibold">
+                              <div className="px-3 py-1 bg-[#ff5757]/20 border border-black rounded-lg">
+                                <p className="text-black text-sm font-semibold">
                                   {course.startTime} - {course.endTime}
                                 </p>
                               </div>
                               {course.courseType && (
-                                <div className="px-3 py-1 bg-white/20 border border-white/30 rounded-lg">
-                                  <span className="text-white text-sm font-semibold">
+                                <div className="px-3 py-1 bg-[#ff5757]/20 border border-black rounded-lg">
+                                  <span className="text-black text-sm font-semibold">
                                     {course.courseType === 'teori' && t('schedule.courseTypes.theory')}
                                     {course.courseType === 'praktikum' && t('schedule.courseTypes.practicum')}
                                     {course.courseType === 'lab' && t('schedule.courseTypes.lab')}
@@ -528,15 +528,15 @@ export default function SmartScheduleBuilder() {
                               )}
                             </div>
                             {course.location && (
-                              <p className="text-gray-300 text-sm mt-2">📍 {course.location}</p>
+                              <p className="text-black text-sm mt-2">📍 {course.location}</p>
                             )}
                             {course.description && (
-                              <p className="text-gray-300 text-sm mt-1">📝 {course.description}</p>
+                              <p className="text-black text-sm mt-1">📝 {course.description}</p>
                             )}
                           </div>
                           <button
                             onClick={() => removeCourse(course.id!)}
-                            className="text-red-400 hover:text-red-600 transition-all text-3xl ml-4 hover:scale-125 active:scale-95 font-bold"
+                            className="text-[#ff5757] hover:text-red-700 transition-all text-3xl ml-4 hover:scale-125 active:scale-95 font-bold"
                           >
                             ×
                           </button>
@@ -550,16 +550,16 @@ export default function SmartScheduleBuilder() {
 
               {/* RIGHT SIDE - KEGIATAN LAIN */}
               <AnimatedContent direction="horizontal" delay={0.2}>
-              <div className="space-y-6 bg-gray-800/40 p-8 rounded-xl shadow-lg border-2 border-gray-700/50 min-h-[500px] flex flex-col hover:border-white/30 transition-all">
+              <div className="space-y-6 bg-white p-8 rounded-3xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-2 border-black min-h-[500px] flex flex-col transition-all">
                 {/* Clickable Header Box */}
                 <button
                   onClick={() => setShowPopup('kegiatan')}
-                  className="relative bg-gradient-to-r from-gray-700/50 to-gray-800/50 p-3 rounded-lg border-2 border-gray-600/70 hover:border-white/70 hover:bg-gray-700/70 hover:scale-105 active:scale-95 transition-all duration-200 group"
+                  className="relative bg-white p-3 rounded-3xl border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:bg-[#ff5757] hover:text-white hover:scale-105 active:scale-95 transition-all duration-200 group"
                 >
                   <div className="flex items-center justify-between">
-                    <h3 className="text-2xl font-bold text-white" >{t('schedule.activities.title')}</h3>
-                    <div className="px-3 py-1 bg-white/10 border border-white/20 rounded-full">
-                      <span className="text-white text-sm font-semibold">{activities.length} {t('schedule.activities.count')}</span>
+                    <h3 className="text-2xl font-bold text-black group-hover:text-white" >{t('schedule.activities.title')}</h3>
+                    <div className="px-3 py-1 bg-[#ff5757]/20 border border-black rounded-full">
+                      <span className="text-black group-hover:text-white text-sm font-semibold">{activities.length} {t('schedule.activities.count')}</span>
                     </div>
                   </div>
                 </button>
@@ -719,50 +719,50 @@ export default function SmartScheduleBuilder() {
                 {activities.length > 0 && (
                   <div className="space-y-4 flex-1">
                     {activities.map(activity => (
-                      <div key={activity.id} className="bg-gradient-to-r from-gray-700/60 to-gray-800/60 border-2 border-white/30 rounded-xl p-5 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all">
+                      <div key={activity.id} className="bg-white border-2 border-black rounded-3xl p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:scale-[1.02] transition-all">
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
-                            <h4 className="text-white font-bold text-xl mb-2" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.5)' }}>
+                            <h4 className="text-black font-bold text-xl mb-2">
                               {activity.name}
                             </h4>
                             <div className="flex items-center gap-2 mb-2 flex-wrap">
                               {activity.hasSpecificTime ? (
                                 <>
-                                  <div className="px-3 py-1 bg-white/20 border border-white/30 rounded-lg">
-                                    <p className="text-white text-sm font-semibold">{activity.specificDay}</p>
+                                  <div className="px-3 py-1 bg-[#ff5757]/20 border border-black rounded-lg">
+                                    <p className="text-black text-sm font-semibold">{activity.specificDay}</p>
                                   </div>
-                                  <div className="px-3 py-1 bg-white/20 border border-white/30 rounded-lg">
-                                    <p className="text-white text-sm font-semibold">{activity.specificTime}</p>
+                                  <div className="px-3 py-1 bg-[#ff5757]/20 border border-black rounded-lg">
+                                    <p className="text-black text-sm font-semibold">{activity.specificTime}</p>
                                   </div>
-                                  <div className="px-3 py-1 bg-white/20 border border-white/30 rounded-lg">
-                                    <p className="text-white text-sm font-semibold">{activity.duration} {t('schedule.minute')}</p>
+                                  <div className="px-3 py-1 bg-[#ff5757]/20 border border-black rounded-lg">
+                                    <p className="text-black text-sm font-semibold">{activity.duration} {t('schedule.minute')}</p>
                                   </div>
                                 </>
                               ) : (
                                 <>
-                                  <div className="px-3 py-1 bg-white/20 border border-white/30 rounded-lg">
-                                    <p className="text-white text-sm font-semibold">{activity.duration} {t('schedule.minute')}</p>
+                                  <div className="px-3 py-1 bg-[#ff5757]/20 border border-black rounded-lg">
+                                    <p className="text-black text-sm font-semibold">{activity.duration} {t('schedule.minute')}</p>
                                   </div>
-                                  <div className="px-3 py-1 bg-white/20 border border-white/30 rounded-lg">
-                                    <p className="text-white text-sm font-semibold capitalize">
+                                  <div className="px-3 py-1 bg-[#ff5757]/20 border border-black rounded-lg">
+                                    <p className="text-black text-sm font-semibold capitalize">
                                       {activity.priority === 'tinggi' && t('schedule.priorities.high')}
                                       {activity.priority === 'sedang' && t('schedule.priorities.medium')}
                                       {activity.priority === 'rendah' && t('schedule.priorities.low')}
                                     </p>
                                   </div>
-                                  <div className="px-3 py-1 bg-blue-500/30 border border-blue-400/50 rounded-lg">
-                                    <p className="text-white text-sm font-semibold">{t('schedule.flexible')}</p>
+                                  <div className="px-3 py-1 bg-[#ff5757]/20 border border-black rounded-lg">
+                                    <p className="text-black text-sm font-semibold">{t('schedule.flexible')}</p>
                                   </div>
                                 </>
                               )}
                             </div>
                             {activity.description && (
-                              <p className="text-gray-300 text-sm mt-2">📝 {activity.description}</p>
+                              <p className="text-black text-sm mt-2">📝 {activity.description}</p>
                             )}
                           </div>
                           <button
                             onClick={() => removeActivity(activity.id!)}
-                            className="text-red-400 hover:text-red-600 transition-all text-3xl ml-4 hover:scale-125 active:scale-95 font-bold"
+                            className="text-[#ff5757] hover:text-red-700 transition-all text-3xl ml-4 hover:scale-125 active:scale-95 font-bold"
                           >
                             ×
                           </button>
@@ -779,11 +779,11 @@ export default function SmartScheduleBuilder() {
             <button
               onClick={generateSchedule}
               disabled={isLoading || (courses.length === 0 && activities.length === 0)}
-              className="w-full bg-gray-700/30 border-2 border-gray-600/50 hover:bg-white/95 hover:border-white text-gray-200 hover:text-gray-800 py-5 rounded-xl font-bold text-xl hover:shadow-lg hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-3"
+              className="w-full bg-white border-2 border-black hover:bg-[#ff5757] text-black hover:text-white py-5 rounded-3xl font-bold text-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-3"
             >
               {isLoading ? (
                 <>
-                  <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-6 h-6 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
                   <span>{t('schedule.buttons.generating')}</span>
                 </>
               ) : (
@@ -802,27 +802,27 @@ export default function SmartScheduleBuilder() {
             {optimizedSchedule.analysis && (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <AnimatedContent direction="horizontal" reverse={true}>
-              <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 text-center shadow-md">
-                <div className="text-4xl font-bold text-white mb-2">{optimizedSchedule.analysis?.totalKuliah || 0}</div>
-                <div className="text-gray-400 text-sm uppercase tracking-wider">{t('schedule.analysis.totalCourses')}</div>
+              <div className="bg-white border-2 border-black rounded-3xl p-6 text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="text-4xl font-bold text-black mb-2">{optimizedSchedule.analysis?.totalKuliah || 0}</div>
+                <div className="text-black text-sm uppercase tracking-wider">{t('schedule.analysis.totalCourses')}</div>
               </div>
               </AnimatedContent>
               <AnimatedContent direction="horizontal" reverse={true} delay={0.1}>
-              <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 text-center shadow-md">
-                <div className="text-4xl font-bold text-white mb-2">{optimizedSchedule.analysis?.totalKegiatan || 0}</div>
-                <div className="text-gray-400 text-sm uppercase tracking-wider">{t('schedule.analysis.totalActivities')}</div>
+              <div className="bg-white border-2 border-black rounded-3xl p-6 text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="text-4xl font-bold text-black mb-2">{optimizedSchedule.analysis?.totalKegiatan || 0}</div>
+                <div className="text-black text-sm uppercase tracking-wider">{t('schedule.analysis.totalActivities')}</div>
               </div>
               </AnimatedContent>
               <AnimatedContent direction="horizontal" delay={0.1}>
-              <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 text-center shadow-md">
-                <div className="text-4xl font-bold text-white mb-2">{(optimizedSchedule.analysis?.avgStudyHoursPerDay || 0).toFixed(1)}h</div>
-                <div className="text-gray-400 text-sm uppercase tracking-wider">{t('schedule.analysis.studyPerDay')}</div>
+              <div className="bg-white border-2 border-black rounded-3xl p-6 text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="text-4xl font-bold text-black mb-2">{(optimizedSchedule.analysis?.avgStudyHoursPerDay || 0).toFixed(1)}h</div>
+                <div className="text-black text-sm uppercase tracking-wider">{t('schedule.analysis.studyPerDay')}</div>
               </div>
               </AnimatedContent>
               <AnimatedContent direction="horizontal" delay={0.2}>
-              <div className="bg-neutral-800 border border-gray-600 rounded-xl p-6 text-center shadow-md">
-                <div className="text-2xl font-bold text-white mb-2">{optimizedSchedule.analysis?.workLoadBalance || 'N/A'}</div>
-                <div className="text-gray-400 text-sm uppercase tracking-wider">{t('schedule.analysis.workload')}</div>
+              <div className="bg-white border-2 border-black rounded-3xl p-6 text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="text-2xl font-bold text-black mb-2">{optimizedSchedule.analysis?.workLoadBalance || 'N/A'}</div>
+                <div className="text-black text-sm uppercase tracking-wider">{t('schedule.analysis.workload')}</div>
               </div>
               </AnimatedContent>
             </div>
@@ -831,14 +831,14 @@ export default function SmartScheduleBuilder() {
             {/* Warnings */}
             {optimizedSchedule.warnings && optimizedSchedule.warnings.length > 0 && (
               <AnimatedContent>
-              <div className="bg-red-900 border-2 border-red-700 rounded-xl p-6 shadow-md">
-                <h3 className="text-2xl font-bold text-red-600 mb-4 flex items-center gap-2">
+              <div className="bg-white border-2 border-black rounded-3xl p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <h3 className="text-2xl font-bold text-[#ff5757] mb-4 flex items-center gap-2">
                   {t('schedule.warnings.title')}
                 </h3>
                 <ul className="space-y-2">
                   {optimizedSchedule.warnings.map((warning, i) => (
-                    <li key={i} className="text-red-200 flex items-start gap-3 bg-red-800 p-3 rounded-lg">
-                      <span className="text-red-600 font-bold">•</span>
+                    <li key={i} className="text-black flex items-start gap-3 bg-[#ff5757]/10 p-3 rounded-lg border border-black">
+                      <span className="text-[#ff5757] font-bold">•</span>
                       <span>{warning}</span>
                     </li>
                   ))}
