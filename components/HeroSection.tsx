@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#fef9ed' }}>
       {/* Main Content Container */}
       <div className="relative z-10 w-full h-full flex items-center justify-between pl-24 pr-6 lg:pl-52 lg:pr-12 xl:pl-72 xl:pr-16">
 
@@ -64,9 +64,9 @@ export default function HeroSection() {
               className="text-6xl md:text-7xl lg:text-8xl xl:text-[10rem] font-black leading-none text-white whitespace-nowrap"
               style={{ fontFamily: 'Impact, sans-serif', letterSpacing: '0.02em' }}
             >
-              <span className="block text-center" style={{ wordSpacing: '0.15em' }}>CREATE  A  MORE</span>
+              <span className="block text-center" style={{ wordSpacing: '0.15em', color: '#000000' }}>CREATE  A  MORE</span>
               <span className="block text-left" style={{ color: '#F7D050' }}>STRUCTURED</span>
-              <span className="block" style={{ position: 'relative', left: '120px', color: 'transparent', WebkitTextStroke: '0.75px white' }}>LEARNING</span>
+              <span className="block" style={{ position: 'relative', left: '120px', color: 'transparent', WebkitTextStroke: '0.75px black' }}>LEARNING</span>
               <span className="block" style={{ position: 'relative', left: '200px', color: '#77b9c7' }}>EXPERIENCE</span>
             </h1>
           </motion.div>

@@ -138,7 +138,7 @@ export default function PeerConnectSection() {
   const currentFeature = features[activeFeature];
 
   return (
-    <section id="features" className="py-12 sm:py-16 md:py-20 px-4 bg-gradient-to-b from-black via-gray-900 to-gray-800">
+    <section id="features" className="py-12 sm:py-16 md:py-20 px-4 bg-[#fef9ed]">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div ref={headerRef} className="text-center mb-8 sm:mb-10 md:mb-12">
