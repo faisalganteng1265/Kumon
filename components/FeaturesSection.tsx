@@ -13,10 +13,12 @@ export default function FeaturesSection() {
       <div
         className="absolute overflow-hidden leading-none"
         style={{
-          top: 'var(--kertas1-offset-y,-100px)',
-          left: 'var(--kertas1-offset-x, 0px)',
-          right: 'calc(0px - var(--kertas1-offset-x, 0px))',
-          width: '110%'
+          top: 'var(--kertas1-offset-y, -100px)',
+          left: '0',
+          width: '100%',
+          minWidth: '100%',
+          height: 'auto',
+          zIndex: 10
         }}
       >
         <Image
@@ -25,6 +27,7 @@ export default function FeaturesSection() {
           width={1920}
           height={120}
           className="w-full h-auto object-cover"
+          style={{ minWidth: '100%', display: 'block' }}
         />
       </div>
 
@@ -119,10 +122,12 @@ export default function FeaturesSection() {
       <div
         className="absolute overflow-hidden leading-none"
         style={{
-          bottom: 'var(--kertas-offset-y, -300px)',
-          left: 'var(--kertas-offset-x, 0px)',
-          right: 'calc(0px - var(--kertas-offset-x, 0px))',
-          width: '110%'
+          bottom: 'var(--kertas-offset-y, -150px)',
+          left: '0',
+          width: '100%',
+          minWidth: '100%',
+          height: 'auto',
+          zIndex: 10
         }}
       >
         <Image
@@ -131,6 +136,7 @@ export default function FeaturesSection() {
           width={1920}
           height={120}
           className="w-full h-auto object-cover"
+          style={{ minWidth: '100%', display: 'block' }}
         />
       </div>
 

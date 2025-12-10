@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#fef9ed' }}>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#fef9ed', minWidth: '1200px' }}>
       {/* Main Content Container */}
-      <div className="relative z-10 w-full h-full flex items-center justify-between pl-24 pr-6 lg:pl-52 lg:pr-12 xl:pl-72 xl:pr-16">
+      <div className="relative z-10 w-full h-full flex items-center justify-between" style={{ paddingLeft: 'max(4rem, calc((100vw - 1400px) / 2 + 4rem))', paddingRight: 'max(2rem, calc((100vw - 1400px) / 2 + 2rem))' }}>
 
         {/* Left Side - Text Content */}
         <motion.div
@@ -22,16 +22,17 @@ export default function HeroSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            style={{ position: 'relative' }}
+            style={{ position: 'relative', minWidth: '800px' }}
           >
             {/* Pensil Icon on C */}
             <img
               src="/pensil.png"
               alt="Pensil"
-              className="absolute w-24 md:w-32 lg:w-40 xl:w-48"
+              className="absolute"
               style={{
-                top: '-80px',
-                left: '-110px',
+                width: '12rem',
+                top: '-5rem',
+                left: '-6.875rem',
                 zIndex: 20,
                 pointerEvents: 'none'
               }}
@@ -40,10 +41,11 @@ export default function HeroSection() {
             <img
               src="/buku.png"
               alt="Buku"
-              className="absolute w-20 md:w-24 lg:w-32 xl:w-40"
+              className="absolute"
               style={{
-                top: '330px',
-                left: '700px',
+                width: '10rem',
+                top: '20.625rem',
+                left: '43.75rem',
                 zIndex: 20,
                 pointerEvents: 'none'
               }}
@@ -52,29 +54,35 @@ export default function HeroSection() {
             <img
               src="/tumpuk.png"
               alt="Tumpuk"
-              className="absolute w-32 md:w-40 lg:w-52 xl:w-64"
+              className="absolute"
               style={{
-                top: '500px',
-                left: '-10px',
+                width: '16rem',
+                top: '31.25rem',
+                left: '-0.625rem',
                 zIndex: 20,
                 pointerEvents: 'none'
               }}
             />
             <h1
-              className="text-6xl md:text-7xl lg:text-8xl xl:text-[10rem] font-black leading-none text-white whitespace-nowrap"
-              style={{ fontFamily: 'Impact, sans-serif', letterSpacing: '0.02em' }}
+              className="font-black leading-none text-white whitespace-nowrap"
+              style={{
+                fontFamily: 'Impact, sans-serif',
+                letterSpacing: '0.02em',
+                fontSize: '10rem'
+              }}
             >
               <span className="block text-center" style={{ wordSpacing: '0.15em', color: '#000000' }}>CREATE  A  MORE</span>
               <span className="block text-left" style={{ color: '#F7D050' }}>STRUCTURED</span>
-              <span className="block" style={{ position: 'relative', left: '120px', color: 'transparent', WebkitTextStroke: '0.75px black' }}>LEARNING</span>
-              <span className="block" style={{ position: 'relative', left: '200px', color: '#77b9c7' }}>EXPERIENCE</span>
+              <span className="block" style={{ position: 'relative', left: '7.5rem', color: 'transparent', WebkitTextStroke: '0.75px black' }}>LEARNING</span>
+              <span className="block" style={{ position: 'relative', left: '12.5rem', color: '#77b9c7' }}>EXPERIENCE</span>
             </h1>
           </motion.div>
         </motion.div>
 
         {/* Right Side - Robot Image */}
         <motion.div
-          className="flex-shrink-0 ml-8 lg:ml-16 mr-12 lg:mr-24 xl:mr-32"
+          className="flex-shrink-0"
+          style={{ marginLeft: '2rem' }}
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: false, amount: 0.3 }}
@@ -83,7 +91,7 @@ export default function HeroSection() {
           <img
             src="/Robot.png"
             alt="Learning Robot"
-            className="w-64 md:w-80 lg:w-96 xl:w-110"
+            style={{ width: 'min(28rem, 22vw)', maxWidth: '28rem', minWidth: '20rem' }}
           />
         </motion.div>
 
