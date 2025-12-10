@@ -9,7 +9,7 @@ export default function Fitur1() {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-black relative">
+    <div className="min-h-screen relative" style={{ backgroundColor: '#fef9ed' }}>
       {/* Particles Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <Particles
@@ -74,8 +74,8 @@ export default function Fitur1() {
       </div>
 
       {/* Full Screen Chat Interface */}
-      <div className="relative h-screen w-full bg-transparent p-2 sm:p-4">
-        <div className="h-full max-w-6xl mx-auto">
+      <div className="relative h-screen w-full p-2 sm:p-4" style={{ backgroundColor: '#fef9ed' }}>
+        <div className="h-full w-full">
           <ChatInterface />
         </div>
       </div>
