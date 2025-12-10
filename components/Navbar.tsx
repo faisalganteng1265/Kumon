@@ -134,20 +134,29 @@ export default function Navbar() {
       }`}>
         <div className={`transition-all duration-500 ${
           isScrolled
-            ? 'max-w-4xl md:mt-8 mx-auto md:rounded-2xl bg-gray-900/95 backdrop-blur-sm shadow-2xl border-b md:border border-gray-800'
+            ? 'max-w-4xl md:mt-8 mx-auto px-4 relative'
             : 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6'
         }`}>
+          {/* Shadow Box (Black) - only visible when scrolled */}
+          {isScrolled && (
+            <div className="absolute top-2 left-6 right-2 h-full bg-black rounded-2xl hidden md:block"></div>
+          )}
+
+          {/* Main Navbar Box */}
+          <div className={`transition-all duration-500 ${
+            isScrolled
+              ? 'relative bg-white/95 backdrop-blur-sm md:rounded-2xl border-2 border-black'
+              : ''
+          }`}>
           <div className={`flex items-center transition-all duration-500 ${
             isScrolled ? 'h-14 px-6' : 'h-16'
           }`}>
 
 {/* Left: ELEPHAS */}
 <div className="hidden md:flex flex-1 items-center">
-  {!isScrolled && (
-    <div style={{ fontFamily: 'Fredoka, sans-serif' }}>
-      <span className="text-white text-2xl font-bold">ELEPHAS</span>
-    </div>
-  )}
+  <div style={{ fontFamily: 'Fredoka, sans-serif' }}>
+    <span className="text-black text-2xl font-bold transition-colors duration-200">ELEPHAS</span>
+  </div>
 </div>
 
 {/* Center: Navigation Menu */}
@@ -158,7 +167,7 @@ export default function Navbar() {
       <button
         onClick={() => setIsPagesDropdownOpen(!isPagesDropdownOpen)}
         onBlur={() => setTimeout(() => setIsPagesDropdownOpen(false), 200)}
-        className="text-white hover:text-lime-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center gap-1"
+        className="text-black hover:text-lime-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center gap-1"
       >
         {t('nav.pages')}
         <svg className={`w-4 h-4 transition-transform duration-200 ${isPagesDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -187,7 +196,7 @@ export default function Navbar() {
       <Link
         key={item.label}
         href={item.href}
-        className="text-white hover:text-lime-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+        className="text-black hover:text-lime-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
       >
         {item.label}
       </Link>
@@ -203,8 +212,8 @@ export default function Navbar() {
                   onClick={() => setLanguage('id')}
                   className={`px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200 ${
                     language === 'id'
-                      ? 'bg-lime-500 text-black'
-                      : 'text-white hover:text-lime-400 hover:bg-gray-800'
+                      ? 'bg-black text-white'
+                      : 'text-black hover:text-lime-600 hover:bg-gray-200'
                   }`}
                 >
                   ID
@@ -213,18 +222,18 @@ export default function Navbar() {
                   onClick={() => setLanguage('en')}
                   className={`px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200 ${
                     language === 'en'
-                      ? 'bg-lime-500 text-black'
-                      : 'text-white hover:text-lime-400 hover:bg-gray-800'
+                      ? 'bg-black text-white'
+                      : 'text-black hover:text-lime-600 hover:bg-gray-200'
                   }`}
                 >
                   EN
                 </button>
               </div>
-              
+
               {/* Login/Logout Button */}
               <button
                 onClick={handleLoginClick}
-                className="bg-lime-500 hover:bg-lime-600 text-black font-semibold px-6 py-2 rounded-lg transition-colors duration-200"
+                className="bg-black hover:bg-gray-800 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200"
               >
                 {user ? t('nav.logout') : t('nav.login')}
               </button>
@@ -234,7 +243,7 @@ export default function Navbar() {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-lime-400 hover:bg-gray-800 focus:outline-none transition-colors duration-200"
+                className="inline-flex items-center justify-center p-2 rounded-md text-black hover:text-lime-600 hover:bg-gray-200 focus:outline-none transition-colors duration-200"
               >
                 <span className="sr-only">Open main menu</span>
                 {!isMenuOpen ? (
@@ -249,6 +258,7 @@ export default function Navbar() {
               </button>
             </div>
           </div>
+          </div>
         </div>
 
         {/* Mobile menu */}
@@ -261,7 +271,7 @@ export default function Navbar() {
                   onClick={() => setLanguage('id')}
                   className={`px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200 ${
                     language === 'id'
-                      ? 'bg-lime-500 text-black'
+                      ? 'bg-black text-white'
                       : 'text-white hover:text-lime-400 hover:bg-gray-800'
                   }`}
                 >
@@ -271,7 +281,7 @@ export default function Navbar() {
                   onClick={() => setLanguage('en')}
                   className={`px-3 py-1 rounded-md text-sm font-medium transition-colors duration-200 ${
                     language === 'en'
-                      ? 'bg-lime-500 text-black'
+                      ? 'bg-black text-white'
                       : 'text-white hover:text-lime-400 hover:bg-gray-800'
                   }`}
                 >
