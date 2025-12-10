@@ -408,25 +408,11 @@ export default function ChatInterface() {
         <div className="flex-1 overflow-y-auto" style={{ backgroundColor: '#fef9ed' }}>
           <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 py-4 sm:py-6 px-3 sm:px-4">
             {/* Welcome Section */}
-            <div className="text-center mb-6 sm:mb-8">
-              <div className="mb-2 sm:mb-3 flex justify-center">
-                <div className="relative">
-                  <div className="absolute inset-0 blur-xl sm:blur-2xl bg-blue-500/60 rounded-full"></div>
-                  <div className="relative bg-white/10 backdrop-blur-md rounded-full p-3 sm:p-4 border border-white/20">
-                    <Image
-                      src="/GEMINIICON.png"
-                      alt="AI Campus Chatbot"
-                      width={64}
-                      height={64}
-                      className="object-contain w-12 h-12 sm:w-16 sm:h-16"
-                    />
-                  </div>
-                </div>
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2 px-4" style={{ textShadow: '0 0 20px rgba(59, 130, 246, 0.8), 0 0 40px rgba(59, 130, 246, 0.5), 0 0 60px rgba(59, 130, 246, 0.3)' }}>
+            <div className="text-center pt-35 mb-6 sm:mb-8">
+              <h1 className="text-2xl sm:text-5xl font-bold text-black mb-2 px-4" style={{ fontFamily: "'Organic Relief', sans-serif" }}>
                 {t('chat.welcome')}
               </h1>
-              <p className="text-gray-300 text-xs sm:text-sm mb-4 sm:mb-6 px-4" style={{ textShadow: '0 0 10px rgba(0, 0, 0, 0.8)' }}>
+              <p className="text-black text-xs sm:text-3xl mb-4 sm:mb-6 px-4 pt-10" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                 {t('chat.subtitle')}
               </p>
             </div>
@@ -439,51 +425,51 @@ export default function ChatInterface() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                 <button
                   onClick={() => setSelectedMode('campus')}
-                  className={`p-4 sm:p-6 rounded-3xl transition-all text-left border ${
+                  className={`group p-4 sm:p-6 rounded-3xl transition-all text-left border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
                     selectedMode === 'campus'
-                      ? 'bg-blue-500/20 border-blue-500 ring-2 ring-blue-500'
-                      : 'bg-gray-100 border-gray-300 hover:bg-gray-200'
+                      ? 'bg-[#ff5757]/20'
+                      : 'bg-white hover:bg-[#ff5757]'
                   }`}
                 >
                   <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                     <Image src="/AKADEMIKICON.png" alt="Akademik Icon" width={48} height={48} className="object-contain w-8 h-8 sm:w-12 sm:h-12" />
-                    <h4 className="text-base sm:text-xl font-bold text-black">{t('chat.campusMode')}</h4>
+                    <h4 className={`text-base sm:text-xl font-bold transition-colors ${selectedMode === 'campus' ? 'text-black' : 'text-black group-hover:text-white'}`}>{t('chat.campusMode')}</h4>
                   </div>
-                  <p className="text-gray-700 text-xs sm:text-sm">
+                  <p className={`text-xs sm:text-sm transition-colors ${selectedMode === 'campus' ? 'text-gray-700' : 'text-gray-700 group-hover:text-white'}`}>
                     {t('chat.campusModeDesc')}
                   </p>
                 </button>
 
                 <button
                   onClick={() => setSelectedMode('general')}
-                  className={`p-4 sm:p-6 rounded-3xl transition-all text-left border ${
+                  className={`group p-4 sm:p-6 rounded-3xl transition-all text-left border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
                     selectedMode === 'general'
-                      ? 'bg-blue-500/20 border-blue-500 ring-2 ring-blue-500'
-                      : 'bg-gray-100 border-gray-300 hover:bg-gray-200'
+                      ? 'bg-[#ff5757]/20'
+                      : 'bg-white hover:bg-[#ff5757]'
                   }`}
                 >
                   <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                     <Image src="/GENERALICON.png" alt="General Icon" width={64} height={64} className="object-contain w-8 h-8 sm:w-12 sm:h-12" />
-                    <h4 className="text-base sm:text-xl font-bold text-black">{t('chat.generalMode')}</h4>
+                    <h4 className={`text-base sm:text-xl font-bold transition-colors ${selectedMode === 'general' ? 'text-black' : 'text-black group-hover:text-white'}`}>{t('chat.generalMode')}</h4>
                   </div>
-                  <p className="text-gray-700 text-xs sm:text-sm">
+                  <p className={`text-xs sm:text-sm transition-colors ${selectedMode === 'general' ? 'text-gray-700' : 'text-gray-700 group-hover:text-white'}`}>
                     {t('chat.generalModeDesc')}
                   </p>
                 </button>
 
                 <button
                   onClick={() => setSelectedMode('challenge')}
-                  className={`p-4 sm:p-6 rounded-3xl transition-all text-left border ${
+                  className={`group p-4 sm:p-6 rounded-3xl transition-all text-left border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
                     selectedMode === 'challenge'
-                      ? 'bg-blue-500/20 border-blue-500 ring-2 ring-blue-500'
-                      : 'bg-gray-100 border-gray-300 hover:bg-gray-200'
+                      ? 'bg-[#ff5757]/20'
+                      : 'bg-white hover:bg-[#ff5757]'
                   }`}
                 >
                   <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                     <span className="text-3xl sm:text-4xl">🎯</span>
-                    <h4 className="text-base sm:text-xl font-bold text-black">{t('chat.challengeMode')}</h4>
+                    <h4 className={`text-base sm:text-xl font-bold transition-colors ${selectedMode === 'challenge' ? 'text-black' : 'text-black group-hover:text-white'}`}>{t('chat.challengeMode')}</h4>
                   </div>
-                  <p className="text-gray-700 text-xs sm:text-sm">
+                  <p className={`text-xs sm:text-sm transition-colors ${selectedMode === 'challenge' ? 'text-gray-700' : 'text-gray-700 group-hover:text-white'}`}>
                     {t('chat.challengeModeDesc')}
                   </p>
                 </button>
@@ -492,7 +478,7 @@ export default function ChatInterface() {
 
             {/* University Selection - Hanya tampil jika mode campus */}
             {selectedMode === 'campus' && (
-              <div className="bg-white rounded-3xl p-4 sm:p-6 border border-gray-300">
+              <div className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                 <label className="block text-black font-semibold mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base">
                   <Image src="/KAMPUSICON.png" alt="Kampus" width={32} height={32} className="object-contain w-6 h-6 sm:w-8 sm:h-8" />
                   {selectedUniversity && !isLoadingProfile ? t('chat.yourUniversity') : t('chat.selectUniversity')}
@@ -516,10 +502,10 @@ export default function ChatInterface() {
                   </div>
                 ) : selectedUniversity && user ? (
                   // Auto-filled from profile - Read-only display
-                  <div className="w-full bg-blue-50 border border-blue-300 rounded-3xl px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between">
+                  <div className="w-full bg-[#ff5757]/10 border border-[#ff5757]/30 rounded-3xl px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between">
                     <div className="flex items-center gap-2 sm:gap-3">
-                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
-                        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#ff5757]/20 flex items-center justify-center flex-shrink-0">
+                        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#ff5757]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
@@ -558,7 +544,7 @@ export default function ChatInterface() {
 
             {/* Question Selection - Campus Mode */}
             {selectedMode === 'campus' && (
-              <div className="bg-white rounded-3xl p-4 sm:p-6 border border-gray-300">
+              <div className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                 <h3 className="text-black font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
                   <Image src="/TANDATANYAICON.png" alt="Pertanyaan" width={12} height={12} className="object-contain w-3 h-3 sm:w-4 sm:h-4" />
                   {t('chat.selectQuestion')}
@@ -568,25 +554,25 @@ export default function ChatInterface() {
                     <button
                       key={index}
                       onClick={() => handleQuestionSelect(t(item.questionKey))}
-                      className={`flex items-start gap-2 sm:gap-3 p-3 sm:p-4 rounded-3xl transition-all text-left border ${
+                      className={`group flex items-start gap-2 sm:gap-3 p-3 sm:p-4 rounded-3xl transition-all text-left border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
                         selectedQuestion === t(item.questionKey)
-                          ? 'bg-blue-500/20 border-blue-500 ring-2 ring-blue-500'
-                          : 'bg-gray-100 border-gray-300 hover:bg-gray-200'
-                      } group`}
+                          ? 'bg-[#ff5757]/20'
+                          : 'bg-white hover:bg-[#ff5757]'
+                      }`}
                     >
                       <Image src={item.icon} alt={t(item.categoryKey)} width={32} height={32} className="object-contain flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8" />
                       <div className="flex-1 min-w-0">
                         <p className={`text-xs sm:text-sm transition-colors ${
                           selectedQuestion === t(item.questionKey)
                             ? 'text-black font-semibold'
-                            : 'text-gray-700'
+                            : 'text-gray-700 group-hover:text-white'
                         }`}>
                           {t(item.questionKey)}
                         </p>
-                        <span className={`text-xs mt-0.5 sm:mt-1 inline-block ${
+                        <span className={`text-xs mt-0.5 sm:mt-1 inline-block transition-colors ${
                           selectedQuestion === t(item.questionKey)
-                            ? 'text-blue-600'
-                            : 'text-blue-500'
+                            ? 'text-[#ff5757]'
+                            : 'text-[#ff5757] group-hover:text-white'
                         }`}>
                           {t(item.categoryKey)}
                         </span>
@@ -599,7 +585,7 @@ export default function ChatInterface() {
 
             {/* General Question Input - Untuk Mode Umum */}
             {selectedMode === 'general' && (
-              <div className="bg-white rounded-3xl p-4 sm:p-6 border border-gray-300">
+              <div className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                 <label className="block text-black font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
                   <span className="text-lg sm:text-xl">✏️</span>
                   {t('chat.typeQuestion')}
@@ -622,7 +608,7 @@ export default function ChatInterface() {
               <button
                 onClick={handleStartChat}
                 disabled={selectedMode === 'general' && !customQuestion.trim()}
-                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-3xl transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-blue-500 disabled:hover:to-blue-600 hover:shadow-lg hover:shadow-blue-500/50 hover:scale-105 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base"
+                className="w-full bg-[#ff5757] hover:bg-[#ff3333] text-white font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-3xl transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#ff5757] hover:shadow-lg hover:shadow-[#ff5757]/50 hover:scale-105 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
               >
                 <span className="text-lg sm:text-xl">{selectedMode === 'challenge' ? '🎯' : '💬'}</span>
                 <span>{t('chat.startChat')}</span>
@@ -644,7 +630,7 @@ export default function ChatInterface() {
 
             {/* Direct Answer Display - Only for Campus Mode */}
             {selectedMode === 'campus' && selectedQuestion && selectedUniversity && (
-              <div ref={answerSectionRef} className="bg-white rounded-3xl p-4 sm:p-6 border border-gray-300">
+              <div ref={answerSectionRef} className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
                 <h3 className="text-black font-semibold mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base">
                   <Image src="/ICONLAMPU.png" alt="Jawaban" width={24} height={24} className="object-contain w-5 h-5 sm:w-6 sm:h-6" />
                   {t('chat.answer')}
@@ -745,7 +731,7 @@ export default function ChatInterface() {
                     }`}>
                       {message.role === 'user' ? (
                         avatarUrl ? (
-                          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-blue-500">
+                          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                             <Image
                               src={avatarUrl}
                               alt="User Avatar"
@@ -755,7 +741,7 @@ export default function ChatInterface() {
                             />
                           </div>
                         ) : (
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-lg">
+                          <div className="w-10 h-10 rounded-full bg-[#ff5757] flex items-center justify-center text-white font-bold text-lg border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                             {username.charAt(0).toUpperCase() || '?'}
                           </div>
                         )
@@ -773,16 +759,16 @@ export default function ChatInterface() {
                     {/* Message Bubble */}
                     <div className={`flex flex-col ${message.role === 'user' ? 'items-end' : 'items-start'}`}>
                       <div
-                        className={`rounded-3xl px-5 py-3 shadow-md ${
+                        className={`rounded-3xl px-5 py-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
                           message.role === 'user'
-                            ? 'bg-blue-500 text-white'
-                            : 'bg-gray-800/95 text-gray-100 border border-gray-700/50'
+                            ? 'bg-[#ff5757] text-white'
+                            : 'bg-white text-black'
                         }`}
                       >
                         <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
                       </div>
                       <p className={`text-xs mt-1 px-2 ${
-                        message.role === 'user' ? 'text-blue-300' : 'text-gray-500'
+                        message.role === 'user' ? 'text-[#ff5757]' : 'text-[#ff5757]'
                       }`}>
                         {message.timestamp.toLocaleTimeString('id-ID', {
                           hour: '2-digit',
@@ -807,15 +793,15 @@ export default function ChatInterface() {
                         className="object-contain"
                       />
                     </div>
-                    <div className="bg-gray-800/95 text-gray-100 rounded-3xl px-5 py-3 border border-gray-700/50">
+                    <div className="bg-white text-black rounded-3xl px-5 py-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                       <div className="flex gap-2">
-                        <span className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></span>
+                        <span className="w-2 h-2 bg-[#ff5757] rounded-full animate-bounce"></span>
                         <span
-                          className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"
+                          className="w-2 h-2 bg-[#ff5757] rounded-full animate-bounce"
                           style={{ animationDelay: '0.2s' }}
                         ></span>
                         <span
-                          className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"
+                          className="w-2 h-2 bg-[#ff5757] rounded-full animate-bounce"
                           style={{ animationDelay: '0.4s' }}
                         ></span>
                       </div>
