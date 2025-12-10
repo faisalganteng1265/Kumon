@@ -9,6 +9,7 @@ import PeerConnectSection from '@/components/PeerConnectSection';
 import HowToUseSection from '@/components/HowToUseSection';
 import PoweredBySection from '@/components/PoweredBySection';
 import FAQSection from '@/components/FAQSection';
+import MarqueeSection from '@/components/MarqueeSection';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -27,7 +28,7 @@ export default function Home() {
       <HowToUseSection />
       <PoweredBySection />
       <FAQSection />
-      <Footer />
+      <MarqueeSection />
     </div>
   );
 }

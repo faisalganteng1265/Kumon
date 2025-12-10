@@ -60,7 +60,8 @@ const translations: Record<Language, Record<string, string>> = {
     'stats.aiSupport': 'AI Support',
     
     // FAQ Section
-    'faq.title': 'FAQs',
+    'faq.title': 'FAQ\'S',
+    'faq.subtitle': 'Frequently Asked Questions, Quick answers for curious minds',
     'faq.welcome': 'Halo! Saya AI Assistant untuk aplikasi web AICAMPUS. Saya siap membantu menjawab pertanyaan seputar aplikasi AICAMPUS. Silakan pilih pertanyaan cepat di bawah atau ketik pertanyaan Anda sendiri!',
     'faq.q1': 'Apakah saya harus login untuk menggunakan fitur-fitur AICAMPUS?',
     'faq.a1': 'Ya, Anda perlu membuat akun dan login untuk menggunakan semua fitur AICAMPUS. Proses registrasi sangat mudah dan cepat - cukup gunakan email kampus Anda atau login dengan akun Google. Setelah login, Anda bisa langsung menikmati semua fitur seperti AI Campus Guide, Event Recommender, Smart Schedule Builder, dan lainnya.',
@@ -582,7 +583,8 @@ const translations: Record<Language, Record<string, string>> = {
     'stats.aiSupport': 'AI Support',
     
     // FAQ Section
-    'faq.title': 'FAQs',
+    'faq.title': 'FAQ\'S',
+    'faq.subtitle': 'Frequently Asked Questions, Quick answers for curious minds',
     'faq.welcome': 'Hello! I am the AI Assistant for the AICAMPUS web application. I am ready to help answer questions about the AICAMPUS application. Please select a quick question below or type your own question!',
     'faq.q1': 'Do I need to login to use AICAMPUS features?',
     'faq.a1': 'Yes, you need to create an account and login to use all AICAMPUS features. The registration process is very easy and fast - just use your campus email or login with a Google account. After logging in, you can immediately enjoy all features like AI Campus Guide, Event Recommender, Smart Schedule Builder, and others.',

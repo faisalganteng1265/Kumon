@@ -2,8 +2,18 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import TextType from './TextType';
+import localFont from 'next/font/local';
 import { useLanguage } from '@/contexts/LanguageContext';
+
+const organicRelief = localFont({
+  src: '../public/fonts/Organic Relief.ttf',
+  display: 'swap',
+});
+
+const lilitaOne = localFont({
+  src: '../public/fonts/LilitaOne-Regular.ttf',
+  display: 'swap',
+});
 
 interface FAQItem {
   question: string;
@@ -173,29 +183,28 @@ export default function FAQSection() {
       <div className="w-full relative z-10">
         {/* Title */}
         <div className="text-center mb-8 sm:mb-12 md:mb-16 px-4 sm:px-6 md:px-8">
-          <TextType
-            text={t('faq.title')}
-            as="h2"
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-6 sm:mb-8 text-black"
-            style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif', letterSpacing: '0.02em' }}
-            typingSpeed={80}
-            loop={false}
-            showCursor={true}
-            cursorCharacter="|"
-            cursorClassName="text-emerald-400"
-            startOnVisible={true}
-          />
+          <h2 className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 sm:mb-10 md:mb-14 lg:mb-16 text-black ${organicRelief.className}`}>
+            {t('faq.title')}
+          </h2>
+          <p
+            className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white ${lilitaOne.className}`}
+            style={{
+              WebkitTextStroke: '1px black',
+            }}
+          >
+            {t('faq.subtitle')}
+          </p>
         </div>
 
         {/* Two Column Layout */}
         <div className="grid lg:grid-cols-[100%] gap-0">
           {/* Left Column - FAQ */}
-          <div className="px-4 sm:px-6 md:px-8 lg:px-16">
+          <div className="px-4 sm:px-6 md:px-8 lg:px-16 max-w-5xl mx-auto w-full">
             <div className="space-y-0">
               {faqs.map((faq, index) => (
                 <motion.div
                   key={index}
-                  className="group border-t border-gray-300 last:border-b last:border-gray-300 transition-all duration-300"
+                  className="mb-6 sm:mb-8 relative"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, amount: 0.3 }}
@@ -205,49 +214,55 @@ export default function FAQSection() {
                     ease: "easeOut"
                   }}
                 >
-                  {/* Question Button */}
-                  <button
-                    onClick={() => toggleFAQ(index)}
-                    className="w-full px-0 py-4 sm:py-5 md:py-6 flex items-center justify-between text-left relative z-10 group"
-                  >
-                    <span
-                      className="text-base sm:text-lg md:text-xl font-normal text-black pr-3 sm:pr-4"
-                      style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}
+                  {/* Shadow Box (Black) */}
+                  <div className="absolute top-2 left-2 w-full h-full bg-black rounded-2xl"></div>
+
+                  {/* Main Box (White) */}
+                  <div className="relative bg-white border-2 border-black rounded-2xl overflow-hidden">
+                    {/* Question Button */}
+                    <button
+                      onClick={() => toggleFAQ(index)}
+                      className="w-full px-4 sm:px-6 py-4 sm:py-5 md:py-6 flex items-center justify-between text-left group"
                     >
-                      {faq.question}
-                    </span>
-
-                    {/* Chevron Icon */}
-                    <div className={`flex-shrink-0 transition-all duration-300 ${openIndex === index ? 'rotate-180' : ''}`}>
-                      <svg
-                        className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 transition-transform duration-300"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </div>
-                  </button>
-
-                  {/* Answer */}
-                  <div
-                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                      openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                    }`}
-                  >
-                    <div className="px-0 pb-4 sm:pb-5 md:pb-6 relative z-10">
-                      <p
-                        className="text-gray-800 leading-relaxed text-sm sm:text-base"
+                      <span
+                        className="text-base sm:text-lg md:text-xl font-normal text-black pr-3 sm:pr-4"
                         style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}
                       >
-                        {faq.answer}
-                      </p>
+                        {faq.question}
+                      </span>
+
+                      {/* Chevron Icon */}
+                      <div className={`flex-shrink-0 transition-all duration-300 ${openIndex === index ? 'rotate-180' : ''}`}>
+                        <svg
+                          className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 transition-transform duration-300"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </div>
+                    </button>
+
+                    {/* Answer */}
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                        openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                      }`}
+                    >
+                      <div className="px-4 sm:px-6 pb-4 sm:pb-5 md:pb-6 border-t border-gray-200">
+                        <p
+                          className="text-gray-800 leading-relaxed text-sm sm:text-base pt-4"
+                          style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}
+                        >
+                          {faq.answer}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
