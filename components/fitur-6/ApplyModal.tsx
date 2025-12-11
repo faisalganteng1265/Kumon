@@ -63,14 +63,14 @@ export default function ApplyModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
-      <div className="bg-gray-700 border border-white rounded-2xl max-w-2xl w-full">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[60] flex items-center justify-center p-4">
+      <div className="bg-white border-4 border-black rounded-2xl max-w-2xl w-full shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]" style={{ fontFamily: "'Fredoka', sans-serif" }}>
         {/* Header */}
-        <div className="bg-gray-700 text-white p-6 rounded-t-2xl flex justify-between items-center">
+        <div className="bg-white text-black p-6 rounded-t-2xl border-b-4 border-black flex justify-between items-center">
           <h2 className="text-2xl font-bold">Apply ke Project</h2>
           <button
             onClick={onClose}
-            className="text-white hover:bg-white/20 rounded-full p-2 transition-all"
+            className="text-black hover:bg-gray-200 rounded-full p-2 transition-all border-2 border-black"
           >
             <X className="w-6 h-6" />
           </button>
@@ -79,39 +79,39 @@ export default function ApplyModal({
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+            <div className="bg-red-100 border-2 border-black text-red-600 px-4 py-3 rounded-xl font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
               {error}
             </div>
           )}
 
           {/* Project Info */}
-          <div className="bg-gray-700 rounded-lg p-4 border border-white mb-4">
-            <h3 className="font-bold text-white-900 mb-2">{project.title}</h3>
-            <p className="text-white-900 text-sm line-clamp-2">{project.description}</p>
+          <div className="bg-blue-100 rounded-xl p-4 border-2 border-black mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+            <h3 className="font-bold text-black mb-2">{project.title}</h3>
+            <p className="text-gray-700 text-sm line-clamp-2 font-semibold">{project.description}</p>
           </div>
 
           {/* Select Role */}
           <div>
-            <label className="block text-black-900 font-bold mb-2">
+            <label className="block text-black font-bold mb-2">
               Pilih Role <span className="text-red-500">*</span>
             </label>
             {availableRoles.length === 0 ? (
-              <div className="bg-yellow-50 text-black-900 px-4 py-3 rounded-lg">
+              <div className="bg-yellow-100 text-black px-4 py-3 rounded-xl border-2 border-black font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                 Semua role sudah terpenuhi
               </div>
             ) : (
               <select
   value={selectedRoleId}
   onChange={(e) => setSelectedRoleId(e.target.value)}
-  className="w-full px-4 py-3 text-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+  className="w-full px-4 py-3 bg-white text-black border-2 border-black rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 font-semibold cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]]"
   required
 >
-  <option value="" className="text-black">-- Pilih Role --</option>
+  <option value="" className="bg-white text-black">-- Pilih Role --</option>
   {availableRoles.map((role) => (
-    <option 
+    <option
       key={role.id}
       value={role.id}
-      className="text-black"
+      className="bg-white text-black"
     >
       {role.role_name} ({role.filled_count}/{role.required_count} filled)
     </option>
@@ -123,14 +123,14 @@ export default function ApplyModal({
 
           {/* Selected Role Info */}
           {selectedRoleId && (
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="bg-blue-100 border-2 border-black rounded-xl p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
               {(() => {
                 const role = availableRoles.find((r) => r.id === selectedRoleId);
                 return (
                   <>
-                    <h4 className="font-semibold text-blue-900 mb-1">{role?.role_name}</h4>
+                    <h4 className="font-bold text-black mb-1">{role?.role_name}</h4>
                     {role?.description && (
-                      <p className="text-blue-700 text-sm">{role.description}</p>
+                      <p className="text-gray-700 text-sm font-semibold">{role.description}</p>
                     )}
                   </>
                 );
@@ -140,13 +140,13 @@ export default function ApplyModal({
 
           {/* Message */}
           <div>
-            <label className="block text-white-900 font-bold mb-2">
+            <label className="block text-black font-bold mb-2">
               Pesan (Opsional)
             </label>
             <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[120px]"
+              className="w-full px-4 py-3 bg-white border-2 border-black rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 min-h-[120px] text-black font-semibold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
               placeholder="Jelaskan mengapa Anda cocok untuk role ini..."
             />
           </div>
@@ -156,14 +156,14 @@ export default function ApplyModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-6 py-3 border border-gray-300 text-white-900 rounded-lg font-semibold hover:bg-gray-50 transition-all"
+              className="flex-1 px-6 py-3 border-2 border-black text-black rounded-xl font-bold hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]]"
               disabled={loading}
             >
               Batal
             </button>
             <button
               type="submit"
-              className="flex-1 px-6 py-3 bg-gray-500 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50 cursor:pointer"
+              className="flex-1 px-6 py-3 bg-blue-500 text-white rounded-xl font-bold hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all disabled:opacity-50 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] cursor-pointer"
               disabled={loading || availableRoles.length === 0}
             >
               {loading ? 'Mengirim...' : 'Kirim Aplikasi'}

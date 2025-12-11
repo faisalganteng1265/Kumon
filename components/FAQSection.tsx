@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import localFont from 'next/font/local';
 import { useLanguage } from '@/contexts/LanguageContext';
+import Image from 'next/image';
 
 const organicRelief = localFont({
   src: '../public/fonts/Organic Relief.ttf',
@@ -199,12 +200,12 @@ export default function FAQSection() {
         {/* Two Column Layout */}
         <div className="grid lg:grid-cols-[100%] gap-0">
           {/* Left Column - FAQ */}
-          <div className="px-4 sm:px-6 md:px-8 lg:px-16 max-w-5xl mx-auto w-full">
+          <div className="px-4 sm:px-6 md:px-8 lg:px-16 max-w-6xl mx-auto w-full">
             <div className="space-y-0">
               {faqs.map((faq, index) => (
                 <motion.div
                   key={index}
-                  className="mb-6 sm:mb-8 relative"
+                  className="mb-8 sm:mb-10 relative"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, amount: 0.3 }}
@@ -215,18 +216,18 @@ export default function FAQSection() {
                   }}
                 >
                   {/* Shadow Box (Black) */}
-                  <div className="absolute top-2 left-2 w-full h-full bg-black rounded-2xl"></div>
+                  <div className="absolute top-3 left-3 w-full h-full bg-black rounded-2xl"></div>
 
                   {/* Main Box (White) */}
-                  <div className="relative bg-white border-2 border-black rounded-2xl overflow-hidden">
+                  <div className="relative bg-white border-4 border-black rounded-2xl overflow-hidden">
                     {/* Question Button */}
                     <button
                       onClick={() => toggleFAQ(index)}
-                      className="w-full px-4 sm:px-6 py-4 sm:py-5 md:py-6 flex items-center justify-between text-left group"
+                      className="w-full px-6 sm:px-8 py-6 sm:py-7 md:py-8 flex items-center justify-between text-left group"
                     >
                       <span
-                        className="text-base sm:text-lg md:text-xl font-normal text-black pr-3 sm:pr-4"
-                        style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}
+                        className="text-xl sm:text-2xl md:text-3xl font-bold text-black pr-4 sm:pr-6"
+                        style={{ fontFamily: "'Fredoka', sans-serif" }}
                       >
                         {faq.question}
                       </span>
@@ -234,7 +235,7 @@ export default function FAQSection() {
                       {/* Chevron Icon */}
                       <div className={`flex-shrink-0 transition-all duration-300 ${openIndex === index ? 'rotate-180' : ''}`}>
                         <svg
-                          className="w-4 h-4 sm:w-5 sm:h-5 text-black transition-transform duration-300"
+                          className="w-6 h-6 sm:w-7 sm:h-7 text-black transition-transform duration-300"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -242,7 +243,7 @@ export default function FAQSection() {
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            strokeWidth={2}
+                            strokeWidth={3}
                             d="M19 9l-7 7-7-7"
                           />
                         </svg>
@@ -252,13 +253,13 @@ export default function FAQSection() {
                     {/* Answer */}
                     <div
                       className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                        openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                        openIndex === index ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
                       }`}
                     >
-                      <div className="px-4 sm:px-6 pb-4 sm:pb-5 md:pb-6 border-t border-gray-200">
+                      <div className="px-6 sm:px-8 pb-6 sm:pb-7 md:pb-8 border-t-2 border-gray-300">
                         <p
-                          className="text-gray-800 leading-relaxed text-sm sm:text-base pt-4"
-                          style={{ fontFamily: '"Agency FB", "Arial Narrow", "Roboto Condensed", "Helvetica Neue", sans-serif' }}
+                          className="text-gray-800 leading-relaxed text-base sm:text-lg md:text-xl pt-6"
+                          style={{ fontFamily: "'Fredoka', sans-serif" }}
                         >
                           {faq.answer}
                         </p>

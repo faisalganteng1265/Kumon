@@ -37,7 +37,7 @@ export default function MyApplicationsTab({ userId }: MyApplicationsTabProps) {
   if (loading) {
     return (
       <div className="flex justify-center items-center py-20">
-        <Loader2 className="w-8 h-8 text-blue-400 animate-spin" />
+        <Loader2 className="w-8 h-8 text-red-500 animate-spin" />
       </div>
     );
   }
@@ -45,9 +45,9 @@ export default function MyApplicationsTab({ userId }: MyApplicationsTabProps) {
   if (applications.length === 0) {
     return (
       <div className="text-center py-20">
-        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-12 border border-white/20">
-          <p className="text-xl text-gray-300">{t('projects.empty.noApplications')}</p>
-          <p className="text-gray-400 mt-2">{t('projects.empty.noApplicationsDesc')}</p>
+        <div className="bg-white rounded-2xl p-12 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <p className="text-xl text-black font-bold" style={{ fontFamily: "'Fredoka', sans-serif" }}>{t('projects.empty.noApplications')}</p>
+          <p className="text-gray-700 mt-2 font-semibold" style={{ fontFamily: "'Fredoka', sans-serif" }}>{t('projects.empty.noApplicationsDesc')}</p>
         </div>
       </div>
     );
@@ -58,31 +58,32 @@ export default function MyApplicationsTab({ userId }: MyApplicationsTabProps) {
       {applications.map((application) => (
         <div
           key={application.id}
-          className={`bg-white/10 backdrop-blur-lg rounded-xl border border-white/20 p-6 ${
+          className={`rounded-xl border-2 border-black p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
             application.status === 'accepted'
-              ? 'border-green-400/50 bg-green-900/20'
+              ? 'bg-green-100'
               : application.status === 'rejected'
-              ? 'border-red-400/50 bg-red-900/20'
-              : ''
+              ? 'bg-red-100'
+              : 'bg-white'
           }`}
+          style={{ fontFamily: "'Fredoka', sans-serif" }}
         >
           {/* Header */}
           <div className="flex justify-between items-start mb-4">
             <div className="flex-1">
-              <h3 className="text-xl font-bold text-white mb-1">
+              <h3 className="text-xl font-bold text-black mb-1">
                 {application.project?.title}
               </h3>
-              <p className="text-gray-300 text-sm line-clamp-2">
+              <p className="text-gray-700 text-sm line-clamp-2 font-semibold">
                 {application.project?.description}
               </p>
             </div>
             <span
-              className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap ml-4 ${
+              className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap ml-4 border-2 border-black ${
                 application.status === 'accepted'
                   ? 'bg-green-500 text-white'
                   : application.status === 'rejected'
                   ? 'bg-red-500 text-white'
-                  : 'bg-yellow-500 text-white'
+                  : 'bg-yellow-400 text-black'
               }`}
             >
               {application.status === 'accepted'
@@ -95,45 +96,45 @@ export default function MyApplicationsTab({ userId }: MyApplicationsTabProps) {
 
           {/* Role Applied */}
           <div className="mb-4">
-            <div className="inline-flex items-center px-3 py-1 bg-blue-500/30 text-blue-200 rounded-full border border-blue-400/30">
+            <div className="inline-flex items-center px-3 py-1 bg-blue-400 text-white rounded-full border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
               <Briefcase className="w-4 h-4 mr-2" />
-              <span className="font-semibold">{application.role?.role_name}</span>
+              <span className="font-bold">{application.role?.role_name}</span>
             </div>
           </div>
 
           {/* Message */}
           {application.message && (
-            <div className="mb-4 p-3 bg-white/5 rounded-lg border border-white/10">
-              <p className="text-gray-300 text-sm italic">&quot;{application.message}&quot;</p>
+            <div className="mb-4 p-3 bg-gray-100 rounded-lg border-2 border-black">
+              <p className="text-black text-sm italic font-semibold">&quot;{application.message}&quot;</p>
             </div>
           )}
 
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
-            <div className="bg-white/5 rounded-lg p-3">
-              <div className="flex items-center text-gray-400 text-xs mb-1">
+            <div className="bg-gray-100 rounded-lg p-3 border-2 border-black">
+              <div className="flex items-center text-gray-700 text-xs mb-1">
                 <Calendar className="w-3 h-3 mr-1" />
-                <span>{t('projects.labels.applied')}</span>
+                <span className="font-bold">{t('projects.labels.applied')}</span>
               </div>
-              <p className="text-white text-sm font-semibold">
+              <p className="text-black text-sm font-bold">
                 {new Date(application.created_at).toLocaleDateString('id-ID')}
               </p>
             </div>
-            <div className="bg-white/5 rounded-lg p-3">
-              <div className="flex items-center text-gray-400 text-xs mb-1">
+            <div className="bg-gray-100 rounded-lg p-3 border-2 border-black">
+              <div className="flex items-center text-gray-700 text-xs mb-1">
                 <Clock className="w-3 h-3 mr-1" />
-                <span>{t('projects.labels.projectStatus')}</span>
+                <span className="font-bold">{t('projects.labels.projectStatus')}</span>
               </div>
-              <p className="text-white text-sm font-semibold capitalize">
+              <p className="text-black text-sm font-bold capitalize">
                 {application.project?.status?.replace('_', ' ')}
               </p>
             </div>
-            <div className="bg-white/5 rounded-lg p-3">
-              <div className="flex items-center text-gray-400 text-xs mb-1">
+            <div className="bg-gray-100 rounded-lg p-3 border-2 border-black">
+              <div className="flex items-center text-gray-700 text-xs mb-1">
                 <Briefcase className="w-3 h-3 mr-1" />
-                <span>{t('projects.labels.initiator')}</span>
+                <span className="font-bold">{t('projects.labels.initiator')}</span>
               </div>
-              <p className="text-white text-sm font-semibold truncate">
+              <p className="text-black text-sm font-bold truncate">
                 {application.project?.initiator?.username ||
                   application.project?.initiator?.email?.split('@')[0] ||
                   'Unknown'}
@@ -143,21 +144,21 @@ export default function MyApplicationsTab({ userId }: MyApplicationsTabProps) {
 
           {/* Status Message */}
           {application.status === 'accepted' && (
-            <div className="flex items-center text-green-300 text-sm bg-green-900/30 rounded-lg p-3">
+            <div className="flex items-center text-white text-sm bg-green-500 rounded-lg p-3 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
               <CheckCircle className="w-5 h-5 mr-2" />
-              <span>{t('projects.application.accepted')}</span>
+              <span className="font-bold">{t('projects.application.accepted')}</span>
             </div>
           )}
           {application.status === 'rejected' && (
-            <div className="flex items-center text-red-300 text-sm bg-red-900/30 rounded-lg p-3">
+            <div className="flex items-center text-white text-sm bg-red-500 rounded-lg p-3 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
               <XCircle className="w-5 h-5 mr-2" />
-              <span>{t('projects.application.rejected')}</span>
+              <span className="font-bold">{t('projects.application.rejected')}</span>
             </div>
           )}
           {application.status === 'pending' && (
-            <div className="flex items-center text-yellow-300 text-sm bg-yellow-900/30 rounded-lg p-3">
+            <div className="flex items-center text-black text-sm bg-yellow-400 rounded-lg p-3 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
               <Clock className="w-5 h-5 mr-2" />
-              <span>{t('projects.application.pending')}</span>
+              <span className="font-bold">{t('projects.application.pending')}</span>
             </div>
           )}
         </div>
