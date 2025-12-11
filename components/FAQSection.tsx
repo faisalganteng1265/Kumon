@@ -234,7 +234,7 @@ export default function FAQSection() {
                       {/* Chevron Icon */}
                       <div className={`flex-shrink-0 transition-all duration-300 ${openIndex === index ? 'rotate-180' : ''}`}>
                         <svg
-                          className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400 transition-transform duration-300"
+                          className="w-4 h-4 sm:w-5 sm:h-5 text-black transition-transform duration-300"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"

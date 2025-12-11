@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import localFont from 'next/font/local';
+import Image from 'next/image';
 
 const organicRelief = localFont({
   src: '../public/fonts/Organic Relief.ttf',
@@ -44,8 +45,14 @@ export default function PoweredBySection() {
             {/* Black shadow box */}
             <div className="absolute top-3 left-3 w-64 h-32 bg-black rounded-xl" />
             {/* White main box */}
-            <div className="relative w-64 h-32 bg-white rounded-xl border-4 border-black flex items-center justify-center">
-              <span className="text-2xl font-bold text-black">Box 1</span>
+            <div className="relative w-64 h-32 bg-white rounded-xl border-4 border-black flex items-center justify-center p-4">
+              <Image
+                src="/supabase.png"
+                alt="Supabase"
+                width={200}
+                height={80}
+                className="object-contain"
+              />
             </div>
           </div>
 
@@ -54,8 +61,14 @@ export default function PoweredBySection() {
             {/* Black shadow box */}
             <div className="absolute top-3 left-3 w-64 h-32 bg-black rounded-xl" />
             {/* White main box */}
-            <div className="relative w-64 h-32 bg-white rounded-xl border-4 border-black flex items-center justify-center">
-              <span className="text-2xl font-bold text-black">Box 2</span>
+            <div className="relative w-64 h-32 bg-white rounded-xl border-4 border-black flex items-center justify-center p-4">
+              <Image
+                src="/jitsimeet.png"
+                alt="Jitsi Meet"
+                width={200}
+                height={80}
+                className="object-contain"
+              />
             </div>
           </div>
 
@@ -64,8 +77,14 @@ export default function PoweredBySection() {
             {/* Black shadow box */}
             <div className="absolute top-3 left-3 w-64 h-32 bg-black rounded-xl" />
             {/* White main box */}
-            <div className="relative w-64 h-32 bg-white rounded-xl border-4 border-black flex items-center justify-center">
-              <span className="text-2xl font-bold text-black">Box 3</span>
+            <div className="relative w-64 h-32 bg-white rounded-xl border-4 border-black flex items-center justify-center p-4">
+              <Image
+                src="/googlecalendar.png"
+                alt="Google Calendar"
+                width={200}
+                height={80}
+                className="object-contain"
+              />
             </div>
           </div>
 
@@ -74,8 +93,14 @@ export default function PoweredBySection() {
             {/* Black shadow box */}
             <div className="absolute top-3 left-3 w-64 h-32 bg-black rounded-xl" />
             {/* White main box */}
-            <div className="relative w-64 h-32 bg-white rounded-xl border-4 border-black flex items-center justify-center">
-              <span className="text-2xl font-bold text-black">Box 4</span>
+            <div className="relative w-64 h-32 bg-white rounded-xl border-4 border-black flex items-center justify-center p-4">
+              <Image
+                src="/groq.png"
+                alt="Groq"
+                width={200}
+                height={80}
+                className="object-contain"
+              />
             </div>
           </div>
         </div>
