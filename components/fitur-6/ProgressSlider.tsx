@@ -65,23 +65,23 @@ export default function ProgressSlider({
       color1 = '#22c55e'; // green-500
       color2 = '#16a34a'; // green-600
     }
-    return `linear-gradient(to right, ${color1} 0%, ${color1} ${value}%, #1f2937 ${value}%, #1f2937 100%)`;
+    return `linear-gradient(to right, ${color1} 0%, ${color1} ${value}%, #e5e7eb ${value}%, #e5e7eb 100%)`;
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3" style={{ fontFamily: "'Fredoka', sans-serif" }}>
       {/* Progress Bar Display */}
       <div>
         <div className="flex justify-between items-center mb-2">
           <div className="flex items-center gap-2">
-            <TrendingUp className="w-4 h-4 text-white" />
-            <span className="text-sm font-semibold text-white">{t('projects.progress.title')}</span>
+            <TrendingUp className="w-4 h-4 text-black" />
+            <span className="text-sm font-bold text-black">{t('projects.progress.title')}</span>
           </div>
-          <span className="text-2xl font-bold text-white">{currentProgress}%</span>
+          <span className="text-2xl font-bold text-black">{currentProgress}%</span>
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+        <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden border-2 border-black">
           <div
             className={`h-full transition-all duration-500 ${getProgressColor(currentProgress)}`}
             style={{ width: `${currentProgress}%` }}
@@ -95,22 +95,22 @@ export default function ProgressSlider({
           {!isEditing ? (
             <button
               onClick={() => setIsEditing(true)}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all shadow-md flex items-center gap-2"
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg font-bold hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2"
             >
               <TrendingUp className="w-4 h-4" />
               {t('projects.progress.updateButton')}
             </button>
           ) : (
-            <div className="bg-gray-900 border border-gray-700 rounded-lg p-4 space-y-3">
+            <div className="bg-white border-2 border-black rounded-lg p-4 space-y-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
               {error && (
-                <div className="bg-red-900/30 border border-red-600 text-red-400 px-3 py-2 rounded text-sm">
+                <div className="bg-red-100 border-2 border-black text-red-600 px-3 py-2 rounded-lg text-sm font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
                   {error}
                 </div>
               )}
 
               {/* Slider with Dynamic Color */}
               <div>
-                <label className="block text-sm font-semibold text-white mb-2">
+                <label className="block text-sm font-bold text-black mb-2">
                   {t('projects.progress.setProgress')} {progress}%
                 </label>
                 <input
@@ -119,7 +119,7 @@ export default function ProgressSlider({
                   max="100"
                   value={progress}
                   onChange={(e) => setProgress(parseInt(e.target.value))}
-                  className="w-full h-3 rounded-lg appearance-none cursor-pointer slider-custom"
+                  className="w-full h-3 rounded-lg appearance-none cursor-pointer slider-custom border-2 border-black"
                   style={{
                     background: getSliderGradient(progress)
                   }}
@@ -132,7 +132,7 @@ export default function ProgressSlider({
                 <button
                   onClick={handleSave}
                   disabled={saving || progress === currentProgress}
-                  className="flex-1 flex items-center justify-center px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                  className="flex-1 flex items-center justify-center px-4 py-2 bg-green-500 text-white rounded-lg font-bold hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all disabled:opacity-50 disabled:cursor-not-allowed border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
                 >
                   <Save className="w-4 h-4 mr-2" />
                   {saving ? t('projects.buttons.saving') : t('projects.buttons.saveProgress')}
@@ -140,7 +140,7 @@ export default function ProgressSlider({
                 <button
                   onClick={handleCancel}
                   disabled={saving}
-                  className="px-4 py-2 border border-gray-600 text-gray-300 rounded-lg font-semibold hover:bg-gray-800 transition-all disabled:opacity-50"
+                  className="px-4 py-2 border-2 border-black text-black rounded-lg font-bold hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all disabled:opacity-50 bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
                 >
                   <X className="w-4 h-4" />
                 </button>

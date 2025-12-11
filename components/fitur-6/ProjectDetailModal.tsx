@@ -167,17 +167,19 @@ export default function ProjectDetailModal({
     <>
       {/* Progress Success Notification */}
       {showProgressNotification && (
-        <div className="fixed top-4 right-4 z-[9999] bg-green-500 text-white px-6 py-4 rounded-lg shadow-2xl flex items-center animate-pulse transition-all duration-300 ease-in-out transform border-2 border-green-600">
+        <div className="fixed top-4 right-4 z-[9999] bg-green-500 text-white px-6 py-4 rounded-lg border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center animate-pulse transition-all duration-300 ease-in-out transform"
+             style={{ fontFamily: "'Fredoka', sans-serif" }}>
           <CheckCircle className="w-6 h-6 mr-3" />
           <span className="font-bold text-lg">You updated your progress to {notificationProgress}%</span>
         </div>
       )}
-      
-      
+
+
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div className="bg-gray-900 border border-gray-700 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto dark-scrollbar">
+        <div className="bg-white border-4 border-black rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+             style={{ fontFamily: "'Fredoka', sans-serif" }}>
           {/* Header - Sticky */}
-          <div className="sticky top-0 bg-gray-900 text-white p-6 pb-0 rounded-t-2xl z-10 backdrop-blur-md">
+          <div className="sticky top-0 bg-white text-black p-6 pb-0 rounded-t-lg z-10 border-b-2 border-black">
             <div className="flex justify-between items-start">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
@@ -187,13 +189,13 @@ export default function ProjectDetailModal({
                   {isInitiator && !isEditingStatus ? (
                     <div className="flex items-center gap-2">
                       <span
-                        className={`px-3 py-1 rounded-full text-xs font-semibold ${statusColors[currentStatus]}`}
+                        className={`px-3 py-1 rounded-lg text-xs font-bold text-white border-2 border-black ${statusColors[currentStatus]}`}
                       >
                         {statusLabels[currentStatus]}
                       </span>
                       <button
                         onClick={() => setIsEditingStatus(true)}
-                        className="text-blue-400 hover:text-blue-300 transition-all"
+                        className="text-blue-500 hover:text-blue-600 transition-all p-1 bg-blue-100 rounded-lg border-2 border-black"
                         title="Change status"
                       >
                         <Edit3 className="w-4 h-4" />
@@ -205,17 +207,17 @@ export default function ProjectDetailModal({
                         value={currentStatus}
                         onChange={(e) => handleStatusChange(e.target.value as Project['status'])}
                         disabled={updatingStatus}
-                        className="bg-gray-800 border border-gray-600 text-white rounded-lg px-5 py-2.5 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer w-[160px]"
+                        className="bg-white border-2 border-black text-black rounded-lg px-5 py-2.5 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-red-500 cursor-pointer w-[160px] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                       >
-                        <option value="open" className="bg-gray-900">Open</option>
-                        <option value="in_progress" className="bg-gray-900">In Progress</option>
-                        <option value="completed" className="bg-gray-900">Completed</option>
-                        <option value="cancelled" className="bg-gray-900">Cancelled</option>
+                        <option value="open" className="bg-white">Open</option>
+                        <option value="in_progress" className="bg-white">In Progress</option>
+                        <option value="completed" className="bg-white">Completed</option>
+                        <option value="cancelled" className="bg-white">Cancelled</option>
                       </select>
                       <button
                         onClick={() => setIsEditingStatus(false)}
                         disabled={updatingStatus}
-                        className="text-gray-400 hover:text-gray-300 transition-all"
+                        className="text-red-500 hover:text-red-600 transition-all p-1 bg-red-100 rounded-lg border-2 border-black"
                         title="Cancel"
                       >
                         <X className="w-4 h-4" />
@@ -223,13 +225,13 @@ export default function ProjectDetailModal({
                     </div>
                   ) : (
                     <span
-                      className={`px-3 py-1 rounded-full text-xs font-semibold ${statusColors[currentStatus]}`}
+                      className={`px-3 py-1 rounded-lg text-xs font-bold text-white border-2 border-black ${statusColors[currentStatus]}`}
                     >
                       {statusLabels[currentStatus]}
                     </span>
                   )}
                 </div>
-                <div className="flex items-center text-gray-300 text-sm">
+                <div className="flex items-center text-gray-700 text-sm font-semibold">
                   <User className="w-4 h-4 mr-1" />
                   <span>
                     By{' '}
@@ -241,7 +243,7 @@ export default function ProjectDetailModal({
               </div>
               <button
                 onClick={onClose}
-                className="text-white hover:bg-white/20 rounded-full p-2 transition-all"
+                className="text-black hover:bg-gray-200 rounded-lg p-2 transition-all border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -249,35 +251,35 @@ export default function ProjectDetailModal({
 
             {/* Stats - Also sticky with header */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pb-6">
-              <div className="bg-gray-800/80 backdrop-blur-md rounded-lg p-4 border border-gray-700">
-                <div className="flex items-center text-blue-400 mb-1">
+              <div className="bg-blue-400 rounded-lg p-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="flex items-center text-white mb-1">
                   <Users className="w-5 h-5 mr-2" />
-                  <span className="text-sm font-semibold">Collaborators</span>
+                  <span className="text-sm font-bold">Collaborators</span>
                 </div>
                 <p className="text-2xl font-bold text-white">
                   {totalRolesFilled}/{totalRolesNeeded}
                 </p>
               </div>
-              <div className="bg-gray-800/80 backdrop-blur-md rounded-lg p-4 border border-gray-700">
-                <div className="flex items-center text-purple-400 mb-1">
+              <div className="bg-purple-500 rounded-lg p-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="flex items-center text-white mb-1">
                   <Briefcase className="w-5 h-5 mr-2" />
-                  <span className="text-sm font-semibold">Roles</span>
+                  <span className="text-sm font-bold">Roles</span>
                 </div>
                 <p className="text-2xl font-bold text-white">{project.roles?.length || 0}</p>
               </div>
-              <div className="bg-gray-800/80 backdrop-blur-md rounded-lg p-4 border border-gray-700">
-                <div className="flex items-center text-green-400 mb-1">
+              <div className="bg-green-500 rounded-lg p-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="flex items-center text-white mb-1">
                   <CheckCircle className="w-5 h-5 mr-2" />
-                  <span className="text-sm font-semibold">Applications</span>
+                  <span className="text-sm font-bold">Applications</span>
                 </div>
                 <p className="text-2xl font-bold text-white">
                   {applications.filter((a) => a.status === 'pending').length}
                 </p>
               </div>
-              <div className="bg-gray-800/80 backdrop-blur-md rounded-lg p-4 border border-gray-700">
-                <div className="flex items-center text-orange-400 mb-1">
+              <div className="bg-orange-500 rounded-lg p-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                <div className="flex items-center text-white mb-1">
                   <Calendar className="w-5 h-5 mr-2" />
-                  <span className="text-sm font-semibold">Created</span>
+                  <span className="text-sm font-bold">Created</span>
                 </div>
                 <p className="text-sm font-bold text-white">
                   {new Date(project.created_at).toLocaleDateString('id-ID')}
@@ -294,13 +296,13 @@ export default function ProjectDetailModal({
               {/* Left Column - Description, Progress, Deadline */}
               <div className="lg:col-span-2 space-y-6">
                 {/* Description */}
-                <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
-                  <h3 className="text-lg font-bold text-white mb-3">Deskripsi Project</h3>
-                  <p className="text-gray-300 whitespace-pre-wrap">{project.description}</p>
+                <div className="bg-gray-100 border-2 border-black rounded-lg p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                  <h3 className="text-lg font-bold text-black mb-3">Deskripsi Project</h3>
+                  <p className="text-gray-700 whitespace-pre-wrap">{project.description}</p>
                 </div>
 
                 {/* Progress Slider */}
-                <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
+                <div className="bg-gray-100 border-2 border-black rounded-lg p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                   <ProgressSlider
                     projectId={project.id}
                     currentProgress={currentProgress}
@@ -311,10 +313,10 @@ export default function ProjectDetailModal({
 
                 {/* Deadline */}
                 {project.deadline && (
-                  <div className="bg-gray-800/50 border border-orange-600/50 rounded-lg p-4">
-                    <div className="flex items-center text-orange-400">
+                  <div className="bg-orange-100 border-2 border-black rounded-lg p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    <div className="flex items-center text-orange-600 font-bold">
                       <Clock className="w-5 h-5 mr-2" />
-                      <span className="font-semibold">
+                      <span className="font-bold">
                         Deadline: {new Date(project.deadline).toLocaleDateString('id-ID')}
                       </span>
                     </div>
@@ -324,25 +326,25 @@ export default function ProjectDetailModal({
 
               {/* Right Column - Roles Needed */}
               <div className="lg:col-span-1">
-                <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
-                  <h3 className="text-lg font-bold text-white mb-3">Role yang Dibutuhkan</h3>
+                <div className="bg-gray-100 border-2 border-black rounded-lg p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                  <h3 className="text-lg font-bold text-black mb-3">Role yang Dibutuhkan</h3>
                   <div className="space-y-3">
                     {project.roles?.map((role) => (
                       <div
                         key={role.id}
-                        className="bg-gray-900/50 border border-gray-600 rounded-lg p-3"
+                        className="bg-white border-2 border-black rounded-lg p-3 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                       >
                         <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-semibold text-white">{role.role_name}</h4>
-                          <span className="text-sm text-gray-400">
+                          <h4 className="font-bold text-black">{role.role_name}</h4>
+                          <span className="text-sm text-gray-700 font-semibold">
                             {role.filled_count}/{role.required_count} filled
                           </span>
                         </div>
                         {role.description && (
-                          <p className="text-gray-400 text-sm">{role.description}</p>
+                          <p className="text-gray-600 text-sm">{role.description}</p>
                         )}
                         {role.filled_count >= role.required_count && (
-                          <div className="mt-2 flex items-center text-green-400 text-sm">
+                          <div className="mt-2 flex items-center text-green-600 text-sm font-semibold">
                             <CheckCircle className="w-4 h-4 mr-1" />
                             <span>Role sudah terpenuhi</span>
                           </div>
@@ -357,25 +359,25 @@ export default function ProjectDetailModal({
             {/* User's Applications - Full Width */}
             {userApplications.length > 0 && (
               <div className="mt-6">
-                <h3 className="text-lg font-bold text-white mb-3">Aplikasi Anda</h3>
+                <h3 className="text-lg font-bold text-black mb-3">Aplikasi Anda</h3>
                 <div className="space-y-2">
                   {userApplications.map((app) => (
                     <div
                       key={app.id}
-                      className={`border rounded-lg p-3 ${
+                      className={`border-2 border-black rounded-lg p-3 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] ${
                         app.status === 'accepted'
-                          ? 'bg-green-900/30 border-green-600/50'
+                          ? 'bg-green-100'
                           : app.status === 'rejected'
-                          ? 'bg-red-900/30 border-red-600/50'
-                          : 'bg-yellow-900/30 border-yellow-600/50'
+                          ? 'bg-red-100'
+                          : 'bg-yellow-100'
                       }`}
                     >
                       <div className="flex justify-between items-center">
-                        <span className="font-semibold text-white">
+                        <span className="font-bold text-black">
                           {app.role?.role_name}
                         </span>
                         <span
-                          className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                          className={`px-2 py-1 rounded-lg text-xs font-bold border-2 border-black ${
                             app.status === 'accepted'
                               ? 'bg-green-500 text-white'
                               : app.status === 'rejected'
@@ -397,11 +399,11 @@ export default function ProjectDetailModal({
             )}
 
             {/* Action Buttons */}
-            <div className="flex gap-3 pt-4 mt-6 border-t border-gray-700">
+            <div className="flex gap-3 pt-4 mt-6 border-t-2 border-black">
               {isInitiator && (
                 <button
                   onClick={() => setShowManageModal(true)}
-                  className="flex-1 px-6 py-3 bg-gray-700/50 text-white rounded-lg font-semibold hover:bg-gray-600/50 transition-all flex items-center justify-center border border-gray-600"
+                  className="flex-1 px-6 py-3 bg-purple-500 text-white rounded-lg font-bold hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all flex items-center justify-center border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
                 >
                   <Settings className="w-5 h-5 mr-2" />
                   Kelola Aplikasi
@@ -410,7 +412,7 @@ export default function ProjectDetailModal({
               {canApply && (
                 <button
                   onClick={() => setShowApplyModal(true)}
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all"
+                  className="flex-1 px-6 py-3 bg-blue-500 text-white rounded-lg font-bold hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
                   disabled={project.status !== 'open'}
                 >
                   Apply ke Project
@@ -418,7 +420,7 @@ export default function ProjectDetailModal({
               )}
               <button
                 onClick={onClose}
-                className="px-6 py-3 border border-gray-600 text-gray-300 rounded-lg font-semibold hover:bg-gray-800 transition-all"
+                className="px-6 py-3 border-2 border-black text-black rounded-lg font-bold hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all bg-gray-200 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
               >
                 Tutup
               </button>

@@ -49,7 +49,7 @@ interface Task {
 
 export default function SmartTaskManager() {
   const { user, loading } = useAuth();
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
 
   // Task State
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -315,14 +315,14 @@ export default function SmartTaskManager() {
         {
           data: [stats.completed, stats.pending, stats.overdue],
           backgroundColor: [
-            'rgba(34, 197, 94, 0.8)',    // green
-            'rgba(234, 179, 8, 0.8)',    // yellow
-            'rgba(239, 68, 68, 0.8)',    // red
+            '#22c55e',    // green-500 solid - same as Selesai card
+            '#facc15',    // yellow-400 solid - same as Pending card
+            '#ef4444',    // red-500 solid - same as Terlambat card
           ],
           borderColor: [
-            'rgba(34, 197, 94, 1)',
-            'rgba(234, 179, 8, 1)',
-            'rgba(239, 68, 68, 1)',
+            '#000000',    // black border for neobrutalism
+            '#000000',
+            '#000000',
           ],
           borderWidth: 2,
         },
@@ -332,6 +332,7 @@ export default function SmartTaskManager() {
     const pieChartOptions = {
       responsive: true,
       maintainAspectRatio: true,
+    
       plugins: {
         legend: {
           display: false,
@@ -433,7 +434,7 @@ export default function SmartTaskManager() {
           <h3 className="text-black font-bold text-sm mb-3">{t('tasks.chart.distribution')}</h3>
           {stats.total > 0 ? (
             <div className="h-48 flex items-center justify-center">
-              <div className="relative w-40 h-40 rounded-full border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-2 bg-white">
+              <div className="relative w-40 h-40 rounded-full border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
                 <Pie data={pieChartData} options={pieChartOptions} />
               </div>
             </div>
@@ -517,6 +518,7 @@ export default function SmartTaskManager() {
             style={{
               textShadow: '0 0 20px rgba(239, 68, 68, 0.3), 0 0 40px rgba(239, 68, 68, 0.2)'
             }}
+            suppressHydrationWarning
           >
             {loadingMessage}
           </p>
@@ -526,7 +528,7 @@ export default function SmartTaskManager() {
   }
 
   return (
-    <div className="relative h-screen overflow-hidden" style={{ backgroundColor: '#fef9ed' }}>
+    <div className="relative h-screen overflow-hidden" style={{ backgroundColor: '#fef9ed', fontFamily: "'Fredoka', sans-serif" }}>
       {/* Staggered Menu Navigation */}
       <StaggeredMenu
         position="right"
@@ -539,7 +541,6 @@ export default function SmartTaskManager() {
           { label: 'Smart Task Manager', ariaLabel: 'Go to feature 5', link: '/fitur-5', color: '#ef4444' },
           { label: 'Project Colabollator', ariaLabel: 'Go to feature 6', link: '/fitur-6' }
         ]}
-        logoUrl="/AICAMPUS.png"
         displaySocials={false}
         displayItemNumbering={true}
         menuButtonColor="#fff"
@@ -547,14 +548,39 @@ export default function SmartTaskManager() {
         accentColor="#ffffff"
         changeMenuColorOnOpen={true}
         isFixed={true}
+        logoUrl=""
       />
+
+      {/* Language Toggle - Top Right */}
+      <div className="fixed top-4 sm:top-6 md:top-8 right-4 sm:right-8 md:right-80 z-[9999] flex items-center gap-2 pointer-events-auto">
+        <button
+          onClick={() => setLanguage('id')}
+          className={`relative px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
+            language === 'id'
+              ? 'bg-red-500 text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-red-600'
+              : 'bg-white text-black border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-100'
+          }`}
+        >
+          ID
+        </button>
+        <button
+          onClick={() => setLanguage('en')}
+          className={`relative px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer ${
+            language === 'en'
+              ? 'bg-red-500 text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-red-600'
+              : 'bg-white text-black border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:bg-gray-100'
+          }`}
+        >
+          EN
+        </button>
+      </div>
 
       {/* Main Content with z-index */}
       <div className="relative z-10 h-screen flex flex-col overflow-hidden">
       {/* Top Header */}
       <div className="bg-white/80 backdrop-blur-md border-b-2 border-black p-3 sm:p-4">
         <h1
-          className="text-xl sm:text-2xl p-5 md:text-3xl font-bold text-black text-center"
+          className="text-2xl sm:text-3xl pt-15 pb-10 md:text-4xl lg:text-5xl font-bold text-black text-center"
           style={{
             fontFamily: "'Organic Relief', sans-serif"
           }}
@@ -568,7 +594,7 @@ export default function SmartTaskManager() {
         {/* Left Side - Task List */}
         <div className="flex-1 flex flex-col">
           {/* HEADER FILTER */}
-          <div className="bg-white/60 backdrop-blur-xl border-b-2 border-black p-4">
+          <div className="bg-white border-b-2 border-black p-4">
             <div className="flex items-center justify-between relative">
               {/* Custom Dropdown Button for Mata Kuliah */}
               <div className="relative">
@@ -585,7 +611,13 @@ export default function SmartTaskManager() {
 
                 {/* Dropdown Menu - Only Mata Kuliah */}
                 {showFilterDropdown && (
-                  <div className="absolute top-full left-0 mt-2 w-[400px] bg-white/95 backdrop-blur-xl border-2 border-black rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] z-50 p-6">
+                  <>
+                    {/* Backdrop overlay */}
+                    <div
+                      className="fixed inset-0 z-[9998]"
+                      onClick={() => setShowFilterDropdown(false)}
+                    />
+                    <div className="absolute top-full left-0 mt-2 w-[400px] bg-white border-2 border-black rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] z-[9999] p-6">
                     <h3 className="text-black font-bold text-sm mb-3 flex items-center gap-2">
                       <Image src="/TASKICON.png" alt="Task" width={20} height={20} className="object-contain" /> {t('tasks.filter.selectCategory')}
                     </h3>
@@ -625,6 +657,7 @@ export default function SmartTaskManager() {
                       ))}
                     </div>
                   </div>
+                  </>
                 )}
               </div>
 
@@ -792,7 +825,7 @@ export default function SmartTaskManager() {
         </div>
 
         {/* Right Side - STATISTIK (30%) */}
-        <div className="w-[30%] bg-white/60 backdrop-blur-xl border-l-2 border-black flex flex-col overflow-hidden">
+        <div className="w-[30%] bg-white border-l-2 border-black flex flex-col overflow-hidden">
           <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
             {renderStatistics()}
           </div>
