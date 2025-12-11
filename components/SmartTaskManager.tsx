@@ -2,12 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { supabase } from '@/lib/supabase';
 import { Pie } from 'react-chartjs-2';
-import ParticleBackground from '@/components/ParticleBackground';
+import StaggeredMenu from '@/components/StaggeredMenu';
 import { Atom } from 'react-loading-indicators';
 import {
   Chart as ChartJS,
@@ -359,106 +358,106 @@ export default function SmartTaskManager() {
     return (
       <div className="space-y-4">
         {/* Statistik Header */}
-        <h2 className="text-2xl font-bold text-white">{t('tasks.stats.statistics')}</h2>
+        <h2 className="text-2xl font-bold text-black">{t('tasks.stats.statistics')}</h2>
 
-        {/* Stats Cards - 4 boxes in single row */}
-        <div className="grid grid-cols-4 gap-2">
-          {/* Total - Blue Transparent */}
+        {/* Stats Cards - 2x2 grid */}
+        <div className="grid grid-cols-2 gap-2">
+          {/* Total - Blue */}
           <button
             onClick={() => {
               setFilterCategory('all');
               setFilterStatus('all');
             }}
-            className="bg-blue-500/20 backdrop-blur-md rounded-lg p-3 shadow-xl border border-blue-500/30 hover:-translate-y-1 transition-all duration-300 cursor-pointer hover:border-blue-400 hover:shadow-[0_0_20px_rgba(59,130,246,0.5)]"
+            className="bg-blue-400 rounded-lg p-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 cursor-pointer"
           >
             <div className="flex flex-col items-center text-center">
-              <svg className="w-5 h-5 text-blue-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-white mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
-              <h3 className="text-blue-300 text-[10px] font-semibold mb-0.5">{t('tasks.stats.total')}</h3>
+              <h3 className="text-white text-[10px] font-bold mb-0.5">{t('tasks.stats.total')}</h3>
               <p className="text-xl font-bold text-white">{stats.total}</p>
             </div>
           </button>
 
-          {/* Selesai - Green Transparent */}
+          {/* Selesai - Green */}
           <button
             onClick={() => {
               setFilterStatus('completed');
             }}
-            className="bg-green-500/20 backdrop-blur-md rounded-lg p-3 shadow-xl border border-green-500/30 hover:-translate-y-1 transition-all duration-300 cursor-pointer hover:border-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.5)]"
+            className="bg-green-500 rounded-lg p-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 cursor-pointer"
           >
             <div className="flex flex-col items-center text-center">
-              <svg className="w-5 h-5 text-green-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-white mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <h3 className="text-green-300 text-[10px] font-semibold mb-0.5">{t('tasks.stats.completed')}</h3>
+              <h3 className="text-white text-[10px] font-bold mb-0.5">{t('tasks.stats.completed')}</h3>
               <p className="text-xl font-bold text-white">{stats.completed}</p>
             </div>
           </button>
 
-          {/* Pending - Yellow Transparent */}
+          {/* Pending - Yellow */}
           <button
             onClick={() => {
               setFilterStatus('pending');
             }}
-            className="bg-yellow-500/20 backdrop-blur-md rounded-lg p-3 shadow-xl border border-yellow-500/30 hover:-translate-y-1 transition-all duration-300 cursor-pointer hover:border-yellow-400 hover:shadow-[0_0_20px_rgba(234,179,8,0.5)]"
+            className="bg-yellow-400 rounded-lg p-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 cursor-pointer"
           >
             <div className="flex flex-col items-center text-center">
-              <svg className="w-5 h-5 text-yellow-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-black mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <h3 className="text-yellow-300 text-[10px] font-semibold mb-0.5">{t('tasks.stats.pending')}</h3>
-              <p className="text-xl font-bold text-white">{stats.pending}</p>
+              <h3 className="text-black text-[10px] font-bold mb-0.5">{t('tasks.stats.pending')}</h3>
+              <p className="text-xl font-bold text-black">{stats.pending}</p>
             </div>
           </button>
 
-          {/* Terlambat - Red Transparent */}
+          {/* Terlambat - Red */}
           <button
             onClick={() => {
               setFilterStatus('pending');
             }}
-            className="bg-red-500/20 backdrop-blur-md rounded-lg p-3 shadow-xl border border-red-500/30 hover:-translate-y-1 transition-all duration-300 cursor-pointer hover:border-red-400 hover:shadow-[0_0_20px_rgba(239,68,68,0.5)]"
+            className="bg-red-500 rounded-lg p-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 cursor-pointer"
           >
             <div className="flex flex-col items-center text-center">
-              <svg className="w-5 h-5 text-red-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-white mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
-              <h3 className="text-red-300 text-[10px] font-semibold mb-0.5">{t('tasks.stats.overdue')}</h3>
+              <h3 className="text-white text-[10px] font-bold mb-0.5">{t('tasks.stats.overdue')}</h3>
               <p className="text-xl font-bold text-white">{stats.overdue}</p>
             </div>
           </button>
         </div>
 
-        {/* Pie Chart - Black Glassmorphism */}
-        <div className="bg-gray-900/40 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-gray-700/50">
-          <h3 className="text-white font-bold text-sm mb-3">{t('tasks.chart.distribution')}</h3>
+        {/* Pie Chart */}
+        <div className="bg-white rounded-lg p-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <h3 className="text-black font-bold text-sm mb-3">{t('tasks.chart.distribution')}</h3>
           {stats.total > 0 ? (
             <div className="h-48 flex items-center justify-center">
-              <div className="w-40 h-40">
+              <div className="relative w-40 h-40 rounded-full border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-2 bg-white">
                 <Pie data={pieChartData} options={pieChartOptions} />
               </div>
             </div>
           ) : (
             <div className="h-48 flex items-center justify-center">
-              <p className="text-gray-400 text-sm">{t('tasks.chart.noData')}</p>
+              <p className="text-gray-600 text-sm">{t('tasks.chart.noData')}</p>
             </div>
           )}
         </div>
 
-        {/* Progress - Black Glassmorphism */}
-        <div className="bg-gray-900/40 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-gray-700/50">
-          <h3 className="text-white font-bold text-sm mb-3">{t('tasks.stats.progress')}</h3>
+        {/* Progress */}
+        <div className="bg-white rounded-lg p-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <h3 className="text-black font-bold text-sm mb-3">{t('tasks.stats.progress')}</h3>
           <div className="space-y-3">
             <div>
               <div className="flex justify-between text-xs mb-2">
-                <span className="text-gray-300">{t('tasks.stats.completionRate')}</span>
-                <span className="text-white font-semibold">
+                <span className="text-gray-700">{t('tasks.stats.completionRate')}</span>
+                <span className="text-black font-bold">
                   {stats.total > 0 ? Math.round((stats.completed / stats.total) * 100) : 0}%
                 </span>
               </div>
-              <div className="w-full bg-gray-700/50 rounded-full h-3 border border-gray-600/30">
+              <div className="w-full bg-gray-200 rounded-full h-3 border-2 border-black">
                 <div
-                  className="bg-gradient-to-r from-white to-gray-300 h-3 rounded-full transition-all duration-500 shadow-lg"
+                  className="bg-green-500 h-full rounded-full transition-all duration-500"
                   style={{ width: `${stats.total > 0 ? (stats.completed / stats.total) * 100 : 0}%` }}
                 ></div>
               </div>
@@ -466,12 +465,12 @@ export default function SmartTaskManager() {
           </div>
         </div>
 
-        {/* Category Breakdown - Black Glassmorphism */}
-        <div className="bg-gray-900/40 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-gray-700/50">
-          <h3 className="text-white font-bold text-sm mb-3">{t('tasks.stats.categoryBreakdown')}</h3>
+        {/* Category Breakdown */}
+        <div className="bg-white rounded-lg p-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <h3 className="text-black font-bold text-sm mb-3">{t('tasks.stats.categoryBreakdown')}</h3>
           {getUniqueCategories().length === 0 ? (
             <div className="text-center py-6">
-              <p className="text-gray-300 text-xs">{t('tasks.stats.noCategory')}</p>
+              <p className="text-gray-700 text-xs">{t('tasks.stats.noCategory')}</p>
               <p className="text-gray-500 text-xs mt-1">{t('tasks.stats.noCategoryDesc')}</p>
             </div>
           ) : (
@@ -479,17 +478,17 @@ export default function SmartTaskManager() {
               {getUniqueCategories().map((cat) => {
                 const count = tasks.filter(t => t.category === cat).length;
                 return (
-                  <div key={cat} className="group hover:scale-[1.02] transition-all duration-300">
+                  <div key={cat} className="group">
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-sm">📖</span>
                       <div className="flex-1 flex justify-between items-center">
-                        <span className="text-white font-semibold text-[10px] truncate">{cat}</span>
-                        <span className="text-gray-300 text-[10px] ml-2">{count}</span>
+                        <span className="text-black font-bold text-[10px] truncate">{cat}</span>
+                        <span className="text-gray-700 text-[10px] ml-2">{count}</span>
                       </div>
                     </div>
-                    <div className="w-full bg-gray-700/50 rounded-full h-1 border border-gray-600/30">
+                    <div className="w-full bg-gray-200 rounded-full h-2 border-2 border-black">
                       <div
-                        className="h-1 rounded-full transition-all duration-500 bg-gradient-to-r from-white to-gray-300"
+                        className="h-full rounded-full transition-all duration-500 bg-blue-400"
                         style={{
                           width: `${stats.total > 0 ? (count / stats.total) * 100 : 0}%`
                         }}
@@ -508,59 +507,74 @@ export default function SmartTaskManager() {
 
   if (loading || isLoading || !hasInitialized) {
     return (
-      <div className="flex items-center justify-center h-screen bg-black">
-        <div className="text-center">
-          <Atom color="#06b6d4" size="large" />
-          <p className="text-white text-lg mt-6">{loadingMessage}</p>
+      <div className="relative h-screen overflow-hidden flex items-center justify-center" style={{ backgroundColor: '#fef9ed' }}>
+        <div className="relative z-10 text-center px-4">
+          <div className="mb-6 sm:mb-8">
+            <Atom color="#ef4444" size="medium" text="" textColor="#ef4444" />
+          </div>
+          <p
+            className="text-gray-800 text-lg sm:text-xl md:text-2xl font-semibold"
+            style={{
+              textShadow: '0 0 20px rgba(239, 68, 68, 0.3), 0 0 40px rgba(239, 68, 68, 0.2)'
+            }}
+          >
+            {loadingMessage}
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="relative h-screen flex flex-col overflow-hidden">
-      {/* Particle Background */}
-      <ParticleBackground />
+    <div className="relative h-screen overflow-hidden" style={{ backgroundColor: '#fef9ed' }}>
+      {/* Staggered Menu Navigation */}
+      <StaggeredMenu
+        position="right"
+        colors={['#0a0a0a', '#1a1a1a', '#2a2a2a']}
+        items={[
+          { label: 'HOME', ariaLabel: 'Go to home page', link: '/' },
+          { label: 'AI Campus Chatbot', ariaLabel: 'Go to feature 1', link: '/fitur-1' },
+          { label: 'Smart Schedule', ariaLabel: 'Go to feature 3', link: '/fitur-3' },
+          { label: 'Peer Connect', ariaLabel: 'Go to feature 4', link: '/fitur-4' },
+          { label: 'Smart Task Manager', ariaLabel: 'Go to feature 5', link: '/fitur-5', color: '#ef4444' },
+          { label: 'Project Colabollator', ariaLabel: 'Go to feature 6', link: '/fitur-6' }
+        ]}
+        logoUrl="/AICAMPUS.png"
+        displaySocials={false}
+        displayItemNumbering={true}
+        menuButtonColor="#fff"
+        openMenuButtonColor="#fff"
+        accentColor="#ffffff"
+        changeMenuColorOnOpen={true}
+        isFixed={true}
+      />
 
       {/* Main Content with z-index */}
       <div className="relative z-10 h-screen flex flex-col overflow-hidden">
-      {/* Top Headers Row */}
-      <div className="flex">
-        {/* Left Header - HEADER with Logo */}
-        <div className="w-[70%] bg-black/880 p-4 flex items-center justify-start pl-6">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="hover:opacity-80 transition-opacity cursor-pointer">
-              <Image
-                src="/AICAMPUS.png"
-                alt="AI Campus Logo"
-                width={50}
-                height={50}
-                className="object-contain"
-              />
-            </Link>
-            <h1 className="text-2xl font-bold text-white"style={{ textShadow: '0 0 8px rgba(255, 255, 255, 0.97)' }}>
-              {t('tasks.title')}
-            </h1>
-          </div>
-        </div>
-
-        {/* Right Header - Empty space for consistency */}
-        <div className="w-[30%] bg-black/880">
-        </div>
+      {/* Top Header */}
+      <div className="bg-white/80 backdrop-blur-md border-b-2 border-black p-3 sm:p-4">
+        <h1
+          className="text-xl sm:text-2xl p-5 md:text-3xl font-bold text-black text-center"
+          style={{
+            fontFamily: "'Organic Relief', sans-serif"
+          }}
+        >
+          {t('tasks.title').toUpperCase()}
+        </h1>
       </div>
 
       {/* Main Content Row */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Left Side - 70% */}
-        <div className="w-[70%] flex flex-col">
+        {/* Left Side - Task List */}
+        <div className="flex-1 flex flex-col">
           {/* HEADER FILTER */}
-          <div className="bg-black/890 p-4">
+          <div className="bg-white/60 backdrop-blur-xl border-b-2 border-black p-4">
             <div className="flex items-center justify-between relative">
               {/* Custom Dropdown Button for Mata Kuliah */}
               <div className="relative">
                 <button
                   onClick={() => setShowFilterDropdown(!showFilterDropdown)}
-                  className="px-6 py-3 rounded-xl font-semibold bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-white/50 hover:bg-gray-700 transition-all duration-300 cursor-pointer flex items-center gap-2"
+                  className="px-6 py-3 rounded-lg font-bold bg-white text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 flex items-center gap-2"
                 >
                   <Image src="/TASKICON.png" alt="Task" width={20} height={20} className="object-contain" />
                   {filterCategory === 'all' ? t('tasks.filter.category') : filterCategory}
@@ -571,8 +585,8 @@ export default function SmartTaskManager() {
 
                 {/* Dropdown Menu - Only Mata Kuliah */}
                 {showFilterDropdown && (
-                  <div className="absolute top-full left-0 mt-2 w-[400px] bg-gray-900/95 backdrop-blur-xl border-2 border-gray-700/50 rounded-2xl shadow-2xl z-50 p-6">
-                    <h3 className="text-white font-bold text-sm mb-3 flex items-center gap-2">
+                  <div className="absolute top-full left-0 mt-2 w-[400px] bg-white/95 backdrop-blur-xl border-2 border-black rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] z-50 p-6">
+                    <h3 className="text-black font-bold text-sm mb-3 flex items-center gap-2">
                       <Image src="/TASKICON.png" alt="Task" width={20} height={20} className="object-contain" /> {t('tasks.filter.selectCategory')}
                     </h3>
                     <div className="space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar">
@@ -581,14 +595,14 @@ export default function SmartTaskManager() {
                           setFilterCategory('all');
                           setShowFilterDropdown(false);
                         }}
-                        className={`w-full p-4 rounded-xl border-2 transition-all duration-300 text-left ${
+                        className={`w-full p-4 rounded-lg border-2 transition-all duration-200 text-left ${
                           filterCategory === 'all'
-                            ? 'bg-white/10 border-white text-white'
-                            : 'bg-gray-800/50 border-gray-700/50 text-gray-300 hover:bg-gray-700/50 hover:border-gray-600'
+                            ? 'bg-red-500 border-black text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
+                            : 'bg-white border-black text-black hover:translate-x-[2px] hover:translate-y-[2px] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
                         }`}
                       >
                         <div className="font-semibold text-sm">{t('tasks.filter.category')}</div>
-                        <div className="text-xs text-gray-400 mt-1">{t('tasks.empty.description')}</div>
+                        <div className="text-xs opacity-70 mt-1">{t('tasks.empty.description')}</div>
                       </button>
                       {getUniqueCategories().map((cat) => (
                         <button
@@ -597,14 +611,14 @@ export default function SmartTaskManager() {
                             setFilterCategory(cat);
                             setShowFilterDropdown(false);
                           }}
-                          className={`w-full p-4 rounded-xl border-2 transition-all duration-300 text-left ${
+                          className={`w-full p-4 rounded-lg border-2 transition-all duration-200 text-left ${
                             filterCategory === cat
-                              ? 'bg-white/10 border-white text-white'
-                              : 'bg-gray-800/50 border-gray-700/50 text-gray-300 hover:bg-gray-700/50 hover:border-gray-600'
+                              ? 'bg-red-500 border-black text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
+                              : 'bg-white border-black text-black hover:translate-x-[2px] hover:translate-y-[2px] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
                           }`}
                         >
                           <div className="font-semibold text-sm">{cat}</div>
-                          <div className="text-xs text-gray-400 mt-1">
+                          <div className="text-xs opacity-70 mt-1">
                             {tasks.filter(t => t.category === cat).length} {t('tasks.count')}
                           </div>
                         </button>
@@ -618,30 +632,30 @@ export default function SmartTaskManager() {
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setFilterStatus('all')}
-                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                  className={`px-4 py-2 rounded-lg text-sm font-bold border-2 border-black transition-all duration-200 ${
                     filterStatus === 'all'
-                      ? 'bg-white text-black shadow-lg scale-105'
-                      : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 border border-gray-700'
+                      ? 'bg-red-500 text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
+                      : 'bg-white text-black hover:translate-x-[2px] hover:translate-y-[2px] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
                   }`}
                 >
                   {t('tasks.status.all')}
                 </button>
                 <button
                   onClick={() => setFilterStatus('pending')}
-                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                  className={`px-4 py-2 rounded-lg text-sm font-bold border-2 border-black transition-all duration-200 ${
                     filterStatus === 'pending'
-                      ? 'bg-white text-black shadow-lg scale-105'
-                      : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 border border-gray-700'
+                      ? 'bg-red-500 text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
+                      : 'bg-white text-black hover:translate-x-[2px] hover:translate-y-[2px] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
                   }`}
                 >
                   {t('tasks.status.pending')}
                 </button>
                 <button
                   onClick={() => setFilterStatus('completed')}
-                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                  className={`px-4 py-2 rounded-lg text-sm font-bold border-2 border-black transition-all duration-200 ${
                     filterStatus === 'completed'
-                      ? 'bg-white text-black shadow-lg scale-105'
-                      : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 border border-gray-700'
+                      ? 'bg-red-500 text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
+                      : 'bg-white text-black hover:translate-x-[2px] hover:translate-y-[2px] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
                   }`}
                 >
                   {t('tasks.status.completed')}
@@ -651,22 +665,22 @@ export default function SmartTaskManager() {
           </div>
 
           {/* Main Content Area */}
-          <div className="flex-1 bg-black/880 overflow-y-auto p-6">
+          <div className="flex-1 overflow-y-auto p-6 custom-scrollbar" style={{ backgroundColor: '#fef9ed' }}>
             {/* Task list content here */}
             {filteredTasks.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full">
                 <div className="text-center">
                   <div className="w-32 h-32 mx-auto mb-6 relative">
-                    <svg className="w-full h-full text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-full h-full text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">{t('tasks.empty.title')}</h3>
-                  <p className="text-gray-400 mb-6">{t('tasks.empty.description')}</p>
+                  <h3 className="text-2xl font-bold text-black mb-2">{t('tasks.empty.title')}</h3>
+                  <p className="text-gray-600 mb-6">{t('tasks.empty.description')}</p>
                   {/* Tambah Tugas Button - Moved here */}
                   <button
                     onClick={() => setShowAddModal(true)}
-                    className="bg-gray-800 text-white px-8 py-3 rounded-xl font-bold hover:bg-gray-700 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 mx-auto shadow-lg"
+                    className="bg-red-500 text-white px-8 py-3 rounded-lg font-bold border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 flex items-center justify-center gap-2 mx-auto"
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -685,15 +699,15 @@ export default function SmartTaskManager() {
                   return (
                     <div
                       key={task.id}
-                      className="bg-gray-800/50 backdrop-blur-md rounded-xl p-6 border border-gray-700/50 hover:border-gray-600/70 transition-all duration-300 hover:shadow-lg shadow-xl hover:-translate-y-2 cursor-pointer"
+                      className="bg-white rounded-lg p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200"
                     >
                       <div className="flex items-start gap-4">
                         <button
                           onClick={() => handleToggleComplete(task.id)}
-                          className={`flex-shrink-0 w-7 h-7 rounded-full border-2 transition-all duration-300 ${
+                          className={`flex-shrink-0 w-7 h-7 rounded-full border-2 border-black transition-all duration-200 ${
                             task.completed
-                              ? 'bg-green-500 border-green-500'
-                              : 'border-gray-500 hover:border-gray-400 bg-gray-900/50'
+                              ? 'bg-green-500'
+                              : 'bg-white hover:bg-gray-100'
                           }`}
                         >
                           {task.completed && (
@@ -705,12 +719,12 @@ export default function SmartTaskManager() {
 
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between gap-4 mb-3">
-                            <h3 className={`text-lg font-bold text-white ${task.completed ? 'line-through opacity-60' : ''}`}>
+                            <h3 className={`text-lg font-bold text-black ${task.completed ? 'line-through opacity-60' : ''}`}>
                               {task.title}
                             </h3>
                             <button
                               onClick={() => handleDeleteTask(task.id)}
-                              className="flex-shrink-0 text-red-400 hover:text-red-300 transition-colors"
+                              className="flex-shrink-0 text-red-500 hover:text-red-600 transition-colors"
                             >
                               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -719,36 +733,33 @@ export default function SmartTaskManager() {
                           </div>
 
                           {task.description && (
-                            <p className={`text-gray-300 text-sm mb-4 ${task.completed ? 'line-through opacity-60' : ''}`}>
+                            <p className={`text-gray-700 text-sm mb-4 ${task.completed ? 'line-through opacity-60' : ''}`}>
                               {task.description}
                             </p>
                           )}
 
-                          <div className="flex flex-wrap items-center gap-3">
+                          <div className="flex flex-wrap items-center gap-2">
                             {task.category && (
-                              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-900/50 text-blue-200 border border-blue-700/50 backdrop-blur-sm flex items-center gap-1">
+                              <span className="px-3 py-1 rounded-lg text-xs font-bold bg-blue-100 text-blue-800 border-2 border-black flex items-center gap-1">
                                 <Image src="/TASKICON.png" alt="Task" width={14} height={14} className="object-contain" /> {task.category}
                               </span>
                             )}
 
-                            <span className={`px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm ${
+                            <span className={`px-3 py-1 rounded-lg text-xs font-bold border-2 border-black ${
                               task.priority === 'high'
-                                ? 'bg-red-900/50 text-red-200 border border-red-700/50'
+                                ? 'bg-red-500 text-white'
                                 : task.priority === 'medium'
-                                ? 'bg-yellow-900/50 text-yellow-200 border border-yellow-700/50'
-                                : 'bg-green-900/50 text-green-200 border border-green-700/50'
+                                ? 'bg-yellow-400 text-black'
+                                : 'bg-green-500 text-white'
                             }`}>
-                              {task.priority === 'high' && '🔴'}
-                              {task.priority === 'medium' && '🟡'}
-                              {task.priority === 'low' && '🟢'}
                               {t(`tasks.priorities.${task.priority}`).toUpperCase()}
                             </span>
 
                             {task.deadline && (
-                              <span className={`px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm flex items-center gap-1 ${
+                              <span className={`px-3 py-1 rounded-lg text-xs font-bold border-2 border-black flex items-center gap-1 ${
                                 isOverdue
-                                  ? 'bg-red-900/50 text-red-200 border border-red-700/50'
-                                  : 'bg-gray-700/50 text-gray-200 border border-gray-600/50'
+                                  ? 'bg-red-500 text-white'
+                                  : 'bg-gray-200 text-black'
                               }`}>
                                 <Image src="/TASKICON.png" alt="Task" width={14} height={14} className="object-contain" /> {new Date(task.deadline).toLocaleDateString('id-ID', {
                                   day: 'numeric',
@@ -768,7 +779,7 @@ export default function SmartTaskManager() {
                 {/* Tambah Tugas Button - At bottom of task list */}
                 <button
                   onClick={() => setShowAddModal(true)}
-                  className="w-full bg-gray-800 text-white py-4 rounded-xl font-bold hover:bg-gray-700 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
+                  className="w-full bg-red-500 text-white py-4 rounded-lg font-bold border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 flex items-center justify-center gap-2"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -781,8 +792,8 @@ export default function SmartTaskManager() {
         </div>
 
         {/* Right Side - STATISTIK (30%) */}
-        <div className="w-[30%] bg-black/880 flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-y-auto p-4">
+        <div className="w-[30%] bg-white/60 backdrop-blur-xl border-l-2 border-black flex flex-col overflow-hidden">
+          <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
             {renderStatistics()}
           </div>
         </div>
@@ -790,16 +801,16 @@ export default function SmartTaskManager() {
 
       {/* AI Assistant Modal */}
       {showAIModal && (
-        <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-gray-800/95 rounded-3xl p-8 max-w-3xl w-full border border-gray-700 animate-fade-in shadow-2xl max-h-[90vh] overflow-hidden flex flex-col">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg p-8 max-w-3xl w-full border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-fade-in max-h-[90vh] overflow-hidden flex flex-col">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+              <h2 className="text-2xl font-bold text-black flex items-center gap-3">
                 <Image src="/GEMINIICON.png" alt="AI Assistant" width={32} height={32} className="object-contain" />
                 {aiAnalysisType === 'prioritize' ? t('tasks.ai.prioritizeTitle') : t('tasks.ai.estimateTitle')}
               </h2>
               <button
                 onClick={() => setShowAIModal(false)}
-                className="text-gray-300 hover:text-white transition-colors hover:scale-110"
+                className="text-gray-700 hover:text-black transition-colors hover:scale-110"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -811,23 +822,23 @@ export default function SmartTaskManager() {
               {isAILoading ? (
                 <div className="flex flex-col items-center justify-center py-12">
                   <div className="flex gap-3 mb-6">
-                    <span className="w-4 h-4 bg-gray-400 rounded-full animate-bounce"></span>
+                    <span className="w-4 h-4 bg-red-500 rounded-full animate-bounce"></span>
                     <span
-                      className="w-4 h-4 bg-gray-400 rounded-full animate-bounce"
+                      className="w-4 h-4 bg-red-500 rounded-full animate-bounce"
                       style={{ animationDelay: '0.2s' }}
                     ></span>
                     <span
-                      className="w-4 h-4 bg-gray-400 rounded-full animate-bounce"
+                      className="w-4 h-4 bg-red-500 rounded-full animate-bounce"
                       style={{ animationDelay: '0.4s' }}
                     ></span>
                   </div>
-                  <p className="text-white text-lg">{t('tasks.ai.analyzing')}</p>
-                  <p className="text-gray-300 text-sm mt-2">{t('tasks.ai.wait')}</p>
+                  <p className="text-black text-lg font-bold">{t('tasks.ai.analyzing')}</p>
+                  <p className="text-gray-700 text-sm mt-2">{t('tasks.ai.wait')}</p>
                 </div>
               ) : (
-                <div className="bg-gray-900/60 rounded-2xl p-6 border border-gray-700">
-                  <div className="prose prose-invert max-w-none">
-                    <pre className="whitespace-pre-wrap font-sans text-gray-100 leading-relaxed text-sm">
+                <div className="bg-gray-100 rounded-lg p-6 border-2 border-black">
+                  <div className="prose max-w-none">
+                    <pre className="whitespace-pre-wrap font-sans text-gray-800 leading-relaxed text-sm">
                       {aiResponse}
                     </pre>
                   </div>
@@ -836,10 +847,10 @@ export default function SmartTaskManager() {
             </div>
 
             {!isAILoading && (
-              <div className="mt-6 pt-4 border-t border-gray-700">
+              <div className="mt-6 pt-4 border-t-2 border-black">
                 <button
                   onClick={() => setShowAIModal(false)}
-                  className="w-full bg-white/10 hover:bg-white/20 text-white py-3 rounded-xl font-bold transition-all duration-300 hover:scale-[1.02] border border-white/30"
+                  className="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-bold border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200"
                 >
                   {t('tasks.buttons.close')}
                 </button>
@@ -851,13 +862,13 @@ export default function SmartTaskManager() {
 
       {/* Add Task Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-gray-900/880 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-gradient-to-br from-gray-900 to-black rounded-3xl p-8 max-w-2xl w-full border border-gray-600/50 animate-fade-in shadow-2xl shadow-gray-500/20">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg p-8 max-w-2xl w-full border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-fade-in">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-white">{t('tasks.modal.addTitle')}</h2>
+              <h2 className="text-2xl font-bold text-black">{t('tasks.modal.addTitle')}</h2>
               <button
                 onClick={() => setShowAddModal(false)}
-                className="text-gray-400 hover:text-white transition-colors hover:scale-110"
+                className="text-gray-700 hover:text-black transition-colors hover:scale-110"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -867,37 +878,37 @@ export default function SmartTaskManager() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-gray-300 font-semibold mb-2">{t('tasks.form.title')}</label>
+                <label className="block text-black font-bold mb-2">{t('tasks.form.title')}</label>
                 <input
                   type="text"
                   value={newTask.title}
                   onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
                   placeholder={t('tasks.placeholders.title')}
-                  className="w-full bg-gray-800/70 text-white rounded-xl px-4 py-3 border border-gray-600/50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition-all"
+                  className="w-full bg-gray-100 text-black rounded-lg px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-red-500 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-gray-300 font-semibold mb-2">{t('tasks.form.description')}</label>
+                <label className="block text-black font-bold mb-2">{t('tasks.form.description')}</label>
                 <textarea
                   value={newTask.description}
                   onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
                   placeholder={t('tasks.placeholders.description')}
                   rows={3}
-                  className="w-full bg-gray-800/70 text-white rounded-xl px-4 py-3 border border-gray-600/50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition-all"
+                  className="w-full bg-gray-100 text-black rounded-lg px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-red-500 transition-all"
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-gray-300 font-semibold mb-2">{t('tasks.form.category')}</label>
+                  <label className="block text-black font-bold mb-2">{t('tasks.form.category')}</label>
                   <input
                     type="text"
                     value={newTask.category}
                     onChange={(e) => setNewTask({ ...newTask, category: e.target.value })}
                     placeholder={t('tasks.placeholders.category')}
                     list="categories-list"
-                    className="w-full bg-gray-800/70 text-white rounded-xl px-4 py-3 border border-gray-600/50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition-all"
+                    className="w-full bg-gray-100 text-black rounded-lg px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-red-500 transition-all"
                   />
                   <datalist id="categories-list">
                     {getUniqueCategories().map(cat => (
@@ -907,11 +918,11 @@ export default function SmartTaskManager() {
                 </div>
 
                 <div>
-                  <label className="block text-gray-300 font-semibold mb-2">{t('tasks.form.priority')}</label>
+                  <label className="block text-black font-bold mb-2">{t('tasks.form.priority')}</label>
                   <select
                     value={newTask.priority}
                     onChange={(e) => setNewTask({ ...newTask, priority: e.target.value as any })}
-                    className="w-full bg-gray-800/70 text-white rounded-xl px-4 py-3 border border-gray-600/50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition-all"
+                    className="w-full bg-gray-100 text-black rounded-lg px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-red-500 transition-all"
                   >
                     <option value="low">{t('tasks.priorities.low')}</option>
                     <option value="medium">{t('tasks.priorities.medium')}</option>
@@ -920,12 +931,12 @@ export default function SmartTaskManager() {
                 </div>
 
                 <div>
-                  <label className="block text-gray-300 font-semibold mb-2">{t('tasks.form.deadline')}</label>
+                  <label className="block text-black font-bold mb-2">{t('tasks.form.deadline')}</label>
                   <input
                     type="date"
                     value={newTask.deadline}
                     onChange={(e) => setNewTask({ ...newTask, deadline: e.target.value })}
-                    className="w-full bg-gray-800/70 text-white rounded-xl px-4 py-3 border border-gray-600/50 focus:outline-none focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20 transition-all"
+                    className="w-full bg-gray-100 text-black rounded-lg px-4 py-3 border-2 border-black focus:outline-none focus:ring-2 focus:ring-red-500 transition-all"
                   />
                 </div>
               </div>
@@ -934,13 +945,13 @@ export default function SmartTaskManager() {
                 <button
                   onClick={handleAddTask}
                   disabled={!newTask.title.trim()}
-                  className="flex-1 bg-white text-black py-3 rounded-xl font-bold hover:shadow-xl hover:shadow-white/30 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed border border-gray-400"
+                  className="flex-1 bg-red-500 text-white py-3 rounded-lg font-bold border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {t('tasks.buttons.addTask')}
                 </button>
                 <button
                   onClick={() => setShowAddModal(false)}
-                  className="flex-1 bg-gray-800/70 text-gray-200 py-3 rounded-xl font-bold hover:bg-gray-700/70 transition-all duration-300 hover:scale-[1.02] border border-gray-600/50"
+                  className="flex-1 bg-gray-200 text-black py-3 rounded-lg font-bold border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200"
                 >
                   {t('tasks.buttons.cancel')}
                 </button>
