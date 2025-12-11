@@ -202,19 +202,19 @@
 }
 
 .sm-panel-item:hover .sm-panel-itemLabel {
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
-               0 0 40px rgba(255, 255, 255, 0.6);
+  text-shadow: none !important;
 }
 
 .sm-panel-itemLabel {
   display: block;
-  font-size: clamp(1.2rem, 1vw, 1rem);
-  font-weight: 700;
-  color: #fff;
-  line-height: 1.1;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: inherit !important;
+  line-height: 1.5 !important;
   will-change: transform;
-  transition: text-shadow 0.3s ease;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  transition: color 0.3s ease, text-shadow 0.3s ease !important;
+  text-shadow: none !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
 }
 
 /* Numbering */

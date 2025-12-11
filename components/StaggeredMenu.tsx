@@ -383,6 +383,14 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         <button
           ref={toggleBtnRef}
           className="sm-toggle"
+          style={{
+            backgroundColor: '#ef4444',
+            color: 'white',
+            padding: '0.75rem 1.5rem',
+            borderRadius: '0.5rem',
+            border: '2px solid black',
+            boxShadow: '4px 4px 0px 0px rgba(0,0,0,1)'
+          }}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="staggered-menu-panel"
@@ -405,7 +413,16 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         </button>
       </header>
 
-      <aside id="staggered-menu-panel" ref={panelRef} className="staggered-menu-panel" aria-hidden={!open}>
+      <aside
+        id="staggered-menu-panel"
+        ref={panelRef}
+        className="staggered-menu-panel"
+        aria-hidden={!open}
+        style={{
+          backgroundColor: '#fef9ed',
+          borderLeft: '4px solid black'
+        }}
+      >
         <div className="sm-panel-inner">
           <ul className="sm-panel-list" role="list" data-numbering={displayItemNumbering || undefined}>
             {items && items.length ? (
@@ -416,15 +433,28 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     href={it.link}
                     aria-label={it.ariaLabel}
                     data-index={idx + 1}
-                    style={it.color ? { color: it.color } : undefined}
+                    style={{
+                      backgroundColor: 'white',
+                      color: 'black',
+                      padding: '1rem 1.5rem',
+                      borderRadius: '0.5rem',
+                      border: '2px solid black',
+                      boxShadow: '4px 4px 0px 0px rgba(0,0,0,1)',
+                      display: 'block',
+                      marginBottom: '0.75rem',
+                      transition: 'background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                      willChange: 'background-color, color'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = it.color || '#ef4444';
+                      e.currentTarget.style.color = 'white';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'white';
+                      e.currentTarget.style.color = 'black';
+                    }}
                   >
-                    <span
-                      className="sm-panel-itemLabel"
-                      style={it.color ? {
-                        color: it.color,
-                        textShadow: `0 0 10px ${it.color}80, 0 0 20px ${it.color}60`
-                      } : undefined}
-                    >
+                    <span className="sm-panel-itemLabel">
                       {it.label}
                     </span>
                   </a>

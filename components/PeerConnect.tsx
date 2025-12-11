@@ -940,16 +940,16 @@ export default function PeerConnect() {
 
   if (isLoading) {
     return (
-      <div className="relative h-screen bg-black overflow-hidden flex items-center justify-center">
+      <div className="relative h-screen overflow-hidden flex items-center justify-center" style={{ backgroundColor: '#fef9ed' }}>
         <Particles />
         <div className="relative z-10 text-center px-4">
           <div className="mb-6 sm:mb-8">
             <Atom color="#84cc16" size="medium" text="" textColor="#84cc16" />
           </div>
           <p
-            className="text-white text-lg sm:text-xl md:text-2xl font-semibold"
+            className="text-gray-800 text-lg sm:text-xl md:text-2xl font-semibold"
             style={{
-              textShadow: '0 0 20px rgba(132, 204, 22, 0.9), 0 0 40px rgba(132, 204, 22, 0.6)'
+              textShadow: '0 0 20px rgba(132, 204, 22, 0.3), 0 0 40px rgba(132, 204, 22, 0.2)'
             }}
           >
             {loadingMessage}
@@ -960,7 +960,7 @@ export default function PeerConnect() {
   }
 
   return (
-    <div className="relative h-screen bg-black overflow-hidden">
+    <div className="relative h-screen overflow-hidden" style={{ backgroundColor: '#fef9ed' }}>
       <Particles />
 
       {/* Staggered Menu Navigation */}
@@ -970,13 +970,12 @@ export default function PeerConnect() {
         items={[
           { label: 'HOME', ariaLabel: 'Go to home page', link: '/' },
           { label: 'AI Campus Chatbot', ariaLabel: 'Go to feature 1', link: '/fitur-1' },
-          { label: 'Event Recomend', ariaLabel: 'Go to feature 2', link: '/fitur-2' },
           { label: 'Smart Schedule', ariaLabel: 'Go to feature 3', link: '/fitur-3' },
-          { label: 'Peer Connect', ariaLabel: 'Go to feature 4', link: '/fitur-4',  color: '#22c55e' },
+          { label: 'Peer Connect', ariaLabel: 'Go to feature 4', link: '/fitur-4', color: '#ef4444' },
           { label: 'Smart Task Manager', ariaLabel: 'Go to feature 5', link: '/fitur-5' },
           { label: 'Project Colabollator', ariaLabel: 'Go to feature 6', link: '/fitur-6' }
         ]}
-         logoUrl=""
+        logoUrl="/AICAMPUS.png"
         displaySocials={false}
         displayItemNumbering={true}
         menuButtonColor="#fff"
@@ -988,112 +987,39 @@ export default function PeerConnect() {
       {showChat && (
         <div className="relative z-10 h-screen flex flex-col">
           {/* Top Header */}
-          <div className="bg-black/50 backdrop-blur-md border-b border-gray-700 p-3 sm:p-4">
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white text-left flex items-center justify-start">
-              <Image
-                src="/AICAMPUS.png"
-                alt="Peer Connect Icon"
-                width={40}
-                height={40}
-                className="mr-2 sm:mr-3 w-8 h-8 sm:w-10 sm:h-10"
-              />
-              <span className="truncate">Peer Connect - Real Group Chat</span>
+          <div className="bg-white/80 backdrop-blur-md border-b-2 border-black p-3 sm:p-4">
+            <h1
+              className="text-xl sm:text-2xl p-5 md:text-3xl font-bold text-black text-center"
+              style={{
+                fontFamily: "'Organic Relief', sans-serif"
+              }}
+            >
+              PEER CONNECT - REAL GROUP CHAT
             </h1>
           </div>
 
           <div className="flex-1 flex overflow-hidden">
             {/* Left Sidebar - Group & Private Chat List */}
-            <div className="w-64 sm:w-72 md:w-80 bg-black/40 backdrop-blur-xl overflow-y-auto custom-scrollbar border-r border-gray-700/30">
+            <div className="w-64 sm:w-72 md:w-80 bg-white/60 backdrop-blur-xl overflow-y-auto custom-scrollbar border-r-2 border-black">
               {/* Group Chats Section */}
-              <div className="p-4 border-b border-black/50">
+              <div className="p-4 border-b-2 border-black">
                 <button
-                  className="w-full flex items-center justify-between text-white font-bold mb-3"
+                  className="w-full bg-white hover:bg-gray-100 text-black font-bold px-4 py-3 rounded-lg border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:scale-[1.02] mb-3"
                   onClick={() => setShowGroupChats(!showGroupChats)}
                 >
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src="/TEXTICON.png"
-                      alt="Group Chat Icon"
-                      width={15}
-                      height={15}
-                    />
-                    <h2>Group Chats ({groups.length})</h2>
-                  </div>
-                  <svg
-                    className={`w-4 h-4 transform transition-transform ${
-                      showGroupChats ? 'rotate-0' : '-rotate-90'
-                    }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    ></path>
-                  </svg>
-                </button>
-                {showGroupChats && (
-                  <div className="space-y-2">
-                    {groups.map(group => (
-                      <button
-                        key={group.id}
-                        onClick={() => handleGroupSelect(group)}
-                        className={`w-full text-left p-3 rounded-lg transition-all duration-300 cursor-pointer hover:scale-[1.02] group ${
-                          selectedGroup?.id === group.id
-                            ? 'bg-gradient-to-r from-lime-500/20 to-green-500/20 border border-lime-500/50 shadow-lg shadow-lime-500/20'
-                            : 'bg-gray-800/50 hover:bg-gray-800/80 border border-gray-700/50 hover:border-lime-500/30'
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="relative">
-                            <Image
-                              src={group.icon}
-                              alt={group.name}
-                              width={40}
-                              height={40}
-                              className="rounded-full ring-2 ring-lime-500/30 group-hover:ring-lime-500/60 transition-all duration-300"
-                            />
-                            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-lime-400 rounded-full border-2 border-black animate-pulse"></div>
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-white font-semibold truncate">{group.name}</p>
-                            <p className="text-gray-400 text-xs truncate">
-                              {group.memberCount} members
-                            </p>
-                          </div>
-                        </div>
-                        {group.lastMessage && (
-                          <p className="text-gray-500 text-xs mt-2 truncate">{group.lastMessage}</p>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Private Chats Section */}
-              {activePrivateChats.length > 0 && (
-               <div className="p-4 border-b border-black/50">
-                  <button
-                    className="w-full flex items-center justify-between text-white font-bold mb-3"
-                    onClick={() => setShowPrivateChats(!showPrivateChats)}
-                  >
+                  <div className="flex items-center justify-between w-full">
                     <div className="flex items-center gap-2">
-                    <Image
-                      src="/ORGICON.png"
-                      alt="Private Chat Icon"
-                      width={15}
-                      height={15}
-                    />
-                                         <h2>Private Chats ({activePrivateChats.length})</h2>
+                      <Image
+                        src="/TEXTICON.png"
+                        alt="Group Chat Icon"
+                        width={15}
+                        height={15}
+                      />
+                      <h2>Group Chats ({groups.length})</h2>
                     </div>
                     <svg
                       className={`w-4 h-4 transform transition-transform ${
-                        showPrivateChats ? 'rotate-0' : '-rotate-90'
+                        showGroupChats ? 'rotate-0' : '-rotate-90'
                       }`}
                       fill="none"
                       stroke="currentColor"
@@ -1107,9 +1033,83 @@ export default function PeerConnect() {
                         d="M19 9l-7 7-7-7"
                       ></path>
                     </svg>
+                  </div>
+                </button>
+                {showGroupChats && (
+                  <div className="space-y-2">
+                    {groups.map(group => (
+                      <button
+                        key={group.id}
+                        onClick={() => handleGroupSelect(group)}
+                        className={`w-full text-left p-3 rounded-lg transition-all duration-300 cursor-pointer hover:scale-[1.02] group ${
+                          selectedGroup?.id === group.id
+                            ? 'bg-red-500 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
+                            : 'bg-white hover:bg-gray-100 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="relative">
+                            <Image
+                              src={group.icon}
+                              alt={group.name}
+                              width={40}
+                              height={40}
+                              className="rounded-full border-2 border-black transition-all duration-300"
+                              style={{ boxShadow: '3px 3px 0px 0px rgba(0,0,0,1)' }}
+                            />
+                            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-black animate-pulse"></div>
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={`font-semibold truncate ${selectedGroup?.id === group.id ? 'text-white' : 'text-black'}`}>{group.name}</p>
+                            <p className={`text-xs truncate ${selectedGroup?.id === group.id ? 'text-white' : 'text-gray-600'}`}>
+                              {group.memberCount} members
+                            </p>
+                          </div>
+                        </div>
+                        {group.lastMessage && (
+                          <p className="text-gray-700 text-xs mt-2 truncate">{group.lastMessage}</p>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Private Chats Section */}
+              {activePrivateChats.length > 0 && (
+               <div className="p-4 border-b-2 border-black">
+                  <button
+                    className="w-full bg-white hover:bg-gray-100 text-black font-bold px-4 py-3 rounded-lg border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:scale-[1.02] mb-3"
+                    onClick={() => setShowPrivateChats(!showPrivateChats)}
+                  >
+                    <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center gap-2">
+                        <Image
+                          src="/ORGICON.png"
+                          alt="Private Chat Icon"
+                          width={15}
+                          height={15}
+                        />
+                        <h2>Private Chats ({activePrivateChats.length})</h2>
+                      </div>
+                      <svg
+                        className={`w-4 h-4 transform transition-transform ${
+                          showPrivateChats ? 'rotate-0' : '-rotate-90'
+                        }`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        ></path>
+                      </svg>
+                    </div>
                   </button>
-                  <h2 className="text-white font-bold mb-3">
-                  </h2>
                   {showPrivateChats && (
                     <div className="space-y-2">
                       {activePrivateChats.map(peer => (
@@ -1118,8 +1118,8 @@ export default function PeerConnect() {
                           onClick={() => handlePeerSelect(peer)}
                           className={`w-full text-left p-3 rounded-lg transition-all duration-300 cursor-pointer hover:scale-[1.02] group ${
                             selectedPeer?.id === peer.id
-                              ? 'bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/50 shadow-lg shadow-blue-500/20'
-                              : 'bg-gray-800/50 hover:bg-gray-800/80 border border-gray-700/50 hover:border-blue-500/30'
+                              ? 'bg-blue-400 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
+                              : 'bg-white hover:bg-gray-100 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
                           }`}
                         >
                           <div className="flex items-center gap-3">
@@ -1129,22 +1129,23 @@ export default function PeerConnect() {
                                 alt={peer.name}
                                 width={40}
                                 height={40}
-                                className="rounded-full object-cover ring-2 ring-blue-500/30 group-hover:ring-blue-500/60 transition-all duration-300"
+                                className="rounded-full object-cover border-2 border-black transition-all duration-300"
+                                style={{ boxShadow: '3px 3px 0px 0px rgba(0,0,0,1)' }}
                               />
                             ) : (
-                              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold ring-2 ring-blue-500/30 group-hover:ring-blue-500/60 transition-all duration-300 shadow-lg shadow-blue-500/50">
+                              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold border-2 border-black transition-all duration-300" style={{ boxShadow: '3px 3px 0px 0px rgba(0,0,0,1)' }}>
                                 {peer.name.charAt(0).toUpperCase()}
                               </div>
                             )}
                             <div className="flex-1">
-                              <p className="text-white font-semibold">{peer.name}</p>
+                              <p className="text-black font-semibold">{peer.name}</p>
                               <div className="flex items-center gap-1">
                                 <span
                                   className={`w-2 h-2 rounded-full ${
                                     peer.online ? 'bg-green-400' : 'bg-gray-500'
                                   }`}
                                 ></span>
-                                <p className="text-gray-400 text-xs">
+                                <p className="text-gray-600 text-xs">
                                   {peer.online ? 'Online' : 'Offline'}
                                 </p>
                               </div>
@@ -1162,7 +1163,7 @@ export default function PeerConnect() {
             <div className="flex-1 flex flex-col">
               {/* Chat Header */}
               {(selectedGroup || selectedPeer) && (
-                <div className="bg-black/50 backdrop-blur-md border-b border-gray-700 p-4">
+                <div className="bg-white/80 backdrop-blur-md border-b-2 border-black p-4">
                   {chatMode === 'group' && selectedGroup && (
                     <div className="flex items-center gap-4">
                       <Image
@@ -1170,11 +1171,12 @@ export default function PeerConnect() {
                         alt={selectedGroup.name}
                         width={48}
                         height={48}
-                        className="rounded-full"
+                        className="rounded-full border-2 border-black"
+                        style={{ boxShadow: '4px 4px 0px 0px rgba(0,0,0,1)' }}
                       />
                       <div className="flex-1">
-                        <h2 className="text-white font-bold text-xl">{selectedGroup.name}</h2>
-                        <p className="text-gray-400 text-sm">
+                        <h2 className="text-black font-bold text-xl">{selectedGroup.name}</h2>
+                        <p className="text-gray-600 text-sm">
                           {selectedGroup.memberCount} members • {selectedGroup.description}
                         </p>
                       </div>
@@ -1189,19 +1191,20 @@ export default function PeerConnect() {
                             alt={selectedPeer.name}
                             width={48}
                             height={48}
-                            className="rounded-full object-cover"
+                            className="rounded-full object-cover border-2 border-black"
+                            style={{ boxShadow: '4px 4px 0px 0px rgba(0,0,0,1)' }}
                           />
                         ) : (
-                          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl">
+                          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl border-2 border-black" style={{ boxShadow: '4px 4px 0px 0px rgba(0,0,0,1)' }}>
                             {selectedPeer.name.charAt(0).toUpperCase()}
                           </div>
                         )}
                         <div>
-                          <h2 className="text-white font-bold text-xl">{selectedPeer.name}</h2>
-                          <p className="text-gray-400 text-sm flex items-center gap-2">
+                          <h2 className="text-black font-bold text-xl">{selectedPeer.name}</h2>
+                          <p className="text-gray-600 text-sm flex items-center gap-2">
                             <span
                               className={`w-2 h-2 rounded-full ${
-                                selectedPeer.online ? 'bg-lime-400' : 'bg-gray-500'
+                                selectedPeer.online ? 'bg-green-500' : 'bg-gray-500'
                               }`}
                             ></span>
                             {selectedPeer.online ? 'Online' : 'Offline'}
@@ -1211,7 +1214,7 @@ export default function PeerConnect() {
                       {/* Video Call Button */}
                       <button
                         onClick={() => setIsVideoCallOpen(true)}
-                        className="flex items-center gap-2 bg-gradient-to-r from-green-500 to-lime-500 hover:from-green-600 hover:to-lime-600 text-white px-4 py-2 rounded-lg font-semibold transition-all hover:scale-105 shadow-lg hover:shadow-green-500/50"
+                        className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-bold transition-all hover:scale-105 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -1224,16 +1227,16 @@ export default function PeerConnect() {
               )}
 
               {/* Messages Area */}
-              <div className="flex-1 overflow-y-auto bg-transparent p-6 space-y-4 custom-scrollbar">
+              <div className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar" style={{ backgroundColor: '#fef9ed' }}>
                 {messages.length === 0 ? (
                   <div className="flex items-center justify-center h-full">
                     <div className="text-center animate-fade-in">
                       <div className="mb-4">
-                        <svg className="w-20 h-20 mx-auto text-gray-600 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-20 h-20 mx-auto text-gray-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                         </svg>
                       </div>
-                      <p className="text-gray-400 text-lg mb-2 font-semibold">No messages yet</p>
+                      <p className="text-gray-800 text-lg mb-2 font-semibold">No messages yet</p>
                       <p className="text-gray-600 text-sm">Be the first to send a message!</p>
                     </div>
                   </div>
@@ -1256,16 +1259,17 @@ export default function PeerConnect() {
                                 alt={message.senderName}
                                 width={40}
                                 height={40}
-                                className="rounded-full object-cover ring-2 ring-lime-500/30 group-hover:ring-lime-500/60 transition-all duration-300"
+                                className="rounded-full object-cover border-2 border-black transition-all duration-300"
+                                style={{ boxShadow: '3px 3px 0px 0px rgba(0,0,0,1)' }}
                               />
-                              <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-black animate-pulse-glow"></div>
+                              <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-black animate-pulse-glow"></div>
                             </div>
                           ) : (
                             <div className="relative">
-                              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-lime-500 to-green-500 flex items-center justify-center text-white font-bold ring-2 ring-lime-500/30 group-hover:ring-lime-500/60 transition-all duration-300 shadow-lg shadow-lime-500/50">
+                              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white font-bold border-2 border-black transition-all duration-300" style={{ boxShadow: '3px 3px 0px 0px rgba(0,0,0,1)' }}>
                                 {message.senderName.charAt(0).toUpperCase()}
                               </div>
-                              <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-black animate-pulse-glow"></div>
+                              <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-black animate-pulse-glow"></div>
                             </div>
                           )}
                         </div>
@@ -1273,30 +1277,30 @@ export default function PeerConnect() {
                       <div className={`max-w-lg ${message.isMe ? 'items-end' : 'items-start'}`}>
                         {!message.isMe && (
                           <p
-                            className="text-lime-400 text-sm font-semibold mb-1 cursor-pointer hover:text-lime-300 transition-colors duration-200 hover:scale-105 inline-block"
+                            className="text-black text-sm font-bold mb-1 cursor-pointer hover:text-red-600 transition-colors duration-200 hover:scale-105 inline-block"
                             onClick={() => handleUserProfileClick(message.senderId, message.senderName)}
                           >
                             {message.senderName}
                           </p>
                         )}
                         <div
-                          className={`rounded-2xl px-5 py-3 backdrop-blur-md transition-all duration-300 hover:scale-[1.02] ${
+                          className={`rounded-2xl px-5 py-3 transition-all duration-300 hover:scale-[1.02] ${
                             message.isMe
-                              ? 'bg-gradient-to-br from-lime-600 to-green-600 text-white shadow-lg shadow-lime-500/30 border border-lime-400/30 hover:shadow-lime-500/50'
-                              : 'bg-gray-800/80 text-white border border-gray-600/50 shadow-lg shadow-black/30 hover:border-gray-500/70 hover:bg-gray-800/90'
+                              ? 'bg-red-500 text-white border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
+                              : 'bg-white text-black border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
                           }`}
                         >
-                          <p className="text-sm leading-relaxed">{message.text}</p>
+                          <p className="text-sm leading-relaxed font-medium">{message.text}</p>
                         </div>
                         <div className={`flex items-center gap-2 mt-1 ${message.isMe ? 'justify-end' : 'justify-start'}`}>
-                          <p className="text-gray-500 text-xs">
+                          <p className="text-gray-600 text-xs">
                             {message.timestamp.toLocaleTimeString([], {
                               hour: '2-digit',
                               minute: '2-digit',
                             })}
                           </p>
                           {message.isMe && (
-                            <svg className="w-3 h-3 text-lime-400" fill="currentColor" viewBox="0 0 20 20">
+                            <svg className="w-3 h-3 text-red-500" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
                           )}
@@ -1310,7 +1314,7 @@ export default function PeerConnect() {
 
               {/* Input Area */}
               {(selectedGroup || selectedPeer) && (
-                <div className="bg-black/60 backdrop-blur-xl p-4 border-t border-gray-700/50">
+                <div className="bg-white/80 backdrop-blur-xl p-4 border-t-2 border-black">
                   <div className="flex gap-3 items-center">
                     <div className="flex-1 relative group">
                       <input
@@ -1323,7 +1327,7 @@ export default function PeerConnect() {
                             ? `Send a message to ${selectedGroup?.name}...`
                             : `Send a private message to ${selectedPeer?.name}...`
                         }
-                        className="w-full bg-gray-800/70 text-white rounded-full px-6 py-4 border-2 border-gray-600/50 focus:outline-none focus:border-lime-500 focus:ring-4 focus:ring-lime-500/20 transition-all duration-300 placeholder-gray-500 group-hover:border-gray-500/70"
+                        className="w-full bg-white text-black rounded-full px-6 py-4 border-2 border-black focus:outline-none focus:border-red-500 transition-all duration-300 placeholder-gray-500 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
                         disabled={isSending}
                       />
                       <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
@@ -1337,7 +1341,7 @@ export default function PeerConnect() {
                     <button
                       onClick={chatMode === 'group' ? handleSendMessage : handleSendPrivateMessage}
                       disabled={!inputMessage.trim() || isSending}
-                      className="relative bg-gradient-to-r from-lime-500 to-green-500 text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl hover:shadow-lime-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95 group overflow-hidden"
+                      className="relative bg-red-500 hover:bg-red-600 text-white px-8 py-4 rounded-full font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 active:scale-95 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
                     >
                       <span className="relative z-10 flex items-center gap-2">
                         {isSending ? (
@@ -1357,7 +1361,6 @@ export default function PeerConnect() {
                           </>
                         )}
                       </span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-lime-400 to-green-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </button>
                   </div>
                 </div>
@@ -1366,9 +1369,9 @@ export default function PeerConnect() {
 
             {/* Right Sidebar - Members List */}
             {selectedGroup && (
-              <div className="w-64 bg-black/40 backdrop-blur-xl overflow-y-auto custom-scrollbar border-l border-gray-700/30">
+              <div className="w-64 bg-white/60 backdrop-blur-xl overflow-y-auto custom-scrollbar border-l-2 border-black">
                 <div className="p-4">
-                  <h2 className="text-white font-bold mb-4">
+                  <h2 className="text-black font-bold mb-4">
                     Members ({selectedGroup.memberCount})
                   </h2>
                   <div className="space-y-2">
@@ -1378,8 +1381,8 @@ export default function PeerConnect() {
                         onClick={() => handlePeerSelect(member)}
                         className={`w-full text-left p-3 rounded-lg transition-all duration-300 cursor-pointer hover:scale-[1.02] group ${
                           selectedPeer?.id === member.id
-                            ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/50 shadow-lg shadow-purple-500/20'
-                            : 'bg-gray-800/50 hover:bg-gray-800/80 border border-gray-700/50 hover:border-purple-500/30'
+                            ? 'bg-purple-400 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
+                            : 'bg-white hover:bg-gray-100 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
                         }`}
                       >
                         <div className="flex items-center gap-3">
@@ -1389,22 +1392,23 @@ export default function PeerConnect() {
                               alt={member.name}
                               width={40}
                               height={40}
-                              className="rounded-full object-cover ring-2 ring-purple-500/30 group-hover:ring-purple-500/60 transition-all duration-300"
+                              className="rounded-full object-cover border-2 border-black transition-all duration-300"
+                              style={{ boxShadow: '3px 3px 0px 0px rgba(0,0,0,1)' }}
                             />
                           ) : (
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold ring-2 ring-purple-500/30 group-hover:ring-purple-500/60 transition-all duration-300 shadow-lg shadow-purple-500/50">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold border-2 border-black transition-all duration-300" style={{ boxShadow: '3px 3px 0px 0px rgba(0,0,0,1)' }}>
                               {member.name.charAt(0).toUpperCase()}
                             </div>
                           )}
                           <div className="flex-1">
-                            <p className="text-white font-semibold">{member.name}</p>
+                            <p className="text-black font-semibold">{member.name}</p>
                             <div className="flex items-center gap-1">
                               <span
                                 className={`w-2 h-2 rounded-full ${
                                   member.online ? 'bg-green-400' : 'bg-gray-500'
                                 }`}
                               ></span>
-                              <p className="text-gray-400 text-xs">
+                              <p className="text-gray-600 text-xs">
                                 {member.online ? 'Online' : 'Offline'}
                               </p>
                             </div>
