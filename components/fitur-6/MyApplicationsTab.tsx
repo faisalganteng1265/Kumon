@@ -5,6 +5,7 @@ import { getMyApplications } from '@/lib/supabase/projects';
 import type { ProjectApplication } from '@/types/projects';
 import { Loader2, Calendar, Briefcase, CheckCircle, XCircle, Clock } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import ProjectDetailModal from './ProjectDetailModal';
 
 interface MyApplicationsTabProps {
   userId: string;
@@ -14,6 +15,7 @@ export default function MyApplicationsTab({ userId }: MyApplicationsTabProps) {
   const { t } = useLanguage();
   const [applications, setApplications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedProject, setSelectedProject] = useState<any | null>(null);
 
   useEffect(() => {
     loadMyApplications();
