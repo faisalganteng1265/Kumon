@@ -389,7 +389,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             padding: '0.75rem 1.5rem',
             borderRadius: '0.5rem',
             border: '2px solid black',
-            boxShadow: '4px 4px 0px 0px rgba(0,0,0,1)'
+            boxShadow: '4px 4px 0px 0px rgba(0,0,0,1)',
+            fontFamily: "'Fredoka', sans-serif"
           }}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
@@ -443,7 +444,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                       display: 'block',
                       marginBottom: '0.75rem',
                       transition: 'background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                      willChange: 'background-color, color'
+                      willChange: 'background-color, color',
+                      fontFamily: "'Fredoka', sans-serif"
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.backgroundColor = it.color || '#ef4444';
@@ -469,7 +471,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             )}
           </ul>
           {displaySocials && socialItems && socialItems.length > 0 && (
-            <div className="sm-socials" aria-label="Social links">
+            <div className="sm-socials" aria-label="Social links" style={{ fontFamily: "'Fredoka', sans-serif" }}>
               <h3 className="sm-socials-title">Socials</h3>
               <ul className="sm-socials-list" role="list">
                 {socialItems.map((s, i) => (

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import AnimatedContent from './AnimatedContent';
-import ParticleBackground from './ParticleBackground';
 import StaggeredMenu from './StaggeredMenu';
 import CalendarView from './CalendarView';
 import dynamic from 'next/dynamic';
@@ -306,9 +305,6 @@ export default function SmartScheduleBuilder() {
 
   return (
     <div className="min-h-screen relative" style={{ backgroundColor: '#fef9ed' }}>
-      {/* Particle Background */}
-      <ParticleBackground />
-
       {/* Staggered Menu Navigation */}
       <StaggeredMenu
         position="right"
@@ -323,7 +319,6 @@ export default function SmartScheduleBuilder() {
         ]}
         displaySocials={false}
         displayItemNumbering={true}
-        logoUrl="/AICAMPUS.png"
         menuButtonColor="#fff"
         openMenuButtonColor="#fff"
         accentColor="#ffffff"
@@ -395,7 +390,7 @@ export default function SmartScheduleBuilder() {
 
               {/* LEFT SIDE - JADWAL KULIAH */}
               <AnimatedContent direction="horizontal" reverse={true} delay={0.2}>
-              <div className="space-y-6 bg-white p-8 rounded-3xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-2 border-black min-h-[500px] flex flex-col transition-all">
+              <div className="space-y-6 bg-white p-8 rounded-3xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-2 border-black min-h-[500px] flex flex-col transition-all" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                 {/* Clickable Header Box */}
                 <button
                   onClick={() => setShowPopup('jadwal')}
@@ -549,7 +544,7 @@ export default function SmartScheduleBuilder() {
 
               {/* RIGHT SIDE - KEGIATAN LAIN */}
               <AnimatedContent direction="horizontal" delay={0.2}>
-              <div className="space-y-6 bg-white p-8 rounded-3xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-2 border-black min-h-[500px] flex flex-col transition-all">
+              <div className="space-y-6 bg-white p-8 rounded-3xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-2 border-black min-h-[500px] flex flex-col transition-all" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                 {/* Clickable Header Box */}
                 <button
                   onClick={() => setShowPopup('kegiatan')}
@@ -1014,7 +1009,7 @@ export default function SmartScheduleBuilder() {
             onClick={(e) => e.stopPropagation()}
           >
             {showPopup === 'jadwal' && (
-              <div className="space-y-6">
+              <div className="space-y-6" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                 {/* Close Button */}
                 <div className="flex justify-end -mt-2 -mr-2 mb-2">
                   <button
@@ -1113,7 +1108,7 @@ export default function SmartScheduleBuilder() {
             )}
 
             {showPopup === 'kegiatan' && (
-              <div className="space-y-6">
+              <div className="space-y-6" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                 {/* Close Button */}
                 <div className="flex justify-end -mt-2 -mr-2 mb-2">
                   <button

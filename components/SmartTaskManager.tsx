@@ -578,9 +578,64 @@ export default function SmartTaskManager() {
       {/* Main Content with z-index */}
       <div className="relative z-10 h-screen flex flex-col overflow-hidden">
       {/* Top Header */}
-      <div className="bg-white/80 backdrop-blur-md border-b-2 border-black p-3 sm:p-4">
+      <div className="relative bg-white/80 backdrop-blur-md border-b-2 border-black p-3 sm:p-4 overflow-hidden">
+        {/* Cloud Decorations - Multiple clouds scattered at bottom */}
+        {/* Far Left */}
+        <Image
+          src="/awan1.png"
+          alt="Cloud decoration"
+          width={180}
+          height={130}
+          className="absolute bottom-2 left-4 opacity-100"
+        />
+
+        {/* Left Center */}
+        <Image
+          src="/awan1.png"
+          alt="Cloud decoration"
+          width={160}
+          height={115}
+          className="absolute bottom-25 left-[15%] opacity-100"
+        />
+
+        {/* Center Left */}
+        <Image
+          src="/awan1.png"
+          alt="Cloud decoration"
+          width={170}
+          height={120}
+          className="absolute top-30 left-[28%] opacity-100"
+        />
+
+        {/* Center Right */}
+        <Image
+          src="/awan1.png"
+          alt="Cloud decoration"
+          width={170}
+          height={120}
+          className="absolute bottom-35 right-[28%] opacity-100"
+        />
+
+        {/* Right Center */}
+        <Image
+          src="/awan1.png"
+          alt="Cloud decoration"
+          width={160}
+          height={115}
+          className="absolute bottom-1 right-[15%] opacity-100"
+        />
+
+        {/* Far Right */}
+        <Image
+          src="/awan1.png"
+          alt="Cloud decoration"
+          width={180}
+          height={130}
+          className="absolute bottom-10 right-1 opacity-100"
+        />
+
         <h1
-          className="text-2xl sm:text-3xl pt-15 pb-10 md:text-4xl lg:text-5xl font-bold text-black text-center"
+          className="text-2xl sm:text-3xl pt-15 pb-10 md:text-4xl lg:text-5xl font-bold text-black text-center relative z-10"
           style={{
             fontFamily: "'Organic Relief', sans-serif"
           }}

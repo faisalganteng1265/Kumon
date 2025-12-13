@@ -418,7 +418,7 @@ export default function ChatInterface() {
             </div>
 
             {/* Mode Selection */}
-            <div className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+            <div className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]" style={{ fontFamily: "'Fredoka', sans-serif" }}>
               <h3 className="text-black font-semibold mb-3 sm:mb-4 text-sm sm:text-base">
                 {t('chat.selectMode')}
               </h3>
@@ -478,7 +478,7 @@ export default function ChatInterface() {
 
             {/* University Selection - Hanya tampil jika mode campus */}
             {selectedMode === 'campus' && (
-              <div className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+              <div className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                 <label className="block text-black font-semibold mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base">
                   <Image src="/KAMPUSICON.png" alt="Kampus" width={32} height={32} className="object-contain w-6 h-6 sm:w-8 sm:h-8" />
                   {selectedUniversity && !isLoadingProfile ? t('chat.yourUniversity') : t('chat.selectUniversity')}
@@ -544,7 +544,7 @@ export default function ChatInterface() {
 
             {/* Question Selection - Campus Mode */}
             {selectedMode === 'campus' && (
-              <div className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+              <div className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                 <h3 className="text-black font-semibold mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
                   <Image src="/TANDATANYAICON.png" alt="Pertanyaan" width={12} height={12} className="object-contain w-3 h-3 sm:w-4 sm:h-4" />
                   {t('chat.selectQuestion')}
@@ -585,7 +585,7 @@ export default function ChatInterface() {
 
             {/* General Question Input - Untuk Mode Umum */}
             {selectedMode === 'general' && (
-              <div className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+              <div className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                 <label className="block text-black font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
                   <span className="text-lg sm:text-xl">✏️</span>
                   {t('chat.typeQuestion')}
@@ -630,7 +630,7 @@ export default function ChatInterface() {
 
             {/* Direct Answer Display - Only for Campus Mode */}
             {selectedMode === 'campus' && selectedQuestion && selectedUniversity && (
-              <div ref={answerSectionRef} className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+              <div ref={answerSectionRef} className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                 <h3 className="text-black font-semibold mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base">
                   <Image src="/ICONLAMPU.png" alt="Jawaban" width={24} height={24} className="object-contain w-5 h-5 sm:w-6 sm:h-6" />
                   {t('chat.answer')}
@@ -669,14 +669,14 @@ export default function ChatInterface() {
                 <div className="flex flex-col">
                   <h1 className="text-2xl font-bold text-black pt-10" style={{ fontFamily: "'Organic Relief', sans-serif" }}>
                     {selectedMode === 'challenge'
-                      ? t('chat.challengeMode')
+                      ? t('chat.challengeModeTitle')
                       : selectedMode === 'general'
                       ? t('chat.aiAssistant')
                       : t('chat.welcome')}
                   </h1>
                   <p className="text-black text-2xl mt-1 pt-5" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                     {selectedMode === 'challenge'
-                      ? challengeTopic || t('chat.challengeModeSubtitle')
+                      ? t('chat.challengeModeSubtitle')
                       : selectedMode === 'general'
                       ? t('chat.generalModeLabel')
                       : selectedUniversity}
@@ -704,7 +704,7 @@ export default function ChatInterface() {
           </div>
 
           {/* Messages Container */}
-          <div className="flex-1 overflow-y-auto p-2 space-y-6" style={{ backgroundColor: '#fef9ed' }}>
+          <div className="flex-1 overflow-y-auto p-6" style={{ backgroundColor: '#fef9ed' }}>
             <div className="max-w-4xl mx-auto space-y-6">
               {messages.map((message, index) => (
                 <div
@@ -748,17 +748,19 @@ export default function ChatInterface() {
                     {/* Message Bubble */}
                     <div className={`flex flex-col ${message.role === 'user' ? 'items-end' : 'items-start'}`}>
                       <div
-                        className={`rounded-3xl px-5 py-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
+                        className={`rounded-3xl px-5 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
                           message.role === 'user'
-                            ? 'bg-[#ff5757] text-white'
-                            : 'bg-white text-black'
+                            ? 'bg-[#ff5757] text-white border-2 border-black'
+                            : 'bg-white text-black border-2 border-black'
                         }`}
+                        style={{ fontFamily: "'Fredoka', sans-serif" }}
                       >
                         <p className="text-sm whitespace-pre-wrap leading-relaxed">{message.content}</p>
                       </div>
                       <p className={`text-xs mt-1 px-2 ${
                         message.role === 'user' ? 'text-[#ff5757]' : 'text-[#ff5757]'
-                      }`}>
+                      }`}
+                      style={{ fontFamily: "'Fredoka', sans-serif" }}>
                         {message.timestamp.toLocaleTimeString('id-ID', {
                           hour: '2-digit',
                           minute: '2-digit',

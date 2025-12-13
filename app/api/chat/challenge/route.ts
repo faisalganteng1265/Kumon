@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
 
     console.log('API key found, initializing Groq for challenge mode...');
 
-    // System prompt untuk Challenge Me mode
+    // System prompt untuk CHALLENGE ME mode
     const challengeSystemPrompt = topic
       ? `Kamu adalah seorang debater profesional yang akan menjadi OPOSISI dari user terkait isu: "${topic}".
 
