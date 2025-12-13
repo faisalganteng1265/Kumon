@@ -60,12 +60,6 @@ export default function PeerConnectSection() {
       tabs: ['campus', 'general']
     },
     {
-      id: 'eventreminder',
-      key: 'eventreminder',
-      image: '/CallPeerConnect.png',
-      tabs: ['recommendations']
-    },
-    {
       id: 'smartschedule',
       key: 'smartschedule',
       image: '/ChatPeerConnect.png',
@@ -175,7 +169,6 @@ export default function PeerConnectSection() {
             <span className="text-black">
               {currentFeature.id === 'peerconnect' ? t('peerconnect.title') :
                currentFeature.id === 'aicampus' ? t('aicampus.title') :
-               currentFeature.id === 'eventreminder' ? t('eventreminder.title') :
                currentFeature.id === 'smartschedule' ? t('smartschedule.title') :
                currentFeature.id === 'taskmanager' ? t('taskmanager.title') : t('collaboration.title')}
             </span>
@@ -190,7 +183,6 @@ export default function PeerConnectSection() {
           >
             {currentFeature.id === 'peerconnect' && t('peerconnect.subtitle')}
             {currentFeature.id === 'aicampus' && t('aicampus.subtitle')}
-            {currentFeature.id === 'eventreminder' && t('eventreminder.subtitle')}
             {currentFeature.id === 'smartschedule' && t('smartschedule.subtitle')}
             {currentFeature.id === 'taskmanager' && t('taskmanager.subtitle')}
             {currentFeature.id === 'collaboration' && t('collaboration.subtitle')}
@@ -289,19 +281,7 @@ export default function PeerConnectSection() {
                 </div>
               )}
 
-              {/* Tab Navigation - For Event Reminder */}
-              {currentFeature.id === 'eventreminder' && (
-                <div className="bg-transparent rounded-xl p-1 mb-6 border border-gray-700" style={{ fontFamily: "'Fredoka', sans-serif" }}>
-                  <div className="flex gap-1">
-                    <button
-                      onClick={() => setActiveTab('recommendations')}
-                      className="flex-1 py-3 px-4 rounded-lg bg-[#F7D050] text-white font-semibold"
-                    >
-                      {t('eventreminder.recommendations')}
-                    </button>
-                  </div>
-                </div>
-              )}
+            
 
               {/* Tab Navigation - For Smart Schedule */}
               {currentFeature.id === 'smartschedule' && (
@@ -476,28 +456,7 @@ export default function PeerConnectSection() {
                 </div>
               )}
 
-              {currentFeature.id === 'eventreminder' && activeTab === 'recommendations' && (
-                <div>
-                  <h3 className="text-2xl font-bold text-black mb-4">{t('eventreminder.recommendations')}</h3>
-                  <p className="text-black mb-4 text-sm">
-                    {t('eventreminder.recommendationsDesc')}
-                  </p>
-                  <ul className="space-y-2 text-black text-sm">
-                    <li className="flex items-start">
-                      <span className="text-[#F7D050] mr-2">✓</span>
-                      <span>{t('eventreminder.feature1')}</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-[#F7D050] mr-2">✓</span>
-                      <span>{t('eventreminder.feature2')}</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-[#F7D050] mr-2">✓</span>
-                      <span>{t('eventreminder.feature3')}</span>
-                    </li>
-                  </ul>
-                </div>
-              )}
+              
 
               {currentFeature.id === 'smartschedule' && activeTab === 'optimization' && (
                 <div>
@@ -628,8 +587,6 @@ export default function PeerConnectSection() {
                         ? '/FITUR1A.png'
                         : currentFeature.id === 'aicampus' && activeTab === 'general'
                         ? '/FITUR1B.png'
-                        : currentFeature.id === 'eventreminder'
-                        ? '/FITUR2.png'
                         : currentFeature.id === 'smartschedule' && activeTab === 'optimization'
                         ? '/FITUR3A.png'
                         : currentFeature.id === 'smartschedule' && activeTab === 'integration'

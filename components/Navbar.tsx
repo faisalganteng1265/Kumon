@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import AuthModal from './AuthModal';
@@ -84,6 +84,7 @@ export default function Navbar() {
   const { isNavbarVisible: isNavbarVisibleFromContext } = useNavbarVisibility();
   const { language, setLanguage, t } = useLanguage();
   const { isUserProfileHovered } = useUserProfileHover();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Pages dropdown items (fitur-fitur)
   const pageItems = [
@@ -97,7 +98,6 @@ export default function Navbar() {
   // Main navigation items
   const navItems = [
     { label: t('nav.features'), href: '/#features' },
-    { label: t('nav.peerconnect'), href: '/#peerconnect' },
     { label: t('nav.aboutUs'), href: '/#about-us' },
   ];
 
@@ -113,6 +113,23 @@ export default function Navbar() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsPagesDropdownOpen(false);
+      }
+    };
+
+    if (isPagesDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isPagesDropdownOpen]);
 
   const handleLoginClick = () => {
     if (user) {
@@ -152,10 +169,19 @@ export default function Navbar() {
             isScrolled ? 'h-14 px-6' : 'h-16'
           }`}>
 
-{/* Left: ELEPHAS */}
+{/* Left: Logo & BRAINWAVE */}
 <div className="hidden md:flex flex-1 items-center">
-  <div style={{ fontFamily: 'Fredoka, sans-serif' }}>
-    <span className="text-black text-2xl font-bold transition-colors duration-200">ELEPHAS</span>
+  <div className="flex items-center gap-3">
+    <Image
+      src="/logo1.png"
+      alt="Brainwave Logo"
+      width={40}
+      height={40}
+      className="object-contain"
+    />
+    <div style={{ fontFamily: 'Fredoka, sans-serif' }}>
+      <span className="text-black text-2xl font-bold transition-colors duration-200">BRAINWAVE</span>
+    </div>
   </div>
 </div>
 
@@ -163,10 +189,9 @@ export default function Navbar() {
 <div className="hidden md:flex items-center justify-center">
   <div className="flex items-baseline space-x-4">
     {/* Pages Dropdown */}
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsPagesDropdownOpen(!isPagesDropdownOpen)}
-        onBlur={() => setTimeout(() => setIsPagesDropdownOpen(false), 200)}
         className="text-black hover:text-lime-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center gap-1"
       >
         {t('nav.pages')}
@@ -176,12 +201,15 @@ export default function Navbar() {
       </button>
 
       {isPagesDropdownOpen && (
-        <div className="absolute top-full left-0 mt-2 w-56 bg-gray-900/95 backdrop-blur-sm rounded-lg shadow-lg border border-gray-800 py-2 z-50">
+        <div
+          className="absolute top-full left-0 mt-2 w-56 rounded-lg shadow-lg border border-black py-2 z-50"
+          style={{ backgroundColor: '#f7d050' }}
+        >
           {pageItems.map((item) => (
             <Link
               key={item.label}
               href={item.href}
-              className="block px-4 py-2 text-sm text-white hover:text-lime-400 hover:bg-gray-800 transition-colors duration-200 cursor-pointer"
+              className="block px-4 py-2 text-sm text-black hover:text-white hover:bg-black/20 transition-colors duration-200 cursor-pointer"
               onClick={() => setIsPagesDropdownOpen(false)}
             >
               {item.label}
@@ -302,12 +330,12 @@ export default function Navbar() {
                 </button>
 
                 {isPagesDropdownOpen && (
-                  <div className="pl-4 mt-1 space-y-1">
+                  <div className="pl-4 mt-1 space-y-1 rounded-md p-2" style={{ backgroundColor: '#f7d050' }}>
                     {pageItems.map((item) => (
                       <Link
                         key={item.label}
                         href={item.href}
-                        className="block text-gray-300 hover:text-lime-400 hover:bg-gray-800 px-3 py-2 rounded-md text-sm transition-colors duration-200 cursor-pointer"
+                        className="block text-black hover:text-white hover:bg-black/20 px-3 py-2 rounded-md text-sm transition-colors duration-200 cursor-pointer"
                         onClick={() => {
                           setIsMenuOpen(false);
                           setIsPagesDropdownOpen(false);

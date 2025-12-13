@@ -17,52 +17,82 @@ const lilitaOne = localFont({
 export default function HowToUseSection() {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Offset values for cloud position (you can adjust these)
-  const cloudOffsetX = 0; // pixels from left
-  const cloudOffsetY = -400; // pixels from top
+  // Offset values for each cloud (you can adjust these)
+  const clouds = [
+    { x: 1300, y: 300 },     // Cloud 1
+    { x: 200, y: 200 },   // Cloud 2
+    { x: 300, y: 700 },  // Cloud 3
+    { x: 1200, y: 740 },   // Cloud 4
+    { x: 1600, y: 10 },   // Cloud 5
+  ];
 
   // Offset values for numbers (you can adjust these)
   const numberOffsetX = -100; // pixels horizontal offset for numbers
   const numberOffsetY = 0; // pixels vertical offset for numbers
 
   useEffect(() => {
-    // Trigger animation on mount
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 100);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        });
+      },
+      {
+        threshold: 0.5, // Trigger when 50% of the section is visible
+      }
+    );
 
-    return () => clearTimeout(timer);
+    const section = document.getElementById('how-to-use-section');
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => {
+      if (section) {
+        observer.unobserve(section);
+      }
+    };
   }, []);
 
   return (
     <section
+      id="how-to-use-section"
       className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 md:px-8 relative overflow-hidden"
       style={{ backgroundColor: '#d2f5f9' }}
     >
       {/* Top border line */}
       <div className="absolute top-0 left-0 right-0 h-[5px] bg-black" />
 
-      {/* Cloud image with adjustable offset */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          left: `${cloudOffsetX}px`,
-          top: `${cloudOffsetY}px`,
-        }}
-      >
-        <Image
-          src="/awan.png"
-          alt="Cloud decoration"
-          width={2400}
-          height={1800}
-          className="opacity-50"
-        />
-      </div>
+      {/* Cloud images with adjustable offset */}
+      {clouds.map((cloud, index) => (
+        <div
+          key={index}
+          className="absolute pointer-events-none"
+          style={{
+            left: `${cloud.x}px`,
+            top: `${cloud.y}px`,
+          }}
+        >
+          <Image
+            src="/awan1.png"
+            alt={`Cloud decoration ${index + 1}`}
+            width={400}
+            height={300}
+            className="opacity-100"
+          />
+        </div>
+      ))}
 
       <div className="max-w-7xl mx-auto text-center">
         <h2
-          className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold transition-all duration-1000 ease-out ${
+            isVisible
+              ? 'opacity-100 translate-y-0 scale-100'
+              : 'opacity-0 -translate-y-20 scale-95'
           } ${organicRelief.className}`}
           style={{ color: '#000000' }}
         >

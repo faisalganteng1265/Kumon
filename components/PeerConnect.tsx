@@ -396,17 +396,26 @@ export default function PeerConnect() {
         isMe: true,
       };
 
-      setMessages(prev => [...prev, newMessage]);
-      setInputMessage('');
+      setMessages(prev => {
+        const updatedMessages = [...prev, newMessage];
 
-      // Update group's last message
-      setGroups(prevGroups =>
-        prevGroups.map(g =>
-          g.id === selectedGroup.id
-            ? { ...g, lastMessage: newMessage.text, lastMessageTime: newMessage.timestamp }
-            : g
-        )
-      );
+        // Update group's messages and last message
+        setGroups(prevGroups =>
+          prevGroups.map(g =>
+            g.id === selectedGroup.id
+              ? {
+                  ...g,
+                  messages: updatedMessages,
+                  lastMessage: newMessage.text,
+                  lastMessageTime: newMessage.timestamp
+                }
+              : g
+          )
+        );
+
+        return updatedMessages;
+      });
+      setInputMessage('');
     } catch (error) {
       console.error('Error sending message:', error);
       alert('Failed to send message. Please try again.');
@@ -464,16 +473,25 @@ export default function PeerConnect() {
 
             // Only add if not from current user (already added optimistically)
             if (!newMessage.isMe) {
-              setMessages(prev => [...prev, newMessage]);
+              setMessages(prev => {
+                const updatedMessages = [...prev, newMessage];
 
-              // Update group's last message
-              setGroups(prevGroups =>
-                prevGroups.map(g =>
-                  g.id === selectedGroup.id
-                    ? { ...g, lastMessage: newMessage.text, lastMessageTime: newMessage.timestamp }
-                    : g
-                )
-              );
+                // Update group's messages and last message
+                setGroups(prevGroups =>
+                  prevGroups.map(g =>
+                    g.id === selectedGroup.id
+                      ? {
+                          ...g,
+                          messages: updatedMessages,
+                          lastMessage: newMessage.text,
+                          lastMessageTime: newMessage.timestamp
+                        }
+                      : g
+                  )
+                );
+
+                return updatedMessages;
+              });
             }
           } catch (error) {
             console.error('[Realtime] Error:', error);
@@ -681,7 +699,7 @@ export default function PeerConnect() {
     setChatMode('group');
     setSelectedPeer(null);
 
-    // Fetch fresh messages from database
+    // Always fetch fresh messages from database to ensure latest messages are shown
     const freshMessages = await fetchGroupMessages(group.id);
     setMessages(freshMessages);
 

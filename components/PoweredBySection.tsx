@@ -13,16 +13,36 @@ export default function PoweredBySection() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Trigger animation on mount
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 100);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        });
+      },
+      {
+        threshold: 0.5, // Trigger when 50% of the section is visible
+      }
+    );
 
-    return () => clearTimeout(timer);
+    const section = document.getElementById('powered-by-section');
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => {
+      if (section) {
+        observer.unobserve(section);
+      }
+    };
   }, []);
 
   return (
     <section
+      id="powered-by-section"
       className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 md:px-8 relative overflow-hidden"
       style={{
         background: 'linear-gradient(to bottom, #d2f5f9, #fef9ed)',
@@ -30,8 +50,10 @@ export default function PoweredBySection() {
     >
       <div className="max-w-7xl mx-auto text-center">
         <h2
-          className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold transition-all duration-1000 ease-out ${
+            isVisible
+              ? 'opacity-100 translate-y-0 scale-100'
+              : 'opacity-0 -translate-y-20 scale-95'
           } ${organicRelief.className}`}
           style={{ color: '#000000' }}
         >

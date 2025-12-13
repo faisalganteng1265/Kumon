@@ -103,8 +103,7 @@ export default function FAQSection() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          // Delay animation slightly for smoother effect
-          setTimeout(() => setIsVisible(true), 200);
+          setIsVisible(true);
         } else {
           setIsVisible(false);
         }
@@ -184,7 +183,13 @@ export default function FAQSection() {
       <div className="w-full relative z-10">
         {/* Title */}
         <div className="text-center mb-8 sm:mb-12 md:mb-16 px-4 sm:px-6 md:px-8">
-          <h2 className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 sm:mb-10 md:mb-14 lg:mb-16 text-black ${organicRelief.className}`}>
+          <h2
+            className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 sm:mb-10 md:mb-14 lg:mb-16 text-black transition-all duration-1000 ease-out ${
+              isVisible
+                ? 'opacity-100 translate-y-0 scale-100'
+                : 'opacity-0 -translate-y-20 scale-95'
+            } ${organicRelief.className}`}
+          >
             {t('faq.title')}
           </h2>
           <p
