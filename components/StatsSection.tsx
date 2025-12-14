@@ -114,7 +114,7 @@ export default function StatsSection() {
         <div className="grid md:grid-cols-4 gap-6">
           <StatItem end={1000} label="Mahasiswa Aktif" suffix="+" icon="/AKADEMIKICON.png" />
           <StatItem end={50} label="Event per Bulan" suffix="+" icon="/JADWALICON.png" />
-          <StatItem end={95} label="Kepuasan Pengguna" suffix="%" icon="/BINTANGICON.png" />
+          <StatItem end={99} label="Kepuasan Pengguna" suffix="%" icon="/BINTANGICON.png" />
           <StatItem end={24} label="AI Support" suffix="/7" icon="/GEMINIICON.png" />
         </div>
       </div>

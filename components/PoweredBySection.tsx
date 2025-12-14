@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import localFont from 'next/font/local';
 import Image from 'next/image';
 
@@ -11,6 +11,8 @@ const organicRelief = localFont({
 
 export default function PoweredBySection() {
   const [isVisible, setIsVisible] = useState(false);
+  const [visibleBoxes, setVisibleBoxes] = useState<boolean[]>([false, false, false, false]);
+  const boxRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -40,6 +42,40 @@ export default function PoweredBySection() {
     };
   }, []);
 
+  useEffect(() => {
+    const observers = boxRefs.current.map((box, index) => {
+      if (!box) return null;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setVisibleBoxes((prev) => {
+                const newState = [...prev];
+                newState[index] = true;
+                return newState;
+              });
+            } else {
+              setVisibleBoxes((prev) => {
+                const newState = [...prev];
+                newState[index] = false;
+                return newState;
+              });
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+
+      observer.observe(box);
+      return observer;
+    });
+
+    return () => {
+      observers.forEach((observer) => observer?.disconnect());
+    };
+  }, []);
+
   return (
     <section
       id="powered-by-section"
@@ -63,7 +99,15 @@ export default function PoweredBySection() {
         {/* Horizontal Boxes with shadow effect */}
         <div className="mt-32 flex justify-center items-center gap-8 flex-wrap">
           {/* Box 1 */}
-          <div className="relative inline-block">
+          <div
+            ref={(el) => { boxRefs.current[0] = el; }}
+            className={`relative inline-block transition-all duration-700 ${
+              visibleBoxes[0]
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '0ms' }}
+          >
             {/* Black shadow box */}
             <div className="absolute top-3 left-3 w-64 h-32 bg-black rounded-xl" />
             {/* White main box */}
@@ -79,7 +123,15 @@ export default function PoweredBySection() {
           </div>
 
           {/* Box 2 */}
-          <div className="relative inline-block">
+          <div
+            ref={(el) => { boxRefs.current[1] = el; }}
+            className={`relative inline-block transition-all duration-700 ${
+              visibleBoxes[1]
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '100ms' }}
+          >
             {/* Black shadow box */}
             <div className="absolute top-3 left-3 w-64 h-32 bg-black rounded-xl" />
             {/* White main box */}
@@ -95,7 +147,15 @@ export default function PoweredBySection() {
           </div>
 
           {/* Box 3 */}
-          <div className="relative inline-block">
+          <div
+            ref={(el) => { boxRefs.current[2] = el; }}
+            className={`relative inline-block transition-all duration-700 ${
+              visibleBoxes[2]
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '200ms' }}
+          >
             {/* Black shadow box */}
             <div className="absolute top-3 left-3 w-64 h-32 bg-black rounded-xl" />
             {/* White main box */}
@@ -111,7 +171,15 @@ export default function PoweredBySection() {
           </div>
 
           {/* Box 4 */}
-          <div className="relative inline-block">
+          <div
+            ref={(el) => { boxRefs.current[3] = el; }}
+            className={`relative inline-block transition-all duration-700 ${
+              visibleBoxes[3]
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '300ms' }}
+          >
             {/* Black shadow box */}
             <div className="absolute top-3 left-3 w-64 h-32 bg-black rounded-xl" />
             {/* White main box */}

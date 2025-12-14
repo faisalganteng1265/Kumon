@@ -14,6 +14,10 @@ export default function PeerConnectSection() {
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
 
+  // Animation state for boxes
+  const [visibleBoxes, setVisibleBoxes] = useState<boolean[]>([false, false, false]);
+  const boxRefs = useRef<(HTMLDivElement | null)[]>([]);
+
   // Rocket image offset
   const [rocketOffsetX, setRocketOffsetX] = useState(0);
   const [rocketOffsetY, setRocketOffsetY] = useState(0);
@@ -43,6 +47,41 @@ export default function PeerConnectSection() {
       if (currentRef) {
         observer.unobserve(currentRef);
       }
+    };
+  }, []);
+
+  // Intersection Observer for boxes animation
+  useEffect(() => {
+    const observers = boxRefs.current.map((box, index) => {
+      if (!box) return null;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setVisibleBoxes((prev) => {
+                const newState = [...prev];
+                newState[index] = true;
+                return newState;
+              });
+            } else {
+              setVisibleBoxes((prev) => {
+                const newState = [...prev];
+                newState[index] = false;
+                return newState;
+              });
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+
+      observer.observe(box);
+      return observer;
+    });
+
+    return () => {
+      observers.forEach((observer) => observer?.disconnect());
     };
   }, []);
 
@@ -217,7 +256,15 @@ export default function PeerConnectSection() {
             <div className="order-2 lg:order-1 lg:col-span-2 flex flex-col px-2 sm:px-0">
               {/* Tab Navigation - For PeerConnect */}
               {currentFeature.id === 'peerconnect' && (
-                <div className="bg-transparent rounded-xl p-1 mb-4 sm:mb-6 border border-gray-700" style={{ fontFamily: "'Fredoka', sans-serif" }}>
+                <div
+                  ref={(el) => { boxRefs.current[0] = el; }}
+                  className={`bg-transparent rounded-xl p-1 mb-4 sm:mb-6 border border-gray-700 transition-all duration-700 ${
+                    visibleBoxes[0]
+                      ? 'opacity-100 translate-x-0'
+                      : 'opacity-0 -translate-x-10'
+                  }`}
+                  style={{ fontFamily: "'Fredoka', sans-serif", transitionDelay: '0ms' }}
+                >
                   <div className="flex gap-1">
                     <button
                       onClick={() => setActiveTab('group')}
@@ -340,7 +387,15 @@ export default function PeerConnectSection() {
               )}
 
               {/* Feature Description Box */}
-              <div className="bg-transparent rounded-xl p-4 sm:p-5 md:p-6 border border-gray-700 flex-1 flex flex-col justify-center" style={{ fontFamily: "'Fredoka', sans-serif" }}>
+              <div
+                ref={(el) => { boxRefs.current[1] = el; }}
+                className={`bg-transparent rounded-xl p-4 sm:p-5 md:p-6 border border-gray-700 flex-1 flex flex-col justify-center transition-all duration-700 ${
+                  visibleBoxes[1]
+                    ? 'opacity-100 translate-x-0'
+                    : 'opacity-0 -translate-x-10'
+                }`}
+                style={{ fontFamily: "'Fredoka', sans-serif", transitionDelay: '200ms' }}
+              >
                 {currentFeature.id === 'peerconnect' && activeTab === 'group' && (
                 <div>
                   <h3 className="text-xl sm:text-2xl font-bold text-black mb-3 sm:mb-4">{t('peerconnect.groupChat')}</h3>
@@ -577,7 +632,15 @@ export default function PeerConnectSection() {
 
             {/* Right Side - Image Preview */}
             <div className="order-1 lg:order-2 lg:col-span-3 px-2 sm:px-0">
-              <div className="relative">
+              <div
+                ref={(el) => { boxRefs.current[2] = el; }}
+                className={`relative transition-all duration-700 ${
+                  visibleBoxes[2]
+                    ? 'opacity-100 translate-x-0'
+                    : 'opacity-0 translate-x-10'
+                }`}
+                style={{ transitionDelay: '100ms' }}
+              >
                 <div className="absolute inset-0 bg-[#F7D050] rounded-xl sm:rounded-2xl blur-xl sm:blur-2xl opacity-20"></div>
                 <div className="relative bg-gray-800/50 rounded-xl sm:rounded-2xl p-1.5 sm:p-2 border border-gray-700 overflow-hidden">
                   <Image

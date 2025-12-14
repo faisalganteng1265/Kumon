@@ -2,9 +2,46 @@
 
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useEffect, useRef, useState } from 'react';
 
 export default function FeaturesSection() {
   const { t } = useLanguage();
+  const [visibleCards, setVisibleCards] = useState<boolean[]>([false, false, false, false]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observers = cardRefs.current.map((card, index) => {
+      if (!card) return null;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setVisibleCards((prev) => {
+                const newState = [...prev];
+                newState[index] = true;
+                return newState;
+              });
+            } else {
+              setVisibleCards((prev) => {
+                const newState = [...prev];
+                newState[index] = false;
+                return newState;
+              });
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+
+      observer.observe(card);
+      return observer;
+    });
+
+    return () => {
+      observers.forEach((observer) => observer?.disconnect());
+    };
+  }, []);
 
   return (
     <section id="features" className="pt-20 pb-32 px-6 bg-[#d2f5f9] relative overflow-hidden">
@@ -36,16 +73,24 @@ export default function FeaturesSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-16 md:py-40">
 
           {/* Feature Card 1 - AI Campus Guide */}
-          <div className="relative">
+          <div
+            ref={(el) => { cardRefs.current[0] = el; }}
+            className={`relative transition-all duration-700 ${
+              visibleCards[0]
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '0ms' }}
+          >
             {/* Black shadow box */}
             <div className="absolute top-2 left-2 w-full h-full bg-black rounded-3xl"></div>
             {/* Main card */}
             <div className="relative bg-white rounded-3xl p-6 h-[250px] flex flex-col border-2 border-gray-900">
               <div className="absolute top-4 left-4 w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
-                <Image src="/GEMINIICON.png" alt="AI Campus Guide" width={32} height={32} className="object-contain" />
+                <Image src="/SOSIALICON.png" alt="AI Campus Guide" width={32} height={32} className="object-contain" />
               </div>
-              <div className="mt-16">
-                <h3 className="text-xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+              <div className="mt-16 flex flex-col items-center justify-center text-center">
+                <h3 className="text-4xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                   {t('features.aiCampusGuide')}
                 </h3>
                 <p className="text-sm text-gray-800" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
@@ -56,16 +101,24 @@ export default function FeaturesSection() {
           </div>
 
           {/* Feature Card 2 - Event Recommender */}
-          <div className="relative">
+          <div
+            ref={(el) => { cardRefs.current[1] = el; }}
+            className={`relative transition-all duration-700 ${
+              visibleCards[1]
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '100ms' }}
+          >
             {/* Black shadow box */}
             <div className="absolute top-2 left-2 w-full h-full bg-black rounded-3xl"></div>
             {/* Main card */}
             <div className="relative bg-white rounded-3xl p-6 h-[250px] flex flex-col border-2 border-gray-900">
               <div className="absolute top-4 left-4 w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
-                <Image src="/ICONLAMPU.png" alt="Event Recommender" width={32} height={32} className="object-contain" />
+                <Image src="/JADWALICON.png" alt="Event Recommender" width={32} height={32} className="object-contain" />
               </div>
-              <div className="mt-16">
-                <h3 className="text-xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+              <div className="mt-16 flex flex-col items-center justify-center text-center">
+                <h3 className="text-4xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                   {t('features.eventRecommender')}
                 </h3>
                 <p className="text-sm text-gray-800" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
@@ -76,16 +129,24 @@ export default function FeaturesSection() {
           </div>
 
           {/* Feature Card 3 - Smart Schedule */}
-          <div className="relative">
+          <div
+            ref={(el) => { cardRefs.current[2] = el; }}
+            className={`relative transition-all duration-700 ${
+              visibleCards[2]
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '200ms' }}
+          >
             {/* Black shadow box */}
             <div className="absolute top-2 left-2 w-full h-full bg-black rounded-3xl"></div>
             {/* Main card */}
             <div className="relative bg-white rounded-3xl p-6 h-[250px] flex flex-col border-2 border-gray-900">
               <div className="absolute top-4 left-4 w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
-                <Image src="/JADWALICON.png" alt="Smart Schedule" width={32} height={32} className="object-contain" />
+                <Image src="/ICONLAMPU.png" alt="Smart Schedule" width={32} height={32} className="object-contain" />
               </div>
-              <div className="mt-16">
-                <h3 className="text-xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+              <div className="mt-16 flex flex-col items-center justify-center text-center">
+                <h3 className="text-4xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                   {t('features.smartSchedule')}
                 </h3>
                 <p className="text-sm text-gray-800" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
@@ -96,16 +157,24 @@ export default function FeaturesSection() {
           </div>
 
           {/* Feature Card 4 - Peer Connect */}
-          <div className="relative">
+          <div
+            ref={(el) => { cardRefs.current[3] = el; }}
+            className={`relative transition-all duration-700 ${
+              visibleCards[3]
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '300ms' }}
+          >
             {/* Black shadow box */}
             <div className="absolute top-2 left-2 w-full h-full bg-black rounded-3xl"></div>
             {/* Main card */}
             <div className="relative bg-white rounded-3xl p-6 h-[250px] flex flex-col border-2 border-gray-900">
               <div className="absolute top-4 left-4 w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
-                <Image src="/SOSIALICON.png" alt="Peer Connect" width={32} height={32} className="object-contain" />
+                <Image src="/GEMINIICON.png" alt="Peer Connect" width={32} height={32} className="object-contain" />
               </div>
-              <div className="mt-16">
-                <h3 className="text-xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+              <div className="mt-16 flex flex-col items-center justify-center text-center">
+                <h3 className="text-4xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                   {t('features.peerConnect')}
                 </h3>
                 <p className="text-sm text-gray-800" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>

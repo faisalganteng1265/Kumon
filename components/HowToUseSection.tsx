@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import localFont from 'next/font/local';
 import Image from 'next/image';
 
@@ -16,6 +16,8 @@ const lilitaOne = localFont({
 
 export default function HowToUseSection() {
   const [isVisible, setIsVisible] = useState(false);
+  const [visibleBoxes, setVisibleBoxes] = useState<boolean[]>([false, false, false]);
+  const boxRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Offset values for each cloud (you can adjust these)
   const clouds = [
@@ -55,6 +57,40 @@ export default function HowToUseSection() {
       if (section) {
         observer.unobserve(section);
       }
+    };
+  }, []);
+
+  useEffect(() => {
+    const observers = boxRefs.current.map((box, index) => {
+      if (!box) return null;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setVisibleBoxes((prev) => {
+                const newState = [...prev];
+                newState[index] = true;
+                return newState;
+              });
+            } else {
+              setVisibleBoxes((prev) => {
+                const newState = [...prev];
+                newState[index] = false;
+                return newState;
+              });
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+
+      observer.observe(box);
+      return observer;
+    });
+
+    return () => {
+      observers.forEach((observer) => observer?.disconnect());
     };
   }, []);
 
@@ -102,7 +138,15 @@ export default function HowToUseSection() {
         {/* Boxes with shadow effect */}
         <div className="mt-32 flex flex-col items-center gap-12">
           {/* Box 1 */}
-          <div className="relative inline-block">
+          <div
+            ref={(el) => { boxRefs.current[0] = el; }}
+            className={`relative inline-block transition-all duration-700 ${
+              visibleBoxes[0]
+                ? 'opacity-100 translate-x-0'
+                : 'opacity-0 -translate-x-20'
+            }`}
+            style={{ transitionDelay: '0ms' }}
+          >
             {/* Number 1 with adjustable offset */}
             <span
               className={`absolute text-[80px] font-bold text-black pointer-events-none ${organicRelief.className}`}
@@ -129,7 +173,15 @@ export default function HowToUseSection() {
           </div>
 
           {/* Box 2 */}
-          <div className="relative inline-block">
+          <div
+            ref={(el) => { boxRefs.current[1] = el; }}
+            className={`relative inline-block transition-all duration-700 ${
+              visibleBoxes[1]
+                ? 'opacity-100 translate-x-0'
+                : 'opacity-0 translate-x-20'
+            }`}
+            style={{ transitionDelay: '150ms' }}
+          >
             {/* Number 2 with adjustable offset */}
             <span
               className={`absolute text-[80px] font-bold text-black pointer-events-none ${organicRelief.className}`}
@@ -156,7 +208,15 @@ export default function HowToUseSection() {
           </div>
 
           {/* Box 3 */}
-          <div className="relative inline-block">
+          <div
+            ref={(el) => { boxRefs.current[2] = el; }}
+            className={`relative inline-block transition-all duration-700 ${
+              visibleBoxes[2]
+                ? 'opacity-100 translate-x-0'
+                : 'opacity-0 -translate-x-20'
+            }`}
+            style={{ transitionDelay: '300ms' }}
+          >
             {/* Number 3 with adjustable offset */}
             <span
               className={`absolute text-[80px] font-bold text-black pointer-events-none ${organicRelief.className}`}
