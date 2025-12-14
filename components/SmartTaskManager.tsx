@@ -372,9 +372,7 @@ export default function SmartTaskManager() {
             className="bg-blue-400 rounded-lg p-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 cursor-pointer"
           >
             <div className="flex flex-col items-center text-center">
-              <svg className="w-5 h-5 text-white mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
+              <img className="w-5 h-5 text-white mb-1" src="task.png" alt="task" />
               <h3 className="text-white text-[10px] font-bold mb-0.5">{t('tasks.stats.total')}</h3>
               <p className="text-xl font-bold text-white">{stats.total}</p>
             </div>
@@ -388,9 +386,7 @@ export default function SmartTaskManager() {
             className="bg-green-500 rounded-lg p-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 cursor-pointer"
           >
             <div className="flex flex-col items-center text-center">
-              <svg className="w-5 h-5 text-white mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+              <img className="w-5 h-5 text-white mb-1" src="checklist.png" alt="completed" />
               <h3 className="text-white text-[10px] font-bold mb-0.5">{t('tasks.stats.completed')}</h3>
               <p className="text-xl font-bold text-white">{stats.completed}</p>
             </div>
@@ -404,9 +400,7 @@ export default function SmartTaskManager() {
             className="bg-yellow-400 rounded-lg p-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 cursor-pointer"
           >
             <div className="flex flex-col items-center text-center">
-              <svg className="w-5 h-5 text-black mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+              <img className="w-5 h-5 text-white mb-1" src="pending.png" alt="pending" />
               <h3 className="text-black text-[10px] font-bold mb-0.5">{t('tasks.stats.pending')}</h3>
               <p className="text-xl font-bold text-black">{stats.pending}</p>
             </div>
@@ -420,9 +414,7 @@ export default function SmartTaskManager() {
             className="bg-red-500 rounded-lg p-3 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 cursor-pointer"
           >
             <div className="flex flex-col items-center text-center">
-              <svg className="w-5 h-5 text-white mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
+              <img className="w-5 h-5 text-white mb-1" src="warning.png" alt="warning" />
               <h3 className="text-white text-[10px] font-bold mb-0.5">{t('tasks.stats.overdue')}</h3>
               <p className="text-xl font-bold text-white">{stats.overdue}</p>
             </div>
@@ -664,7 +656,7 @@ export default function SmartTaskManager() {
                   onClick={() => setShowFilterDropdown(!showFilterDropdown)}
                   className="px-6 py-3 rounded-lg font-bold bg-white text-black border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 flex items-center gap-2"
                 >
-                  <Image src="/TASKICON.png" alt="Task" width={20} height={20} className="object-contain" />
+                  <Image src="/edit.png" alt="Task" width={20} height={20} className="object-contain" />
                   {filterCategory === 'all' ? t('tasks.filter.category') : filterCategory}
                   <svg className={`w-4 h-4 transition-transform duration-300 ${showFilterDropdown ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -681,7 +673,7 @@ export default function SmartTaskManager() {
                     />
                     <div className="absolute top-full left-0 mt-2 w-[400px] bg-white border-2 border-black rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] z-[9999] p-6">
                     <h3 className="text-black font-bold text-sm mb-3 flex items-center gap-2">
-                      <Image src="/TASKICON.png" alt="Task" width={20} height={20} className="object-contain" /> {t('tasks.filter.selectCategory')}
+                      <Image src="/edit.png" alt="Task" width={20} height={20} className="object-contain" /> {t('tasks.filter.selectCategory')}
                     </h3>
                     <div className="space-y-2 max-h-[400px] overflow-y-auto custom-scrollbar">
                       <button
@@ -836,7 +828,7 @@ export default function SmartTaskManager() {
                           <div className="flex flex-wrap items-center gap-2">
                             {task.category && (
                               <span className="px-3 py-1 rounded-lg text-xs font-bold bg-blue-100 text-blue-800 border-2 border-black flex items-center gap-1">
-                                <Image src="/TASKICON.png" alt="Task" width={14} height={14} className="object-contain" /> {task.category}
+                                <Image src="/edit.png" alt="Task" width={14} height={14} className="object-contain" /> {task.category}
                               </span>
                             )}
 
@@ -856,7 +848,7 @@ export default function SmartTaskManager() {
                                   ? 'bg-red-500 text-white'
                                   : 'bg-gray-200 text-black'
                               }`}>
-                                <Image src="/TASKICON.png" alt="Task" width={14} height={14} className="object-contain" /> {new Date(task.deadline).toLocaleDateString('id-ID', {
+                                <Image src="/edit.png" alt="Task" width={14} height={14} className="object-contain" /> {new Date(task.deadline).toLocaleDateString('id-ID', {
                                   day: 'numeric',
                                   month: 'short',
                                   year: 'numeric'
