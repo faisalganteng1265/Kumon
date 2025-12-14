@@ -3,11 +3,13 @@
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
 
 export default function FeaturesSection() {
   const { t } = useLanguage();
   const [visibleCards, setVisibleCards] = useState<boolean[]>([false, false, false, false]);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const numberRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
     const observers = cardRefs.current.map((card, index) => {
@@ -22,6 +24,25 @@ export default function FeaturesSection() {
                 newState[index] = true;
                 return newState;
               });
+
+              // Animate number counting when card becomes visible
+              const numberElement = numberRefs.current[index];
+              if (numberElement) {
+                const targetValue = parseInt(numberElement.getAttribute('data-target') || '0');
+                gsap.fromTo(
+                  numberElement,
+                  { innerText: 0 },
+                  {
+                    innerText: targetValue,
+                    duration: 2,
+                    ease: 'power2.out',
+                    snap: { innerText: 1 },
+                    onUpdate: function() {
+                      numberElement.innerText = Math.ceil(Number(this.targets()[0].innerText)).toString();
+                    }
+                  }
+                );
+              }
             } else {
               setVisibleCards((prev) => {
                 const newState = [...prev];
@@ -90,10 +111,10 @@ export default function FeaturesSection() {
                 <Image src="/SOSIALICON.png" alt="AI Campus Guide" width={32} height={32} className="object-contain" />
               </div>
               <div className="mt-16 flex flex-col items-center justify-center text-center">
-                <h3 className="text-6xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
-                  {t('features.aiCampusGuide')}
-                </h3>
-                <p className="text-sm text-gray-800" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                <div className="text-6xl font-bold text-gray-900 mb-2" style={{ fontFamily: "'Fredoka', sans-serif" }}>
+                  <span ref={(el) => { numberRefs.current[0] = el; }} data-target="1000">0</span>+
+                </div>
+                <p className="text-sm text-gray-800" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                   {t('features.aiCampusGuideDesc')}
                 </p>
               </div>
@@ -118,10 +139,10 @@ export default function FeaturesSection() {
                 <Image src="/JADWALICON.png" alt="Event Recommender" width={32} height={32} className="object-contain" />
               </div>
               <div className="mt-16 flex flex-col items-center justify-center text-center">
-                <h3 className="text-6xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
-                  {t('features.eventRecommender')}
-                </h3>
-                <p className="text-sm text-gray-800" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                <div className="text-6xl font-bold text-gray-900 mb-2" style={{ fontFamily: "'Fredoka', sans-serif" }}>
+                  <span ref={(el) => { numberRefs.current[1] = el; }} data-target="50">0</span>+
+                </div>
+                <p className="text-sm text-gray-800" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                   {t('features.eventRecommenderDesc')}
                 </p>
               </div>
@@ -146,10 +167,10 @@ export default function FeaturesSection() {
                 <Image src="/ICONLAMPU.png" alt="Smart Schedule" width={32} height={32} className="object-contain" />
               </div>
               <div className="mt-16 flex flex-col items-center justify-center text-center">
-                <h3 className="text-6xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
-                  {t('features.smartSchedule')}
-                </h3>
-                <p className="text-sm text-gray-800" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                <div className="text-6xl font-bold text-gray-900 mb-2" style={{ fontFamily: "'Fredoka', sans-serif" }}>
+                  <span ref={(el) => { numberRefs.current[2] = el; }} data-target="99">0</span>%
+                </div>
+                <p className="text-sm text-gray-800" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                   {t('features.smartScheduleDesc')}
                 </p>
               </div>
@@ -174,10 +195,10 @@ export default function FeaturesSection() {
                 <Image src="/GEMINIICON.png" alt="Peer Connect" width={32} height={32} className="object-contain" />
               </div>
               <div className="mt-16 flex flex-col items-center justify-center text-center">
-                <h3 className="text-6xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
-                  {t('features.peerConnect')}
-                </h3>
-                <p className="text-sm text-gray-800" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                <div className="text-6xl font-bold text-gray-900 mb-2" style={{ fontFamily: "'Fredoka', sans-serif" }}>
+                  <span ref={(el) => { numberRefs.current[3] = el; }} data-target="24">0</span>/7
+                </div>
+                <p className="text-sm text-gray-800" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                   {t('features.peerConnectDesc')}
                 </p>
               </div>

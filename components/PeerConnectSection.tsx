@@ -15,7 +15,7 @@ export default function PeerConnectSection() {
   const headerRef = useRef<HTMLDivElement>(null);
 
   // Animation state for boxes
-  const [visibleBoxes, setVisibleBoxes] = useState<boolean[]>([false, false, false]);
+  const [visibleBoxes, setVisibleBoxes] = useState<boolean[]>([false, false]);
   const boxRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Rocket image offset
@@ -257,13 +257,8 @@ export default function PeerConnectSection() {
               {/* Tab Navigation - For PeerConnect */}
               {currentFeature.id === 'peerconnect' && (
                 <div
-                  ref={(el) => { boxRefs.current[0] = el; }}
-                  className={`bg-transparent rounded-xl p-1 mb-4 sm:mb-6 border border-gray-700 transition-all duration-700 ${
-                    visibleBoxes[0]
-                      ? 'opacity-100 translate-x-0'
-                      : 'opacity-0 -translate-x-10'
-                  }`}
-                  style={{ fontFamily: "'Fredoka', sans-serif", transitionDelay: '0ms' }}
+                  className="bg-transparent rounded-xl p-1 mb-4 sm:mb-6 border border-gray-700"
+                  style={{ fontFamily: "'Fredoka', sans-serif" }}
                 >
                   <div className="flex gap-1">
                     <button
@@ -388,13 +383,13 @@ export default function PeerConnectSection() {
 
               {/* Feature Description Box */}
               <div
-                ref={(el) => { boxRefs.current[1] = el; }}
+                ref={(el) => { boxRefs.current[0] = el; }}
                 className={`bg-transparent rounded-xl p-4 sm:p-5 md:p-6 border border-gray-700 flex-1 flex flex-col justify-center transition-all duration-700 ${
-                  visibleBoxes[1]
+                  visibleBoxes[0]
                     ? 'opacity-100 translate-x-0'
                     : 'opacity-0 -translate-x-10'
                 }`}
-                style={{ fontFamily: "'Fredoka', sans-serif", transitionDelay: '200ms' }}
+                style={{ fontFamily: "'Fredoka', sans-serif", transitionDelay: '0ms' }}
               >
                 {currentFeature.id === 'peerconnect' && activeTab === 'group' && (
                 <div>
@@ -633,20 +628,26 @@ export default function PeerConnectSection() {
             {/* Right Side - Image Preview */}
             <div className="order-1 lg:order-2 lg:col-span-3 px-2 sm:px-0">
               <div
-                ref={(el) => { boxRefs.current[2] = el; }}
+                ref={(el) => { boxRefs.current[1] = el; }}
                 className={`relative transition-all duration-700 ${
-                  visibleBoxes[2]
+                  visibleBoxes[1]
                     ? 'opacity-100 translate-x-0'
                     : 'opacity-0 translate-x-10'
                 }`}
                 style={{ transitionDelay: '100ms' }}
               >
                 <div className="absolute inset-0 bg-[#F7D050] rounded-xl sm:rounded-2xl blur-xl sm:blur-2xl opacity-20"></div>
-                <div className="relative bg-gray-800/50 rounded-xl sm:rounded-2xl p-1.5 sm:p-2 border border-gray-700 overflow-hidden">
+                <div className="relative bg-black rounded-xl sm:rounded-2xl p-1.5 sm:p-1 border border-black overflow-hidden">
                   <Image
                     key={`${activeFeature}-${activeTab}`}
                     src={
-                      currentFeature.id === 'aicampus' && activeTab === 'campus'
+                      currentFeature.id === 'peerconnect' && activeTab === 'group'
+                        ? '/ChatPeerConnect.png'
+                        : currentFeature.id === 'peerconnect' && activeTab === 'private'
+                        ? '/PrivatePeerConnect.png'
+                        : currentFeature.id === 'peerconnect' && activeTab === 'call'
+                        ? '/CallPeerConnect.png'
+                        : currentFeature.id === 'aicampus' && activeTab === 'campus'
                         ? '/FITUR1A.png'
                         : currentFeature.id === 'aicampus' && activeTab === 'general'
                         ? '/FITUR1B.png'

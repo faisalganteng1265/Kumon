@@ -156,7 +156,7 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
 
           {/* User Info - Only show on hover */}
           {isHovered && (
-            <div className="flex flex-col items-start whitespace-nowrap transition-all duration-300 animate-fade-in-fast">
+            <div className="flex flex-col items-start whitespace-nowrap transition-all duration-300 animate-fade-in-fast" style={{ fontFamily: "'Fredoka', sans-serif" }}>
               <span className="text-gray-900 font-semibold text-sm">{username}</span>
               <span className="text-gray-600 text-xs">{user.email}</span>
             </div>
@@ -198,12 +198,12 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
                     {initial}
                   </div>
                 )}
-                <div className="flex-1">
+                <div className="flex-1" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                   <p className="text-gray-900 font-semibold">{username}</p>
                   <p className="text-gray-600 text-xs truncate">{user.email}</p>
                 </div>
               </div>
-              <div className="bg-white rounded-lg px-3 py-2 border-2 border-black" style={{ boxShadow: '2px 2px 0px rgba(0, 0, 0, 1)' }}>
+              <div className="bg-white rounded-lg px-3 py-2 border-2 border-black" style={{ boxShadow: '2px 2px 0px rgba(0, 0, 0, 1)', fontFamily: "'Fredoka', sans-serif" }}>
                 <p className="text-gray-900 text-xs font-medium">✓ Verified Account</p>
               </div>
             </div>
@@ -216,6 +216,7 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
                   setIsProfileModalOpen(true);
                 }}
                 className="w-full flex items-center gap-3 px-3 py-2 text-gray-900 hover:bg-[#f7d050] rounded-lg transition-all"
+                style={{ fontFamily: "'Fredoka', sans-serif" }}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -235,6 +236,7 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
                   alert('Settings page coming soon!');
                 }}
                 className="w-full flex items-center gap-3 px-3 py-2 text-gray-900 hover:bg-[#f7d050] rounded-lg transition-all"
+                style={{ fontFamily: "'Fredoka', sans-serif" }}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -253,6 +255,7 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
               <button
                 onClick={handleLogout}
                 className="w-full flex items-center gap-3 px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                style={{ fontFamily: "'Fredoka', sans-serif" }}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -302,7 +305,7 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
               </div>
 
               {/* Title and Description */}
-              <div className="text-center mb-8">
+              <div className="text-center mb-8" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                 <h2 className="text-2xl font-bold text-gray-900 mb-3">Konfirmasi Logout</h2>
                 <p className="text-gray-600">
                   Apakah Anda yakin ingin keluar dari akun Anda?
@@ -314,14 +317,14 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
                 <button
                   onClick={() => setIsLogoutModalOpen(false)}
                   className="flex-1 bg-white hover:bg-gray-100 text-gray-900 font-medium py-3 px-4 rounded-lg transition-all border-2 border-black"
-                  style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}
+                  style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)', fontFamily: "'Fredoka', sans-serif" }}
                 >
                   Batal
                 </button>
                 <button
                   onClick={confirmLogout}
                   className="flex-1 bg-[#f7d050] hover:bg-yellow-400 text-gray-900 font-medium py-3 px-4 rounded-lg transition-all border-2 border-black"
-                  style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}
+                  style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)', fontFamily: "'Fredoka', sans-serif" }}
                 >
                   Ya, Logout
                 </button>
