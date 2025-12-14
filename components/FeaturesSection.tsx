@@ -44,7 +44,7 @@ export default function FeaturesSection() {
   }, []);
 
   return (
-    <section id="features" className="pt-20 pb-32 px-6 bg-[#d2f5f9] relative overflow-hidden">
+    <section id="features" className="pt-25 pb-22 px-6 bg-[#d2f5f9] relative overflow-hidden">
 
       {/* Wavy Top Border */}
       <div
@@ -90,7 +90,7 @@ export default function FeaturesSection() {
                 <Image src="/SOSIALICON.png" alt="AI Campus Guide" width={32} height={32} className="object-contain" />
               </div>
               <div className="mt-16 flex flex-col items-center justify-center text-center">
-                <h3 className="text-4xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                <h3 className="text-6xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                   {t('features.aiCampusGuide')}
                 </h3>
                 <p className="text-sm text-gray-800" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
@@ -118,7 +118,7 @@ export default function FeaturesSection() {
                 <Image src="/JADWALICON.png" alt="Event Recommender" width={32} height={32} className="object-contain" />
               </div>
               <div className="mt-16 flex flex-col items-center justify-center text-center">
-                <h3 className="text-4xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                <h3 className="text-6xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                   {t('features.eventRecommender')}
                 </h3>
                 <p className="text-sm text-gray-800" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
@@ -146,7 +146,7 @@ export default function FeaturesSection() {
                 <Image src="/ICONLAMPU.png" alt="Smart Schedule" width={32} height={32} className="object-contain" />
               </div>
               <div className="mt-16 flex flex-col items-center justify-center text-center">
-                <h3 className="text-4xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                <h3 className="text-6xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                   {t('features.smartSchedule')}
                 </h3>
                 <p className="text-sm text-gray-800" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
@@ -174,7 +174,7 @@ export default function FeaturesSection() {
                 <Image src="/GEMINIICON.png" alt="Peer Connect" width={32} height={32} className="object-contain" />
               </div>
               <div className="mt-16 flex flex-col items-center justify-center text-center">
-                <h3 className="text-4xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
+                <h3 className="text-6xl font-bold text-gray-900 mb-2" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>
                   {t('features.peerConnect')}
                 </h3>
                 <p className="text-sm text-gray-800" style={{ fontFamily: '"Inter", "Helvetica Neue", "Arial", sans-serif' }}>

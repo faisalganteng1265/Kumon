@@ -8,39 +8,33 @@ export default function Footer() {
           {/* Left: Logo and Brand */}
           <div className="flex items-center gap-2">
             <Image
-              src="/AICAMPUS.png"
+              src="/logo1.png"
               alt="AI Campus Logo"
               width={30}
               height={30}
               className="object-contain w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8"
             />
-            <span className="text-sm sm:text-base font-bold whitespace-nowrap">Campus Navigator</span>
+            <span className="text-sm sm:text-base font-bold whitespace-nowrap">BRAINWAVE</span>
           </div>
 
           {/* Navigation Links */}
           <div className="flex items-center gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm text-gray-400 flex-wrap justify-center">
-            <a href="#features" className="hover:text-white transition-colors whitespace-nowrap">
-              Produk
-            </a>
-            <span className="text-gray-600">|</span>
-            <a href="#" className="hover:text-white transition-colors whitespace-nowrap">
-              Perusahaan
-            </a>
+            
             <span className="text-gray-600">|</span>
             <a href="#about-us" className="hover:text-white transition-colors whitespace-nowrap">
-              Dukungan
+              FAQ
             </a>
           </div>
 
           {/* Center: Copyright */}
           <div className="md:absolute md:left-1/2 md:-translate-x-1/2 text-xs sm:text-sm text-gray-400 text-center">
-            &copy; 2024 Campus Navigator. All rights reserved.
+            &copy; 2025 Create A More Structured Learning Experience
           </div>
 
           {/* Right: GitHub Icon */}
           <div className="md:ml-auto">
             <a
-              href="https://github.com/faisalganteng1265/AI-Campus"
+              href="https://github.com/faisalganteng1265/Kumon"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"

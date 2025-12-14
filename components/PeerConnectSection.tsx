@@ -213,7 +213,7 @@ export default function PeerConnectSection() {
             </span>
           </h2>
           <p
-            className={`text-black text-sm sm:text-base md:text-lg max-w-3xl mx-auto px-2 transition-all duration-1000 ease-out ${
+            className={`text-black text-sm lg:text-3xl sm:text-base md:text-lg max-w-3xl mx-auto px-2 transition-all duration-1000 ease-out ${
               isHeaderVisible
                 ? 'opacity-100 scale-100 translate-x-0 delay-200'
                 : 'opacity-0 scale-95 translate-x-10 delay-0'

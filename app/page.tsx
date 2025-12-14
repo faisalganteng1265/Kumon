@@ -29,6 +29,7 @@ export default function Home() {
       <PoweredBySection />
       <FAQSection />
       <MarqueeSection />
+      <Footer />
     </div>
   );
 }
