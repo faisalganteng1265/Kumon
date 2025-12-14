@@ -46,8 +46,8 @@ function LogoutConfirmModal({ isOpen, onClose, onConfirm }: LogoutConfirmModalPr
           </div>
 
           {/* Title and message */}
-          <h3 className="text-2xl font-bold text-gray-900 mb-2 text-center">Logout Confirmation</h3>
-          <p className="text-gray-600 text-sm mb-8 text-center">
+          <h3 className="text-2xl font-bold text-gray-900 mb-2 text-center" style={{ fontFamily: "'Fredoka', sans-serif" }}>Logout Confirmation</h3>
+          <p className="text-gray-600 text-sm mb-8 text-center" style={{ fontFamily: "'Fredoka', sans-serif" }}>
             Are you sure you want to logout from your account?
           </p>
 
@@ -56,14 +56,14 @@ function LogoutConfirmModal({ isOpen, onClose, onConfirm }: LogoutConfirmModalPr
             <button
               onClick={onClose}
               className="flex-1 bg-white hover:bg-gray-100 text-gray-900 font-semibold py-3 px-4 rounded-lg transition-all border-2 border-black cursor-pointer"
-              style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}
+              style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)', fontFamily: "'Fredoka', sans-serif" }}
             >
               Cancel
             </button>
             <button
               onClick={onConfirm}
               className="flex-1 bg-[#f7d050] hover:bg-yellow-400 text-gray-900 font-semibold py-3 px-4 rounded-lg transition-all border-2 border-black cursor-pointer"
-              style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}
+              style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)', fontFamily: "'Fredoka', sans-serif" }}
             >
               Logout
             </button>
@@ -193,7 +193,8 @@ export default function Navbar() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsPagesDropdownOpen(!isPagesDropdownOpen)}
-        className="text-black hover:text-lime-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center gap-1"
+        className="text-black hover:text-[#ff914d] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 flex items-center gap-1"
+        style={{ fontFamily: "'Fredoka', sans-serif" }}
       >
         {t('nav.pages')}
         <svg className={`w-4 h-4 transition-transform duration-200 ${isPagesDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -211,6 +212,7 @@ export default function Navbar() {
               key={item.label}
               href={item.href}
               className="block px-4 py-2 text-sm text-black hover:text-white hover:bg-black/20 transition-colors duration-200 cursor-pointer"
+              style={{ fontFamily: "'Fredoka', sans-serif" }}
               onClick={() => setIsPagesDropdownOpen(false)}
             >
               {item.label}
@@ -225,7 +227,8 @@ export default function Navbar() {
       <Link
         key={item.label}
         href={item.href}
-        className="text-black hover:text-lime-600 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+        className="text-black hover:text-[#ff914d] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+        style={{ fontFamily: "'Fredoka', sans-serif" }}
       >
         {item.label}
       </Link>
@@ -244,6 +247,7 @@ export default function Navbar() {
                       ? 'bg-black text-white'
                       : 'text-black hover:text-lime-600 hover:bg-gray-200'
                   }`}
+                  style={{ fontFamily: "'Fredoka', sans-serif" }}
                 >
                   ID
                 </button>
@@ -254,6 +258,7 @@ export default function Navbar() {
                       ? 'bg-black text-white'
                       : 'text-black hover:text-lime-600 hover:bg-gray-200'
                   }`}
+                  style={{ fontFamily: "'Fredoka', sans-serif" }}
                 >
                   EN
                 </button>
@@ -263,6 +268,7 @@ export default function Navbar() {
               <button
                 onClick={handleLoginClick}
                 className="bg-black hover:bg-gray-800 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200"
+                style={{ fontFamily: "'Fredoka', sans-serif" }}
               >
                 {user ? t('nav.logout') : t('nav.login')}
               </button>
@@ -303,6 +309,7 @@ export default function Navbar() {
                       ? 'bg-black text-white'
                       : 'text-white hover:text-lime-400 hover:bg-gray-800'
                   }`}
+                  style={{ fontFamily: "'Fredoka', sans-serif" }}
                 >
                   ID
                 </button>
@@ -313,6 +320,7 @@ export default function Navbar() {
                       ? 'bg-black text-white'
                       : 'text-white hover:text-lime-400 hover:bg-gray-800'
                   }`}
+                  style={{ fontFamily: "'Fredoka', sans-serif" }}
                 >
                   EN
                 </button>
@@ -323,6 +331,7 @@ export default function Navbar() {
                 <button
                   onClick={() => setIsPagesDropdownOpen(!isPagesDropdownOpen)}
                   className="w-full text-left text-white hover:text-lime-400 hover:bg-gray-800 px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 flex items-center justify-between"
+                  style={{ fontFamily: "'Fredoka', sans-serif" }}
                 >
                   {t('nav.pages')}
                   <svg className={`w-4 h-4 transition-transform duration-200 ${isPagesDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -337,6 +346,7 @@ export default function Navbar() {
                         key={item.label}
                         href={item.href}
                         className="block text-black hover:text-white hover:bg-black/20 px-3 py-2 rounded-md text-sm transition-colors duration-200 cursor-pointer"
+                        style={{ fontFamily: "'Fredoka', sans-serif" }}
                         onClick={() => {
                           setIsMenuOpen(false);
                           setIsPagesDropdownOpen(false);
@@ -355,6 +365,7 @@ export default function Navbar() {
                   key={item.label}
                   href={item.href}
                   className="text-white hover:text-lime-400 hover:bg-gray-800 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
+                  style={{ fontFamily: "'Fredoka', sans-serif" }}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
@@ -368,6 +379,7 @@ export default function Navbar() {
                   setIsMenuOpen(false);
                 }}
                 className="w-full text-left bg-lime-500 hover:bg-lime-600 text-black font-semibold px-3 py-2 rounded-md text-base transition-colors duration-200"
+                style={{ fontFamily: "'Fredoka', sans-serif" }}
               >
                 {user ? t('nav.logout') : t('nav.login')}
               </button>

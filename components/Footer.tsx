@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-3 sm:py-4 px-4 sm:px-6">
+    <footer className="bg-[#fef9ed] text-[#545454] py-3 sm:py-4 px-4 sm:px-6">
       <div className="max-w-full mx-auto px-2 sm:px-4">
         <div className="relative flex flex-col md:flex-row items-center gap-3 sm:gap-4">
           {/* Left: Logo and Brand */}
@@ -14,20 +14,20 @@ export default function Footer() {
               height={30}
               className="object-contain w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8"
             />
-            <span className="text-sm sm:text-base font-bold whitespace-nowrap">BRAINWAVE</span>
+            <span className="text-sm sm:text-base font-bold whitespace-nowrap" style={{ fontFamily: "'Fredoka', sans-serif" }}>BRAINWAVE</span>
           </div>
 
           {/* Navigation Links */}
-          <div className="flex items-center gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm text-gray-400 flex-wrap justify-center">
-            
-            <span className="text-gray-600">|</span>
-            <a href="#about-us" className="hover:text-white transition-colors whitespace-nowrap">
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm text-[#545454] flex-wrap justify-center" style={{ fontFamily: "'Fredoka', sans-serif" }}>
+
+            <span className="text-[#545454]">|</span>
+            <a href="#about-us" className="hover:text-black transition-colors whitespace-nowrap">
               FAQ
             </a>
           </div>
 
           {/* Center: Copyright */}
-          <div className="md:absolute md:left-1/2 md:-translate-x-1/2 text-xs sm:text-sm text-gray-400 text-center">
+          <div className="md:absolute md:left-1/2 md:-translate-x-1/2 text-xs sm:text-sm text-[#545454] text-center" style={{ fontFamily: "'Fredoka', sans-serif" }}>
             &copy; 2025 Create A More Structured Learning Experience
           </div>
 
@@ -37,7 +37,7 @@ export default function Footer() {
               href="https://github.com/faisalganteng1265/Kumon"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-[#545454] hover:text-black transition-colors"
               aria-label="GitHub"
             >
               <svg
