@@ -432,7 +432,7 @@ export default function ChatInterface() {
                   }`}
                 >
                   <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                    <Image src="/AKADEMIKICON.png" alt="Akademik Icon" width={48} height={48} className="object-contain w-8 h-8 sm:w-12 sm:h-12" />
+                    <Image src="/kampus.png" alt="Akademik Icon" width={48} height={48} className="object-contain w-8 h-8 sm:w-12 sm:h-12" />
                     <h4 className={`text-base sm:text-xl font-bold transition-colors ${selectedMode === 'campus' ? 'text-black' : 'text-black group-hover:text-white'}`}>{t('chat.campusMode')}</h4>
                   </div>
                   <p className={`text-xs sm:text-sm transition-colors ${selectedMode === 'campus' ? 'text-gray-700' : 'text-gray-700 group-hover:text-white'}`}>
@@ -449,7 +449,7 @@ export default function ChatInterface() {
                   }`}
                 >
                   <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                    <Image src="/GENERALICON.png" alt="General Icon" width={64} height={64} className="object-contain w-8 h-8 sm:w-12 sm:h-12" />
+                    <Image src="/umum.png" alt="General Icon" width={64} height={64} className="object-contain w-8 h-8 sm:w-12 sm:h-12" />
                     <h4 className={`text-base sm:text-xl font-bold transition-colors ${selectedMode === 'general' ? 'text-black' : 'text-black group-hover:text-white'}`}>{t('chat.generalMode')}</h4>
                   </div>
                   <p className={`text-xs sm:text-sm transition-colors ${selectedMode === 'general' ? 'text-gray-700' : 'text-gray-700 group-hover:text-white'}`}>
@@ -466,7 +466,7 @@ export default function ChatInterface() {
                   }`}
                 >
                   <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                    <span className="text-3xl sm:text-4xl">🎯</span>
+                    <Image src="/challenge.png" alt="Challenge Me" width={40} height={40} className="object-contain w-8 h-8 sm:w-10 sm:h-10" />
                     <h4 className={`text-base sm:text-xl font-bold transition-colors ${selectedMode === 'challenge' ? 'text-black' : 'text-black group-hover:text-white'}`}>{t('chat.challengeMode')}</h4>
                   </div>
                   <p className={`text-xs sm:text-sm transition-colors ${selectedMode === 'challenge' ? 'text-gray-700' : 'text-gray-700 group-hover:text-white'}`}>
@@ -480,7 +480,7 @@ export default function ChatInterface() {
             {selectedMode === 'campus' && (
               <div className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                 <label className="block text-black font-semibold mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base">
-                  <Image src="/KAMPUSICON.png" alt="Kampus" width={32} height={32} className="object-contain w-6 h-6 sm:w-8 sm:h-8" />
+                  <Image src="/kampus.png" alt="Kampus" width={32} height={32} className="object-contain w-6 h-6 sm:w-8 sm:h-8" />
                   {selectedUniversity && !isLoadingProfile ? t('chat.yourUniversity') : t('chat.selectUniversity')}
                 </label>
 
@@ -610,7 +610,11 @@ export default function ChatInterface() {
                 disabled={selectedMode === 'general' && !customQuestion.trim()}
                 className="w-full bg-[#ff5757] hover:bg-[#ff3333] text-white font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-3xl transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#ff5757] hover:shadow-lg hover:shadow-[#ff5757]/50 hover:scale-105 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
               >
-                <span className="text-lg sm:text-xl">{selectedMode === 'challenge' ? '🎯' : '💬'}</span>
+                {selectedMode === 'challenge' ? (
+                  <Image src="/challenge.png" alt="Challenge" width={24} height={24} className="object-contain w-5 h-5 sm:w-6 sm:h-6" />
+                ) : (
+                  <Image src="/umum.png" alt="General" width={24} height={24} className="object-contain w-5 h-5 sm:w-6 sm:h-6" />
+                )}
                 <span>{t('chat.startChat')}</span>
                 <svg
                   className="w-4 h-4 sm:w-5 sm:h-5"
@@ -736,7 +740,7 @@ export default function ChatInterface() {
                         )
                       ) : (
                         <Image
-                          src="/AICAMPUS.png"
+                          src="/logo1.png"
                           alt="AI"
                           width={28}
                           height={28}
@@ -777,7 +781,7 @@ export default function ChatInterface() {
                   <div className="flex gap-3 max-w-[80%]">
                     <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-gray-700 border border-gray-700 overflow-hidden p-1">
                       <Image
-                        src="/AICAMPUS.png"
+                        src="/logo1.png"
                         alt="AI"
                         width={28}
                         height={28}

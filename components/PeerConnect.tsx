@@ -993,7 +993,7 @@ export default function PeerConnect() {
           { label: 'Smart Task Manager', ariaLabel: 'Go to feature 5', link: '/fitur-5' },
           { label: 'Project Colabollator', ariaLabel: 'Go to feature 6', link: '/fitur-6' }
         ]}
-        logoUrl="/AICAMPUS.png"
+        logoUrl="/logo1.png"
         displaySocials={false}
         displayItemNumbering={true}
         menuButtonColor="#fff"
