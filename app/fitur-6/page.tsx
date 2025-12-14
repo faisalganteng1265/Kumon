@@ -123,7 +123,7 @@ export default function ProjectCollaborationPage() {
                 <p className="text-white text-xs sm:text-sm font-bold">{t('projects.stats.totalProjects')}</p>
                 <p className="text-2xl sm:text-3xl font-bold text-white mt-1">{projects.length}</p>
               </div>
-              <Briefcase className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white" />
+              <img src="totalproject.png" alt="Total Projects" className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12" />
             </div>
           </div>
           <div className="bg-green-500 rounded-lg p-4 sm:p-5 md:p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200">
@@ -134,7 +134,7 @@ export default function ProjectCollaborationPage() {
                   {projects.filter(p => p.status === 'open').length}
                 </p>
               </div>
-              <FileText className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white" />
+              <img src="openproject.png" alt="Open Projects" className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12" />
             </div>
           </div>
           <div className="bg-purple-500 rounded-lg p-4 sm:p-5 md:p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all duration-200">
@@ -145,7 +145,7 @@ export default function ProjectCollaborationPage() {
                   {projects.reduce((acc, p) => acc + (p.members?.length || 0), 0)}
                 </p>
               </div>
-              <Users className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white" />
+              <img src="collab.png" alt="Collaborators" className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12" />
             </div>
           </div>
         </div>

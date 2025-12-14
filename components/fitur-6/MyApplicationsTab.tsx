@@ -99,8 +99,8 @@ export default function MyApplicationsTab({ userId }: MyApplicationsTabProps) {
           {/* Role Applied */}
           <div className="mb-4">
             <div className="inline-flex items-center px-3 py-1 bg-blue-400 text-white rounded-full border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-              <Briefcase className="w-4 h-4 mr-2" />
-              <span className="font-bold">{application.role?.role_name}</span>
+              <img src="totalproject.png" alt="project" className="w-2 h-2 sm:w-5 sm:h-5 md:w-5 md:h-5 " />
+              <span className="font-bold pl-2">{application.role?.role_name}</span>
             </div>
           </div>
 
@@ -115,8 +115,8 @@ export default function MyApplicationsTab({ userId }: MyApplicationsTabProps) {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
             <div className="bg-gray-100 rounded-lg p-3 border-2 border-black">
               <div className="flex items-center text-gray-700 text-xs mb-1">
-                <Calendar className="w-3 h-3 mr-1" />
-                <span className="font-bold">{t('projects.labels.applied')}</span>
+                <img src="deadline.png" alt="applied" className="w-2 h-2 sm:w-3 sm:h-3 md:w-3 md:h-3 " />
+                <span className="font-bold p-1">{t('projects.labels.applied')}</span>
               </div>
               <p className="text-black text-sm font-bold">
                 {new Date(application.created_at).toLocaleDateString('id-ID')}
@@ -124,8 +124,8 @@ export default function MyApplicationsTab({ userId }: MyApplicationsTabProps) {
             </div>
             <div className="bg-gray-100 rounded-lg p-3 border-2 border-black">
               <div className="flex items-center text-gray-700 text-xs mb-1">
-                <Clock className="w-3 h-3 mr-1" />
-                <span className="font-bold">{t('projects.labels.projectStatus')}</span>
+                <img src="clock.png" alt="clock" className="w-2 h-2 sm:w-3 sm:h-3 md:w-3 md:h-3 " />
+                <span className="font-bold pl-1">{t('projects.labels.projectStatus')}</span>
               </div>
               <p className="text-black text-sm font-bold capitalize">
                 {application.project?.status?.replace('_', ' ')}
@@ -133,8 +133,8 @@ export default function MyApplicationsTab({ userId }: MyApplicationsTabProps) {
             </div>
             <div className="bg-gray-100 rounded-lg p-3 border-2 border-black">
               <div className="flex items-center text-gray-700 text-xs mb-1">
-                <Briefcase className="w-3 h-3 mr-1" />
-                <span className="font-bold">{t('projects.labels.initiator')}</span>
+                <img src="totalproject.png" alt="initiator" className="w-2 h-2 sm:w-3 sm:h-3 md:w-3 md:h-3 " />
+                <span className="font-bold pl-1">{t('projects.labels.initiator')}</span>
               </div>
               <p className="text-black text-sm font-bold truncate">
                 {application.project?.initiator?.username ||
@@ -147,8 +147,8 @@ export default function MyApplicationsTab({ userId }: MyApplicationsTabProps) {
           {/* Status Message */}
           {application.status === 'accepted' && (
             <div className="flex items-center text-white text-sm bg-green-500 rounded-lg p-3 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-              <CheckCircle className="w-5 h-5 mr-2" />
-              <span className="font-bold">{t('projects.application.accepted')}</span>
+              <img src="checklist.png" alt="checklist" className="w-2 h-2 sm:w-3 sm:h-3 md:w-3 md:h-3 " />
+              <span className="font-bold pl-2">{t('projects.application.accepted')}</span>
             </div>
           )}
           {application.status === 'rejected' && (

@@ -58,19 +58,19 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
       {/* Stats - Fixed height */}
       <div className="space-y-2 mb-4 min-h-[5.5rem]">
         <div className="flex items-center text-black text-sm font-semibold">
-          <Users className="w-4 h-4 mr-2 text-blue-500 shrink-0" />
-          <span className="truncate">
+          <img src="collab.png" alt="collab" className="w-2 h-2 sm:w-5 sm:h-5 md:w-5 md:h-5 " />
+          <span className="truncate pl-2">
             {totalRolesFilled}/{totalRolesNeeded} {t('projects.card.members')}
           </span>
         </div>
         <div className="flex items-center text-black text-sm font-semibold">
-          <Briefcase className="w-4 h-4 mr-2 text-purple-500 shrink-0" />
-          <span className="truncate">{project.roles?.length || 0} {t('projects.card.roles')}</span>
+          <img src="totalproject.png" alt="total project" className="w-2 h-2 sm:w-5 sm:h-5 md:w-5 md:h-5 " />
+          <span className="truncate pl-2">{project.roles?.length || 0} {t('projects.card.roles')}</span>
         </div>
         {project.deadline && (
           <div className="flex items-center text-black text-sm font-semibold">
-            <Clock className="w-4 h-4 mr-2 text-orange-500 shrink-0" />
-            <span className="truncate">{t('projects.card.deadline')} {new Date(project.deadline).toLocaleDateString('id-ID')}</span>
+            <img src="deadline.png" alt="deadline" className="w-2 h-2 sm:w-5 sm:h-5 md:w-5 md:h-5 " />
+            <span className="truncate pl-2">{t('projects.card.deadline')} {new Date(project.deadline).toLocaleDateString('id-ID')}</span>
           </div>
         )}
       </div>
