@@ -127,19 +127,19 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
             setIsHovered(false);
             setIsUserProfileHovered(false);
           }}
-          className="flex items-center gap-3 rounded-full transition-all duration-300 relative hover:bg-gray-800/50"
+          className="flex items-center gap-3 rounded-full transition-all duration-300 relative"
           style={{
             padding: isHovered ? '0.75rem 1rem' : '0.5rem',
-            background: isHovered ? 'linear-gradient(to bottom right, rgba(17, 24, 39, 0.95), rgba(31, 41, 55, 0.95))' : 'transparent',
+            background: isHovered ? '#fef9ed' : 'transparent',
             backdropFilter: isHovered ? 'blur(12px)' : 'none',
-            border: isHovered ? '1px solid rgba(107, 114, 128, 0.5)' : 'none',
-            boxShadow: isHovered ? '0 10px 15px -3px rgba(132, 204, 22, 0.2)' : 'none',
+            border: isHovered ? '2px solid black' : 'none',
+            boxShadow: isHovered ? '4px 4px 0px rgba(0, 0, 0, 1)' : 'none',
             cursor: 'pointer',
           }}
         >
           {/* Avatar */}
           {avatarUrl ? (
-            <div className="w-12 h-12 rounded-full overflow-hidden shadow-lg transition-transform border-2 border-gray-500 flex-shrink-0">
+            <div className="w-12 h-12 rounded-full overflow-hidden shadow-lg transition-transform border-2 border-[#f7d050] flex-shrink-0">
               <Image
                 src={avatarUrl}
                 alt="Avatar"
@@ -149,7 +149,7 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
               />
             </div>
           ) : (
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-lime-500 flex items-center justify-center text-white font-bold text-lg shadow-lg transition-transform flex-shrink-0">
+            <div className="w-12 h-12 rounded-full bg-[#f7d050] flex items-center justify-center text-gray-900 font-bold text-lg shadow-lg transition-transform flex-shrink-0">
               {initial}
             </div>
           )}
@@ -157,15 +157,15 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
           {/* User Info - Only show on hover */}
           {isHovered && (
             <div className="flex flex-col items-start whitespace-nowrap transition-all duration-300 animate-fade-in-fast">
-              <span className="text-white font-semibold text-sm">{username}</span>
-              <span className="text-gray-400 text-xs">{user.email}</span>
+              <span className="text-gray-900 font-semibold text-sm">{username}</span>
+              <span className="text-gray-600 text-xs">{user.email}</span>
             </div>
           )}
 
           {/* Dropdown Arrow - Only show on hover */}
           {isHovered && (
             <svg
-              className={`w-4 h-4 text-gray-400 transition-all duration-300 flex-shrink-0 animate-fade-in-fast ${
+              className={`w-4 h-4 text-gray-900 transition-all duration-300 flex-shrink-0 animate-fade-in-fast ${
                 isDropdownOpen ? 'rotate-180' : ''
               }`}
               fill="none"
@@ -179,12 +179,12 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
 
         {/* Dropdown Menu */}
         {isDropdownOpen && (
-          <div className={`absolute top-full mt-2 w-64 bg-gradient-to-br from-gray-900/95 to-gray-800/95 backdrop-blur-md rounded-xl border border-gray-700/50 shadow-2xl overflow-hidden animate-fade-in z-[1003] ${position === 'inline' ? 'left-0' : 'left-0'}`}>
+          <div className={`absolute top-full mt-2 w-64 bg-[#fef9ed] rounded-xl border-2 border-black overflow-hidden animate-fade-in z-[1003] ${position === 'inline' ? 'left-0' : 'left-0'}`} style={{ boxShadow: '6px 6px 0px rgba(0, 0, 0, 1)' }}>
             {/* User Info Section */}
-            <div className="p-4 border-b border-gray-700/50">
+            <div className="p-4 border-b-2 border-gray-300">
               <div className="flex items-center gap-3 mb-3">
                 {avatarUrl ? (
-                  <div className="w-12 h-12 rounded-full overflow-hidden shadow-lg border-2 border-green-500">
+                  <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#f7d050]" style={{ boxShadow: '3px 3px 0px rgba(0, 0, 0, 1)' }}>
                     <Image
                       src={avatarUrl}
                       alt="Avatar"
@@ -194,17 +194,17 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
                     />
                   </div>
                 ) : (
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-lime-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                  <div className="w-12 h-12 rounded-full bg-[#f7d050] flex items-center justify-center text-gray-900 font-bold text-xl" style={{ boxShadow: '3px 3px 0px rgba(0, 0, 0, 1)' }}>
                     {initial}
                   </div>
                 )}
                 <div className="flex-1">
-                  <p className="text-white font-semibold">{username}</p>
-                  <p className="text-gray-400 text-xs truncate">{user.email}</p>
+                  <p className="text-gray-900 font-semibold">{username}</p>
+                  <p className="text-gray-600 text-xs truncate">{user.email}</p>
                 </div>
               </div>
-              <div className="bg-gray-800/50 rounded-lg px-3 py-2">
-                <p className="text-green-400 text-xs font-medium">✓ Verified Account</p>
+              <div className="bg-white rounded-lg px-3 py-2 border-2 border-black" style={{ boxShadow: '2px 2px 0px rgba(0, 0, 0, 1)' }}>
+                <p className="text-gray-900 text-xs font-medium">✓ Verified Account</p>
               </div>
             </div>
 
@@ -215,7 +215,7 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
                   setIsDropdownOpen(false);
                   setIsProfileModalOpen(true);
                 }}
-                className="w-full flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800/50 hover:text-white rounded-lg transition-all"
+                className="w-full flex items-center gap-3 px-3 py-2 text-gray-900 hover:bg-[#f7d050] rounded-lg transition-all"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -225,7 +225,7 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                   />
                 </svg>
-                <span className="text-sm">My Profile</span>
+                <span className="text-sm font-medium">My Profile</span>
               </button>
 
               <button
@@ -234,7 +234,7 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
                   // Navigate to settings page (you can implement this later)
                   alert('Settings page coming soon!');
                 }}
-                className="w-full flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800/50 hover:text-white rounded-lg transition-all"
+                className="w-full flex items-center gap-3 px-3 py-2 text-gray-900 hover:bg-[#f7d050] rounded-lg transition-all"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -245,14 +245,14 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
                   />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span className="text-sm">Settings</span>
+                <span className="text-sm font-medium">Settings</span>
               </button>
 
-              <div className="border-t border-gray-700/50 my-2"></div>
+              <div className="border-t-2 border-gray-300 my-2"></div>
 
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center gap-3 px-3 py-2 text-red-400 hover:bg-red-500/10 hover:text-red-300 rounded-lg transition-all"
+                className="w-full flex items-center gap-3 px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-all"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -285,17 +285,16 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
             }
           }}
         >
-          <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl shadow-2xl w-full max-w-md border border-gray-700/50 relative overflow-hidden">
+          <div className="bg-[#fef9ed] rounded-2xl w-full max-w-md border-2 border-black relative overflow-hidden" style={{ boxShadow: '8px 8px 0px rgba(0, 0, 0, 1)' }}>
             {/* Decorative gradient background */}
-            <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-red-500 to-red-600"></div>
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#f7d050] via-yellow-500 to-[#f7d050]"></div>
 
             <div className="p-8">
               {/* Icon */}
               <div className="flex justify-center mb-6">
                 <div className="relative">
-                  <div className="absolute inset-0 blur-xl bg-red-500/40 rounded-full"></div>
-                  <div className="relative bg-red-500/10 backdrop-blur-md rounded-full p-4 border border-red-500/20">
-                    <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="relative bg-white rounded-full p-4 border-2 border-black" style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}>
+                    <svg className="w-8 h-8 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
                   </div>
@@ -304,8 +303,8 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
 
               {/* Title and Description */}
               <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold text-white mb-3">Konfirmasi Logout</h2>
-                <p className="text-gray-400">
+                <h2 className="text-2xl font-bold text-gray-900 mb-3">Konfirmasi Logout</h2>
+                <p className="text-gray-600">
                   Apakah Anda yakin ingin keluar dari akun Anda?
                 </p>
               </div>
@@ -314,13 +313,15 @@ export default function UserProfile({ position = 'fixed' }: { position?: 'fixed'
               <div className="flex gap-3">
                 <button
                   onClick={() => setIsLogoutModalOpen(false)}
-                  className="flex-1 bg-gray-800 hover:bg-gray-700 text-white font-medium py-3 px-4 rounded-lg transition-all border border-gray-700"
+                  className="flex-1 bg-white hover:bg-gray-100 text-gray-900 font-medium py-3 px-4 rounded-lg transition-all border-2 border-black"
+                  style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}
                 >
                   Batal
                 </button>
                 <button
                   onClick={confirmLogout}
-                  className="flex-1 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-medium py-3 px-4 rounded-lg transition-all shadow-lg shadow-red-500/50"
+                  className="flex-1 bg-[#f7d050] hover:bg-yellow-400 text-gray-900 font-medium py-3 px-4 rounded-lg transition-all border-2 border-black"
+                  style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}
                 >
                   Ya, Logout
                 </button>

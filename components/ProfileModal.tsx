@@ -320,21 +320,22 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
       onClick={handleOverlayClick}
       style={{ zIndex: 99999 }}
     >
-      <div className="bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 rounded-3xl shadow-2xl w-full max-w-4xl border border-gray-700/30 relative overflow-hidden max-h-[90vh] overflow-y-auto">
+      <div className="bg-[#fef9ed] rounded-3xl w-full max-w-4xl relative overflow-hidden max-h-[90vh] overflow-y-auto" style={{ boxShadow: '8px 8px 0px rgba(0, 0, 0, 1)' }}>
         {/* Animated gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-transparent to-lime-500/5"></div>
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-lime-500 to-green-500 animate-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 via-transparent to-orange-500/5"></div>
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#f7d050] via-yellow-500 to-[#f7d050] animate-pulse"></div>
 
         {/* Close button */}
         <div className="absolute top-6 right-6 z-50">
           <button
             type="button"
             onClick={handleCloseClick}
-            className="text-gray-400 hover:text-white transition-all duration-300 hover:rotate-90 bg-gray-800/50 backdrop-blur-sm rounded-full p-2 hover:bg-gray-700/50 cursor-pointer"
+            className="text-gray-900 hover:text-gray-700 transition-all duration-300 hover:rotate-90 bg-white rounded-full p-2 hover:bg-gray-100 cursor-pointer border-2 border-black"
             style={{
               pointerEvents: 'auto',
               position: 'relative',
-              zIndex: 9999
+              zIndex: 9999,
+              boxShadow: '3px 3px 0px rgba(0, 0, 0, 1)'
             }}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -348,18 +349,18 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
           <div className="flex items-center gap-3 mb-8">
             <div className="relative">
               <Image
-                src="/AICAMPUS.png"
+                src="/logo1.png"
                 alt="AICAMPUS"
                 width={48}
                 height={48}
                 className="w-12 h-12 object-contain"
               />
             </div>
-            <h2 className="text-3xl font-bold text-white">My Profile</h2>
+            <h2 className="text-3xl font-bold text-gray-900">My Profile</h2>
           </div>
 
           {/* Tab Switcher */}
-          <div className="flex gap-2 mb-8 p-1 bg-gray-800/30 rounded-xl backdrop-blur-sm">
+          <div className="flex gap-2 mb-8 p-1 bg-white rounded-xl" style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}>
             <button
               onClick={() => {
                 setActiveTab('account');
@@ -368,9 +369,10 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
               }}
               className={`flex-1 py-3 px-6 rounded-xl font-semibold transition-all duration-300 ${
                 activeTab === 'account'
-                  ? 'bg-gradient-to-r from-green-500 to-lime-500 text-white shadow-lg shadow-green-500/30'
-                  : 'text-gray-400 hover:text-white hover:bg-gray-700/30'
+                  ? 'bg-[#f7d050] text-gray-900 shadow-lg'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
               }`}
+              style={activeTab === 'account' ? { boxShadow: '3px 3px 0px rgba(0, 0, 0, 1)' } : {}}
             >
               Account
             </button>
@@ -382,9 +384,10 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
               }}
               className={`flex-1 py-3 px-6 rounded-xl font-semibold transition-all duration-300 ${
                 activeTab === 'profile'
-                  ? 'bg-gradient-to-r from-green-500 to-lime-500 text-white shadow-lg shadow-green-500/30'
-                  : 'text-gray-400 hover:text-white hover:bg-gray-700/30'
+                  ? 'bg-[#f7d050] text-gray-900 shadow-lg'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
               }`}
+              style={activeTab === 'profile' ? { boxShadow: '3px 3px 0px rgba(0, 0, 0, 1)' } : {}}
             >
               Data Diri
             </button>
@@ -395,13 +398,12 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
             <form onSubmit={handleUpdateAccount} className="space-y-6">
               {/* Avatar Upload Section */}
               <div className="flex flex-col items-center mb-8">
-                <label className="block text-sm font-semibold text-gray-300 mb-4">Profile Picture</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-4">Profile Picture</label>
 
                 {/* Avatar Preview */}
                 <div className="relative mb-6 group">
-                  <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-lime-500 rounded-full blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                   {avatarPreview ? (
-                    <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-green-500 shadow-2xl shadow-green-500/30 group-hover:shadow-green-500/50 transition-all">
+                    <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-[#f7d050]" style={{ boxShadow: '6px 6px 0px rgba(0, 0, 0, 1)' }}>
                       <Image
                         src={avatarPreview}
                         alt="Avatar"
@@ -411,7 +413,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                       />
                     </div>
                   ) : (
-                    <div className="relative w-40 h-40 rounded-full bg-gradient-to-br from-green-500 to-lime-500 flex items-center justify-center text-white font-bold text-6xl shadow-2xl shadow-green-500/30 group-hover:shadow-green-500/50 transition-all">
+                    <div className="relative w-40 h-40 rounded-full bg-[#f7d050] flex items-center justify-center text-gray-900 font-bold text-6xl" style={{ boxShadow: '6px 6px 0px rgba(0, 0, 0, 1)' }}>
                       {getInitial()}
                     </div>
                   )}
@@ -419,7 +421,8 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                   {/* Camera Icon Button */}
                   <label
                     htmlFor="avatar-upload"
-                    className="absolute bottom-2 right-2 bg-gray-900 hover:bg-gray-800 text-white p-3 rounded-full cursor-pointer shadow-lg transition-all hover:scale-110 border-2 border-green-500"
+                    className="absolute bottom-2 right-2 bg-white hover:bg-gray-100 text-gray-900 p-3 rounded-full cursor-pointer transition-all hover:scale-110 border-2 border-black"
+                    style={{ boxShadow: '3px 3px 0px rgba(0, 0, 0, 1)' }}
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
@@ -435,7 +438,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                   />
                 </div>
 
-                <p className="text-sm text-gray-400 text-center">
+                <p className="text-sm text-gray-600 text-center">
                   Click the camera icon to upload a new avatar<br />
                   <span className="text-xs text-gray-500">(Max 2MB, JPG/PNG/GIF)</span>
                 </p>
@@ -443,10 +446,10 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-3">Username</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-3">Username</label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
                     </div>
@@ -454,18 +457,19 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                       type="text"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                      className="w-full pl-10 pr-4 py-3 bg-white border-2 border-black rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f7d050] transition-all"
                       placeholder="Enter username"
                       required
+                      style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-3">Email</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-3">Email</label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                     </div>
@@ -473,9 +477,10 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                      className="w-full pl-10 pr-4 py-3 bg-white border-2 border-black rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f7d050] transition-all"
                       placeholder="Enter email"
                       required
+                      style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}
                     />
                   </div>
                   <p className="text-xs text-gray-500 mt-2">
@@ -484,9 +489,9 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                 </div>
               </div>
 
-              <div className="border-t border-gray-700/50 pt-6">
-                <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="border-t border-gray-300 pt-6">
+                <h3 className="text-gray-900 font-bold text-lg mb-4 flex items-center gap-2">
+                  <svg className="w-5 h-5 text-[#f7d050]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                   </svg>
                   Change Password
@@ -494,12 +499,12 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-300 mb-3">
+                    <label className="block text-sm font-semibold text-gray-700 mb-3">
                       New Password
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
                       </div>
@@ -507,20 +512,21 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                         type="password"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                        className="w-full pl-10 pr-4 py-3 bg-white border-2 border-black rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f7d050] transition-all"
                         placeholder="Enter new password (min 6 characters)"
                         minLength={6}
+                        style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-gray-300 mb-3">
+                    <label className="block text-sm font-semibold text-gray-700 mb-3">
                       Confirm Password
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
                       </div>
@@ -528,9 +534,10 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                        className="w-full pl-10 pr-4 py-3 bg-white border-2 border-black rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f7d050] transition-all"
                         placeholder="Confirm new password"
                         minLength={6}
+                        style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}
                       />
                     </div>
                   </div>
@@ -558,7 +565,8 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
               <button
                 type="submit"
                 disabled={loading || uploadingAvatar}
-                className="w-full bg-gradient-to-r from-green-500 to-lime-500 hover:from-green-600 hover:to-lime-600 text-white font-bold py-4 px-6 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-xl hover:shadow-green-500/30 text-lg"
+                className="w-full bg-[#f7d050] hover:bg-yellow-400 text-gray-900 font-bold py-4 px-6 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed text-lg border-2 border-black"
+                style={{ boxShadow: '5px 5px 0px rgba(0, 0, 0, 1)' }}
               >
                 {uploadingAvatar ? 'Uploading Avatar...' : loading ? 'Saving...' : 'Save Changes'}
               </button>
@@ -569,15 +577,15 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
           {activeTab === 'profile' && (
             <form onSubmit={handleUpdateProfile} className="space-y-6">
               <div>
-                <label className="block text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
-                  <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <label className="block text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                  <svg className="w-4 h-4 text-[#f7d050]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                   Nama Lengkap
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />
                     </svg>
                   </div>
@@ -585,31 +593,33 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                     type="text"
                     value={userData.nama}
                     onChange={(e) => setUserData({ ...userData, nama: e.target.value })}
-                    className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                    className="w-full pl-10 pr-4 py-3 bg-white border-2 border-black rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f7d050] transition-all"
                     placeholder="Masukkan nama lengkap"
                     required
+                    style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
-                  <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <label className="block text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                  <svg className="w-4 h-4 text-[#f7d050]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
                   Universitas
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                   </div>
                   <select
                     value={userData.universitas}
                     onChange={(e) => setUserData({ ...userData, universitas: e.target.value })}
-                    className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all appearance-none cursor-pointer"
+                    className="w-full pl-10 pr-4 py-3 bg-white border-2 border-black rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f7d050] transition-all appearance-none cursor-pointer"
                     required
+                    style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}
                   >
                     <option value="">Pilih Universitas</option>
                     <option value="Universitas Sebelas Maret (UNS)">Universitas Sebelas Maret (UNS)</option>
@@ -625,15 +635,15 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
-                  <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <label className="block text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                  <svg className="w-4 h-4 text-[#f7d050]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
                   Jurusan
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                   </div>
@@ -641,23 +651,24 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                     type="text"
                     value={userData.jurusan}
                     onChange={(e) => setUserData({ ...userData, jurusan: e.target.value })}
-                    className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                    className="w-full pl-10 pr-4 py-3 bg-white border-2 border-black rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f7d050] transition-all"
                     placeholder="Contoh : Teknik Informatika"
                     required
+                    style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
-                  <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <label className="block text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                  <svg className="w-4 h-4 text-[#f7d050]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
                   Minat
                 </label>
                 <div className="relative">
                   <div className="absolute top-3 left-0 pl-3 pointer-events-none">
-                    <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
                   </div>
@@ -665,13 +676,14 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                     value={userData.minat}
                     onChange={(e) => setUserData({ ...userData, minat: e.target.value })}
                     rows={5}
-                    className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all resize-none"
+                    className="w-full pl-10 pr-4 py-3 bg-white border-2 border-black rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#f7d050] transition-all resize-none"
                     placeholder="Contoh: Web Development, AI, Machine Learning"
                     required
+                    style={{ boxShadow: '4px 4px 0px rgba(0, 0, 0, 1)' }}
                   />
                 </div>
-                <p className="text-sm text-gray-400 mt-2 flex items-center gap-1">
-                  <svg className="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <p className="text-sm text-gray-600 mt-2 flex items-center gap-1">
+                  <svg className="w-3 h-3 text-[#f7d050]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   Tuliskan minat atau bidang yang kamu minati
@@ -699,7 +711,8 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-green-500 to-lime-500 hover:from-green-600 hover:to-lime-600 text-white font-bold py-4 px-6 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-xl hover:shadow-green-500/30 text-lg"
+                className="w-full bg-[#f7d050] hover:bg-yellow-400 text-gray-900 font-bold py-4 px-6 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed text-lg border-2 border-black"
+                style={{ boxShadow: '5px 5px 0px rgba(0, 0, 0, 1)' }}
               >
                 {loading ? 'Saving...' : 'Save Changes'}
               </button>
@@ -717,25 +730,25 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
         }
 
         div[class*="rounded-3xl"]::-webkit-scrollbar-track {
-          background: rgba(0, 0, 0, 0.3);
+          background: rgba(247, 208, 80, 0.2);
           border-radius: 10px;
         }
 
         div[class*="rounded-3xl"]::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #22c55e, #84cc16);
+          background: #f7d050;
           border-radius: 10px;
-          border: 1px solid rgba(34, 197, 94, 0.3);
+          border: 1px solid rgba(0, 0, 0, 0.3);
         }
 
         div[class*="rounded-3xl"]::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(to bottom, #16a34a, #65a30d);
-          border: 1px solid rgba(34, 197, 94, 0.5);
+          background: #e5c040;
+          border: 1px solid rgba(0, 0, 0, 0.5);
         }
 
         /* Firefox */
         div[class*="rounded-3xl"] {
           scrollbar-width: thin;
-          scrollbar-color: #22c55e rgba(0, 0, 0, 0.3);
+          scrollbar-color: #f7d050 rgba(247, 208, 80, 0.2);
         }
 
         /* Textarea specific scrollbar */
@@ -745,24 +758,24 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
         }
 
         textarea::-webkit-scrollbar-track {
-          background: rgba(0, 0, 0, 0.3);
+          background: rgba(247, 208, 80, 0.2);
           border-radius: 10px;
         }
 
         textarea::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #22c55e, #84cc16);
+          background: #f7d050;
           border-radius: 10px;
-          border: 1px solid rgba(34, 197, 94, 0.3);
+          border: 1px solid rgba(0, 0, 0, 0.3);
         }
 
         textarea::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(to bottom, #16a34a, #65a30d);
-          border: 1px solid rgba(34, 197, 94, 0.5);
+          background: #e5c040;
+          border: 1px solid rgba(0, 0, 0, 0.5);
         }
 
         textarea {
           scrollbar-width: thin;
-          scrollbar-color: #22c55e rgba(0, 0, 0, 0.3);
+          scrollbar-color: #f7d050 rgba(247, 208, 80, 0.2);
         }
 
         /* Select specific scrollbar */
@@ -772,24 +785,24 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
         }
 
         select::-webkit-scrollbar-track {
-          background: rgba(0, 0, 0, 0.3);
+          background: rgba(247, 208, 80, 0.2);
           border-radius: 10px;
         }
 
         select::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #22c55e, #84cc16);
+          background: #f7d050;
           border-radius: 10px;
-          border: 1px solid rgba(34, 197, 94, 0.3);
+          border: 1px solid rgba(0, 0, 0, 0.3);
         }
 
         select::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(to bottom, #16a34a, #65a30d);
-          border: 1px solid rgba(34, 197, 94, 0.5);
+          background: #e5c040;
+          border: 1px solid rgba(0, 0, 0, 0.5);
         }
 
         select {
           scrollbar-width: thin;
-          scrollbar-color: #22c55e rgba(0, 0, 0, 0.3);
+          scrollbar-color: #f7d050 rgba(247, 208, 80, 0.2);
         }
       `}</style>
     </div>

@@ -40,8 +40,8 @@ const translations: Record<Language, Record<string, string>> = {
     // Features Section
     'features.title': 'Fitur Unggulan Kami',
     'features.subtitle': 'Temukan berbagai fitur inovatif yang dirancang khusus untuk meningkatkan pengalaman kampus Anda',
-    'features.aiCampusGuide': 'AI Campus Guide Chatbot',
-    'features.aiCampusGuideDesc': 'Tanya apa saja tentang kampus! Dari cara mengisi KRS, lokasi gedung, info dosen, hingga prosedur beasiswa. AI siap membantu 24/7.',
+    'features.aiCampusGuide': '1000+',
+    'features.aiCampusGuideDesc': 'MAHASISWA AKTIF',
     'features.eventRecommender': 'Event Recommender',
     'features.eventRecommenderDesc': 'Dapatkan rekomendasi kegiatan yang sesuai dengan minatmu! Seminar, lomba, UKM, volunteering - semua disesuaikan untukmu.',
     'features.smartSchedule': 'Smart Schedule Builder',

@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 // Import custom font via CDN in Head (we'll use Link in layout)
 
 export const metadata: Metadata = {
-  title: "AICAMPUS",
+  title: "BRAINWAVE",
   description: "AI-powered campus community platform",
   icons: {
     icon: "/LOGOSVG.svg",
