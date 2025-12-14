@@ -41,7 +41,7 @@ export default function Fitur1() {
         ]}
         displaySocials={false}
         displayItemNumbering={true}
-        logoUrl="/AICAMPUS.png"
+        logoUrl="/logo1.png"
         menuButtonColor="#fff"
         openMenuButtonColor="#fff"
         accentColor="#ffffff"

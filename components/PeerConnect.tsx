@@ -961,13 +961,20 @@ export default function PeerConnect() {
       <div className="relative h-screen overflow-hidden flex items-center justify-center" style={{ backgroundColor: '#fef9ed' }}>
         <Particles />
         <div className="relative z-10 text-center px-4">
-          <div className="mb-6 sm:mb-8">
-            <Atom color="#84cc16" size="medium" text="" textColor="#84cc16" />
+          <div className="mb-6 sm:mb-8 animate-bounce">
+            <Image
+              src="/logo1.png"
+              alt="Loading..."
+              width={120}
+              height={120}
+              className="mx-auto"
+            />
           </div>
           <p
             className="text-gray-800 text-lg sm:text-xl md:text-2xl font-semibold"
             style={{
-              textShadow: '0 0 20px rgba(132, 204, 22, 0.3), 0 0 40px rgba(132, 204, 22, 0.2)'
+              textShadow: '0 0 20px rgba(132, 204, 22, 0.3), 0 0 40px rgba(132, 204, 22, 0.2)',
+              fontFamily: "'Fredoka', sans-serif"
             }}
           >
             {loadingMessage}

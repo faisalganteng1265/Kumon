@@ -319,6 +319,7 @@ export default function SmartScheduleBuilder() {
         ]}
         displaySocials={false}
         displayItemNumbering={true}
+        logoUrl="/logo1.png"
         menuButtonColor="#fff"
         openMenuButtonColor="#fff"
         accentColor="#ffffff"

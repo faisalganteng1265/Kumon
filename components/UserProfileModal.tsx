@@ -48,23 +48,20 @@ export default function UserProfileModal({ isOpen, onClose, user, onSendMessage 
       className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[110] flex items-center justify-center p-4"
       onClick={handleOverlayClick}
     >
-      <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl shadow-2xl w-full max-w-md border border-gray-700/50 relative overflow-hidden animate-in fade-in zoom-in duration-200">
-        {/* Header gradient bar */}
-        <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-green-500 via-lime-500 to-green-500"></div>
-
+      <div className="bg-[#fef9ed] rounded-xl w-full max-w-md border-4 border-black relative overflow-hidden animate-in fade-in zoom-in duration-200" style={{ boxShadow: '8px 8px 0px 0px rgba(0,0,0,1)' }}>
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10 bg-gray-800/80 backdrop-blur-sm rounded-full p-2 hover:bg-gray-700"
+          className="absolute top-4 right-4 text-black hover:text-red-500 transition-colors z-10 bg-white rounded-lg p-2 border-2 border-black hover:bg-red-100"
+          style={{ boxShadow: '3px 3px 0px 0px rgba(0,0,0,1)' }}
         >
           <FiX className="w-5 h-5" />
         </button>
 
         <div className="p-8">
           {/* Avatar */}
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-6 mt-2">
             <div className="relative">
-              <div className="absolute inset-0 blur-xl bg-gradient-to-r from-green-500 to-lime-500 opacity-40 rounded-full"></div>
               <div className="relative">
                 {user.avatar ? (
                   <Image
@@ -72,10 +69,11 @@ export default function UserProfileModal({ isOpen, onClose, user, onSendMessage 
                     alt={user.name}
                     width={120}
                     height={120}
-                    className="rounded-full object-cover border-4 border-gray-700/50"
+                    className="rounded-full object-cover border-4 border-black"
+                    style={{ boxShadow: '6px 6px 0px 0px rgba(0,0,0,1)' }}
                   />
                 ) : (
-                  <div className="w-[120px] h-[120px] rounded-full bg-gradient-to-br from-lime-500 to-green-500 flex items-center justify-center text-white text-5xl font-bold border-4 border-gray-700/50">
+                  <div className="w-[120px] h-[120px] rounded-full bg-gradient-to-br from-[#84cc16] to-[#4ade80] flex items-center justify-center text-white text-5xl font-bold border-4 border-black" style={{ boxShadow: '6px 6px 0px 0px rgba(0,0,0,1)' }}>
                     {user.name.charAt(0).toUpperCase()}
                   </div>
                 )}
@@ -84,23 +82,24 @@ export default function UserProfileModal({ isOpen, onClose, user, onSendMessage 
           </div>
 
           {/* Username */}
-          <h2 className="text-2xl font-bold text-white text-center mb-6">
+          <h2 className="text-2xl font-bold text-black text-center mb-6" style={{ fontFamily: "'Fredoka', sans-serif" }}>
             {user.name}
           </h2>
 
           {/* Interests Section */}
           <div className="mb-6">
-            <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
-              Interests
+            <h3 className="text-sm font-bold text-black uppercase tracking-wider mb-3" style={{ fontFamily: "'Fredoka', sans-serif" }}>
+              INTERESTS
             </h3>
             {userInterestDetails.length > 0 ? (
               <div className="grid grid-cols-2 gap-3">
                 {userInterestDetails.map((interest) => (
                   <div
                     key={interest?.value}
-                    className="flex items-center gap-3 p-3 bg-gray-800/50 backdrop-blur-sm rounded-lg border border-gray-700/50 hover:border-lime-500/50 transition-all"
+                    className="flex items-center gap-3 p-3 bg-white rounded-lg border-2 border-black hover:bg-yellow-100 transition-all"
+                    style={{ boxShadow: '3px 3px 0px 0px rgba(0,0,0,1)' }}
                   >
-                    <div className="w-10 h-10 bg-gray-700/50 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-[#fef9ed] rounded-lg flex items-center justify-center flex-shrink-0 border-2 border-black">
                       {interest?.icon && (
                         <Image
                           src={interest.icon}
@@ -111,7 +110,7 @@ export default function UserProfileModal({ isOpen, onClose, user, onSendMessage 
                         />
                       )}
                     </div>
-                    <span className="text-sm text-white font-medium truncate">
+                    <span className="text-sm text-black font-medium truncate" style={{ fontFamily: "'Fredoka', sans-serif" }}>
                       {interest?.label}
                     </span>
                   </div>
@@ -119,7 +118,7 @@ export default function UserProfileModal({ isOpen, onClose, user, onSendMessage 
               </div>
             ) : (
               <div className="text-center py-8">
-                <p className="text-gray-500 text-sm">No interests added yet</p>
+                <p className="text-gray-600 text-sm" style={{ fontFamily: "'Fredoka', sans-serif" }}>No interests added yet</p>
               </div>
             )}
           </div>
@@ -130,7 +129,8 @@ export default function UserProfileModal({ isOpen, onClose, user, onSendMessage 
               onSendMessage();
               onClose();
             }}
-            className="w-full bg-gradient-to-r from-green-500 to-lime-500 hover:from-green-600 hover:to-lime-600 text-white font-bold py-3.5 px-4 rounded-lg transition-all hover:shadow-lg hover:shadow-green-500/50 hover:scale-105 flex items-center justify-center gap-2"
+            className="w-full bg-[#ef4444] hover:bg-[#dc2626] text-white font-bold py-3.5 px-4 rounded-lg transition-all hover:translate-x-1 hover:translate-y-1 flex items-center justify-center gap-2 border-2 border-black"
+            style={{ boxShadow: '4px 4px 0px 0px rgba(0,0,0,1)', fontFamily: "'Fredoka', sans-serif" }}
           >
             <FiMessageCircle className="w-5 h-5" />
             <span>Send Private Message</span>

@@ -52,12 +52,12 @@ export default function ChatInterface() {
   const answerSectionRef = useRef<HTMLDivElement>(null);
 
   const quickQuestions: QuickQuestion[] = [
-    { icon: '/KRSICON.png', questionKey: 'chat.question.krs', categoryKey: 'chat.category.krs' },
-    { icon: '/GEDUNGICON.png', questionKey: 'chat.question.library', categoryKey: 'chat.category.gedung' },
-    { icon: '/DOSENICON.png', questionKey: 'chat.question.lecturer', categoryKey: 'chat.category.dosen' },
-    { icon: '/BEASISWAICON.png', questionKey: 'chat.question.scholarship', categoryKey: 'chat.category.beasiswa' },
-    { icon: '/JADWALICON.png', questionKey: 'chat.question.schedule', categoryKey: 'chat.category.akademik' },
-    { icon: '/ORGANISASIICON.png', questionKey: 'chat.question.organization', categoryKey: 'chat.category.ukm' },
+    { icon: '/krss.png', questionKey: 'chat.question.krs', categoryKey: 'chat.category.krs' },
+    { icon: '/gedung.png', questionKey: 'chat.question.library', categoryKey: 'chat.category.gedung' },
+    { icon: '/dosen.png', questionKey: 'chat.question.lecturer', categoryKey: 'chat.category.dosen' },
+    { icon: '/beasiswa.png', questionKey: 'chat.question.scholarship', categoryKey: 'chat.category.beasiswa' },
+    { icon: '/jadwal.png', questionKey: 'chat.question.schedule', categoryKey: 'chat.category.akademik' },
+    { icon: '/ukm.png', questionKey: 'chat.question.organization', categoryKey: 'chat.category.ukm' },
   ];
 
   const scrollToBottom = () => {
@@ -586,8 +586,7 @@ export default function ChatInterface() {
             {/* General Question Input - Untuk Mode Umum */}
             {selectedMode === 'general' && (
               <div className="bg-white rounded-3xl p-4 sm:p-6 border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]" style={{ fontFamily: "'Fredoka', sans-serif" }}>
-                <label className="block text-black font-semibold mb-2 flex items-center gap-2 text-sm sm:text-base">
-                  <span className="text-lg sm:text-xl">✏️</span>
+                <label className="block text-black font-semibold mb-2 text-sm sm:text-base">
                   {t('chat.typeQuestion')}
                 </label>
                 <p className="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3">
@@ -720,8 +719,8 @@ export default function ChatInterface() {
                     <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
                       message.role === 'user'
                         ? avatarUrl ? '' : 'bg-gradient-to-br from-blue-500 to-blue-600'
-                        : 'bg-gray-700 overflow-hidden p-1'
-                    }`}>
+                        : 'bg-white border-2 border-black overflow-hidden p-1'
+                    }`} style={message.role === 'assistant' ? { boxShadow: '3px 3px 0px 0px rgba(0,0,0,1)' } : {}}>
                       {message.role === 'user' ? (
                         avatarUrl ? (
                           <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
@@ -779,7 +778,7 @@ export default function ChatInterface() {
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="flex gap-3 max-w-[80%]">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-gray-700 border border-gray-700 overflow-hidden p-1">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-white border-2 border-black overflow-hidden p-1" style={{ boxShadow: '3px 3px 0px 0px rgba(0,0,0,1)' }}>
                       <Image
                         src="/logo1.png"
                         alt="AI"

@@ -510,13 +510,20 @@ export default function SmartTaskManager() {
     return (
       <div className="relative h-screen overflow-hidden flex items-center justify-center" style={{ backgroundColor: '#fef9ed' }}>
         <div className="relative z-10 text-center px-4">
-          <div className="mb-6 sm:mb-8">
-            <Atom color="#ef4444" size="medium" text="" textColor="#ef4444" />
+          <div className="mb-6 sm:mb-8 animate-bounce">
+            <Image
+              src="/logo1.png"
+              alt="Loading..."
+              width={120}
+              height={120}
+              className="mx-auto"
+            />
           </div>
           <p
             className="text-gray-800 text-lg sm:text-xl md:text-2xl font-semibold"
             style={{
-              textShadow: '0 0 20px rgba(239, 68, 68, 0.3), 0 0 40px rgba(239, 68, 68, 0.2)'
+              textShadow: '0 0 20px rgba(239, 68, 68, 0.3), 0 0 40px rgba(239, 68, 68, 0.2)',
+              fontFamily: "'Fredoka', sans-serif"
             }}
             suppressHydrationWarning
           >
