@@ -91,14 +91,14 @@ const parseInterests = (minatText: string): string[] => {
 
 const getInterestIcon = (interestCategory: string): string => {
   const iconMap: { [key: string]: string } = {
-    teknologi: '/ICONKOMPUTER.png',
-    bisnis: '/ICONBISNIS.png',
-    seni: '/SENIICON.png',
-    sosial: '/SOSIALICON.png',
-    akademik: '/AKADEMIKICON.png',
-    olahraga: '/OLAHRAGAICON.png',
-    leadership: '/ORGANISASIICON.png',
-    lingkungan: '/LINGKUNGANICON.png',
+    teknologi: '/teknologi.png',
+    bisnis: '/bisnis.png',
+    seni: '/seni.png',
+    sosial: '/sosial.png',
+    akademik: '/akademik.png',
+    olahraga: '/olahraga.png',
+    leadership: '/organisasi.png',
+    lingkungan: '/lingkungan.png',
   };
 
   return iconMap[interestCategory] || '/ICONKOMPUTER.png';
@@ -1035,7 +1035,7 @@ export default function PeerConnect() {
                   <div className="flex items-center justify-between w-full">
                     <div className="flex items-center gap-2">
                       <Image
-                        src="/TEXTICON.png"
+                        src="/chat.png"
                         alt="Group Chat Icon"
                         width={15}
                         height={15}
@@ -1110,7 +1110,7 @@ export default function PeerConnect() {
                     <div className="flex items-center justify-between w-full">
                       <div className="flex items-center gap-2">
                         <Image
-                          src="/ORGICON.png"
+                          src="/personal.png"
                           alt="Private Chat Icon"
                           width={15}
                           height={15}
