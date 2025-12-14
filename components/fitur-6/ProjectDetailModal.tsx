@@ -176,10 +176,10 @@ export default function ProjectDetailModal({
 
 
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div className="bg-white border-4 border-black rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+        <div className="bg-white border-4 border-black rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
              style={{ fontFamily: "'Fredoka', sans-serif" }}>
           {/* Header - Sticky */}
-          <div className="sticky top-0 bg-white text-black p-6 pb-0 rounded-t-lg z-10 border-b-2 border-black">
+          <div className="sticky top-0 bg-white text-black p-6 pb-0 rounded-t-3xl z-10 border-b-2 border-black">
             <div className="flex justify-between items-start">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">

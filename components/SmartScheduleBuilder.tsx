@@ -1006,7 +1006,7 @@ export default function SmartScheduleBuilder() {
           onClick={() => setShowPopup(null)}
         >
           <div
-            className="bg-white backdrop-blur-xl rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border-2 border-black relative"
+            className="bg-white backdrop-blur-xl rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-4 border-black relative"
             onClick={(e) => e.stopPropagation()}
           >
             {showPopup === 'jadwal' && (
