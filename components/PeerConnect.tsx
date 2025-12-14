@@ -985,7 +985,7 @@ export default function PeerConnect() {
   }
 
   return (
-    <div className="relative h-screen overflow-hidden" style={{ backgroundColor: '#fef9ed' }}>
+    <div className="relative h-screen overflow-hidden" style={{ backgroundColor: '#fef9ed', fontFamily: "'Fredoka', sans-serif" }}>
       <Particles />
 
       {/* Staggered Menu Navigation */}
